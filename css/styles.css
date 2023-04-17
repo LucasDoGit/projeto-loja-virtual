@@ -1,0 +1,220 @@
+@charset "UTF-8";
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* variaveis globais */
+:root{
+    --cor1: #F2F2F2;
+    --cor2: #F2A0CD;
+    --cor3: #D94E9A;
+    --cor4: #590222;
+    --cor5: #0D0D0D;
+
+    --fonte-padrao: Arial, Verdana, Helvetica, sans-serif;
+    --fonte-poppins: 'Poppins', 'Segoe UI', sans-serif;
+}
+/* remocao das bordas e margens */
+* {
+    padding: 0;
+    margin: 0;
+}
+
+h2 {
+    margin: 0px;
+}
+
+/*fonte padrao para todo o site */
+body {
+    font-family: var(--fonte-poppins), var(--fonte-padrao);
+    background-color: var(--cor1);
+}
+/* cabecalho */
+header {
+    background-color: var(--cor2);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 1% 15%;
+}
+
+#header-logo{
+    width: 150px;
+    margin: 0px 16px;
+}
+
+.header-search-box {
+    background-color: white;
+    border-radius: 40px;
+    display: flex;
+    height: 35px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.header-search-text {
+    color: var(--cor4);
+    background: none;
+    border: none;
+    font-size: 12px;
+    font-style: italic;
+    outline: 0;
+    transition: 0.6s;
+    width: 0px;
+    padding: 0px;
+}
+
+.header-search-box svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--cor4);
+    cursor: pointer;
+    border-radius: 25%;
+}
+
+.header-search-box svg:hover {
+    color: var(--cor2);
+    width: 28px;
+    height: 28px;
+}
+
+.header-search-box:hover > .header-search-text {
+    width: 320px;
+    padding-left: 15px;
+}
+
+.header-search-box > .header-btn-icon:svg {
+    background-color: #0D0D0D;
+}
+
+.header-navegation {
+    display: flex;
+    align-items: center;
+    z-index: 2;
+}
+
+.header-icon-navegation {
+    display: flex;
+    margin: 0px 16px;
+}
+
+.header-icon-link{
+    display: flex;
+    align-items: end;
+    margin: 10px;
+    text-decoration: none;
+    color: var(--cor1);
+    transition: 0.5s;
+}
+
+.header-icon-link svg {
+    margin-right: 8px;
+}
+
+.header-icon-link:hover {
+    color: var(--cor4);
+}
+
+.header-btn-icon {
+    background-color: transparent;
+    border: none;
+    color: #F2F2F2;
+    cursor: pointer;
+    display: none;
+}
+
+/* barra de navegacao */
+nav {
+    background-color: var(--cor4);
+    display: flex;
+    padding: 5px;
+    justify-content: center;
+}
+
+nav a {
+    margin: 0px 20px;
+    color:var(--cor1);
+    text-decoration: none;
+    padding: 5px 0px;
+}
+
+nav a:hover {
+    color: #D94E9A;
+}
+
+/* main - banners */
+main {
+    background-color: var(--cor1);
+    width: 1300px;
+    margin: 10px auto;
+}
+
+.main-banners{
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.main-banners img {
+    padding: 10px;
+}
+
+.banner-principal {
+    margin: auto;
+}
+
+.banners-secundarios {
+    display: inline-block;
+    margin-left: 30px;
+}
+
+/* section */
+
+
+/* footer */
+footer{
+    background-color: var(--cor2);
+    text-align: center;
+    height: 40px;
+}
+
+
+@media screen and (max-width: 1300px){
+    .header-search-box{
+        margin-right: 30px;
+    }
+    .header-search-box:hover > .header-search-text {
+        width: 150px;
+    }
+    #header-logo {
+        width: 100px;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .header-navegation{
+        position: absolute;
+        flex-direction: column !important;
+        top: 0;
+        background-color: var(--cor2);
+        height: 100%;
+        width: 50vw;
+        padding: 16px;
+        animation-duration: 1s;
+        margin-right: -150vw;
+        /*margin-right: -150vw;*/
+    }
+    .header-icon-navegation{
+        flex-direction: column;
+        margin: 10px 0px
+    }
+    .header-btn-icon{
+        display: block;
+    }
+}
+
+@keyframes showSidebar {
+    from {margin-right: -150vw;}
+    to {margin-right: -50vw;}
+}
