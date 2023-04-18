@@ -214,7 +214,45 @@ footer{
     }
 }
 
+
+/* animacao menu header lateral */
 @keyframes showSidebar {
     from {margin-right: -150vw;}
     to {margin-right: -50vw;}
+}
+
+
+/* pagina de login */
+
+.login-btn-entrar {
+    background-color: var(--cor3);
+    border: 1px solid var(--cor3);
+}
+
+.login-btn-entrar:hover {
+    background-color: var(--cor2);
+    transition: 0.3;
+    border: 1px solid var(--cor2);
+}
+
+#telaLogin{
+    width: 18rem;
+    position: absolute;
+    top: 40%;
+    left: 40%; 
+}
+.login-link-esqsenha{
+    position: absolute;
+    top: 252px;
+    right: 50px;
+    font-size: 12px;
+    opacity: 1;
+    cursor: pointer;
+}
+.login-link-esqsenha:hover {
+    color: var(--cor3);
+    transition: 0.5s;
+}
+.login-btn-social svg {
+    margin-right: 10px;
 }
