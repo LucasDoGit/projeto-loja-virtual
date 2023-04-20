@@ -20,6 +20,12 @@
     margin: 0;
 }
 
+/* container */
+.container { 
+    max-width: 1500px;
+    margin: auto;
+}
+
 h2 {
     margin: 0px;
 }
@@ -29,6 +35,7 @@ body {
     font-family: var(--fonte-poppins), var(--fonte-padrao);
     background-color: var(--cor1);
 }
+
 /* cabecalho */
 header {
     background-color: var(--cor2);
@@ -38,10 +45,6 @@ header {
     padding: 1% 15%;
 }
 
-.content { /* container */
-    width: 1300px;
-    margin: auto;
-}
 
 #header-logo{
     width: 150px;
@@ -83,10 +86,6 @@ header {
     color: var(--cor2);
     width: 28px;
     height: 28px;
-}
-
-.header-search-box > .header-btn-icon:svg {
-    background-color: #0D0D0D;
 }
 
 .header-navegation {
@@ -150,12 +149,11 @@ main {
 }
 
 .main-banners{
-    
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 1300px;
-    margin: auto;
+    max-width: 1300px;
+    margin: 2rem auto;
 }
 
 .main-banners img {
@@ -166,10 +164,11 @@ main {
     display: block;
 }
 
-/* section 1 */
+/* banner fita */
 
 .main-banner-fita {
-    background-color: var(--cor2);
+    background-color: var(--cor4);
+    margin: 2rem 0px;
 }
 
 .banner-fita-conteudo {
@@ -206,6 +205,97 @@ main {
     font-size: 12px;
 }
 
+/* section 1 */
+
+.slider-produtos-oferta {
+    margin-top: 2rem;
+    background-color: var(--cor3);
+}
+
+.produtos-oferta-titulo {
+    font-size: 22px;
+    color: white;
+    margin-left: 2rem;
+    padding: 1rem 1rem;
+    display: grid;
+}
+
+.box-cards-produtos {
+    display: flex;
+    height: 530px;
+    background-color: white;
+}
+
+.card-produto{
+    background-color: white;
+    border-radius: 5px;
+    width: 270px;
+    height: 442px;
+    margin: auto auto;
+    border: 1px solid var(--cor2);
+    padding: 8px;
+}
+.card-img-produto {
+    display: block;
+    border: 1px solid var(--cor2);
+    border-radius: 5px;
+    width: 250px;
+    margin: auto;
+}
+
+.card-produto h4 {
+    font-size: 15px;
+    text-align: left;
+    margin: 1rem 5px;
+}
+
+.card-preco {
+    margin: 0px 5px;
+}
+
+.preco-antigo {
+    margin: 0px;
+    font-size: 12px;
+    text-decoration: line-through;
+}
+
+.preco-oferta {
+    margin: 0px;
+    font-size: 22px;
+    color: var(--cor4);
+}
+
+.card-preco p {
+    margin: 0px;
+    font-weight: 400;
+    text-align: start;
+    color: black;
+    font-size: 12px;
+}
+
+.card-produto a {
+    display: block;
+    text-decoration: none;
+    color: var(--cor4);
+    text-align: center;
+    margin: 10px auto;
+    padding: 5px;
+    max-width: 200px;
+    background-color: var(--cor1);
+    border: 1px solid var(--cor3);
+    border-radius: 5px;
+    transition: 0.5s;
+}
+
+.card-produto a:hover {
+    background-color: var(--cor4);
+    color: var(--cor1);
+    border: 1px solid var(--cor4);
+}
+
+.card-produto:hover {
+    box-shadow: -3px 4px 5px #00000034;
+}
 
 /* footer */
 footer{
@@ -262,9 +352,7 @@ footer{
     to {margin-right: -50vw;}
 }
 
-
 /* pagina de login */
-
 .login-btn-entrar {
     background-color: var(--cor3);
     border: 1px solid var(--cor3);
@@ -282,6 +370,7 @@ footer{
     top: 40%;
     left: 40%; 
 }
+
 .login-link-esqsenha{
     position: absolute;
     top: 252px;
@@ -290,10 +379,12 @@ footer{
     opacity: 1;
     cursor: pointer;
 }
+
 .login-link-esqsenha:hover {
     color: var(--cor3);
     transition: 0.5s;
 }
+
 .login-btn-social svg {
     margin-right: 10px;
 }
