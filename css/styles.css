@@ -164,47 +164,6 @@ main {
     display: block;
 }
 
-/* banner fita */
-
-.main-banner-fita {
-    background-color: var(--cor4);
-    margin: 2rem 0px;
-}
-
-.banner-fita-conteudo {
-    display: flex;
-}
-
-.fita-informacoes {
-    display: flex;
-    width: 250px;
-    justify-items: center;
-    align-items: center;
-    margin: 10px auto;
-}
-
-.fita-informacoes img {
-    max-width: 18%;
-    margin-right: 16px;
-}
-
-.fita-txt a, p {
-    font-weight: bold;
-    text-align: center;
-    display: block;
-    color: white;
-}
-
-.fita-txt a {
-    font-size: 17px;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.fita-txt p {
-    font-size: 12px;
-}
-
 /* section 1 */
 
 .slider-produtos-oferta {
@@ -230,7 +189,7 @@ main {
     background-color: white;
     border-radius: 5px;
     width: 270px;
-    height: 442px;
+    height: 445px;
     margin: auto auto;
     border: 1px solid var(--cor2);
     padding: 8px;
@@ -239,7 +198,7 @@ main {
     display: block;
     border: 1px solid var(--cor2);
     border-radius: 5px;
-    width: 250px;
+    width: 100%;
     margin: auto;
 }
 
@@ -276,12 +235,12 @@ main {
 .card-produto a {
     display: block;
     text-decoration: none;
-    color: var(--cor4);
+    color: var(--cor3);
     text-align: center;
     margin: 10px auto;
     padding: 5px;
     max-width: 200px;
-    background-color: var(--cor1);
+    background-color: white;
     border: 1px solid var(--cor3);
     border-radius: 5px;
     transition: 0.5s;
@@ -297,13 +256,91 @@ main {
     box-shadow: -3px 4px 5px #00000034;
 }
 
-/* footer */
-footer{
-    background-color: var(--cor2);
-    text-align: center;
-    height: 40px;
+/* banner fita */
+
+.main-banner-fita {
+    background-color: var(--cor4);
+    margin: 2rem 0px;
 }
 
+.banner-fita-conteudo {
+    display: flex;
+}
+
+.fita-informacoes {
+    display: flex;
+    width: 250px;
+    justify-items: center;
+    align-items: center;
+    margin: 10px auto;
+}
+
+.fita-informacoes img {
+    max-width: 18%;
+    margin-right: 16px;
+}
+
+.fita-txt {
+    margin: 8px 0;
+}
+.fita-txt a, p {
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    color: white;
+}
+
+.fita-txt a {
+    font-size: 17px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.fita-txt p {
+    font-size: 12px;
+    margin: 0;
+}
+
+
+/* section 2 - produtos mais vendidos */
+
+.section-titulo {
+    font-weight: 400;
+    font-size: 30px;
+    color: var(--cor4);
+    margin: 2rem 0;
+}
+
+.produtos-mais-vendidos {
+    display: flex;
+}
+
+.produtos-novos {
+    display: flex;
+}
+
+/* footer */
+footer{
+    margin-top: 2rem;
+    background-color: var(--cor2);
+    text-align: center;
+    justify-content: center;
+    height: 100px;
+}
+
+.txt-developer {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.txt-developer p {
+    margin: 0px;
+}
+
+.txt-developer strong {
+    margin-left: 5px;   
+}
 
 @media screen and (max-width: 1300px){
     .header-search-box{
