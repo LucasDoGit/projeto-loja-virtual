@@ -3,5 +3,5 @@
 
 Projeto desenvolvido por:
 
-Lucas Thiago Saiz Timoteo
-Bruno Henrique Naiser Hernandes
+- Lucas Thiago Saiz Timoteo
+- Bruno Henrique Naiser Hernandes
