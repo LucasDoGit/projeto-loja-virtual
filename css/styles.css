@@ -321,26 +321,110 @@ main {
 
 /* footer */
 footer{
-    margin-top: 2rem;
-    background-color: var(--cor2);
-    text-align: center;
-    justify-content: center;
-    height: 100px;
+    margin-top: 3rem;
+    background-color: white;
 }
 
-.txt-developer {
+.footer-inf {
+    padding: 2rem 0;
     display: flex;
+    justify-content: space-evenly;
+    font-size: 18px;
+}
+
+.footer-inf h3 {
+    font-size: 18px;
     text-align: center;
+    color: var(--cor4);
+}
+
+.linha-horizontal {
+    margin: auto;
+    content: "";
+    width: 200px;
+    height: 1px;
+    background-color: var(--cor4);
+}
+
+#l-4{
+    width: 1200px;
+}
+
+.footer-inf .informacoes {
+    margin: 1rem 0;
+}
+
+.footer-inf .informacoes .icones {
+    margin-top: 1rem;
+    display: flex;
     justify-content: center;
 }
 
-.txt-developer p {
-    margin: 0px;
+.footer-inf .informacoes .icones svg {
+    margin: 0 1rem;
 }
 
-.txt-developer strong {
-    margin-left: 5px;   
+.footer-nav {
+    display: flex;
+    margin-top: 2rem;
+    justify-content: space-evenly;
 }
+
+.footer-nav h3 {
+    font-weight: 300;
+    font-size: 18px;
+    color: var(--cor4)
+}
+
+.footer-nav ul, li {
+    list-style: none;
+    padding-left: 0px;
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.footer-nav li:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#sec-btn-crc a {
+    text-align: center;
+    justify-content: center;
+    margin: 0 2rem;
+}
+
+.footer-nav-btn {
+    text-decoration: none;
+    border: 1px solid var(--cor4);
+    padding: 3px 10px;
+    border-radius: 30px;
+    color: var(--cor4);
+    transition: 0.5s;
+}
+
+.footer-nav-btn:hover {
+    color: var(--cor1);
+    background-color: var(--cor4);
+}
+
+.footer-nav div section svg {
+    color: var(--cor4);
+    margin: 4px;
+}
+
+.footer-dev {
+    margin-top: 2rem;
+    background-color: var(--cor3);
+}
+
+.footer-dev p {
+    font-size: 12px;
+    color: white;
+    margin-bottom: 0px;
+    padding: 5px 0;
+}
+
 
 @media screen and (max-width: 1300px){
     .header-search-box{
