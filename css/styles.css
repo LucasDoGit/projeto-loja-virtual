@@ -180,9 +180,13 @@ main {
 }
 
 .box-cards-produtos {
+    padding: 20px;
+    align-self: center;
+    justify-content: center;
     display: flex;
-    height: 530px;
+    flex-wrap: wrap;
     background-color: white;
+    gap: 20px;
 }
 
 .card-produto{
@@ -190,7 +194,6 @@ main {
     border-radius: 5px;
     width: 270px;
     height: 445px;
-    margin: auto auto;
     border: 1px solid var(--cor2);
     padding: 8px;
 }
@@ -305,18 +308,35 @@ main {
 /* section 2 - produtos mais vendidos */
 
 .section-titulo {
+    margin-left: 1.2rem;
     font-weight: 400;
     font-size: 30px;
     color: var(--cor4);
-    margin: 2rem 0;
 }
 
-.produtos-mais-vendidos {
-    display: flex;
+#linha-section-1 {
+    content: "";
+    width: 395px;
+    background-color: var(--cor2);
+    margin: 0 5rem 0 1.2rem;
+    height: 1.5px;
 }
 
-.produtos-novos {
+#linha-section-2 {
+    content: "";
+    width: 170px;
+    background-color: var(--cor2);
+    margin: 0 5rem 0 1.2rem;
+    height: 1.2px;
+}
+
+.section-produtos {
+    padding: 20px;
+    align-self: center;
+    justify-content: space-evenly;
     display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 /* footer */
