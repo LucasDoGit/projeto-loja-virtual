@@ -529,3 +529,20 @@ footer{
 .login-btn-social svg {
     margin-right: 10px;
 }
+
+.login-link-text{
+    position: absolute;
+    top: 520px;
+    left: 200px;
+    font-size: 12px;
+    opacity: 1;
+}
+
+.login-link-text-cadastrese{
+    position: absolute;
+    top: 518px;
+    left: 307px;
+    font-size: 12px;
+    opacity: 1;
+    color:#D94E9A
+}
