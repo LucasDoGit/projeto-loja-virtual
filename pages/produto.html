@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+        <link rel="stylesheet" href="../css/styles.css" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../img/logo/favicon-logo-16.png">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="theme-color" content="#ffffff">
+        <title>Mondie | Produto e seu desejo</title>
+    </head>
+<body>
+    <header id="header">
+        <a href="index.html"><img id='header-logo' src="img/logo/Logo-mondie-200.png" alt="Logo Mondie"></a>
+        <div class="header-search-box">
+            <input type="text" class="header-search-text" placeholder="Qual é o seu desejo?..." />
+            <a><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+              </svg></a>
+        </div>
+        <div class="header-navegation" id="header-navegation">
+            <button onclick="toggleSidebar()" class="header-btn-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" /></svg>
+            </button>
+            <div class="header-icon-navegation">
+                    <a href="pages/login.html" class="header-icon-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-person-heart" viewBox="0 0 16 16"><path d="M9 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h10s1 0 1-1-1-4-6-4-6 3-6 4Zm13.5-8.09c1.387-1.425 4.855 1.07 0 4.277-4.854-3.207-1.387-5.702 0-4.276Z" /></svg>
+                        <span>Minha conta</span>
+                    </a>
+                    <a href="pages/shopping.html" class="header-icon-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-bag-plus" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z" /><path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" /></svg>
+                        <span>Carrinho</span>
+                    </a>
+            </div>
+        </div>
+        <button onclick="toggleSidebar()" class="header-btn-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list"
+                viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+            </svg>
+        </button>
+    </header>
+    <!-- MAIN PRODUTO --> 
+    <main class="container" id="main-pagina-produto">
+    <!--BUTTON VOLTAR-->
+    <button class="botao-voltar">Voltar</button>
+        <!--EXIBICAO DO PRODUTO-->
+        <div class="produto-exibicao">
+            <!--IMAGEM DOS PRODUTOS-->
+            <div class="imagens-produto">
+                <div class="btn-foto-produto">
+                    <button><img src="../img/produtos/produto-teste3-full.jpeg" alt=""></button>
+                    <button><img src="../img/produtos/produto-teste-full.jpeg" alt=""></button>
+                    <button><img src="../img/produtos/produto-teste2-full.jpeg" alt=""></button>
+                </div>
+                <img class="foto-principal" src="../img/produtos/produto-teste5-full.jpeg" alt="">
+            </div>
+            <!--DESCRICAO DO PRODUTO-->
+            <div class="informacoes-produto">
+                <h4>Nome do Produto</h4>
+                <!--ESTRELAS-->
+                <div class="stars">
+                    <p>&#9734;</p>
+                    <p>&#9734;</p>
+                    <p>&#9734;</p>
+                    <p>&#9734;</p>
+                    <p>&#9734;</p>
+                </div>
+                <!--INFORMACOES CADASTRO-->
+                <div class="txt-produto-cadastro">
+                    <p>REFERÊNCIA: <strong>PD0001</strong></p>
+                    <p>Condição: <strong>Produto Novo</strong></p>
+                </div>
+                <div class="produto-valor">
+                    <h5>R$ 149,90</h5>
+                    <p>em 12x R$12,50</p>
+                    <a href="#">ver meios de pagamento</a>
+                </div>
+                <!--SELECIONAR COR-->
+                <div class="btn-selecionar-cor">
+                    <h5>COR: Bege</h5>
+                    <button><img src="../img/produtos/produto-teste3-full.jpeg" alt="#"></button>
+                </div>
+                <!--INFORMAÇÕES ADICIONAIS-->
+                <div class="informacoes-adicionais">
+                    <h5>O que você precisa saber sobre este produto</h5>
+                    <ul>
+                        <li>Recarregável</li>
+                        <li>Com luzes de LED</li>
+                        <li>Resistente a água</li>
+                        <li>Alto Falante</li>
+                        <li>Usa cabo USB-C</li>
+                    </ul>
+                </div>
+            </div>
+            <!--INFORMAÇÕES DE ENTREGA E COMPRA-->
+            <div class="informacoes-compra">
+                <!--CALCULAR FRETE-->
+                <div class="calcular-frete">
+                    <div class="titulo-frete">
+                        <img src="../img/icones/icone-compras-200.png" alt="">
+                        <h5>Cacular frete</h5>
+                    </div>
+                    <input type="text" placeholder="insira seu CEP">
+                    <button>OK</button>
+                    <a href="#">Não lembro meu CEP</a>
+                </div>
+                <!--COMPRA DO PRODUTO-->
+                <div class="comprar-produto">
+                    <h5>150 Disponíves</h5>
+                    <div class="botoes">
+                        <button class="btn-comprar">Comprar Agora</button>
+                        <button class="btn-adc-carrinho">Adicionar ao Carrinho</button>
+                    </div>
+                    <ul>
+                        <li>Devolução grátis. Você tem X dias <br> a partir da data de recebimento.</li>
+                        <li>Compra garantida. Receba o produto <br> que está esperando ou devolvemos o seu dinheiro.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--DESCRIÇÃO DO PRODUTO-->
+    </main>
+</body>
+</html>
