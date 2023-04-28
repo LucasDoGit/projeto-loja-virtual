@@ -810,3 +810,13 @@ footer{
     from {margin-right: -150vw;}
     to {margin-right: -50vw;}
 }
+
+
+/* Pagina de Cadastro */
+.campo-obrigatorio {
+    position: absolute;
+    top: 50px;
+    left: 15px;
+    font-size: 12px;
+    opacity: 1;
+}
