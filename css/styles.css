@@ -149,6 +149,7 @@ nav a:hover {
 /* main - banners */
 main {
     background-color: var(--cor1);
+    padding: 2rem 0px;
 }
 
 .main-banners{
@@ -156,7 +157,7 @@ main {
     align-items: center;
     justify-content: space-between;
     max-width: 1300px;
-    margin: 2rem auto;
+    margin: auto;
 }
 
 .main-banners img {
@@ -776,23 +777,21 @@ footer{
     text-transform: uppercase;
 }
 
+/* Pagina de Cadastro */
+.campo-obrigatorio {
+    position: absolute;
+    top: 50px;
+    left: 15px;
+    font-size: 12px;
+    opacity: 1;
+}
 
-@media screen and (max-width: 1300px){
-    .header-search-box{
-        margin-right: 30px;
-    }
+@media screen and (max-width: 320px){
 
-    .header-search-text {
-        width: 0px;
-        padding: 0px;
-    }
-    .header-search-box:hover > .header-search-text {
-        width: 200px;
-        padding-left: 15px;
-    }    
-    #header-logo {
-        width: 100px;
-    }
+}
+
+@media screen and (max-width: 480px){
+
 }
 
 /* MEDIA QUERY */
@@ -818,18 +817,31 @@ footer{
     }
 }
 
+@media screen and (max-width: 992px){
+
+}
+
+
+@media screen and (max-width: 1200px){
+    .header-search-box{
+        margin-right: 30px;
+    }
+
+    .header-search-text {
+        width: 0px;
+        padding: 0px;
+    }
+    .header-search-box:hover > .header-search-text {
+        width: 200px;
+        padding-left: 15px;
+    }    
+    #header-logo {
+        width: 100px;
+    }
+}
+
 /* animacao menu header lateral */
 @keyframes showSidebar {
     from {margin-right: -150vw;}
     to {margin-right: -50vw;}
-}
-
-
-/* Pagina de Cadastro */
-.campo-obrigatorio {
-    position: absolute;
-    top: 50px;
-    left: 15px;
-    font-size: 12px;
-    opacity: 1;
 }
