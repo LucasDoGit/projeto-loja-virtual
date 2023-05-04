@@ -33,7 +33,6 @@ h2 {
 /*fonte padrao para todo o site */
 body {
     font-family: var(--fonte-poppins), var(--fonte-padrao);
-    background-color: white;
 }
 
 /* cabecalho */
@@ -47,6 +46,10 @@ header {
 
 p {
     margin-bottom: 0px !important;
+}
+
+.body-pg-principal{
+    background-color: var(--cor1);
 }
 
 #header-logo{
@@ -267,6 +270,7 @@ main {
 
 .main-banner-fita {
     background-color: var(--cor4);
+    border-radius: 5px;
     margin: 2rem 0px;
 }
 
@@ -352,7 +356,6 @@ main {
 
 /* footer */
 footer{
-    margin-top: 3rem;
     background-color: white;
 }
 
