@@ -18,6 +18,8 @@
 * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 /* container */
@@ -30,26 +32,36 @@ h2 {
     margin: 0px;
 }
 
+p {
+    margin-bottom: 0px !important; /* retira margem do bootstrap */
+}
+
 /*fonte padrao para todo o site */
 body {
     font-family: var(--fonte-poppins), var(--fonte-padrao);
 }
 
+.body-pg-principal{
+    background-color: var(--cor1);
+}
+
 /* cabecalho */
 header {
     background-color: var(--cor2);
+}
+
+.header-inner-content {
+    display: flex;
+    width: 1300px;
+    margin: auto;
+    height: 100px;
+    justify-content: space-between;
+}
+
+.header-inner-content .first-content {
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    padding: 1% 15%;
-}
-
-p {
-    margin-bottom: 0px !important;
-}
-
-.body-pg-principal{
-    background-color: var(--cor1);
+    gap: 8rem;
 }
 
 #header-logo{
@@ -59,7 +71,7 @@ p {
 
 .header-search-box {
     background-color: white;
-    border-radius: 40px;
+    border-radius: 15px;
     display: flex;
     height: 35px;
     justify-content: space-between;
@@ -80,18 +92,18 @@ p {
 }
 
 .header-search-box svg {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     color: var(--cor4);
     cursor: pointer;
-    border-radius: 25%;
 }
 
 .header-search-box svg:hover {
     color: var(--cor2);
     width: 28px;
     height: 28px;
+}
+
+.header-inner-content .second-content {
+    margin: auto 0;
 }
 
 .header-navegation {
@@ -102,20 +114,23 @@ p {
 
 .header-icon-navegation {
     display: flex;
-    margin: 0px 16px;
+    gap: 2rem;
+}
+
+.header-icon-navegation a {
+    font-size: 15px;
 }
 
 .header-icon-link{
+    color: var(--cor1);
+    text-decoration: none;
     display: flex;
     align-items: end;
-    margin: 10px;
-    text-decoration: none;
-    color: var(--cor1);
     transition: 0.5s;
 }
 
 .header-icon-link svg {
-    margin-right: 8px;
+    margin-right: 10px;
 }
 
 .header-icon-link:hover {
@@ -789,34 +804,63 @@ footer{
     opacity: 1;
 }
 
-@media screen and (max-width: 320px){
-
-}
-
-@media screen and (max-width: 480px){
-
-}
-
 /* MEDIA QUERY */
-@media screen and (max-width: 768px){
+@media screen and (max-width: 1440px){
+    .header-inner-content {
+        width: 1100px;
+    }
+
+    .header-inner-content .first-content {
+        gap: 1rem;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    #header-logo {
+        width: 130px;
+    }
+    .header-inner-content {
+        width: 738px;
+    }
+
+    .header-inner-content .first-content {
+        gap: 4rem;
+    }
+
+    .header-search-text {
+        width: 300px;
+   }
+
+    .header-btn-icon {
+        display: block;
+    }
+
     .header-navegation{
         position: absolute;
         flex-direction: column !important;
         top: 0;
-        background-color: var(--cor2);
+        right: 0vw;
+        background-color: var(--cor4);
         height: 100%;
-        width: 50vw;
-        padding: 16px;
-        animation-duration: 1s;
-        margin-right: -150vw;
-        /*margin-right: -150vw;*/
+        padding: 1rem;
+        width: 40vw;
+        animation-duration: 0.6s;
+        margin-right: 150vw;
     }
     .header-icon-navegation{
         flex-direction: column;
-        margin: 10px 0px
+        margin: 1rem 0px;
     }
     .header-btn-icon{
         display: block;
+    }
+
+    .banners-secundarios {
+        display: none;
+    }
+
+    #l-4 {
+        width: 850px;
     }
 }
 
@@ -824,27 +868,50 @@ footer{
 
 }
 
-
-@media screen and (max-width: 1200px){
-    .header-search-box{
-        margin-right: 30px;
+@media screen and (max-width: 768px){
+    .header-inner-content {
+        width: 650px;
     }
 
     .header-search-text {
+        width: 250px;
+        transition: 0.6s;
+   }
+}
+
+@media screen and (max-width: 600px){
+    .header-inner-content {
+        width: 430px;
+    }
+    
+    .header-inner-content .first-content {
+        gap: 1.5rem;
+    }
+    .header-search-text {
         width: 0px;
-        padding: 0px;
+        transition: 0.6s;
     }
     .header-search-box:hover > .header-search-text {
-        width: 200px;
+        display: block;
+        width: 150px;
         padding-left: 15px;
-    }    
-    #header-logo {
-        width: 100px;
     }
+
+    #l-4 {
+        width: 450px;
+    }
+}
+
+@media screen and (max-width: 480px){
+
+}
+
+@media screen and (max-width: 320px){
+
 }
 
 /* animacao menu header lateral */
 @keyframes showSidebar {
-    from {margin-right: -150vw;}
-    to {margin-right: -50vw;}
+    from {margin-right: -50vw;}
+    to {margin-right: 0vw;}
 }

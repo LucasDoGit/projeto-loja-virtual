@@ -8,13 +8,13 @@ function toggleSidebar()
     showSidebar = !showSidebar;
     if(showSidebar)
     {
-        headerNavegation.style.marginRight = '-50vw';
+        headerNavegation.style.marginRight = '0vw';
         headerNavegation.style.animationName = 'showSidebar';
         mainContent.style.filter = 'blur(2px)';
     }
     else
     {
-        headerNavegation.style.marginRight = '-150vw';
+        headerNavegation.style.marginRight= '150vw';
         headerNavegation.style.animationName = ''; /*retira animação*/
         mainContent.style.filter = '';/*retira blur*/
     }
