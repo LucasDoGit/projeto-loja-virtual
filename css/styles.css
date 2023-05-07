@@ -804,6 +804,10 @@ footer{
     opacity: 1;
 }
 
+.textocadastro{
+    display: flex;
+    font-size: 15px;
+}
 /* MEDIA QUERY */
 @media screen and (max-width: 1440px){
     .header-inner-content {
