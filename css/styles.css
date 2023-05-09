@@ -23,7 +23,7 @@
 }
 
 /* container */
-.container { 
+.contain { 
     max-width: 1500px;
     margin: auto;
 }
@@ -323,7 +323,7 @@ main {
     display: block;
     color: white;
 }
-F
+
 .fita-txt p {
     font-weight: bold;
     text-align: center;
@@ -818,7 +818,7 @@ footer{
 }
 /* MEDIA QUERY */
 @media screen and (max-width: 1440px){
-    .container { 
+    .contain { 
         max-width: 1200px;
         margin: auto;
     }
