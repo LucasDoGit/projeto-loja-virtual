@@ -815,7 +815,15 @@ footer{
 .textocadastro{
     display: flex;
     font-size: 15px;
+    padding-bottom: 15px;
+    padding-top: 15px;
 }
+
+.form-group-botcad{
+
+    padding-top: 10px;
+}
+
 /* MEDIA QUERY */
 @media screen and (max-width: 1440px){
     .contain { 
