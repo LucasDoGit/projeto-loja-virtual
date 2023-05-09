@@ -487,6 +487,7 @@ footer{
 .login-btn-entrar {
     background-color: var(--cor3);
     border: 1px solid var(--cor3);
+    width: 100%;
 }
 
 .login-btn-entrar:hover {
@@ -519,7 +520,6 @@ footer{
 .login-btn-social svg {
     margin-right: 10px;
 }
-
 
 /* PAGINA DO PRODUTO */
 
