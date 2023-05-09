@@ -404,7 +404,7 @@ footer{
 }
 
 #l-4{
-    width: 1200px;
+    min-width: 1200px;
 }
 
 .footer-inf .informacoes {
@@ -885,7 +885,7 @@ footer{
     }
 
     #l-4 {
-        width: 850px;
+        min-width: 700px;
     }
 }
 
@@ -943,7 +943,7 @@ footer{
         transition: 0.6s;
     }
     #l-4 {
-        width: 450px;
+        min-width: 380px;
     }
 }
 
