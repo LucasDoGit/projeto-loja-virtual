@@ -52,7 +52,7 @@ header {
 
 .header-inner-content {
     display: flex;
-    width: 1300px;
+    max-width: 1300px;
     margin: auto;
     height: 100px;
     justify-content: space-between;
@@ -292,56 +292,44 @@ main {
 /* banner fita */
 
 .main-banner-fita {
+    display: flex;
     background-color: var(--cor4);
     border-radius: 5px;
-    margin: 2rem 0px;
-}
-
-.banner-fita-conteudo {
-    display: flex;
+    margin: 2rem 0;
+    padding: 1rem;
+    justify-content: space-evenly;
 }
 
 .fita-informacoes {
     display: flex;
-    width: 250px;
-    justify-items: center;
-    align-items: center;
-    margin: 10px auto;
+    justify-content: space-evenly;
+    margin: auto;
+    gap: 1rem;
 }
 
 .fita-informacoes img {
-    max-width: 18%;
-    margin-right: 16px;
+    width: 64px;
+    height: 64px;
 }
 
-.fita-txt {
-    margin: 8px 0;
-}
-.fita-txt a {
-    font-weight: bold;
-    text-align: center;
-    display: block;
-    color: white;
-}
-
-.fita-txt p {
-    font-weight: bold;
-    text-align: center;
-    display: block;
-    color: white;
-}
-
-.fita-txt a {
-    font-size: 17px;
+.fita-informacoes a, p {
     text-decoration: none;
-    cursor: pointer;
+    color: var(--cor1);
 }
 
-.fita-txt p {
-    font-size: 12px;
-    margin: 0;
+.fita-informacoes a {
+    font-weight: bold;
+    font-size: 18px;
 }
 
+.fita-informacoes p {
+    font-size: 14px;
+}
+
+.fita-informacoes .fita-txt {
+    text-align: center;
+    width: 230px;
+}
 
 /* section 2 - produtos mais vendidos */
 
@@ -404,7 +392,7 @@ footer{
 }
 
 #l-4{
-    min-width: 1200px;
+    width: 1200px;
 }
 
 .footer-inf .informacoes {
@@ -819,25 +807,55 @@ footer{
 /* MEDIA QUERY */
 @media screen and (max-width: 1440px){
     .contain { 
-        max-width: 1200px;
-        margin: auto;
+        width: 90vw;
     }
 
     .header-inner-content {
-        width: 1100px;
+        width: 90vw;
     }
 
     .header-inner-content .first-content {
         gap: 3.5rem;
     }
+
+    .fita-informacoes {
+        width: 270px;
+    }
+    .fita-informacoes p {
+        font-size: 12px;
+    }
+
+    #l-4 {
+        width: 70vw;
+    }
+}
+
+@media screen and (max-width: 1366px){
+    .banners-secundarios {
+        display: none;
+    }
+    .main-banner-fita > div {
+        margin: auto;
+    }
+
+    .main-banner-fita {
+        margin: auto;
+        width: 80vw;
+        gap: 1rem;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 1270px) {
+    .header-search-text {
+        width: 430px;
+   }
 }
 
 @media screen and (max-width: 1024px) {
     #header-logo {
-        width: 130px;
-    }
-    .header-inner-content {
-        width: 738px;
+        width: 150px;
     }
 
     .header-inner-content .first-content {
@@ -883,10 +901,6 @@ footer{
     .banners-secundarios {
         display: none;
     }
-
-    #l-4 {
-        min-width: 700px;
-    }
 }
 
 @media screen and (max-width: 992px){
@@ -903,7 +917,7 @@ footer{
 
 @media screen and (max-width: 768px){
     .header-inner-content {
-        width: 650px;
+        height: 14vw;
     }
 
     .header-search-text {
@@ -915,9 +929,6 @@ footer{
     flex-direction: column;
     }
 
-    .footer-nav {
-        margin-left: 2rem;
-    }
     #sec-btn-crc, #sec-btn-redesocial {
         text-align: center;
         margin-top: 1rem;
@@ -927,32 +938,72 @@ footer{
 @media screen and (max-width: 675px){
     #header-logo {
         width: 100px;
-        margin: 0;
     }
 
-    .header-inner-content {
-        width: 450px;
-        height: 70px;
-    }
-    
     .header-inner-content .first-content {
-        gap: 1.8rem;
+        gap: 0px;
     }
+
     .header-search-text {
         width: 200px;
         transition: 0.6s;
     }
-    #l-4 {
-        min-width: 310px;
+
+    .main-banner-fita {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .fita-informacoes {
+        display: flex;
+        width: 350px;
+    }
+
+    .fita-informacoes img {
+        margin-left: 0px;
+        width: 48px;
+        height: 48px;
+    }
+
+    .fita-informacoes a {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .header-search-text {
+        width: 170px;
     }
 }
 
 @media screen and (max-width: 480px){
+    .header-inner-content .first-content {
+        gap: 0.7rem;
+    }
 
+    .main-banners {
+        display: none;
+    }
+
+    #linha-section-1 {
+        width: 240px;
+    }
 }
 
 @media screen and (max-width: 320px){
+    .header-inner-content .first-content {
+        gap: 0.3rem;
+    }
+    
+    .header-search-box {
+        display: none;
+    }
 
+    .main-banner-fita {
+        display: none;
+    }
+    #linha-section-1 {
+        width: 230px;
+    }
 }
 
 /* animacao menu header lateral */
