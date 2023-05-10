@@ -869,17 +869,13 @@ footer{
 }
 
 @media screen and (max-width: 1024px) {
-    #header-logo {
-        width: 150px;
-    }
-
     .header-inner-content .first-content {
         gap: 5.5rem;
     }
 
     .header-search-text {
-        width: 300px;
-   }
+        width: 500px;
+    }
 
     .header-btn-icon {
         display: block;
@@ -919,6 +915,14 @@ footer{
 }
 
 @media screen and (max-width: 992px){
+    .header-inner-content .first-content {
+        gap: 3.5rem;
+    }
+
+    .header-search-text {
+        width: 400px;
+    }
+
     .nav-categorias {
         position: absolute;
         flex-direction: column !important;
@@ -936,7 +940,7 @@ footer{
     }
 
     .header-search-text {
-        width: 250px;
+        width: 300px;
         transition: 0.6s;
    }
 
@@ -956,13 +960,13 @@ footer{
     }
 
     .header-inner-content .first-content {
-        gap: 0px;
+        gap: 2rem;
     }
 
     .header-search-text {
-        width: 200px;
+        width: 250px;
         transition: 0.6s;
-    }
+   }
 
     .main-banner-fita {
         grid-template-columns: repeat(1, 1fr);
@@ -991,6 +995,10 @@ footer{
 }
 
 @media screen and (max-width: 480px){
+    #header-logo {
+        width: 70px;
+    }
+
     .header-inner-content .first-content {
         gap: 0.7rem;
     }
