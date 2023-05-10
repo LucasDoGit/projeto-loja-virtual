@@ -54,14 +54,14 @@ header {
     display: flex;
     max-width: 1300px;
     margin: auto;
+    padding: 1rem;
     height: 100px;
     justify-content: space-between;
 }
 
-.header-inner-content .first-content {
+.header-inner-content .first-content, .second-content, .third-content {
     display: flex;
     align-items: center;
-    gap: 8rem;
 }
 
 #header-logo{
@@ -99,10 +99,6 @@ header {
     color: var(--cor2);
     width: 28px;
     height: 28px;
-}
-
-.header-inner-content .second-content {
-    margin: auto 0;
 }
 
 .header-navegation {
@@ -827,15 +823,13 @@ footer{
 
     .header-inner-content {
         width: 90vw;
-    }
-
-    .header-inner-content .first-content {
-        gap: 3.5rem;
+        padding: 0 1rem;
     }
 
     .fita-informacoes {
         width: 270px;
     }
+
     .fita-informacoes p {
         font-size: 12px;
     }
@@ -854,7 +848,7 @@ footer{
     }
 
     .main-banner-fita {
-        margin: auto;
+        margin: 1rem auto;
         width: 80vw;
         gap: 1rem;
         display: grid;
@@ -869,10 +863,6 @@ footer{
 }
 
 @media screen and (max-width: 1024px) {
-    .header-inner-content .first-content {
-        gap: 5.5rem;
-    }
-
     .header-search-text {
         width: 500px;
     }
@@ -915,10 +905,6 @@ footer{
 }
 
 @media screen and (max-width: 992px){
-    .header-inner-content .first-content {
-        gap: 3.5rem;
-    }
-
     .header-search-text {
         width: 400px;
     }
@@ -937,6 +923,7 @@ footer{
 @media screen and (max-width: 768px){
     .header-inner-content {
         height: 14vw;
+        padding: 0;
     }
 
     .header-search-text {
@@ -959,14 +946,10 @@ footer{
         width: 100px;
     }
 
-    .header-inner-content .first-content {
-        gap: 2rem;
-    }
-
     .header-search-text {
         width: 250px;
         transition: 0.6s;
-   }
+    }
 
     .main-banner-fita {
         grid-template-columns: repeat(1, 1fr);
@@ -999,12 +982,12 @@ footer{
         width: 70px;
     }
 
-    .header-inner-content .first-content {
-        gap: 0.7rem;
-    }
-
     .main-banners {
         display: none;
+    }
+
+    .fita-informacoes {
+        width: 240px;
     }
 
     #linha-section-1 {
@@ -1013,17 +996,10 @@ footer{
 }
 
 @media screen and (max-width: 320px){
-    .header-inner-content .first-content {
-        gap: 0.3rem;
-    }
-    
     .header-search-box {
         display: none;
     }
 
-    .main-banner-fita {
-        display: none;
-    }
     #linha-section-1 {
         width: 230px;
     }
