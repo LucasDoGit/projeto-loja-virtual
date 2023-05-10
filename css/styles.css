@@ -787,7 +787,7 @@ footer{
     flex-direction: column;
 }
 
-.descricao-produto .titulo {
+.descricao-produto .titulo{
     margin-bottom: 2rem;
     display: flex;
 }
@@ -820,8 +820,15 @@ footer{
 }
 
 .form-group-botcad{
-
     padding-top: 10px;
+}
+
+.rowcad, .col-md-6, .col-md-12 {
+    margin-bottom: 10px;
+  }
+
+.textoCU{
+    font-size: small;
 }
 
 /* MEDIA QUERY */
