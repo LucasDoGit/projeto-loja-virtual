@@ -168,32 +168,32 @@ header {
     color: #D94E9A;
 }
 
-/* main - banners */
+/* main */
 main {
     background-color: var(--cor1);
-    padding: 2rem 0px;
 }
 
-.main-banners{
+/* banners */
+.banner-principal {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1300px;
-    margin: auto;
+    justify-content: center;
+    padding: 1rem;
 }
 
-.main-banners img {
-    padding: 10px;
+.banner-principal img {
+    border: 2px solid var(--cor2);
+    border-radius: 5px;
 }
 
-.banners-secundarios img {
-    display: block;
+.banners-secundarios {
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 /* section 1 */
 
 .slider-produtos-oferta {
-    margin-top: 2rem;
     background-color: var(--cor3);
 }
 
@@ -982,7 +982,7 @@ footer{
         width: 70px;
     }
 
-    .main-banners {
+    .banner-principal {
         display: none;
     }
 
