@@ -858,7 +858,7 @@ footer{
 
 @media screen and (max-width: 1270px) {
     .header-search-text {
-        width: 430px;
+        width: 350px;
    }
 }
 
@@ -978,9 +978,25 @@ footer{
 }
 
 @media screen and (max-width: 480px){
+    /* header */
+
     #header-logo {
         width: 70px;
     }
+    
+    .header-search-box {
+        height: 32px;
+        padding: 5px;
+    }
+
+    .header-search-box svg {
+        margin-right: 4px;
+        margin-bottom: 2px;
+        width: 22px;
+        height: 22px;
+    }
+
+    /* banners */
 
     .banner-principal {
         display: none;
