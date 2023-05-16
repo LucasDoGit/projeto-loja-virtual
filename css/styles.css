@@ -29,7 +29,7 @@
 }
 
 h2 {
-    margin: 0px;
+    margin: 0px; /* retira margin do bootstrap */
 }
 
 p {
@@ -177,18 +177,44 @@ main {
 .banner-principal {
     display: flex;
     justify-content: center;
-    padding: 1rem;
+    border: 1px solid var(--cor4);
+    border-radius: 5px;
+    margin: 1rem auto;
+    max-width: 780px;
+    max-height: 450px;
 }
 
 .banner-principal img {
-    border: 2px solid var(--cor2);
+    width: 100%;
     border-radius: 5px;
 }
 
+
+
+/* banner secundarios */
 .banners-secundarios {
     padding: 1rem 0;
     display: flex;
     justify-content: space-evenly;
+}
+
+#gif {
+    width: 620px;
+    height: 235px;
+}
+
+.banners-secundarios .banner {
+    width: 400px;
+    height: 240px;
+}
+
+#gif { /* banner gif */
+    width: 620px;
+    height: 235px;
+}
+
+.banners-secundarios .banner img {
+    width: 100%;
 }
 
 /* section 1 */
@@ -205,56 +231,59 @@ main {
     display: grid;
 }
 
+/* card produtos */
 .box-cards-produtos {
     padding: 20px;
     align-self: center;
-    justify-content: center;
+    justify-content: space-evenly;
     display: flex;
     flex-wrap: wrap;
     background-color: white;
-    gap: 20px;
 }
 
 .card-produto{
     background-color: white;
     border-radius: 5px;
-    width: 270px;
-    height: 445px;
+    max-width: 250px;
     border: 1px solid var(--cor2);
-    padding: 8px;
+    padding: 10px;
 }
-.card-img-produto {
-    display: block;
+
+.card-produto .produto {
+    width: 228px;
+    height: 228px;
+    margin: 0 auto;
     border: 1px solid var(--cor2);
     border-radius: 5px;
+}
+
+.card-produto .produto img {
     width: 100%;
-    margin: auto;
+    border-radius: 5px;
 }
 
 .card-produto h4 {
-    font-size: 15px;
+    font-size: 16px;
     text-align: left;
-    margin: 1rem 5px;
+    margin: 0.8rem 5px;
 }
 
-.card-preco {
-    margin: 0px 5px;
+.card-produto h5, p, a {
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .preco-antigo {
-    margin: 0px;
     font-size: 12px;
     text-decoration: line-through;
 }
 
 .preco-oferta {
-    margin: 0px;
     font-size: 22px;
     color: var(--cor4);
 }
 
 .card-preco p {
-    margin: 0px;
     font-weight: 400;
     text-align: start;
     color: black;
@@ -264,21 +293,20 @@ main {
 .card-produto a {
     display: block;
     text-decoration: none;
-    color: var(--cor3);
+    color: var(--cor1);
     text-align: center;
-    margin: 10px auto;
+    margin: auto;
+    margin-top: 1rem;
     padding: 5px;
-    max-width: 200px;
-    background-color: white;
-    border: 1px solid var(--cor3);
+    max-width: 230px;
+    background-color: var(--cor4);
     border-radius: 5px;
     transition: 0.5s;
 }
 
 .card-produto a:hover {
-    background-color: var(--cor4);
+    background-color: var(--cor3);
     color: var(--cor1);
-    border: 1px solid var(--cor4);
 }
 
 .card-produto:hover {
@@ -303,9 +331,13 @@ main {
     gap: 1rem;
 }
 
-.fita-informacoes img {
+div.main-banner-fita div.fita-informacoes .icon {
     width: 64px;
     height: 64px;
+}
+
+div.main-banner-fita div.fita-informacoes img {
+    width: 100%;
 }
 
 .fita-informacoes a, p {
@@ -333,25 +365,11 @@ main {
     margin-left: 1.2rem;
     font-weight: 400;
     font-size: 30px;
+    text-decoration: 1px var(--cor2) underline;
     color: var(--cor4);
 }
 
-#linha-section-1 {
-    content: "";
-    width: 395px;
-    background-color: var(--cor2);
-    margin: 0 5rem 0 1.2rem;
-    height: 1.5px;
-}
-
-#linha-section-2 {
-    content: "";
-    width: 170px;
-    background-color: var(--cor2);
-    margin: 0 5rem 0 1.2rem;
-    height: 1.2px;
-}
-
+/* grade de produtos */
 .section-produtos {
     padding: 20px;
     align-self: center;
@@ -960,12 +978,6 @@ footer{
         width: 350px;
     }
 
-    .fita-informacoes img {
-        margin-left: 0px;
-        width: 48px;
-        height: 48px;
-    }
-
     .fita-informacoes a {
         font-size: 16px;
     }
@@ -997,10 +1009,6 @@ footer{
     }
 
     /* banners */
-
-    .banner-principal {
-        display: none;
-    }
 
     .fita-informacoes {
         width: 240px;
