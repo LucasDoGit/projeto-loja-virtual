@@ -194,24 +194,22 @@ main {
     padding: 1rem 0;
     display: flex;
     justify-content: space-evenly;
+    gap: 10px;
 }
 
-#gif {
-    width: 620px;
-    height: 235px;
-}
 
 .banners-secundarios .banner {
-    width: 400px;
-    height: 240px;
+    max-width: 400px;
+    max-height: 240px;
 }
 
-#gif { /* banner gif */
-    width: 620px;
-    height: 235px;
+div#gif { /* banner gif */
+    max-width: 620px;
+    max-height: 235px;
 }
 
-.banners-secundarios .banner img {
+
+.banners-secundarios .banner img, div#gif img {
     width: 100%;
 }
 
@@ -248,8 +246,8 @@ main {
 }
 
 .card-produto .produto {
-    width: 228px;
-    height: 228px;
+    max-width: 228px;
+    max-height: 228px;
     margin: 0 auto;
     border: 1px solid var(--cor2);
     border-radius: 5px;
@@ -528,8 +526,6 @@ footer{
 
 #main-pagina-produto{
     padding-top: 3rem;
-    display: flex;
-    flex-direction: column;
 }
 
 .botao-voltar {
@@ -553,14 +549,19 @@ footer{
     display: flex;
     background-color: white;
     justify-content: space-around;
-    padding: 15px;
+    gap: 1rem;
+    padding: 1rem;
+    margin-bottom: 3rem;
     border-radius: 5px;
-    width: 100%;
-    height: 700px;
 }
 
-.produto-exibicao .informacoes-produto, .informacoes-compra {
+.imagens-produto .informacoes-produto, .informacoes-compra {
     margin-top: 3rem;
+}
+
+.imagens-produto{
+    max-width: 590px;
+    min-width: 520px;
 }
 
 .imagens-produto {
@@ -570,6 +571,15 @@ footer{
 
 .imagens-produto .foto-principal {
     margin: auto;
+    max-width: 500px;
+    height: 530px;
+}
+
+.foto-principal img {
+    border: 1px solid var(--cor5);
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
 }
 
 .btn-foto-produto {
@@ -593,15 +603,8 @@ footer{
     border: none;
 }
 
-.foto-principal {
-    border: 1px solid var(--cor5);
-    border-radius: 5px;
-    max-width: 500px;
-    height: 530px;
-    width: 100%;
-}
-
 .informacoes-produto {
+    max-width: 400px;
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
@@ -681,15 +684,21 @@ footer{
     transition: 0.3s;
 }
 
-.informacoes-adicionais h5{
+.informacoes-adicionais {
+    max-width: 350px;
+}
+
+.informacoes-adicionais h5 {
     font-size: 16px;
 }
 
-.informacoes-adicionais ul li {
+.informacoes-adicionais ul, .informacoes-adicionais li {
     list-style: inside;
+    font-size: 15px;
 }
 
 .informacoes-compra {
+    min-width: 350px;
     display: flex; 
     flex-direction: column;
 }
@@ -742,7 +751,7 @@ footer{
 }
 
 .comprar-produto .botoes button {
-    width: 350px;
+    max-width: 350px;
     height: 50px;
 }
 
@@ -772,16 +781,18 @@ footer{
     border: 1px solid var(--cor2);
 }
 
-.comprar-produto ul li {
+.comprar-produto ul, .comprar-produto li {
     list-style: inside;
     text-align: justify;
+    max-width: 300px;
+    font-size: 14px;
+    padding: 0px;
 }
 
 .descricao-produto {
     padding: 2rem;
     background-color: white;
     border-radius: 5px;
-    margin-top: 4rem;
     display: flex;
     flex-direction: column;
 }
@@ -832,15 +843,18 @@ footer{
 
 /* MEDIA QUERY */
 @media screen and (max-width: 1440px){
+    /* global */
     .contain { 
         width: 90vw;
     }
-
+    
+    /* header */
     .header-inner-content {
         width: 90vw;
         padding: 0 1rem;
     }
 
+    /* banner fita */
     .fita-informacoes {
         width: 270px;
     }
@@ -848,16 +862,15 @@ footer{
     .fita-informacoes p {
         font-size: 12px;
     }
-
+     
+    /* footer */
     #l-4 {
         width: 70vw;
     }
 }
 
 @media screen and (max-width: 1366px){
-    .banners-secundarios {
-        display: none;
-    }
+    /* banner fita */
     .main-banner-fita > div {
         margin: auto;
     }
@@ -872,12 +885,14 @@ footer{
 }
 
 @media screen and (max-width: 1270px) {
+    /* header */
     .header-search-text {
         width: 350px;
    }
 }
 
 @media screen and (max-width: 1024px) {
+    /* header */
     .header-search-text {
         width: 500px;
     }
@@ -912,14 +927,18 @@ footer{
 
     .btn-categoria:hover, .header-icon-link:hover {
         color: var(--cor3);
-    }    
+    }
 
+    /* banner secundarios */
     .banners-secundarios {
-        display: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }
 
 @media screen and (max-width: 992px){
+    /* header */
     .header-search-text {
         width: 400px;
     }
@@ -936,6 +955,7 @@ footer{
 }
 
 @media screen and (max-width: 768px){
+    /* header */
     .header-inner-content {
         height: 14vw;
         padding: 0;
@@ -945,7 +965,7 @@ footer{
         width: 300px;
         transition: 0.6s;
    }
-
+   /* footer */
    .footer-inf, .footer-nav {
     flex-direction: column;
     }
@@ -957,6 +977,7 @@ footer{
 }
 
 @media screen and (max-width: 675px){
+    /* header */
     #header-logo {
         width: 100px;
     }
@@ -965,7 +986,7 @@ footer{
         width: 250px;
         transition: 0.6s;
     }
-
+    /* banner fita */
     .main-banner-fita {
         grid-template-columns: repeat(1, 1fr);
     }
@@ -981,6 +1002,7 @@ footer{
 }
 
 @media screen and (max-width: 520px) {
+    /* header */
     .header-search-text {
         width: 170px;
     }
@@ -988,7 +1010,6 @@ footer{
 
 @media screen and (max-width: 480px){
     /* header */
-
     #header-logo {
         width: 70px;
     }
@@ -1006,7 +1027,6 @@ footer{
     }
 
     /* banners */
-
     .fita-informacoes {
         width: 240px;
     }
@@ -1017,6 +1037,7 @@ footer{
 }
 
 @media screen and (max-width: 320px){
+    /* header */
     .header-search-box {
         display: none;
     }
