@@ -10,6 +10,7 @@
     --cor3: #D94E9A;
     --cor4: #590222;
     --cor5: #0D0D0D;
+    --cor6: #ff6a00;
 
     --fonte-padrao: Arial, Verdana, Helvetica, sans-serif;
     --fonte-poppins: 'Poppins', 'Segoe UI', sans-serif;
@@ -1051,4 +1052,110 @@ footer{
 @keyframes showSidebar {
     from {margin-right: -50vw;}
     to {margin-right: 0vw;}
+}
+
+/* Tela de confirmar metodo de endereço */
+
+.textoCor{
+    color:#590222
+}
+
+.login-btn-entrega1 {
+    background-color: var(--cor4);
+    border: 1px solid var(--cor4);
+    width: 100%;
+    margin-bottom: 10px;
+}
+.login-btn-entrega1:hover {
+    background-color: var(--cor2);
+    transition: 0.3;
+    border: 1px solid var(--cor2);
+}
+
+.login-btn-entrega2 {
+    background-color: var(--cor3);
+    border: 1px solid var(--cor3);
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.login-btn-entrega2:hover {
+    background-color: var(--cor2);
+    transition: 0.3;
+    border: 1px solid var(--cor2);
+}
+
+.botaoEnt{
+    background-color: var(--cor1);
+    border: 1px solid var(--cor4);   
+    text-decoration-color: #590222;
+    margin-bottom: 15px;
+}
+
+.botaoEnt:hover{
+    background-color: var(--cor4);
+    border: 1px solid var(--cor3);
+}
+
+/* Tela de Esqueceu senha*/
+
+.login-btn-esqsenha {
+    background-color: var(--cor3);
+    border: 1px solid var(--cor3);
+    width: 100%;
+    text-align: left;
+}
+
+.login-btn-esqsenha:hover {
+    background-color: var(--cor2);
+    transition: 0.3;
+    border: 1px solid var(--cor2);
+}
+
+/* Meu Perfil */
+
+.coluna {
+    background-color: var(--cor6);
+    display: flex;
+    width: 0px;
+    height: 600px;
+    padding: 30px; /* Grossura */
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.icones-coluna{  
+    height: 24px; /* Altura do ícone */
+    margin-bottom: 30px; /* Espaçamento entre os ícones */ 
+}
+
+/* Cadastro de Categoria ADM*/
+
+.coluna-cadcat{
+    background-color: #FFFFFF;
+    display: flex;
+    width: 0px;
+    height: 600px;
+    padding: 30px; /* Grossura */
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.icones-coluna-cadcat{  
+    height: 24px; /* Altura do ícone */
+    margin-bottom: 30px; /* Espaçamento entre os ícones */ 
+    fill: #823860;
+}
+
+.container-cadcat{
+    
+}
+
+.quadroCAT {
+    display: flex;
+    border: 1px solid #f67034;
+    width: 1000%;
+    height: 200px; 
 }
