@@ -1157,21 +1157,29 @@ footer{
 }
 
 /* Meu Perfil */
-
-.coluna {
-    background-color: var(--cor6);
-    display: flex;
-    width: 0px;
-    height: 600px;
-    padding: 30px; /* Grossura */
-    flex-direction: column;
-    align-items: center;
-    
+main#meu-perfil {
+    background-color: var(--cor1);
 }
 
-.icones-coluna{  
-    height: 24px; /* Altura do ícone */
-    margin-bottom: 30px; /* Espaçamento entre os ícones */ 
+#meu-perfil .container-perfil {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.container-perfil .coluna {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: 60px;
+    height: 100vh;
+    padding: 30px; /* Grossura */
+    align-items: center;
+    gap: 2rem;
+}
+
+.coluna .icone-svg svg {
+    width: 26px;
+    height: 26px;
 }
 
 /* Cadastro de Categoria ADM*/
