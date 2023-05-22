@@ -10,7 +10,7 @@
         <link rel="icon" type="image/png" sizes="16x16" href="../img/logo/favicon-logo-16.png">
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="theme-color" content="#ffffff">
-        <title> Produto | Produto e seu desejo</title>
+        <title>Mondie | Produto e seu desejo</title>
     </head>
 <body class="pagina-produto">
     <header id="header">
@@ -73,82 +73,90 @@
         </nav>
     </header>
     <!-- MAIN PRODUTO --> 
-    <main class="contain" id="main-pagina-produto">
+    <main class="contain">
     <!--BUTTON VOLTAR-->
     <button class="botao-voltar">Voltar</button>
         <!--EXIBICAO DO PRODUTO-->
         <div class="produto-exibicao">
-            <!--IMAGEM DOS PRODUTOS-->
-            <div class="imagens-produto">
-                <div class="btn-foto-produto">
-                    <button><img src="../img/produtos/produto-teste3-full.jpeg" alt=""></button>
-                    <button><img src="../img/produtos/produto-teste-full.jpeg" alt=""></button>
-                    <button><img src="../img/produtos/produto-teste2-full.jpeg" alt=""></button>
+            <div class="container-produto">
+                <!--IMAGEM DOS PRODUTOS-->
+                <div class="imagens-produto">
+                    <div class="btn-foto-produto">
+                        <button><img src="../img/produtos/produto-teste3-full.jpeg" alt=""></button>
+                        <button><img src="../img/produtos/produto-teste-full.jpeg" alt=""></button>
+                        <button><img src="../img/produtos/produto-teste2-full.jpeg" alt=""></button>
+                    </div>
+                    <div class="foto-principal">
+                        <img src="../img/produtos/produto-teste5-full.jpeg" alt="">
+                    </div>
                 </div>
-                <div class="foto-principal">
-                    <img src="../img/produtos/produto-teste5-full.jpeg" alt="">
-                </div>
-            </div>
-            <!--DESCRICAO DO PRODUTO-->
-            <div class="informacoes-produto">
-                <h4>Nome do Produto, Tamanho 35px, Cor Preto, Com Pilhas, Não tem vibro</h4>
-                <!--ESTRELAS-->
-                <div class="stars">
-                    <p>&#9734;</p>
-                    <p>&#9734;</p>
-                    <p>&#9734;</p>
-                    <p>&#9734;</p>
-                    <p>&#9734;</p>
-                </div>
-                <!--INFORMACOES CADASTRO-->
-                <div class="txt-produto-cadastro">
-                    <p>REFERÊNCIA: <strong>PD0001</strong></p>
-                    <p>Condição: <strong>Produto Novo</strong></p>
-                </div>
-                <div class="produto-valor">
-                    <h5>R$ 149,90</h5>
-                    <p>em 12x R$ 12,50</p>
-                    <a href="#">ver meios de pagamento</a>
-                </div>
-                <!--SELECIONAR COR-->
-                <div class="btn-selecionar-cor">
-                    <h5>COR: Bege</h5>
-                    <button><img src="../img/produtos/produto-teste3-full.jpeg" alt="#"></button>
-                </div>
-                <!--INFORMAÇÕES ADICIONAIS-->
-                <div class="informacoes-adicionais">
-                    <h5>O que você precisa saber sobre este produto</h5>
-                    <ul>
-                        <li>Recarregável</li>
-                        <li>Com luzes de LED</li>
-                        <li>Resistente a água</li>
-                        <li>Alto Falante</li>
-                        <li>Usa cabo USB-C</li>
-                    </ul>
+                <!--DESCRICAO DO PRODUTO-->
+                <div class="inf-produto">
+                    <div class="titulo">
+                        <h4>Nome do Produto, Tamanho 35px, Cor Preto, Com Pilhas, Não tem vibro</h4>
+                    </div>
+                    <!--ESTRELAS-->
+                    <div class="stars">
+                        <p>&#9734;</p>
+                        <p>&#9734;</p>
+                        <p>&#9734;</p>
+                        <p>&#9734;</p>
+                        <p>&#9734;</p>
+                    </div>
+                    <!--INFORMACOES CADASTRO-->
+                    <div class="cadastro">
+                        <p>REFERÊNCIA: <strong>PD0001</strong></p>
+                        <p>Condição: <strong>Produto Novo</strong></p>
+                    </div>
+                    <div class="valor">
+                        <h5>R$ 149,90</h5>
+                        <p>em 12x R$ 12,50</p>
+                        <a href="#">ver meios de pagamento</a>
+                    </div>
+                    <!--SELECIONAR COR-->
+                    <div class="btn-selecionar-cor">
+                        <h5>COR: Bege</h5>
+                        <button><img src="../img/produtos/produto-teste3-full.jpeg" alt="#"></button>
+                    </div>
+                    <!--INFORMAÇÕES ADICIONAIS-->
+                    <div class="inf-adicionais">
+                        <h5>O que você precisa saber sobre este produto</h5>
+                        <ul>
+                            <li>Recarregável</li>
+                            <li>Com luzes de LED</li>
+                            <li>Resistente a água</li>
+                            <li>Alto Falante</li>
+                            <li>Usa cabo USB-C</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <!--INFORMAÇÕES DE ENTREGA E COMPRA-->
-            <div class="informacoes-compra">
+            <div class="inf-compra">
                 <!--CALCULAR FRETE-->
-                <div class="calcular-frete">
-                    <div class="titulo-frete">
-                        <img src="../img/icones/icone-compras-200.png" alt="">
+                <div class="frete">
+                    <div class="titulo">
+                        <div class="icon-frete"><img src="../img/icones/icone-compras-200.png" alt=""></div>
                         <h5>Cacular frete</h5>
                     </div>
-                    <input type="text" placeholder="insira seu CEP">
-                    <button>OK</button>
-                    <a href="#">Não lembro meu CEP</a>
+                    <div class="calcular-frete">
+                        <div class="contain-frete">
+                            <input type="text" placeholder="insira seu CEP">
+                            <button>OK</button>
+                        </div>
+                        <a href="https://buscacepinter.correios.com.br/app/endereco/index.php" target="_black">Não lembro meu CEP</a>
+                    </div>
                 </div>
                 <!--COMPRA DO PRODUTO-->
                 <div class="comprar-produto">
-                    <h5>150 Disponíves</h5>
+                    <h5>em estoque</h5>
                     <div class="botoes">
                         <button class="btn-comprar">Comprar Agora</button>
                         <button class="btn-adc-carrinho">Adicionar ao Carrinho</button>
                     </div>
                     <ul>
-                        <li>Devolução grátis. Você tem X dias <br> a partir da data de recebimento.</li>
-                        <li>Compra garantida. Receba o produto <br> que está esperando ou devolvemos o seu dinheiro.</li>
+                        <li>Devolução grátis. Você tem X dias a partir da data de recebimento.</li>
+                        <li>Compra garantida. Receba o produto que está esperando ou devolvemos o seu dinheiro.</li>
                     </ul>
                 </div>
             </div>

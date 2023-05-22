@@ -525,10 +525,6 @@ footer{
     background-color: var(--cor1);
 }
 
-#main-pagina-produto{
-    padding-top: 3rem;
-}
-
 .botao-voltar {
     color: var(--cor1);
     max-width: 100px;
@@ -537,8 +533,8 @@ footer{
     border: none;
     border-radius: 5px;
     padding: 3px 16px;
-    margin-bottom: 1rem;
-    transition: .6s;
+    margin: 1rem 0;
+    transition: 0.6s;
 }
 
 .botao-voltar:hover{
@@ -549,118 +545,122 @@ footer{
 .produto-exibicao {
     display: flex;
     background-color: white;
-    justify-content: space-around;
+    justify-content: space-between;
     gap: 1rem;
-    padding: 1rem;
-    margin-bottom: 3rem;
+    padding: 2rem;
+    margin-bottom: 2.5rem;
     border-radius: 5px;
 }
 
-.imagens-produto .informacoes-produto, .informacoes-compra {
-    margin-top: 3rem;
+.produto-exibicao .container-produto {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1.5rem;
+    margin: 0;
 }
 
-.imagens-produto{
-    max-width: 590px;
-    min-width: 520px;
-}
-
-.imagens-produto {
+.produto-exibicao .imagens-produto{
     display: flex;
     gap: 1rem;
 }
 
-.imagens-produto .foto-principal {
-    margin: auto;
+.produto-exibicao .foto-principal {
     max-width: 500px;
-    height: 530px;
-}
-
-.foto-principal img {
-    border: 1px solid var(--cor5);
+    max-height: 500px;
+    padding: 1px;
     border-radius: 5px;
-    width: 100%;
-    height: 100%;
 }
 
-.btn-foto-produto {
-    margin: 10px 0px 0px 10px;
+.imagens-produto .foto-principal img {
+    width: 100%;
+}
+
+
+.imagens-produto .btn-foto-produto button {
+    border: none;
+    border-radius: 5px;
+    border: 1px solid var(--cor5);
+    padding: 1px;
+    width: 60px;
+    transition: .3s;
+}
+
+.imagens-produto .btn-foto-produto {
     display: flex;
+    width: 75px;
     flex-direction: column;
     gap: 10px;
 }
-.btn-foto-produto img {
-    width: 60px;
-    border: 1px solid var(--cor5);
-    border-radius: 5px;
-    transition: 0.3s;
+
+.imagens-produto .btn-foto-produto img {
+    width: 100%;
 }
 
-.btn-foto-produto img:hover {
-    width: 70px;
+.imagens-produto .btn-foto-produto button:hover {
+    width: 65px;
 }
 
-.btn-foto-produto button {
-    border: none;
-}
-
-.informacoes-produto {
-    max-width: 400px;
-    margin-top: 1rem;
+.inf-produto {
     display: flex;
     flex-direction: column;
+    max-width: 400px;
 }
 
-.informacoes-produto h4 {
-    font-size: 22px;
+.inf-produto .titulo {
+    width: 100%;
+}
+
+.inf-produto .titulo h4 {
+    width: 100%;
+    font-size: 20px;
     font-weight: bold;
 }
 
-.stars {
+.inf-produto .stars {
     display: flex;
-    margin-bottom: 1rem;
+    gap: 12px;
+    margin-bottom: 0.5rem;
 }
 
-.stars p {
+.inf-produto .stars p {
     font-size: 25px;
     color: #f67034;
 }
 
-.txt-produto-cadastro {
+.inf-produto .cadastro {
     display: flex;
     flex-direction: column;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
-.txt-produto-cadastro p {
+.inf-produto .cadastro p {
     font-size: 13px;
     color: var(--cor5);
-    margin-bottom: 0px;
 }
 
-.produto-valor {
+.inf-produto .valor {
     display: flex;
     flex-direction: column;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
-.produto-valor h5 {
+.inf-produto .valor h5 {
     font-size: 35px;
     font-weight: 400;
     margin-bottom: 0px;
 }
 
-.produto-valor a {
+.inf-produto .valor p {
+    font-size: 18px;
+}
+
+.inf-produto .valor a {
     font-size: 12px;
     text-decoration: none;
 }
 
-.produto-valor a:hover { 
+.inf-produto .valor a:hover { 
     text-decoration: underline;
-}
-
-.produto-valor p {
-    font-size: 20px;
 }
 
 .btn-selecionar-cor {
@@ -685,46 +685,75 @@ footer{
     transition: 0.3s;
 }
 
-.informacoes-adicionais {
+.inf-adicionais {
     max-width: 350px;
 }
 
-.informacoes-adicionais h5 {
+.inf-adicionais h5 {
     font-size: 16px;
 }
 
-.informacoes-adicionais ul, .informacoes-adicionais li {
+.inf-adicionais ul, .inf-adicionais li {
     list-style: inside;
     font-size: 15px;
 }
 
-.informacoes-compra {
-    min-width: 350px;
+.inf-compra {
+    max-width: 350px;
+    width: 100%;
     display: flex; 
     flex-direction: column;
 }
 
-.calcular-frete img {
-    width: 30px;
+/* frete */
+.produto-exibicao .frete {
+    display: flex;
+    flex-direction: column;
 }
 
-.calcular-frete h5 {
-    font-size: 17px;
-}
-
-.titulo-frete {
+.frete .titulo {
+    align-items: center;
+    gap: 10px;
     display: flex;
     margin-bottom: 1rem;
 }
 
-.calcular-frete input {
+.frete .titulo .icon-frete {
+    width: 30px;
+}
+
+.frete .titulo .icon-frete img {
+    width: 100%;
+}
+
+.frete .titulo h5 {
+    font-size: 20px;
+    margin-bottom: 0px;
+}
+/* calcular frete */
+.frete .calcular-frete {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+
+.frete .contain-frete {
+    max-width: 350px;
+    width: 100%;
+    display: flex;
+    gap: 8px;
+}
+
+.frete .calcular-frete .contain-frete input {
+    width: 80%;
+    padding: 10px;
     border-radius: 5px;
-    padding: 6px;
     border: 1px solid rgba(0, 0, 0, 0.445);
 }
 
-.calcular-frete button {
-    padding: 6px;
+.frete .calcular-frete .contain-frete button {
+    width: 20%;
+    padding: 10px;
     border-radius: 5px;
     color: var(--cor4);
     background-color: white;
@@ -732,18 +761,17 @@ footer{
     transition: 0.3s;
 }
 
-.calcular-frete button:hover{
+.frete .calcular-frete .contain-frete button:hover{
     background-color: var(--cor3);
     color: white;
     border: 1px solid var(--cor3);
 }
 
-.calcular-frete a {
-    display: block;
-    font-size: 13px;
-    margin-bottom: 2rem;
+.frete .calcular-frete a {
+    font-size: 12px;
 }
 
+/* compra produto */
 .comprar-produto .botoes {
     display: flex;
     flex-direction: column;
@@ -882,6 +910,22 @@ footer{
         gap: 1rem;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* PAGINA PRODUTO */ 
+    .produto-exibicao {
+        flex-direction: column;
+    }
+
+    .produto-exibicao .container-produto {
+        flex-direction: column;
+        margin-bottom: 1rem;
+        margin: auto;
+    }
+
+    .inf-compra {
+        flex-direction: column;
+        margin: auto;
     }
 }
 
