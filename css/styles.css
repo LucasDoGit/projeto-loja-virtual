@@ -444,6 +444,11 @@ footer{
     cursor: pointer;
 }
 
+.footer-nav section ul li a  {
+    text-decoration: none;
+    color: black;
+}
+
 #sec-btn-crc a {
     text-align: center;
     justify-content: center;
@@ -466,7 +471,12 @@ footer{
 
 .footer-nav section svg {
     color: var(--cor4);
-    margin: 4px;
+}
+
+#redes-sociais .icones {
+    width: 28px;
+    display: flex;
+    gap: 12px;
 }
 
 .footer-dev {
@@ -1015,9 +1025,11 @@ footer{
     flex-direction: column;
     }
 
-    #sec-btn-crc, #sec-btn-redesocial {
+    #sec-btn-crc, #redes-sociais {
         text-align: center;
         margin-top: 1rem;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
@@ -1163,7 +1175,6 @@ main#meu-perfil {
 
 #meu-perfil .container-perfil {
     display: flex;
-    gap: 1.5rem;
 }
 
 .container-perfil .coluna {
@@ -1171,8 +1182,8 @@ main#meu-perfil {
     display: flex;
     flex-direction: column;
     width: 60px;
-    height: 100vh;
-    padding: 30px; /* Grossura */
+    height: 90vh;
+    padding: 30px; /* margem interna*/
     align-items: center;
     gap: 2rem;
 }
@@ -1180,6 +1191,71 @@ main#meu-perfil {
 .coluna .icone-svg svg {
     width: 26px;
     height: 26px;
+}
+
+div.meu-perfil {
+    padding: 0 1rem;
+    max-width: 1500px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 2.5rem;
+}
+
+.meu-perfil .titulo {
+    display: flex;
+}
+
+.meu-perfil .titulo h3 {
+    font-size: 20.5px;
+    font-weight: bold;
+}
+
+.meu-perfil .inf-perfil {
+    display: flex;
+    gap: 2rem;
+}
+
+.meu-perfil .inf-perfil div {
+    background-color: white;
+    max-width: 700px;
+    width: 100%;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.inf-perfil div div {
+    margin-bottom: 1rem;
+}
+
+.inf-perfil div div.titulo {
+    display: flex;
+}
+
+.inf-perfil div div.titulo h5 {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.inf-perfil .dados-basicos form {
+    display: flex;
+    flex-direction: column;
+}
+
+.inf-perfil form div label {
+    position: absolute;
+    pointer-events: none;
+    transform: translate(-190px, -8px);
+    background-color: white;
+    transition: all 300ms ease 0s;
+    font-size: 0.75rem;
+}
+
+.inf-perfil form span {
+    font-size: 0.625rem;
+}
+
+.inf-perfil form button {
+    display: block;
 }
 
 /* Cadastro de Categoria ADM*/
