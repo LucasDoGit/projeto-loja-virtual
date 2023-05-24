@@ -1177,7 +1177,7 @@ main#meu-perfil {
     display: flex;
 }
 
-.container-perfil .coluna {
+div.container-perfil .coluna {
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -1188,12 +1188,13 @@ main#meu-perfil {
     box-shadow: rgba(40, 41, 61, 0.04) 0px 2px 4px, rgba(96, 97, 112, 0.16) 0px 8px 16px
 }
 
+/* conf svg */
 div.icone-svg {
     width: 26px;
     height: 26px;
 } 
 
-.icone-svg svg {
+div.icone-svg svg {
     width: 100%;
     height: 100%;
     color: var(--cor4);
@@ -1207,76 +1208,146 @@ div.meu-perfil {
     margin-top: 2.5rem;
 }
 
-.meu-perfil .titulo {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    gap: 7px;
-    margin-left: 15.5px;
-    margin-bottom: 2rem;
-}
-
-.meu-perfil .titulo h3 {
-    font-size: 20.5px;
-    font-weight: bold;
-}
-
-.meu-perfil .titulo .icone-svg {
+div.meu-perfil > .titulo .icone-svg {
     width: 35px;
     height: 35px;
 }
 
-.meu-perfil .inf-perfil {
+div.meu-perfil .titulo {
+    display: flex;
+    gap: 12px;
+}
+
+div.meu-perfil > .titulo {
+    margin-left: 0.8rem;
+    margin-bottom: 2rem;
+}
+
+div.meu-perfil > .titulo h3 {
+    font-size: 20.5px;
+    font-weight: bold;
+    margin: auto 0;
+}
+
+div.inf-perfil {
     display: flex;
     gap: 2rem;
 }
 
-.meu-perfil .inf-perfil div {
+div.inf-perfil section {
     background-color: white;
     max-width: 700px;
     width: 100%;
     border-radius: 5px;
     padding: 10px;
+    margin-bottom: 2rem;
 }
 
-.inf-perfil div div {
-    margin-bottom: 1rem;
+div.inf-perfil section .titulo {
+    margin: 1.5rem 0 1.5rem 1.5rem;
 }
 
-.inf-perfil div div.titulo {
-    display: flex;
-}
-
-.inf-perfil div div.titulo h5 {
+div.inf-perfil section .titulo h5 {
     font-size: 15px;
     font-weight: bold;
+    margin: auto 0;
 }
 
-.inf-perfil .icone-svg {
-    width: 35px;
-    height: 35px;
-}
-
-.inf-perfil .dados-basicos form {
+div.inf-perfil section .botoes {
     display: flex;
-    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    gap: 7px;
 }
 
-.inf-perfil form div label {
+div.inf-perfil section .botoes button {
+    width: 45%;
+    margin-bottom: 1.5rem;
+}
+
+button.btn-secundario:hover {
+    background-color: var(--cor2);
+    color: var(--cor1);
+    border: 1px solid var(--cor2);
+}
+
+/* estilo padrao botoes */
+
+button.btn-primario {
+    padding: 10px;
+    border: none;
+    background-color: var(--cor4);
+    color: white;
+    border-radius: 5px;
+    transition: .3s;
+}
+
+button.btn-primario:hover {
+    background-color: var(--cor3);
+}
+
+button.btn-secundario {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--cor4);
+    background-color: white;
+    color: var(--cor4);
+    transition: 0.3s;
+}
+
+div.inf-perfil section form {
+    margin-bottom: 1.5rem;
+}
+
+div.inf-perfil section form > div {
+    margin: 0.8rem 1.5rem;
+}
+
+div.inf-perfil section form div label {
+    color: var(--cor4);
     position: absolute;
     pointer-events: none;
-    transform: translate(-190px, -8px);
+    transform: translate(-615px, -8px);
     background-color: white;
     transition: all 300ms ease 0s;
     font-size: 0.75rem;
 }
 
-.inf-perfil form span {
-    font-size: 0.625rem;
+div.inf-perfil section form div input {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #00000091;
+    padding: 0.3rem 1rem;
 }
 
-.inf-perfil form button {
+div.inf-perfil input {
+    font-size: 0.95rem;
+    line-height: 2rem;
+}
+
+div.inf-perfil section form span {
+    font-size: 0.625rem;
+    margin-left: 1.5rem;
+}
+
+div.inf-perfil section > button {
     display: block;
+    width: 50%;
+    margin: 1rem auto;
+}
+
+div.contain-input {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    column-gap: 0.2rem;
+}
+
+form div.contain-input div.numero label{
+    transform: translate(-140px, -8px) !important;
+}
+
+form div.contain-input div.complemento label {
+    transform: translate(-455px, -8px) !important;
 }
 
 /* Cadastro de Categoria ADM*/
