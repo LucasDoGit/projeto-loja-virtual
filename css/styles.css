@@ -1031,6 +1031,15 @@ footer{
         margin-left: auto;
         margin-right: auto;
     }
+
+    /* pagina meu perfil */
+    div.container-perfil div.coluna {
+        display: none;
+    }
+
+    div.inf-perfil {
+        flex-direction: column;
+    }
 }
 
 @media screen and (max-width: 675px){
@@ -1301,23 +1310,34 @@ div.inf-perfil section form {
 
 div.inf-perfil section form > div {
     margin: 0.8rem 1.5rem;
+    position: relative;
+    padding: 2px;
 }
 
-div.inf-perfil section form div label {
+div.inf-perfil section form div > label {
     color: var(--cor4);
     position: absolute;
     pointer-events: none;
-    transform: translate(-615px, -8px);
+    top: -14%;
+    left: 3%;
     background-color: white;
-    transition: all 300ms ease 0s;
     font-size: 0.75rem;
 }
 
 div.inf-perfil section form div input {
-    width: 100%;
+    border: 1px solid var(--cor4);
     border-radius: 5px;
-    border: 1px solid #00000091;
+    width: 100%;
     padding: 0.3rem 1rem;
+}
+
+div.inf-perfil section form div input::placeholder {
+    font-size: 14px;
+    font-style: italic;
+}
+
+div.inf-perfil section form div input:focus {
+    outline: 0;
 }
 
 div.inf-perfil input {
@@ -1342,12 +1362,8 @@ div.contain-input {
     column-gap: 0.2rem;
 }
 
-form div.contain-input div.numero label{
-    transform: translate(-140px, -8px) !important;
-}
-
 form div.contain-input div.complemento label {
-    transform: translate(-455px, -8px) !important;
+    left: 28.5%;
 }
 
 /* Cadastro de Categoria ADM*/
@@ -1355,7 +1371,7 @@ form div.contain-input div.complemento label {
 .coluna-cadcat{
     background-color: #FFFFFF;
     display: flex;
-    width: 0px;
+    width: 60px;
     height: 600px;
     padding: 30px; /* Grossura */
     flex-direction: column;
