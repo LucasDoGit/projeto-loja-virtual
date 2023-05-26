@@ -535,21 +535,10 @@ footer{
     background-color: var(--cor1);
 }
 
-.botao-voltar {
-    color: var(--cor1);
+#btn-voltar {
     max-width: 100px;
-    font-size: 18px;
-    background-color: var(--cor4);
-    border: none;
-    border-radius: 5px;
     padding: 3px 16px;
     margin: 1rem 0;
-    transition: 0.6s;
-}
-
-.botao-voltar:hover{
-    background-color: var(--cor3);
-    color: white;
 }
 
 .produto-exibicao {
