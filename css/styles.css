@@ -1116,6 +1116,7 @@ form div.contain-input div.complemento label {
     left: 28.5%;
 }
 
+<<<<<<< Updated upstream
 /* pagina carrinho */
 
 div.contain-grid {
@@ -1293,30 +1294,21 @@ div.cumpom {
 }
 
 /* Cadastro de Categoria ADM*/
+=======
+/* Cadastro de Categoria ADM =====================================*/ 
+>>>>>>> Stashed changes
 
-.coluna-cadcat{
-    background-color: #FFFFFF;
+main#cad-cadastro {
+    background-color: var(--cor1);
+}
+
+#cadastro-categoria .container-categoria {
     display: flex;
-    width: 60px;
-    height: 600px;
-    padding: 30px; /* Grossura */
-    flex-direction: column;
-    align-items: center;
-    
 }
 
-.icones-coluna-cadcat{  
-    height: 24px; /* Altura do ícone */
-    margin-bottom: 30px; /* Espaçamento entre os ícones */ 
-    fill: #823860;
-}
-
-.container-cadcat{
-    
-}
-
-.quadroCAT {
+div.cad-cadastro {
     display: flex;
+<<<<<<< Updated upstream
     border: 1px solid #f67034;
     width: 1000%;
     height: 200px; 
@@ -1558,4 +1550,59 @@ div.cumpom {
 @keyframes showSidebar {
     from {margin-right: -50vw;}
     to {margin-right: 0vw;}
+=======
+    gap: 2rem;
+}
+
+div.cad-cadastro section {
+    background-color: white;
+    max-width: 1200px;
+    width: 100%;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 2rem;
+}
+
+div.cad-cadastro section .titulo {
+    margin: 1.5rem 0 1.5rem 1.5rem;
+}
+
+div.cad-cadastro section .titulo h5 {
+    font-size: 15px;
+    font-weight: bold;
+    margin: auto 0;
+}
+
+div.cad-cadastro section form div > label {
+    color: var(--cor4);
+    position: absolute;
+    pointer-events: none;
+    top: -14%;
+    left: 3%;
+    background-color: white;
+    font-size: 0.75rem;
+}
+
+div.cad-cadastro section form div input {
+    border: 1px solid var(--cor4);
+    border-radius: 5px;
+    width: 65%;
+    padding: 0.3rem 1rem;
+}
+
+textarea {
+    resize: vertical;
+    border: 1px solid var(--cor4);
+    border-radius: 5px;
+    width: 65%;
+    height: 177px;
+    padding: 0.3rem 1rem;
+}
+
+div.cad-cadastro section .botoes {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+    gap: 7px;
+>>>>>>> Stashed changes
 }
