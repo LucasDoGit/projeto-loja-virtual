@@ -75,32 +75,63 @@
     <main>
         <div class="contain">
             <button class="btn-primario" id="btn-voltar">Voltar</button>
-            <div>
-                <div class="produtos-carrinho">
-                    <!--produtos adicionados no carrinho-->
-                    <div>Produtos no carrinho</div>
-                    <!--Calcular frete-->
-                    <div class="frete">
-                        <div class="titulo">
-                            <div class="icon-frete"><img src="../img/icones/icone-compras-200.png" alt=""></div>
-                            <h5>Cacular frete</h5>
-                        </div>
-                        <div class="calcular-frete">
-                            <div class="contain-frete">
-                                <input type="text" placeholder="insira seu CEP">
-                                <button>OK</button>
+            <div class="contain-grid">
+                <div class="prod-carrinho">
+                    <section>
+                        <div class="cabecalho">
+                            <h5>Seus produtos</h5>
+                            <div class="remover-prod">
+                                <button class="btn-secundario"><span>Remover todos os produtos</span></button>
                             </div>
-                            <a href="https://buscacepinter.correios.com.br/app/endereco/index.php" target="_black">Não lembro meu CEP</a>
                         </div>
-                        <div>
-                            <input type="text" name="cupom" id="idcumpom" placeholder="digite o seu cumpom">
-                            <button class="btn-primario">Aplicar</button>
+                        <div class="bf-separator"></div>
+                        <div class="produtos">
+                            <div class="prod-adicionado">
+                                <div class="imagem"><a href="produto.html"><div class="produto-imagem"><img src="../img/produtos/produto-teste5-full.jpeg" alt="imagem produto no carrinho"></div></a></div>
+                                <div class="nome-produto">
+                                    <span>Fabricante</span>
+                                    <a href="produto.html">Nome do Produto, Tamanho 35px, Cor Preto, Com Pilhas, Não tem vibro</a>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda minima quam odit alias rerum error quos repellendus, harum laboriosam distinctio?</p>
+                                </div>
+                                <div class="opcoes-compra">
+                                    <div class="quantidade">
+                                        <button class="btn-produto-qtd"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                                            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                                          </svg>
+                                        </button>
+                                        <div class="valor">
+                                            <label for="idproduto-qtd">QTD</label>
+                                            <input id="idproduto-qtd" value="1">
+                                        </div>
+                                        <button class="btn-produto-qtd"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                                            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                                          </svg>
+                                        </button>
+                                    </div>
+                                    <div class="valor">
+                                        <p>Valor do(s) produto(s)</p>
+                                        <p class="valor-produto" id="idvalor-produto">R$149,90</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    </section>
+                </div>
+                <div class="frete">
+                    <div class="titulo">
+                        <div class="icon-frete"><img src="../img/icones/icone-compras-200.png" alt=""></div>
+                        <h5>Cacular frete</h5>
+                    </div>
+                    <div class="calcular-frete">
+                        <div class="contain-frete">
+                            <input type="text" placeholder="insira seu CEP">
+                            <button>OK</button>
+                        </div>
+                        <a href="https://buscacepinter.correios.com.br/app/endereco/index.php" target="_black">Não lembro meu CEP</a>
                     </div>
                 </div>
-                <div class="pagamento">
-                    <h2>Resumo da Compra</h2>
-                </div>
+                <div class="resumo-compra">Resumo da compra</div>
+                <div class="cumpom">Cupom</div>
             </div>
         </div>
     </main>

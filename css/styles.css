@@ -869,245 +869,6 @@ footer{
     font-size: small;
 }
 
-/* MEDIA QUERY */
-@media screen and (max-width: 1440px){
-    /* global */
-    .contain { 
-        width: 90vw;
-    }
-    
-    /* header */
-    .header-inner-content {
-        width: 90vw;
-        padding: 0 1rem;
-    }
-
-    /* banner fita */
-    .fita-informacoes {
-        width: 270px;
-    }
-
-    .fita-informacoes p {
-        font-size: 12px;
-    }
-     
-    /* footer */
-    #l-4 {
-        width: 70vw;
-    }
-}
-
-@media screen and (max-width: 1366px){
-    /* banner fita */
-    .main-banner-fita > div {
-        margin: auto;
-    }
-
-    .main-banner-fita {
-        margin: 1rem auto;
-        width: 80vw;
-        gap: 1rem;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    /* PAGINA PRODUTO */ 
-    .produto-exibicao {
-        flex-direction: column;
-    }
-
-    .produto-exibicao .container-produto {
-        flex-direction: column;
-        margin-bottom: 1rem;
-        margin: auto;
-    }
-
-    .inf-compra {
-        flex-direction: column;
-        margin: auto;
-    }
-}
-
-@media screen and (max-width: 1270px) {
-    /* header */
-    .header-search-text {
-        width: 350px;
-   }
-}
-
-@media screen and (max-width: 1024px) {
-    /* header */
-    .header-search-text {
-        width: 500px;
-    }
-
-    .header-btn-icon {
-        display: block;
-    }
-
-    .header-navegation{
-        width: 50vw;
-        position: absolute;
-        flex-direction: column !important;
-        top: 0;
-        right: 0vw;
-        background-color: var(--cor4);
-        height: 100%;
-        padding: 1rem;
-        animation-duration: 0.6s;
-        margin-right: 150vw;
-    }
-    .header-icon-navegation{
-        flex-direction: column;
-        margin: 1rem 0px;
-    }
-    .header-btn-icon{
-        display: block;
-    }
-
-    .btn-categoria {
-        display: block;
-    }
-
-    .btn-categoria:hover, .header-icon-link:hover {
-        color: var(--cor3);
-    }
-
-    /* banner secundarios */
-    .banners-secundarios {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-@media screen and (max-width: 992px){
-    /* header */
-    .header-search-text {
-        width: 400px;
-    }
-
-    .nav-categorias {
-        position: absolute;
-        flex-direction: column !important;
-        width: 100vw;
-        height: 50vw;
-        align-items: center;
-        border-radius: 0px 0px 20px 20px;
-        margin-left: -150vw;
-    }
-}
-
-@media screen and (max-width: 768px){
-    /* header */
-    .header-inner-content {
-        height: 14vw;
-        padding: 0;
-    }
-
-    .header-search-text {
-        width: 300px;
-        transition: 0.6s;
-   }
-   /* footer */
-   .footer-inf, .footer-nav {
-    flex-direction: column;
-    }
-
-    #sec-btn-crc, #redes-sociais {
-        text-align: center;
-        margin-top: 1rem;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    /* pagina meu perfil */
-    div.container-perfil div.coluna {
-        display: none;
-    }
-
-    div.inf-perfil {
-        flex-direction: column;
-    }
-}
-
-@media screen and (max-width: 675px){
-    /* header */
-    #header-logo {
-        width: 100px;
-    }
-
-    .header-search-text {
-        width: 250px;
-        transition: 0.6s;
-    }
-    /* banner fita */
-    .main-banner-fita {
-        grid-template-columns: repeat(1, 1fr);
-    }
-
-    .fita-informacoes {
-        display: flex;
-        width: 350px;
-    }
-
-    .fita-informacoes a {
-        font-size: 16px;
-    }
-}
-
-@media screen and (max-width: 520px) {
-    /* header */
-    .header-search-text {
-        width: 170px;
-    }
-}
-
-@media screen and (max-width: 480px){
-    /* header */
-    #header-logo {
-        width: 70px;
-    }
-    
-    .header-search-box {
-        height: 32px;
-        padding: 5px;
-    }
-
-    .header-search-box svg {
-        margin-right: 4px;
-        margin-bottom: 2px;
-        width: 22px;
-        height: 22px;
-    }
-
-    /* banners */
-    .fita-informacoes {
-        width: 240px;
-    }
-
-    #linha-section-1 {
-        width: 240px;
-    }
-}
-
-@media screen and (max-width: 320px){
-    /* header */
-    .header-search-box {
-        display: none;
-    }
-
-    #linha-section-1 {
-        width: 230px;
-    }
-}
-
-/* animacao menu header lateral */
-@keyframes showSidebar {
-    from {margin-right: -50vw;}
-    to {margin-right: 0vw;}
-}
-
 /* Tela de confirmar metodo de endereço */
 
 .textoCor{
@@ -1355,6 +1116,182 @@ form div.contain-input div.complemento label {
     left: 28.5%;
 }
 
+/* pagina carrinho */
+
+div.contain-grid {
+    display: grid;
+    gap: 10px;
+    grid-template-areas: 
+    "prod-carrinho prod-carrinho resumo-compra"
+    "prod-carrinho prod-carrinho resumo-compra"
+    "frete frete resumo-compra" 
+    "cupom cupom resumo-compra";
+}
+
+div.contain-grid > div {
+    padding: 8px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+div.prod-carrinho {
+    grid-area: prod-carrinho;
+}
+
+div.prod-carrinho section .cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+div.prod-carrinho section .cabecalho h5 {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-left: 1.5rem;
+}
+
+div.prod-carrinho section .cabecalho .remover-prod  button {
+    margin-right: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+div.remover-prod button span {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.bf-separator {
+    background: rgba(0,0,0,.1);
+    height: 1px;
+    margin: 0;
+    width: 100%;
+}
+
+div.prod-adicionado {
+    display: grid;
+    grid-template-columns: 1fr 4fr 2fr;
+    justify-content: space-between;
+    padding: 5px;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+div.prod-adicionado .imagem {
+    margin: auto;
+}
+
+div.prod-adicionado div.produto-imagem {
+    border-radius: 5px;
+    width: 148px;
+    padding: 3px;
+}
+
+div.prod-adicionado div.produto-imagem img {
+    width: 100%;
+}
+
+div.prod-adicionado .nome-produto {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+div.prod-adicionado .nome-produto span {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.705);
+    margin-bottom: 1.5rem;
+}
+
+div.prod-adicionado .nome-produto a {
+    font-size: 16.5px;
+    color: black;
+    text-decoration: none;
+}
+
+div.prod-adicionado .nome-produto p {
+    font-size: 12.5px;
+    color: rgba(0, 0, 0, 0.541);
+}
+
+div.opcoes-compra {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.opcoes-compra .quantidade {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.25rem;
+}
+
+.opcoes-compra .quantidade .valor {
+    display: flex;
+    gap: 0.25rem;
+    flex-direction: column;
+}
+
+button.btn-produto-qtd {
+    border: none;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+}
+
+button.btn-produto-qtd:hover {
+    color: var(--cor4);
+}
+
+div.opcoes-compra .quantidade .valor label {
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+div.opcoes-compra .quantidade .valor input {
+    font-size: 16px;
+    text-align: center;
+    line-height: 1.75rem;
+    max-width: 2.875rem;   
+    font-weight: 700;
+    border: none;
+}
+
+div.opcoes-compra .valor {
+    display: flex;
+    flex-direction: column;
+}
+
+div.opcoes-compra .valor p:first-child {
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+    font-weight: 400;
+    color: rgb(66, 70, 77);
+}
+
+p.valor-produto {
+    font-size: 20px;
+    line-height: 1.125rem;
+    font-weight: 400;
+    color: var(--cor4);
+}
+
+div.frete {
+    grid-area: frete;
+}
+div.resumo-compra {
+    grid-area: resumo-compra;
+}
+
+div.cumpom {
+    grid-area: cupom;
+}
+
 /* Cadastro de Categoria ADM*/
 
 .coluna-cadcat{
@@ -1383,4 +1320,242 @@ form div.contain-input div.complemento label {
     border: 1px solid #f67034;
     width: 1000%;
     height: 200px; 
+}
+
+/* MEDIA QUERY */
+@media screen and (max-width: 1440px){
+    /* global */
+    .contain { 
+        width: 90vw;
+    }
+    
+    /* header */
+    .header-inner-content {
+        padding: 0 1rem;
+    }
+
+    /* banner fita */
+    .fita-informacoes {
+        width: 270px;
+    }
+
+    .fita-informacoes p {
+        font-size: 12px;
+    }
+     
+    /* footer */
+    #l-4 {
+        width: 70vw;
+    }
+}
+
+@media screen and (max-width: 1366px){
+    /* banner fita */
+    .main-banner-fita > div {
+        margin: auto;
+    }
+
+    .main-banner-fita {
+        margin: 1rem auto;
+        width: 80vw;
+        gap: 1rem;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* PAGINA PRODUTO */ 
+    .produto-exibicao {
+        flex-direction: column;
+    }
+
+    .produto-exibicao .container-produto {
+        flex-direction: column;
+        margin-bottom: 1rem;
+        margin: auto;
+    }
+
+    .inf-compra {
+        flex-direction: column;
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 1270px) {
+    /* header */
+    .header-search-text {
+        width: 350px;
+   }
+}
+
+@media screen and (max-width: 1024px) {
+    /* header */
+    .header-search-text {
+        width: 500px;
+    }
+
+    .header-btn-icon {
+        display: block;
+    }
+
+    .header-navegation{
+        width: 50vw;
+        position: absolute;
+        flex-direction: column !important;
+        top: 0;
+        right: 0vw;
+        background-color: var(--cor4);
+        height: 100%;
+        padding: 1rem;
+        animation-duration: 0.6s;
+        margin-right: 150vw;
+    }
+    .header-icon-navegation{
+        flex-direction: column;
+        margin: 1rem 0px;
+    }
+    .header-btn-icon{
+        display: block;
+    }
+
+    .btn-categoria {
+        display: block;
+    }
+
+    .btn-categoria:hover, .header-icon-link:hover {
+        color: var(--cor3);
+    }
+
+    /* banner secundarios */
+    .banners-secundarios {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 992px){
+    /* header */
+    .header-search-text {
+        width: 400px;
+    }
+
+    .nav-categorias {
+        position: absolute;
+        flex-direction: column !important;
+        width: 100vw;
+        height: 50vw;
+        align-items: center;
+        border-radius: 0px 0px 20px 20px;
+        margin-left: -150vw;
+    }
+}
+
+@media screen and (max-width: 768px){
+    /* header */
+    .header-inner-content {
+        height: 14vw;
+        padding: 0;
+    }
+
+    .header-search-text {
+        width: 300px;
+        transition: 0.6s;
+   }
+   /* footer */
+   .footer-inf, .footer-nav {
+    flex-direction: column;
+    }
+
+    #sec-btn-crc, #redes-sociais {
+        text-align: center;
+        margin-top: 1rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* pagina meu perfil */
+    div.container-perfil div.coluna {
+        display: none;
+    }
+
+    div.inf-perfil {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 675px){
+    /* header */
+    #header-logo {
+        width: 100px;
+    }
+
+    .header-search-text {
+        width: 250px;
+        transition: 0.6s;
+    }
+    /* banner fita */
+    .main-banner-fita {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .fita-informacoes {
+        display: flex;
+        width: 350px;
+    }
+
+    .fita-informacoes a {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    /* header */
+    .header-search-text {
+        width: 170px;
+    }
+}
+
+@media screen and (max-width: 480px){
+    /* header */
+    #header-logo {
+        width: 70px;
+    }
+    
+    .header-search-box {
+        height: 32px;
+        padding: 5px;
+    }
+
+    .header-search-box svg {
+        margin-right: 4px;
+        margin-bottom: 2px;
+        width: 22px;
+        height: 22px;
+    }
+
+    /* banners */
+    .fita-informacoes {
+        width: 240px;
+    }
+
+    #linha-section-1 {
+        width: 240px;
+    }
+}
+
+@media screen and (max-width: 320px){
+    /* header */
+    .header-search-box {
+        display: none;
+    }
+
+    #linha-section-1 {
+        width: 230px;
+    }
+}
+
+/* animacao menu header lateral */
+@keyframes showSidebar {
+    from {margin-right: -50vw;}
+    to {margin-right: 0vw;}
 }
