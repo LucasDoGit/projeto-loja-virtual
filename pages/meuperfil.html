@@ -68,9 +68,9 @@
             </div>
         </nav>
     </header>
-    <main id="meu-perfil">
-    <div class="container-perfil">
-        <div class="coluna">
+    <main id="adm">
+    <div class="contain-flex">
+        <div class="bar-lf-acesso-rapido">
             <!-- Home -->
                 <div class="icone-svg">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
@@ -98,7 +98,7 @@
                     </svg>
                 </div>
         </div>
-        <div class="meu-perfil">
+        <div class="conteudo-adm">
             <div class="titulo">
                 <div class="icone-svg">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-gear" viewBox="0 0 16 16">
@@ -107,100 +107,99 @@
                 </div>
                 <h3>MEUS DADOS</h3>
             </div>
-                <div class="inf-perfil">
-                    <section class="dados-basicos">
-                        <div class="titulo">
-                            <div class="icone-svg">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-task" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z"/>
-                                    <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9z"/>
-                                    <path fill-rule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H2zm1 .5H2v1h1v-1z"/>
-                                  </svg>
-                            </div>
-                            <h5>DADOS BÁSICOS</h5>
+            <div class="inf-perfil">
+                <section class="formulario-adm">
+                    <div class="titulo">
+                        <div class="icone-svg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-task" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z"/>
+                                <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9z"/>
+                                <path fill-rule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H2zm1 .5H2v1h1v-1z"/>
+                            </svg>
                         </div>
-                        <div class="botoes">
-                            <button class="btn-primario">ALTERAR E-MAIL</button>
-                            <button class="btn-secundario">ALTERAR SENHA </button>
+                        <h5>DADOS BÁSICOS</h5>
+                    </div>
+                    <div class="botoes">
+                        <button class="btn-primario">ALTERAR E-MAIL</button>
+                        <button class="btn-secundario">ALTERAR SENHA </button>
+                    </div>
+                    <form class="formulario-adm" autocomplete="on" method="post">
+                        <div class="nome"> 
+                            <input type="text" id="idnome" name="nome" placeholder="Nome completo" autocomplete="name"></input>
+                            <label for="idnome">Nome completo*</label>
                         </div>
-                        <form class="pessoa" autocomplete="on" method="post">
-                            <div class="nome"> 
-                                <input type="text" id="idnome" name="nome" placeholder="Nome completo" autocomplete="name"></input>
-                                <label for="idnome">Nome completo*</label>
-                            </div>
-                            <div class="telefone">
-                                <input type="tel" id="idtelefone" name="telefone" placeholder="(xx) xxxxx-xxxx" autocomplete="tel"></input>
-                                <label for="idtelefone">Telefone*</label>
-                            </div>
-                            <div class="email">
-                                <input type="email" id="idemail" name="email" placeholder="E-mail" autocomplete="email"></input>
-                                <label for="idemail">E-mail*</label>
-                            </div>
-                            <div class="cpf"> 
-                                <input type="text"  id="idcpf" name="cpf" placeholder="CPF"></input>
-                                <label for="idcpf">CPF*</label>
-                            </div>
-                            <div class="nascimento"> 
-                                <input type="date" id="idnascimento" name="nascimento" autocomplete="bday-day"></input>
-                                <label for="idnascimento">Data de Nascimento*</label>
-                            </div>
-                            <span>(*) Campos obrigatórios</span>
-                        </form>
-                        <button class="btn-primario">SALVAR ALTERAÇÕES</button>
-                    </section>
-                    <section class="endereco">
-                        <div class="titulo">
-                            <div class="icone-svg">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-                                </svg>
-                            </div>
-                            <h5>ENDEREÇOS</h5>
+                        <div class="telefone">
+                            <input type="tel" id="idtelefone" name="telefone" placeholder="(xx) xxxxx-xxxx" autocomplete="tel"></input>
+                            <label for="idtelefone">Telefone*</label>
                         </div>
-                        <form class="endereco">
-                            <div class="identificacao">
-                                <input type="text" id="ididentificacao" name="identificacao" placeholder="Indetificação do endereço" autocomplete="postal-code"></input>
-                                <label for="ididentificacao">Identificacao*</label>
+                        <div class="email">
+                            <input type="email" id="idemail" name="email" placeholder="E-mail" autocomplete="email"></input>
+                            <label for="idemail">E-mail*</label>
+                        </div>
+                        <div class="cpf"> 
+                            <input type="text"  id="idcpf" name="cpf" placeholder="CPF"></input>
+                            <label for="idcpf">CPF*</label>
+                        </div>
+                        <div class="nascimento"> 
+                            <input type="date" id="idnascimento" name="nascimento" autocomplete="bday-day"></input>
+                            <label for="idnascimento">Data de Nascimento*</label>
+                        </div>
+                        <span>(*) Campos obrigatórios</span>
+                    </form>
+                    <button class="btn-primario">SALVAR ALTERAÇÕES</button>
+                </section>
+                <section class="formulario-adm">
+                    <div class="titulo">
+                        <div class="icone-svg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                            </svg>
+                        </div>
+                        <h5>ENDEREÇOS</h5>
+                    </div>
+                    <form class="formulario-adm">
+                        <div class="identificacao">
+                            <input type="text" id="ididentificacao" name="identificacao" placeholder="Indetificação do endereço" autocomplete="postal-code"></input>
+                            <label for="ididentificacao">Identificacao*</label>
+                        </div>
+                        <div class="cep"> 
+                            <input type="text" id="idcep" name="cep" placeholder="CEP" autocomplete="postal-code"></input>
+                            <label for="idcep">CEP*</label>
+                        </div>
+                        <div class="endereco">
+                            <input type="text" id="idendereco" name="endereco" placeholder="Rua..." autocomplete="street-address"></input>
+                            <label for="idendereco">Endereco*</label>
+                        </div>
+                        <div class="contain-input">
+                            <div class="numero">
+                                <input type="text" id="idnumerocasa" name="numerocasa" placeholder="Número casa"></input>
+                                <label for="idnumerocasa">Numero*</label>
                             </div>
-                            <div class="cep"> 
-                                <input type="text" id="idcep" name="cep" placeholder="CEP" autocomplete="postal-code"></input>
-                                <label for="idcep">CEP*</label>
+                            <div class="complemento">
+                                <input type="text" id="idcomplemento" name="complemento" placeholder="Casa, apartamento ou outros"></input>
+                                <label for="idcomplemento">Complemento</label>
                             </div>
-                            <div class="endereco">
-                                <input type="text" id="idendereco" name="endereco" placeholder="Rua..." autocomplete="street-address"></input>
-                                <label for="idendereco">Endereco*</label>
-                            </div>
-                            <div class="contain-input">
-                                <div class="numero">
-                                    <input type="text" id="idnumerocasa" name="numerocasa" placeholder="Número casa"></input>
-                                    <label for="idnumerocasa">Numero*</label>
-                                </div>
-                                <div class="complemento">
-                                    <input type="text" id="idcomplemento" name="complemento" placeholder="Casa, apartamento ou outros"></input>
-                                    <label for="idcomplemento">Complemento</label>
-                                </div>
-                            </div>
-                            <div class="referencia"> 
-                                <input type="text" id="idreferencia" name="referencia" placeholder="Pontos de referência"></input>
-                                <label for="idreferencia">Referência</label>
-                            </div>
-                            <div class="bairro"> 
-                                <input type="text" id="idbairro" name="bairro" placeholder="Bairro"></input>
-                                <label for="idbairro">Bairro*</label>
-                            </div>
-                            <div class="cidade"> 
-                                <input type="text" id="idcidade" name="cidade" placeholder="Cidade"></input>
-                                <label for="idcidade">Cidade*</label>
-                            </div>
-                            <div class="estado"> 
-                                <input type="text" id="idestado" name="estado" placeholder="Unidade Federativa"></input>
-                                <label for="idestado">Estado*</label>
-                            </div>
-                            <span>(*) Campos obrigatórios</span>
-                        </form>
-                        <button class="btn-primario">SALVAR ALTERAÇÕES</button>
-                    </section>
-                </div>
+                        </div>
+                        <div class="referencia"> 
+                            <input type="text" id="idreferencia" name="referencia" placeholder="Pontos de referência"></input>
+                            <label for="idreferencia">Referência</label>
+                        </div>
+                        <div class="bairro"> 
+                            <input type="text" id="idbairro" name="bairro" placeholder="Bairro"></input>
+                            <label for="idbairro">Bairro*</label>
+                        </div>
+                        <div class="cidade"> 
+                            <input type="text" id="idcidade" name="cidade" placeholder="Cidade"></input>
+                            <label for="idcidade">Cidade*</label>
+                        </div>
+                        <div class="estado"> 
+                            <input type="text" id="idestado" name="estado" placeholder="Unidade Federativa"></input>
+                            <label for="idestado">Estado*</label>
+                        </div>
+                        <span>(*) Campos obrigatórios</span>
+                    </form>
+                    <button class="btn-primario">SALVAR ALTERAÇÕES</button>
+                </section>
             </div>
         </div>
     </div>
