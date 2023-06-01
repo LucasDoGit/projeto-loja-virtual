@@ -1151,20 +1151,17 @@ div.prod-carrinho section .cabecalho {
     height: 60px;
 }
 
-div.prod-carrinho section .cabecalho h5 {
+div.prod-carrinho h5 {
     text-transform: uppercase;
     font-weight: bold;
     margin-left: 1.5rem;
 }
 
-div.prod-carrinho section .cabecalho .remover-prod  button {
+div.prod-carrinho div.cabecalho button {
     margin-right: 1.5rem;
     display: flex;
     align-items: center;
     gap: 8px;
-}
-
-div.remover-prod button span {
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
@@ -1180,7 +1177,7 @@ div.remover-prod button span {
 
 div.prod-adicionado {
     display: grid;
-    grid-template-columns: 1fr 4fr 2fr;
+    grid-template-columns: 1fr 4fr 1fr 1fr;
     justify-content: space-between;
     padding: 5px;
     gap: 5px;
@@ -1226,20 +1223,23 @@ div.prod-adicionado .nome-produto p {
 
 div.opcoes-compra {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
+
 
 .opcoes-compra .quantidade {
     display: flex;
     align-items: flex-end;
     gap: 0.25rem;
+    margin-bottom: 0.8rem;
 }
 
 .opcoes-compra .quantidade .valor {
     display: flex;
-    gap: 0.25rem;
     flex-direction: column;
+    gap: 0.25rem;
 }
 
 button.btn-produto-qtd {
@@ -1269,12 +1269,35 @@ div.opcoes-compra .quantidade .valor input {
     border: none;
 }
 
-div.opcoes-compra .valor {
+/** botao remover do carrinho **/
+button.remover-carrinho { 
     display: flex;
-    flex-direction: column;
+    gap: 5px;
+    border: none;
+    background: transparent;
+    color: var(--cor4);
+    transition: .3s;
 }
 
-div.opcoes-compra .valor p:first-child {
+button.remover-carrinho span {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+button.remover-carrinho:hover {
+    color: var(--cor3);
+}
+
+/* valor do produto */
+div.prod-adicionado .valor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+div.prod-adicionado .valor p:first-child {
     font-size: 0.75rem;
     line-height: 1.125rem;
     font-weight: 400;

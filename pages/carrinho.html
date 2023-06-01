@@ -81,11 +81,45 @@
                         <div class="cabecalho">
                             <h5>Seus produtos</h5>
                             <div class="remover-prod">
-                                <button class="btn-secundario"><span>Remover todos os produtos</span></button>
+                                <button class="btn-secundario">Remover todos os produtos</button>
                             </div>
                         </div>
                         <div class="bf-separator"></div>
                         <div class="produtos">
+                            <div class="prod-adicionado">
+                                <div class="imagem"><a href="produto.html"><div class="produto-imagem"><img src="../img/produtos/produto-teste3-full.jpeg" alt="imagem produto no carrinho"></div></a></div>
+                                <div class="nome-produto">
+                                    <span>Fabricante</span>
+                                    <a href="produto.html">Nome do Produto, Tamanho 35px, Cor Preto, Com Pilhas, Não tem vibro</a>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda minima quam odit alias rerum error quos repellendus, harum laboriosam distinctio?</p>
+                                </div>
+                                <div class="opcoes-compra">
+                                    <div class="quantidade">
+                                        <button class="btn-produto-qtd"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                                            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                                          </svg>
+                                        </button>
+                                        <div class="valor">
+                                            <label for="idproduto-qtd">QTD</label>
+                                            <input id="idproduto-qtd" value="1">
+                                        </div>
+                                        <button class="btn-produto-qtd"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                                            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                                          </svg>
+                                        </button>
+                                    </div>
+                                    <button class="remover-carrinho">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                                            </svg>
+                                            <span>Remover</span>
+                                    </button>
+                                </div>
+                                <div class="valor">
+                                    <p>Valor do(s) produto(s)</p>
+                                    <p class="valor-produto" id="idvalor-produto">R$149,90</p>
+                                </div>
+                            </div>
                             <div class="prod-adicionado">
                                 <div class="imagem"><a href="produto.html"><div class="produto-imagem"><img src="../img/produtos/produto-teste5-full.jpeg" alt="imagem produto no carrinho"></div></a></div>
                                 <div class="nome-produto">
@@ -108,10 +142,16 @@
                                           </svg>
                                         </button>
                                     </div>
-                                    <div class="valor">
-                                        <p>Valor do(s) produto(s)</p>
-                                        <p class="valor-produto" id="idvalor-produto">R$149,90</p>
-                                    </div>
+                                    <button class="remover-carrinho">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                                            </svg>
+                                            <span>Remover</span>
+                                    </button>
+                                </div>
+                                <div class="valor">
+                                    <p>Valor do(s) produto(s)</p>
+                                    <p class="valor-produto" id="idvalor-produto">R$149,90</p>
                                 </div>
                             </div>
                         </div>
