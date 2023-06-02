@@ -725,18 +725,12 @@ footer{
     margin-bottom: 1rem;
 }
 
-.frete .titulo .icon-frete {
-    width: 30px;
-}
-
-.frete .titulo .icon-frete img {
-    width: 100%;
-}
-
 .frete .titulo h5 {
     font-size: 20px;
-    margin-bottom: 0px;
+    font-weight: 600;
+    text-transform: uppercase;
 }
+
 /* calcular frete */
 .frete .calcular-frete {
     display: flex;
@@ -745,21 +739,23 @@ footer{
 }
 
 .frete .contain-frete {
-    max-width: 350px;
+    max-width: 300px;
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: 2fr 0.2fr;
     gap: 8px;
 }
 
 .frete .calcular-frete .contain-frete input {
-    width: 80%;
-    padding: 10px;
+    font-size: 0.95rem;
+    line-height: 2rem;
+    border: 1px solid var(--cor4);
     border-radius: 5px;
-    border: 1px solid rgba(0, 0, 0, 0.445);
+    width: 100%;
+    padding: 0.3rem 1rem;
 }
 
 .frete .calcular-frete .contain-frete button {
-    width: 20%;
     padding: 10px;
     border-radius: 5px;
     color: var(--cor4);
@@ -1123,14 +1119,13 @@ form div.contain-input div.complemento label {
     left: 28.5%;
 }
 
-/* pagina carrinho */
-
+/**** pagina carrinho ****/
 div.layout-carrinho {
     gap: 10px;
     grid-template-areas: 
     "prod-carrinho prod-carrinho resumo-compra"
     "prod-carrinho prod-carrinho resumo-compra"
-    "frete frete resumo-compra" 
+    "calc-frete calc-frete resumo-compra" 
     "cupom cupom resumo-compra";
 }
 
@@ -1140,6 +1135,7 @@ div.layout-carrinho > div {
     border-radius: 5px;
 }
 
+/** produtos carrinho **/
 div.prod-carrinho {
     grid-area: prod-carrinho;
 }
@@ -1175,7 +1171,8 @@ div.prod-carrinho div.cabecalho button {
     width: 100%;
 }
 
-div.prod-adicionado {
+/** itens do carrinho **/
+div.item {
     display: grid;
     grid-template-columns: 1fr 4fr 1fr 1fr;
     justify-content: space-between;
@@ -1184,50 +1181,50 @@ div.prod-adicionado {
     margin-top: 10px;
 }
 
-div.prod-adicionado .imagem {
+div.item .imagem {
     margin: auto;
 }
 
-div.prod-adicionado div.produto-imagem {
+div.item div.produto-imagem {
     border-radius: 5px;
     width: 148px;
     padding: 3px;
 }
 
-div.prod-adicionado div.produto-imagem img {
+div.item div.produto-imagem img {
     width: 100%;
 }
 
-div.prod-adicionado .nome-produto {
+div.item .nome-produto {
     display: flex;
     flex-direction: column;
     justify-content: start;
 }
 
-div.prod-adicionado .nome-produto span {
+div.item .nome-produto span {
     font-size: 14px;
     color: rgba(0, 0, 0, 0.705);
     margin-bottom: 1.5rem;
 }
 
-div.prod-adicionado .nome-produto a {
+div.item .nome-produto a {
     font-size: 16.5px;
     color: black;
     text-decoration: none;
 }
 
-div.prod-adicionado .nome-produto p {
+div.item .nome-produto p {
     font-size: 12.5px;
     color: rgba(0, 0, 0, 0.541);
 }
 
+/** adicionar ou remover item **/
 div.opcoes-compra {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-
 
 .opcoes-compra .quantidade {
     display: flex;
@@ -1269,7 +1266,7 @@ div.opcoes-compra .quantidade .valor input {
     border: none;
 }
 
-/** botao remover do carrinho **/
+/** botao remover item do carrinho **/
 button.remover-carrinho { 
     display: flex;
     gap: 5px;
@@ -1289,15 +1286,15 @@ button.remover-carrinho:hover {
     color: var(--cor3);
 }
 
-/* valor do produto */
-div.prod-adicionado .valor {
+/** valor do produto **/
+div.item .valor {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 1.5rem;
 }
 
-div.prod-adicionado .valor p:first-child {
+div.item .valor p:first-child {
     font-size: 0.75rem;
     line-height: 1.125rem;
     font-weight: 400;
@@ -1311,9 +1308,33 @@ p.valor-produto {
     color: var(--cor4);
 }
 
-div.frete {
-    grid-area: frete;
+/** calcular frente **/
+div.calc-frete {
+    grid-area: calc-frete;
 }
+
+div.calc-frete .frete {
+    width: 100%;
+    padding: 1.5rem;
+}
+
+div.calc-frete .icone-svg {
+    width: 24px;
+}
+
+div.calc-frete .titulo h5 {
+    font-size: 18px;
+}
+
+div.calc-frete .frete .contain-frete {
+    max-width: 400px;
+    margin-bottom: 3px;
+}
+
+div.calc-frete .frete .calcular-frete {
+    margin-bottom: 0;
+}
+
 div.resumo-compra {
     grid-area: resumo-compra;
 }
