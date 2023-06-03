@@ -1003,9 +1003,9 @@ section.formulario-adm form { /* espaçamento inferior nos formularios */
 
 /** estilo formularios **/
 form.formulario-adm > div { /* espaço entre os input's */
-    margin: 0.8rem 1.5rem;
+    /*margin: 0.8rem 1.5rem;*/
+    /*padding: 2px;*/
     position: relative;
-    padding: 2px;
 }
 
 form.formulario-adm input { /* estilo input */
@@ -1075,7 +1075,7 @@ button.btn-secundario:hover {
 /*======/ fim classes tela de adm /======*/
 
 
-/* Tela Meu Perfil */
+/* pagina Meu Perfil */
 
 div.inf-perfil { /* posicionamento e espaço entre as sections */
     display: flex;
@@ -1091,6 +1091,11 @@ div.inf-perfil section .botoes { /* botoes alterar informacoes */
 div.inf-perfil section .botoes button { /* botoes alterar informacoes */
     width: 45%;
     margin-bottom: 1.5rem;
+}
+
+div.inf-perfil form.formulario-adm > div {
+    margin: 0.8rem 1.5rem;
+    padding: 2px;
 }
 
 div.inf-perfil form div > label { /* label titulo nas bordas dos input's */
@@ -1120,6 +1125,11 @@ form div.contain-input div.complemento label {
 }
 
 /**** pagina carrinho ****/
+
+div#carrinho {
+    padding: 2rem 0;
+}
+
 div.layout-carrinho {
     gap: 10px;
     grid-template-areas: 
@@ -1129,31 +1139,30 @@ div.layout-carrinho {
     "cupom cupom resumo-compra";
 }
 
-div.layout-carrinho > div {
-    padding: 8px;
+div.layout-carrinho > section {
     background-color: white;
     border-radius: 5px;
 }
 
 /** produtos carrinho **/
-div.prod-carrinho {
+section.prod-carrinho {
     grid-area: prod-carrinho;
 }
 
-div.prod-carrinho section .cabecalho {
+section.prod-carrinho .cabecalho {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 60px;
 }
 
-div.prod-carrinho h5 {
+section.prod-carrinho h5 {
     text-transform: uppercase;
     font-weight: bold;
     margin-left: 1.5rem;
 }
 
-div.prod-carrinho div.cabecalho button {
+section.prod-carrinho div.cabecalho button {
     margin-right: 1.5rem;
     display: flex;
     align-items: center;
@@ -1309,38 +1318,164 @@ p.valor-produto {
 }
 
 /** calcular frente **/
-div.calc-frete {
+section.calc-frete {
     grid-area: calc-frete;
 }
 
-div.calc-frete .frete {
+section.calc-frete .frete {
     width: 100%;
     padding: 1.5rem;
 }
 
-div.calc-frete .icone-svg {
+section.calc-frete .icone-svg {
     width: 24px;
 }
 
-div.calc-frete .titulo h5 {
+section.calc-frete .titulo h5 {
     font-size: 18px;
 }
 
-div.calc-frete .frete .contain-frete {
+section.calc-frete .frete .contain-frete {
     max-width: 400px;
     margin-bottom: 3px;
 }
 
-div.calc-frete .frete .calcular-frete {
+section.calc-frete .frete .calcular-frete {
     margin-bottom: 0;
 }
 
-div.resumo-compra {
+section.cupom {
+    grid-area: cupom;
+    padding: 2rem;
+    height: fit-content;
+}
+
+/** estilo input padrão**/
+.input-group-padrao1 input {
+    font-size: 0.95rem;
+    line-height: 2rem;
+    border: 1px solid var(--cor4);
+    border-radius: 5px;
+    padding: 0.3rem 1rem;
+}
+
+section.cupom .input-group-padrao1 {
+    height: 50px;
+}
+
+section.cupom form {
+    display: grid;
+    grid-template-columns: 1fr 0.5fr;
+    gap: 10px;
+}
+
+section.cupom input {
+    height: 50px;
+}
+
+section.cupom button {
+    font-size: 1.125rem;
+    line-height: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    height: fit-content;
+    height: 50px;
+    width: 80%;
+}
+
+/**resumo da compra**/
+section.resumo-compra {
     grid-area: resumo-compra;
 }
 
-div.cumpom {
-    grid-area: cupom;
+section.resumo-compra{
+    display: flex;
+    flex-direction: column;
+    max-width: 19.5rem;
+    align-self: flex-start;
+    top: 2rem;
+    padding: 2rem 2rem 1.5rem;
+}
+
+section.resumo-compra .titulo {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 3.5rem;
+}
+
+section.resumo-compra .titulo h2 {
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.inf-pagamento {
+    display: flex;
+    flex-direction: column;
+}
+
+.inf-pagamento > div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.85rem;
+}
+
+.inf-pagamento p {
+    font-size: 13px;
+}
+
+.inf-pagamento span {
+    font-size: 1rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+    color: rgb(66, 70, 77);
+    text-align: right;
+}
+
+.valor-total {
+    background-color: rgba(128, 128, 128, 0.096);
+    border-radius: 5px;
+    padding: 1rem;
+    align-items: center;
+}
+
+.valor-total p {
+    font-weight: bold;
+}
+
+.valor-total span {
+    font-size: 1.1rem;
+}
+
+.valor-desconto {
+    background-color: rgba(67, 219, 67, 0.329);
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    padding: 1rem;
+    align-items: center;
+}
+
+.valor-desconto span {
+    font-size: 1.5rem;
+    color: rgb(24, 179, 24);
+}
+
+section.resumo-compra div.botoes {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+section.resumo-compra div.botoes button{
+    text-transform: uppercase;
+    font-size: 1rem;
+    line-height: 2rem;
+    font-weight: 600;
+}
+
+section.resumo-compra div.botoes button:first-child{
+    margin-bottom: 1rem;
 }
 
 /* Cadastro de Categoria ADM*/
