@@ -1,0 +1,23 @@
+{
+  "name": "projeto-loja-virtual",
+  "version": "1.0.0",
+  "description": "Loja virtual desenvolvida em HTML, CSS, JS e Bootstrap como projeto final de bacharel em sistemas de informações.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.1.4",
+    "express": "^4.18.2",
+    "mysql2": "^3.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
