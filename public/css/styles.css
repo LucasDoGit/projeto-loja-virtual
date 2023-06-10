@@ -10,7 +10,6 @@
     --cor3: #D94E9A;
     --cor4: #590222;
     --cor5: #0D0D0D;
-    --cor6: #ff6a00;
 
     --fonte-padrao: Arial, Verdana, Helvetica, sans-serif;
     --fonte-poppins: 'Poppins', 'Segoe UI', sans-serif;
@@ -846,6 +845,31 @@ footer{
 }
 
 /* Pagina de Cadastro */
+
+section#cadastro {
+    height: 80vh;
+}
+
+div.conteudo {
+    max-width: 1500px;
+    width: 100%;
+    padding: 3.5rem 0;
+    margin: 0 auto;
+    margin-top: 2.5rem;
+}
+
+div.conteudo > div {
+    max-width: 600px;
+    display: flex;
+    margin: auto;
+    box-shadow: rgba(40, 41, 61, 0.04) 0px 2px 4px, rgba(96, 97, 112, 0.16) 0px 8px 16px
+}
+
+/* estilo uppercase texto*/
+.text-upper {
+    text-transform: uppercase;
+}
+
 .campo-obrigatorio {
     position: absolute;
     top: 50px;
@@ -867,10 +891,10 @@ footer{
 
 .rowcad, .col-md-6, .col-md-12 {
     margin-bottom: 10px;
-  }
+}
 
-.textoCU{
-    font-size: small;
+.txt-importante{
+    font-size: 0.8rem;
 }
 
 /* Tela de confirmar metodo de endereço */
