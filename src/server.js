@@ -12,6 +12,15 @@ server.use(bodyParser.urlencoded({extended: false}));
 //todos os enderecos da minhas rotas o prefixo /api
 server.use('/api', routes);
 
+server.use(express.static('public')); //ler arquivo html
+server.use('/css', express.static('public/css')); //ler arquivo css
+
+//ler arquivo favicon
+server.get('/favicon.ico', (req, res) => {
+    res.sendFile(__dirname + '/public/favicon/favicon.png');
+});
+
+//inicia servidor na porta definida no arquivo .env
 server.listen(process.env.PORT, ()=>{
     console.log(`Servidor rodando em: http://localhost:${process.env.PORT}`);
 })
