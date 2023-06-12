@@ -1569,6 +1569,62 @@ div.cad-cadastro section .botoes {
     gap: 7px;
 }
 
+/* TELA DE PAGAMENTO*/
+
+.secao-botao {
+    display: flex;
+    grid-template-columns: 16.25rem 1fr;
+    gap: 0px 2rem;
+    margin-top: 1.5rem;    
+}
+
+.tipo-pagamento {
+    display: flex;
+    flex-direction: column;
+}
+
+.descricao-pagamento{
+    width: 98%;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: #D9D9D9;
+    
+}
+
+.container-total{
+    display: flex;
+    margin-top: 2rem;
+    
+}
+
+.total-color {
+    background-color: rgb(255, 239, 230);
+    margin-right: 1rem;
+    flex: 1 1 0%;
+}
+
+.preco-total {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 6.75rem;
+    border-radius: 0.25rem;
+}
+
+.total-color-desconto {
+    background-color: rgb(229, 255, 241);
+    flex: 1 1 0%;
+}
+
+.preco-total-desconto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 6.75rem;
+    border-radius: 0.25rem;
+}
 
 
 /* MEDIA QUERY */
