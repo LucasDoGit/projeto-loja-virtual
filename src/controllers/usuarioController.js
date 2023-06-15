@@ -1,4 +1,9 @@
 const usuarioService = require('../services/usuarioService');
+const bcrypt = require('bcrypt');
+
+function randomNumber (a, b) {
+    return Math.floor(Math.random() * (b - a + 1)) + a
+}
 
 module.exports = {
     buscarTodos: async (req, res) => {
@@ -36,12 +41,17 @@ module.exports = {
     inserir: async(req, res) => {
         let json = {error:'', result:{}};
 
+        //cria uma hash aleatoria para a senha
+        const RandomSalt = randomNumber(10, 16);
+        const hashedSenha = await bcrypt.hash(req.body.senha, RandomSalt);
+        this.senha = hashedSenha;
+
         let cpf         = req.body.cpf;
         let nome        = req.body.nome;
         let dt_nasc     = req.body.dt_nasc;
         let telefone    = req.body.telefone;
         let email       = req.body.email;
-        let senha       = req.body.senha;
+        let senha       = hashedSenha;
 
         if(cpf && nome){
             let usuarioCodigo = await usuarioService.inserir(cpf, nome, dt_nasc, telefone, email, senha);
@@ -63,6 +73,11 @@ module.exports = {
 
     alterar: async(req, res) => {
         let json = {error:'', result:{}};
+
+        //cria uma hash aleatoria para a senha
+        const RandomSalt = randomNumber(10, 16);
+        const hashedSenha = await bcrypt.hash(req.body.senha, RandomSalt);
+        this.senha = hashedSenha;
 
         let codigo      = req.params.codigo;
         let cpf         = req.body.cpf;
@@ -95,6 +110,19 @@ module.exports = {
 
         await usuarioService.excluir(req.params.codigo);
 
+        res.json(json);
+    },
+
+    excluirTodos: async (req, res) => {
+        let json = {error:'', result:[]};
+
+        let usuarios = await usuarioService.excluirTodos();
+
+        for(let i in usuarios){
+            json.result.push({
+                codigo: usuarios[i].id_usuarios,
+            });
+        }
         res.json(json);
     }
  

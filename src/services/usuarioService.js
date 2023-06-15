@@ -1,4 +1,4 @@
-const db = require('../db'); //conexao com o banco de dados
+const db = require('../database/db'); //conexao com o banco de dados
 
 module.exports = {
     //puxa todos os usarios do banco
@@ -60,5 +60,15 @@ module.exports = {
                 aceito(results);
             });
         });
-    }
+    },
+    //exclui todos os usuarios do banco
+    excluirTodos: () => {
+        return new Promise((aceito, rejeitado)=>{
+
+            db.query('DELETE FROM usuarios', (error, results)=>{
+                if(error) { rejeitado(error); return; }
+                aceito(results);
+            });
+        });
+    },
 };
