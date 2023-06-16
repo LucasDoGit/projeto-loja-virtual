@@ -1573,7 +1573,6 @@ div.cad-cadastro section .botoes {
 
 .secao-botao {
     display: flex;
-    grid-template-columns: 16.25rem 1fr;
     gap: 0px 2rem;
     margin-top: 1.5rem;    
 }
@@ -1581,10 +1580,27 @@ div.cad-cadastro section .botoes {
 .tipo-pagamento {
     display: flex;
     flex-direction: column;
+    width: 310px;
+}
+
+.tipo-pagamento button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.tipo-pagamento button svg{
+    margin: 0 1.5rem;
 }
 
 .descricao-pagamento{
-    width: 98%;
+    width: 100%;
+    height: 200px;
     padding: 1rem;
     border-radius: 5px;
     background-color: #D9D9D9;
@@ -1598,9 +1614,15 @@ div.cad-cadastro section .botoes {
 }
 
 .total-color {
-    background-color: rgb(255, 239, 230);
+    background-color: hsla(0, 100%, 50%, 0.216);
     margin-right: 1rem;
     flex: 1 1 0%;
+    border: 1px solid rgb(255, 0, 0);
+    
+}
+
+div.tipo-pagamento select .btn-secundario{
+    align-items: flex-start;
 }
 
 .preco-total {
@@ -1608,13 +1630,15 @@ div.cad-cadastro section .botoes {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 6.75rem;
+    height: 80px;
     border-radius: 0.25rem;
+    
 }
 
 .total-color-desconto {
     background-color: rgb(229, 255, 241);
     flex: 1 1 0%;
+    border: 1px solid rgb(30, 255, 0);
 }
 
 .preco-total-desconto {
