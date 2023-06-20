@@ -2,7 +2,7 @@ const db = require('../database/db'); //conexao com o banco de dados
 
 module.exports = {
     //puxa todos os usarios do banco
-    buscarTodos: () => {
+    findAll: () => {
         return new Promise((aceito, rejeitado)=>{
 
             db.query('SELECT * FROM usuarios', (error, results)=>{
@@ -12,7 +12,7 @@ module.exports = {
         });
     },
     //somente um usuario do banco
-    buscarCodigo: (codigo) => {
+    findCode: (codigo) => {
         return new Promise((aceito, rejeitado)=>{
 
             db.query('SELECT * FROM usuarios WHERE id_usuarios = ?', [codigo], (error, results) => {
@@ -26,7 +26,7 @@ module.exports = {
         });
     },
     //insere novos usuarios no banco
-    inserir: (cpf, nome, dt_nasc, telefone, email, senha) => {
+    register: (cpf, nome, dt_nasc, telefone, email, senha) => {
         return new Promise((aceito, rejeitado)=>{
 
             db.query('INSERT INTO usuarios (cpf, nome, dt_nasc, telefone, email, senha) VALUES (?, ?, ?, ?, ?, ?)', 
@@ -68,6 +68,19 @@ module.exports = {
             db.query('DELETE FROM usuarios', (error, results)=>{
                 if(error) { rejeitado(error); return; }
                 aceito(results);
+            });
+        });
+    },
+    searchEmail: (email) => {
+        return new Promise((aceito, rejeitado)=>{
+
+            db.query('SELECT * FROM usuarios WHERE email = ?', [email], (error, results) => {
+                if(error) { rejeitado(error); return; }
+                if(results.length > 0){
+                    aceito(results[0]);
+                } else {
+                    aceito(false);
+                }
             });
         });
     },

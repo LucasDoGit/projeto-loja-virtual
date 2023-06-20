@@ -1,73 +1,99 @@
-const usuarioService = require('../services/usuarioService');
-const bcrypt = require('bcrypt');
+const usuarioService = require('../services/usuarioService'); //model do usuario
+const bcrypt = require('bcrypt'); //criptografador para as senhas
+const jwt = require('jsonwebtoken'); //token para autenticacao de sessao
+const authConfig = require('../config/auth.json'); //importa o token criado
 
-function randomNumber (a, b) {
-    return Math.floor(Math.random() * (b - a + 1)) + a
+//numero aleatorio para gerar um hash
+function randomNumber (max, min) {
+    return Math.floor(Math.random() * (min - max + 1)) + max
+}
+
+//token baseado no id e cpf do usuario por 1 dia
+const generateToken = (user = {}) => {
+    return jwt.sign({
+        id: user.id_usuarios,
+        cpf: user.cpf
+    } , authConfig.secret , {
+        expiresIn: 86400,
+    });
 }
 
 module.exports = {
-    buscarTodos: async (req, res) => {
+    findAll: async (req, res) => {
         let json = {error:'', result:[]};
 
-        let usuarios = await usuarioService.buscarTodos();
+        const user = await usuarioService.findAll();
 
-        for(let i in usuarios){
+        if(!user) {
+            json.error = 'Não exitem usuários cadastrados';
+        }
+
+        for(let i in user){
             json.result.push({
-                codigo: usuarios[i].id_usuarios,
-                cpf: usuarios[i].cpf,
-                nome: usuarios[i].nome,
-                nascimento: usuarios[i].dt_nasc,
-                fone: usuarios[i].telefone,
-                email: usuarios[i].email,
-                senha: usuarios[i].senha
+                code: user[i].id_usuarios,
+                cpf: user[i].cpf,
+                name: user[i].nome,
+                birth: user[i].dt_nasc,
+                tel: user[i].telefone,
+                email: user[i].email,
+                password: undefined
             });
         }
         res.json(json);
     },
 
-    buscarCodigo: async(req, res) => {
+    findCode: async(req, res) => {
         let json = {error:'', result:{}};
 
-        let codigo = req.params.codigo;
-        let usuario = await usuarioService.buscarCodigo(codigo);
+        let code = req.params.code;
+        const user = await usuarioService.findCode(code);
 
-        if(usuario){
-            json.result = usuario;
+        if(!user){
+            json.error = 'Código não encontrado';
+        } else {
+            json.result = {
+                message: 'usuario',
+                cpf: user.cpf,
+                name: user.nome,
+                birth: user.dt_nasc,
+                tel: user.telefone,
+                email: user.email,
+                password: undefined
+            }
         }
 
         res.json(json);
     },
 
-    inserir: async(req, res) => {
+    register: async(req, res) => {
         let json = {error:'', result:{}};
 
         //cria uma hash aleatoria para a senha
         const RandomSalt = randomNumber(10, 16);
-        const hashedSenha = await bcrypt.hash(req.body.senha, RandomSalt);
-        this.senha = hashedSenha;
+        const hashedPassword = await bcrypt.hash(req.body.password, RandomSalt);
 
         let cpf         = req.body.cpf;
-        let nome        = req.body.nome;
-        let dt_nasc     = req.body.dt_nasc;
-        let telefone    = req.body.telefone;
+        let name        = req.body.name;
+        let dt_birth    = req.body.dt_birth;
+        let tel         = req.body.tel;
         let email       = req.body.email;
-        let senha       = hashedSenha;
+        let password    = hashedPassword;
 
-        if(cpf && nome){
-            let usuarioCodigo = await usuarioService.inserir(cpf, nome, dt_nasc, telefone, email, senha);
+        if(cpf && name && email && password){
+            const user = await usuarioService.register(cpf, name, dt_birth, tel, email, password);
             json.result = {
-                codigo: usuarioCodigo,
+               	code: user,
                 cpf,
-                nome,
-                dt_nasc,
-                telefone,
+                name,
+                dt_birth,
+                tel,
                 email,
-                senha
-            };
+                password: undefined,
+            }
         } else {
-            json.error = 'Campos não enviados';
+            json.error = 'campos não enviados';
         }
-
+        
         res.json(json);
     },
 
@@ -76,30 +102,30 @@ module.exports = {
 
         //cria uma hash aleatoria para a senha
         const RandomSalt = randomNumber(10, 16);
-        const hashedSenha = await bcrypt.hash(req.body.senha, RandomSalt);
-        this.senha = hashedSenha;
+        const hashedPassword = await bcrypt.hash(req.body.senha, RandomSalt);
+        this.senha = hashedPassword;
 
         let codigo      = req.params.codigo;
         let cpf         = req.body.cpf;
-        let nome        = req.body.nome;
+        let name        = req.body.name;
         let dt_nasc     = req.body.dt_nasc;
         let telefone    = req.body.telefone;
         let email       = req.body.email;
         let senha       = req.body.senha;
 
-        if(codigo && cpf && nome){
-            await usuarioService.alterar(codigo, cpf, nome, dt_nasc, telefone, email, senha);
+        if(codigo && cpf && name){
+            await usuarioService.alterar(codigo, cpf, name, dt_nasc, telefone, email, senha);
             json.result = {
                 codigo,
                 cpf,
-                nome,
+                name,
                 dt_nasc,
                 telefone,
                 email,
-                senha
+                senha: undefined,
             };
         } else {
-            json.error = 'Campos não enviados';
+            json.error = 'campos não enviados';
         }
 
         res.json(json);
@@ -124,6 +150,32 @@ module.exports = {
             });
         }
         res.json(json);
-    }
+    },
  
+    authenticate: async (req, res) => {
+        let json = {error:'', result:[]};
+
+        let email = req.body.email;
+        let password = req.body.senha;
+
+        const user = await usuarioService.searchEmail(email);
+
+        if(!user) {
+            json.error = 'Usuario nao encontrado';
+        }
+
+        if(!await bcrypt.compare(password, user.senha)) {
+            return res.status(400).send({
+                error: true,
+                message: 'senha inválida'
+            })
+        }
+
+        user.senha = undefined;
+
+        res.json({
+            user,
+            token: generateToken(user)
+        });
+    }
 }
