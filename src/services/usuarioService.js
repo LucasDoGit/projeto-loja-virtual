@@ -3,83 +3,88 @@ const db = require('../database/db'); //conexao com o banco de dados
 module.exports = {
     //puxa todos os usarios do banco
     findAll: () => {
-        return new Promise((aceito, rejeitado)=>{
+        return new Promise((accept, rejected)=>{
 
-            db.query('SELECT * FROM usuarios', (error, results)=>{
-                if(error) { rejeitado(error); return; }
-                aceito(results);
-            });
-        });
-    },
-    //somente um usuario do banco
-    findCode: (codigo) => {
-        return new Promise((aceito, rejeitado)=>{
-
-            db.query('SELECT * FROM usuarios WHERE id_usuarios = ?', [codigo], (error, results) => {
-                if(error) { rejeitado(error); return; }
+            db.query('SELECT * FROM users', (error, results)=>{
+                if(error) { rejected(error); return; }
                 if(results.length > 0){
-                    aceito(results[0]);
+                    accept(results);
                 }else {
-                    aceito(false);
+                    accept(false);
                 }
             });
         });
     },
-    //insere novos usuarios no banco
-    register: (cpf, nome, dt_nasc, telefone, email, senha) => {
-        return new Promise((aceito, rejeitado)=>{
+    //somente um user do banco
+    findUser: (code) => {
+        return new Promise((accept, rejected)=>{
 
-            db.query('INSERT INTO usuarios (cpf, nome, dt_nasc, telefone, email, senha) VALUES (?, ?, ?, ?, ?, ?)', 
-                [cpf, nome, dt_nasc, telefone, email, senha], 
-                (error, results) => {
-                    if(error) { rejeitado(error); return; }
-                    aceito(results.insertCodigo);
-                }
-            );
-        });
-    },
-    //altera um usuarios do banco
-    alterar: (codigo, cpf, nome, dt_nasc, telefone, email, senha) => {
-        return new Promise((aceito, rejeitado)=>{
-
-            db.query('UPDATE usuarios SET cpf = ?, nome = ?, dt_nasc = ?, telefone = ?, email = ?, senha = ? WHERE id_usuarios = ?', 
-                [cpf, nome, dt_nasc, telefone, email, senha, codigo], 
-                (error, results) => {
-                    if(error) { rejeitado(error); return; }
-                    aceito(results);
-                }
-            );
-        });
-    },
-    //exclui um usuario do banco
-    excluir: (codigo) => {
-        return new Promise((aceito, rejeitado)=>{
-
-            db.query('DELETE FROM usuarios WHERE id_usuarios = ?', [codigo], (error, results)=>{
-                if(error) { rejeitado(error); return; }
-                aceito(results);
-            });
-        });
-    },
-    //exclui todos os usuarios do banco
-    excluirTodos: () => {
-        return new Promise((aceito, rejeitado)=>{
-
-            db.query('DELETE FROM usuarios', (error, results)=>{
-                if(error) { rejeitado(error); return; }
-                aceito(results);
-            });
-        });
-    },
-    searchEmail: (email) => {
-        return new Promise((aceito, rejeitado)=>{
-
-            db.query('SELECT * FROM usuarios WHERE email = ?', [email], (error, results) => {
-                if(error) { rejeitado(error); return; }
+            db.query('SELECT * FROM users WHERE id_user = ?', [code], (error, results) => {
+                if(error) { rejected(error); return; }
                 if(results.length > 0){
-                    aceito(results[0]);
+                    accept(results[0]);
+                }else {
+                    accept(false);
+                }
+            });
+        });
+    },
+    //insere novos users no banco
+    register: (cpf, name, dt_birth, tel, email, password) => {
+        return new Promise((accept, rejected)=>{
+
+            db.query('INSERT INTO users (cpf, name, dt_birth, tel, email, password) VALUES (?, ?, ?, ?, ?, ?)', 
+                [cpf, name, dt_birth, tel, email, password], 
+                (error, results) => {
+                    if(error) { rejected(error); return; }
+                    accept(results.insertCode);
+                }
+            );
+        });
+    },
+    //altera um users do banco
+    alterUser: (code, cpf, name, dt_birth, tel, email, password) => {
+        return new Promise((accept, rejected)=>{
+
+            db.query('UPDATE users SET cpf = ?, name = ?, dt_birth = ?, tel = ?, email = ?, password = ? WHERE id_user = ?', 
+                [cpf, name, dt_birth, tel, email, password, code], 
+                (error, results) => {
+                    if(error) { rejected(error); return; }
+                    accept(results);
+                }
+            );
+        });
+    },
+    //exclui um users do banco
+    deleteUser: (code) => {
+        return new Promise((accept, rejected)=>{
+
+            db.query('DELETE FROM users WHERE id_user = ?', [code], (error, results)=>{
+                if(error) { rejected(error); return; }
+                accept(results);
+            });
+        });
+    },
+    //exclui todos os users do banco
+    deleteAll: () => {
+        return new Promise((accept, rejected)=>{
+
+            db.query('DELETE FROM users', (error, results)=>{
+                if(error) { rejected(error); return; }
+                accept(results);
+            });
+        });
+    },
+    //encontra usuario cadastrado
+    searchEmail: (email) => {
+        return new Promise((accept, rejected)=>{
+
+            db.query('SELECT * FROM users WHERE email = ?', [email], (error, results) => {
+                if(error) { rejected(error); return; }
+                if(results.length > 0){
+                    accept(results[0]);
                 } else {
-                    aceito(false);
+                    accept(false);
                 }
             });
         });

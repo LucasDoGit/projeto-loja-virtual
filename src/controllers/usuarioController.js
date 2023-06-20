@@ -30,11 +30,11 @@ module.exports = {
 
         for(let i in user){
             json.result.push({
-                code: user[i].id_usuarios,
+                code: user[i].id_user,
                 cpf: user[i].cpf,
-                name: user[i].nome,
-                birth: user[i].dt_nasc,
-                tel: user[i].telefone,
+                name: user[i].name,
+                birth: user[i].dt_birth,
+                tel: user[i].tel,
                 email: user[i].email,
                 password: undefined
             });
@@ -42,11 +42,11 @@ module.exports = {
         res.json(json);
     },
 
-    findCode: async(req, res) => {
+    findUser: async(req, res) => {
         let json = {error:'', result:{}};
 
         let code = req.params.code;
-        const user = await usuarioService.findCode(code);
+        const user = await usuarioService.findUser(code);
 
         if(!user){
             json.error = 'Código não encontrado';
@@ -54,9 +54,9 @@ module.exports = {
             json.result = {
                 message: 'usuario',
                 cpf: user.cpf,
-                name: user.nome,
-                birth: user.dt_nasc,
-                tel: user.telefone,
+                name: user.name,
+                birth: user.dt_birth,
+                tel: user.tel,
                 email: user.email,
                 password: undefined
             }
@@ -97,32 +97,32 @@ module.exports = {
         res.json(json);
     },
 
-    alterar: async(req, res) => {
+    alterUser: async(req, res) => {
         let json = {error:'', result:{}};
 
         //cria uma hash aleatoria para a senha
         const RandomSalt = randomNumber(10, 16);
-        const hashedPassword = await bcrypt.hash(req.body.senha, RandomSalt);
-        this.senha = hashedPassword;
+        const hashedPassword = await bcrypt.hash(req.body.password, RandomSalt);
+        this.password = hashedPassword;
 
-        let codigo      = req.params.codigo;
+        let code        = req.params.code;
         let cpf         = req.body.cpf;
         let name        = req.body.name;
-        let dt_nasc     = req.body.dt_nasc;
-        let telefone    = req.body.telefone;
+        let birth       = req.body.dt_birth;
+        let tel         = req.body.tel;
         let email       = req.body.email;
-        let senha       = req.body.senha;
+        let password    = req.body.password;
 
-        if(codigo && cpf && name){
-            await usuarioService.alterar(codigo, cpf, name, dt_nasc, telefone, email, senha);
+        if(cpf && name && email){
+            await usuarioService.alterUser(code, cpf, name, birth, tel, email, password);
             json.result = {
-                codigo,
+                code,
                 cpf,
                 name,
-                dt_nasc,
-                telefone,
+                birth,
+                tel,
                 email,
-                senha: undefined,
+                password: undefined,
             };
         } else {
             json.error = 'campos não enviados';
@@ -131,22 +131,22 @@ module.exports = {
         res.json(json);
     },
 
-    excluir: async(req, res) => {
+    deleteUser: async(req, res) => {
         let json = {error:'', result:{}};
 
-        await usuarioService.excluir(req.params.codigo);
+        await usuarioService.deleteUser(req.params.code);
 
         res.json(json);
     },
 
-    excluirTodos: async (req, res) => {
+    deleteAll: async (req, res) => {
         let json = {error:'', result:[]};
 
-        let usuarios = await usuarioService.excluirTodos();
+        let usuarios = await usuarioService.deleteAll();
 
         for(let i in usuarios){
             json.result.push({
-                codigo: usuarios[i].id_usuarios,
+                code: usuarios[i].id_usuarios,
             });
         }
         res.json(json);
@@ -155,8 +155,8 @@ module.exports = {
     authenticate: async (req, res) => {
         let json = {error:'', result:[]};
 
-        let email = req.body.email;
-        let password = req.body.senha;
+        let email       = req.body.email;
+        let password    = req.body.password;
 
         const user = await usuarioService.searchEmail(email);
 
@@ -164,14 +164,14 @@ module.exports = {
             json.error = 'Usuario nao encontrado';
         }
 
-        if(!await bcrypt.compare(password, user.senha)) {
+        if(!await bcrypt.compare(password, user.password)) {
             return res.status(400).send({
                 error: true,
                 message: 'senha inválida'
             })
         }
 
-        user.senha = undefined;
+        user.password = undefined;
 
         res.json({
             user,
