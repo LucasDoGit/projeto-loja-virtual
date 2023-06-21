@@ -37,7 +37,7 @@ module.exports = {
                 [cpf, name, dt_birth, tel, email, password], 
                 (error, results) => {
                     if(error) { rejected(error); return; }
-                    accept(results.insertCode);
+                    accept(results.insertId);
                 }
             );
         });
@@ -76,7 +76,20 @@ module.exports = {
         });
     },
     //encontra usuario cadastrado
-    searchEmail: (email) => {
+    findUserRegistred: (email, cpf) => {
+        return new Promise((accept, rejected)=>{
+
+            db.query('SELECT * FROM users WHERE email = ? OR cpf = ?', [email, cpf], (error, results) => {
+                if(error) { rejected(error); return; }
+                if(results.length > 0){
+                    accept(results[0]);
+                } else {
+                    accept(false);
+                }
+            });
+        });
+    },
+    findEmail: (email) => {
         return new Promise((accept, rejected)=>{
 
             db.query('SELECT * FROM users WHERE email = ?', [email], (error, results) => {
@@ -88,5 +101,5 @@ module.exports = {
                 }
             });
         });
-    },
+    }
 };

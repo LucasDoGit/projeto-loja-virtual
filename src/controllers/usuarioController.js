@@ -30,13 +30,15 @@ module.exports = {
 
         for(let i in user){
             json.result.push({
+                createdAt: user[i].created_at,
                 code: user[i].id_user,
                 cpf: user[i].cpf,
                 name: user[i].name,
                 birth: user[i].dt_birth,
                 tel: user[i].tel,
                 email: user[i].email,
-                password: undefined
+                password: undefined,
+                updateAt: user[i].updated_at
             });
         }
         res.json(json);
@@ -52,13 +54,14 @@ module.exports = {
             json.error = 'Código não encontrado';
         } else {
             json.result = {
-                message: 'usuario',
+                createdAt: user.created_at,
                 cpf: user.cpf,
                 name: user.name,
                 birth: user.dt_birth,
                 tel: user.tel,
                 email: user.email,
-                password: undefined
+                password: undefined,
+                updateAt: user.updated_at
             }
         }
 
@@ -79,16 +82,27 @@ module.exports = {
         let email       = req.body.email;
         let password    = hashedPassword;
 
-        if(cpf && name && email && password){
-            const user = await usuarioService.register(cpf, name, dt_birth, tel, email, password);
+        const findUserRegistred = await usuarioService.findUserRegistred(email, cpf);
+        
+        if(cpf && name && dt_birth && email && password){
+            if(findUserRegistred) {
+                return res.status(400).send({
+                    error: true,
+                    message: 'Usuário já cadastrado'
+                })
+            }
+            const userCode = await usuarioService.register(cpf, name, dt_birth, tel, email, password);
+            const user = await usuarioService.findUser(userCode);
             json.result = {
-               	code: user,
-                cpf,
-                name,
-                dt_birth,
-                tel,
-                email,
+                createdAt: user.created_at,
+                cpf: user.cpf,
+                name: user.name,
+                birth: user.dt_birth,
+                tel: user.tel,
+                email: user.email,
                 password: undefined,
+                updateAt: user.updated_at,
+                token: generateToken(user)
             }
         } else {
             json.error = 'campos não enviados';
@@ -108,22 +122,32 @@ module.exports = {
         let code        = req.params.code;
         let cpf         = req.body.cpf;
         let name        = req.body.name;
-        let birth       = req.body.dt_birth;
+        let dt_birth    = req.body.dt_birth;
         let tel         = req.body.tel;
         let email       = req.body.email;
-        let password    = req.body.password;
+        let password    = hashedPassword
 
-        if(cpf && name && email){
-            await usuarioService.alterUser(code, cpf, name, birth, tel, email, password);
+        const findUserRegistred = await usuarioService.findUserRegistred(email, cpf);
+
+        if(cpf && name && dt_birth && email && password){
+            if(findUserRegistred) {
+                return res.status(400).send({
+                    error: true,
+                    message: 'email ou cpf já cadastrado!'
+                })
+            }
+            await usuarioService.alterUser(code, cpf, name, dt_birth, tel, email, password);
+            const user = await usuarioService.findUser(code);
             json.result = {
-                code,
-                cpf,
-                name,
-                birth,
-                tel,
-                email,
+                createdAt: user.created_at,
+                cpf: user.cpf,
+                name: user.name,
+                birth: user.dt_birth,
+                tel: user.tel,
+                email: user.email,
                 password: undefined,
-            };
+                updateAt: user.updated_at,
+            }
         } else {
             json.error = 'campos não enviados';
         }
@@ -133,7 +157,7 @@ module.exports = {
 
     deleteUser: async(req, res) => {
         let json = {error:'', result:{}};
-
+        
         await usuarioService.deleteUser(req.params.code);
 
         res.json(json);
@@ -158,7 +182,7 @@ module.exports = {
         let email       = req.body.email;
         let password    = req.body.password;
 
-        const user = await usuarioService.searchEmail(email);
+        const user = await usuarioService.findEmail(email)
 
         if(!user) {
             json.error = 'Usuario nao encontrado';
