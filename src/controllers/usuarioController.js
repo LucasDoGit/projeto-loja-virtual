@@ -185,7 +185,8 @@ module.exports = {
         const user = await usuarioService.findEmail(email)
 
         if(!user) {
-            json.error = 'Usuario nao encontrado';
+            json.error = 'Usuario nao encontrado'
+            return res.status(400).send(json)
         }
 
         if(!await bcrypt.compare(password, user.password)) {
