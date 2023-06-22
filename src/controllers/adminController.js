@@ -1,10 +1,10 @@
-const usuarioService = require('../services/usuarioService'); //model do usuario
+const userService = require('../services/userService'); //model do usuario
 
 module.exports = {
     findAll: async (req, res) => {
         let json = {error:'', result:[]};
 
-        const user = await usuarioService.findAll();
+        const user = await userService.findAll();
 
         if(!user) {
             json.error = 'Não exitem usuários cadastrados';
@@ -12,7 +12,6 @@ module.exports = {
 
         for(let i in user){
             json.result.push({
-                createdAt: user[i].created_at,
                 code: user[i].id_user,
                 cpf: user[i].cpf,
                 name: user[i].name,
@@ -20,6 +19,7 @@ module.exports = {
                 tel: user[i].tel,
                 email: user[i].email,
                 password: undefined,
+                createdAt: user[i].created_at,
                 updateAt: user[i].updated_at
             });
         }
