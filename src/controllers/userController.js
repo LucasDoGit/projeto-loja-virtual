@@ -1,4 +1,4 @@
-const usuarioService = require('../services/usuarioService'); //model do usuario
+const userService = require('../services/userService'); //model do usuario
 const bcrypt = require('bcrypt'); //criptografador para as senhas
 const jwt = require('jsonwebtoken'); //token para autenticacao de sessao
 const authConfig = require('../config/auth.json'); //importa o token criado
@@ -11,18 +11,33 @@ function randomNumber (max, min) {
 //token baseado no id e cpf do usuario por 1 dia
 const generateToken = (user = {}) => {
     return jwt.sign({
-        id: user.id_usuarios,
+        id: user.id_user,
         cpf: user.cpf
     } , authConfig.secret , {
         expiresIn: 86400,
     });
 }
+//exibe todas as informacoes do usuario
+const displayUser = (user = {}) => {
+    return user = {
+        code: user.id_user,
+        cpf: user.cpf,
+        name: user.name,
+        birth: user.dt_birth,
+        tel: user.tel,
+        email: user.email,
+        password: undefined,
+        createdAt: user.created_at,
+        updateAt: user.updated_at
+    }
+}
 
 module.exports = {
+    //busca todos os usuarios
     findAll: async (req, res) => {
         let json = {error:'', result:[]};
 
-        const user = await usuarioService.findAll();
+        const user = await userService.findAll();
 
         if(!user) {
             json.error = 'Não exitem usuários cadastrados';
@@ -30,7 +45,6 @@ module.exports = {
 
         for(let i in user){
             json.result.push({
-                createdAt: user[i].created_at,
                 code: user[i].id_user,
                 cpf: user[i].cpf,
                 name: user[i].name,
@@ -38,36 +52,28 @@ module.exports = {
                 tel: user[i].tel,
                 email: user[i].email,
                 password: undefined,
+                createdAt: user[i].created_at,
                 updateAt: user[i].updated_at
             });
         }
         res.json(json);
     },
-
+    //busca usuario pelo codigo
     findUser: async(req, res) => {
         let json = {error:'', result:{}};
 
         let code = req.params.code;
-        const user = await usuarioService.findUser(code);
+        const user = await userService.findUser(code);
 
         if(!user){
             json.error = 'Código não encontrado';
         } else {
-            json.result = {
-                createdAt: user.created_at,
-                cpf: user.cpf,
-                name: user.name,
-                birth: user.dt_birth,
-                tel: user.tel,
-                email: user.email,
-                password: undefined,
-                updateAt: user.updated_at
-            }
+            json.result = displayUser(user)
         }
 
         res.json(json);
     },
-
+    //registra usuario
     register: async(req, res) => {
         let json = {error:'', result:{}};
 
@@ -82,7 +88,7 @@ module.exports = {
         let email       = req.body.email;
         let password    = hashedPassword;
 
-        const findUserRegistred = await usuarioService.findUserRegistred(email, cpf);
+        const findUserRegistred = await userService.findUserRegistred(email, cpf);
         
         if(cpf && name && dt_birth && email && password){
             if(findUserRegistred) {
@@ -91,17 +97,10 @@ module.exports = {
                     message: 'Usuário já cadastrado'
                 })
             }
-            const userCode = await usuarioService.register(cpf, name, dt_birth, tel, email, password);
-            const user = await usuarioService.findUser(userCode);
+            const userCode = await userService.register(cpf, name, dt_birth, tel, email, password);
+            const user = await userService.findUser(userCode);
             json.result = {
-                createdAt: user.created_at,
-                cpf: user.cpf,
-                name: user.name,
-                birth: user.dt_birth,
-                tel: user.tel,
-                email: user.email,
-                password: undefined,
-                updateAt: user.updated_at,
+                user: displayUser(user),
                 token: generateToken(user)
             }
         } else {
@@ -110,7 +109,7 @@ module.exports = {
         
         res.json(json);
     },
-
+    //altera usuario
     alterUser: async(req, res) => {
         let json = {error:'', result:{}};
 
@@ -127,7 +126,7 @@ module.exports = {
         let email       = req.body.email;
         let password    = hashedPassword
 
-        const findUserRegistred = await usuarioService.findUserRegistred(email, cpf);
+        const findUserRegistred = await userService.findUserRegistred(email, cpf);
 
         if(cpf && name && dt_birth && email && password){
             if(findUserRegistred) {
@@ -136,53 +135,44 @@ module.exports = {
                     message: 'email ou cpf já cadastrado!'
                 })
             }
-            await usuarioService.alterUser(code, cpf, name, dt_birth, tel, email, password);
-            const user = await usuarioService.findUser(code);
-            json.result = {
-                createdAt: user.created_at,
-                cpf: user.cpf,
-                name: user.name,
-                birth: user.dt_birth,
-                tel: user.tel,
-                email: user.email,
-                password: undefined,
-                updateAt: user.updated_at,
-            }
+            await userService.alterUser(code, cpf, name, dt_birth, tel, email, password);
+            const user = await userService.findUser(code);
+            json.result = displayUser(user);
         } else {
             json.error = 'campos não enviados';
         }
 
         res.json(json);
     },
-
+    //deleta usuario
     deleteUser: async(req, res) => {
         let json = {error:'', result:{}};
         
-        await usuarioService.deleteUser(req.params.code);
+        await userService.deleteUser(req.params.code);
 
         res.json(json);
     },
-
+    //deleta todos os usuarios
     deleteAll: async (req, res) => {
         let json = {error:'', result:[]};
 
-        let usuarios = await usuarioService.deleteAll();
+        let user = await userService.deleteAll();
 
-        for(let i in usuarios){
+        for(let i in user){
             json.result.push({
-                code: usuarios[i].id_usuarios,
+                code: user[i].id_user,
             });
         }
         res.json(json);
     },
- 
+    //autentica usuario
     authenticate: async (req, res) => {
         let json = {error:'', result:[]};
 
         let email       = req.body.email;
         let password    = req.body.password;
 
-        const user = await usuarioService.findEmail(email)
+        const user = await userService.findEmail(email)
 
         if(!user) {
             json.error = 'Usuario nao encontrado'
@@ -199,7 +189,7 @@ module.exports = {
         user.password = undefined;
 
         res.json({
-            user,
+            user: displayUser(user),
             token: generateToken(user)
         });
     }
