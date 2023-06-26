@@ -853,15 +853,13 @@ footer{
 /* pagina de cadastro */
 
 section#cadastro {
-    height: 80vh;
+    min-height: 80vh;
 }
 
 div.conteudo {
     max-width: 1500px;
     width: 100%;
-    padding: 3.5rem 0;
-    margin: 0 auto;
-    margin-top: 2.5rem;
+    margin: 6rem auto;
 }
 
 div.conteudo > div {

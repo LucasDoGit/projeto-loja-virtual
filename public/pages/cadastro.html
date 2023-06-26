@@ -117,13 +117,13 @@
               <div class="row">
                 <div class="col-md-6 ">
                   <div class="form-group first ">
-                    <input type="date" class="form-control required" placeholder="Data de nascimento*" name="dt_birth" id="iddt_birth">
+                    <input type="date" class="form-control required" placeholder="Data de nascimento*" name="dt_birth" id="iddt_birth" oninput="ageValidate()">
                     <span class="span-required">Você deve ter mais de 18 anos!</span>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group first">
-                    <input type="text" class="form-control required" autocomplete="tel" placeholder="Telefone celular*" name="tel" id="idtel">
+                    <input type="text" class="form-control required" autocomplete="tel" placeholder="tel: (xx) xxxxx-xxxx" name="tel" id="idtel" oninput="telValidate()">
                     <span class="span-required">Digite um telefone válido</span>
                   </div>
                 </div>
