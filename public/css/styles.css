@@ -22,6 +22,12 @@
     scroll-behavior: smooth;
 }
 
+/**estilos globais**/
+/* estilo uppercase texto*/
+.text-upper {
+    text-transform: uppercase;
+}
+
 /* container */
 .contain { 
     max-width: 1500px;
@@ -844,7 +850,7 @@ footer{
     text-transform: uppercase;
 }
 
-/* Pagina de Cadastro */
+/* pagina de cadastro */
 
 section#cadastro {
     height: 80vh;
@@ -865,17 +871,20 @@ div.conteudo > div {
     box-shadow: rgba(40, 41, 61, 0.04) 0px 2px 4px, rgba(96, 97, 112, 0.16) 0px 8px 16px
 }
 
-/* estilo uppercase texto*/
-.text-upper {
-    text-transform: uppercase;
-}
-
 .campo-obrigatorio {
     position: absolute;
     top: 50px;
     left: 15px;
     font-size: 12px;
     opacity: 1;
+}
+
+.span-required {
+    font-size: 12px;
+    font-weight: 500;
+    margin: 3px 0 0 1px;
+    color:  #e63636;
+    display: none;
 }
 
 .textocadastro{

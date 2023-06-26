@@ -9,15 +9,18 @@ const adminController = require('./controllers/adminController');
 const authenticateMiddlewares = require('./middlewares/authenticate');
 
 //rotas publicas
-router.get('/users', userController.findAll);
-router.get('/user/:code', userController.findUser);
-router.post('/register', userController.register);
-router.put('/user/:code', userController.alterUser);
-router.delete('/user/:code', userController.deleteUser);
-router.delete('/users', userController.deleteAll);
+
+//user
+router.post('/auth/register', userController.register);
 router.post('/auth/authenticate', userController.authenticate);
 
-//rotas admin
+//rotas privadas
+
+//user
 router.get('/admin/users', authenticateMiddlewares , adminController.findAll);
+router.get('/admin/user/:code', authenticateMiddlewares , adminController.findUser);
+router.put('/admin/user/:code', authenticateMiddlewares , adminController.alterUser);
+router.delete('/admin/user/:code', authenticateMiddlewares , adminController.deleteUser);
+router.delete('/admin/users', authenticateMiddlewares , adminController.deleteAll);
 
 module.exports = router;
