@@ -17,20 +17,21 @@ const generateToken = (user = {}) => {
         expiresIn: 86400,
     });
 }
-    //exibe todas as informacoes do usuario
-    const displayUser = (user = {}) => {
-        return user = {
-            code: user.id_user,
-            cpf: user.cpf,
-            name: user.name,
-            birth: user.dt_birth,
-            tel: user.tel,
-            email: user.email,
-            password: undefined,
-            createdAt: user.created_at,
-            updateAt: user.updated_at
-        }
+
+//exibe todas as informacoes do usuario
+const displayUser = (user = {}) => {
+    return user = {
+        code: user.id_user,
+        cpf: user.cpf,
+        name: user.name,
+        birth: user.dt_birth,
+        tel: user.tel,
+        email: user.email,
+        password: undefined,
+        createdAt: user.created_at,
+        updateAt: user.updated_at
     }
+}
 
 module.exports = {
     //registra usuario

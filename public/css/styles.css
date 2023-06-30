@@ -505,6 +505,11 @@ footer{
 }
 
 /* pagina de login */
+
+section#login {
+    max-height: 80vw;
+}
+
 .login-btn-entrar {
     background-color: var(--cor3);
     border: 1px solid var(--cor3);
@@ -854,6 +859,11 @@ footer{
 
 section#cadastro {
     min-height: 80vh;
+}
+
+div.titulo-form {
+    display: flex;
+    flex-direction: column;
 }
 
 div.conteudo {

@@ -131,8 +131,18 @@ function sendAPI(name, cpf, age, tel, email, pwd) {
                 // envio bem-sucedido
                 alert("Dados enviados com sucesso!");
                 window.location.href = "http://localhost:3000/index.html";
-            } else {
+            } else if (response.status === 400) {
+                return response.json();
+            } 
+            else {
                 throw new Error("Erro ao enviar dados para o backend.");
+            }
+        })
+        .then(function(data) {
+            if (data && data.error) { // O usuário já está registrado
+                setError(1);
+                setError(4);
+                alert(data.message);
             }
         })
         .catch(function (error) {
