@@ -506,9 +506,55 @@ footer{
 
 /* pagina de login */
 
-section#login {
-    max-height: 80vw;
+section#login form {
+    margin: 0 auto;
+    width: 100%;
 }
+
+section#login div.row {
+    margin: 1rem 0;
+}
+
+a.recover-pwd {
+    display: block;
+    text-decoration: none;
+    color: black;
+    text-align: right;
+    margin-right: 5px;
+    margin-top: 5px;
+    font-size: 13px;
+    transition: .3s;
+}
+
+a.recover-pwd:hover {
+    color: var(--cor3);
+    cursor: pointer;
+}
+
+#btn-login {
+    display: block;
+    width: 400px;
+    margin: 0 auto 1.5rem auto;
+}
+
+div.login-social {
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+div.login-social .titulo{
+    display: block;
+    margin: 0 auto;
+}
+
+div.login-social .botoes {
+    text-align: center;
+}
+
+
+
+
+
 
 .login-btn-entrar {
     background-color: var(--cor3);
@@ -521,6 +567,7 @@ section#login {
     transition: 0.3;
     border: 1px solid var(--cor2);
 }
+
 
 #telaLogin{
     width: 18rem;
@@ -860,6 +907,8 @@ section#login {
 section#cadastro {
     min-height: 80vh;
 }
+
+section
 
 div.titulo-form {
     display: flex;
