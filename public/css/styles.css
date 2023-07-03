@@ -551,11 +551,7 @@ div.login-social .botoes {
     text-align: center;
 }
 
-
-
-
-
-
+/* código do bruno */
 .login-btn-entrar {
     background-color: var(--cor3);
     border: 1px solid var(--cor3);
@@ -593,6 +589,8 @@ div.login-social .botoes {
 .login-btn-social svg {
     margin-right: 10px;
 }
+
+/* fim do codigo do bruno */
 
 /* PAGINA DO PRODUTO */
 
