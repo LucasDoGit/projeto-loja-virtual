@@ -504,15 +504,43 @@ footer{
     padding: 5px 0;
 }
 
-/* pagina de login */
+/* tela de login */
 
 section#login form {
     margin: 0 auto;
     width: 100%;
 }
 
+#msgError {
+    width: 75%;
+    margin: 0 auto;
+    text-align: center;
+    color: #ff0000;
+    background-color: #ffbbbb;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+}
+
+#msgSucess {
+    width: 75%;
+    margin: 0 auto;
+    text-align: center;
+    color: #00b800;
+    background-color: rgb(152, 251, 152);
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+}
+
 section#login div.row {
     margin: 1rem 0;
+}
+
+.input-login {
+    width: 90%;
+    height: 45px;
+    margin: auto;
 }
 
 a.recover-pwd {
@@ -520,7 +548,7 @@ a.recover-pwd {
     text-decoration: none;
     color: black;
     text-align: right;
-    margin-right: 5px;
+    margin-right: 25px;
     margin-top: 5px;
     font-size: 13px;
     transition: .3s;
@@ -529,6 +557,13 @@ a.recover-pwd {
 a.recover-pwd:hover {
     color: var(--cor3);
     cursor: pointer;
+}
+
+.btn-remember {
+    display: flex;
+    justify-content: start;
+    margin-bottom: 1.5rem;
+    margin-left: 2.4rem;
 }
 
 #btn-login {
