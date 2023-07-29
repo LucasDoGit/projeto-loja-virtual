@@ -65,9 +65,8 @@ function entrar(user, pwd) {
       },
       body: loginData.toString()
     })
-      .then(async function(response) {
+      .then(function(response) {
         if (response.ok) {
-          console.log(response.json());
           return response.json();
         } else if (response.status === 400) {
             msgError.setAttribute('style', 'display: block')
@@ -83,8 +82,10 @@ function entrar(user, pwd) {
       })
       .then(function(data) {
         // Dados de autenticação válidos
+        localStorage.setItem('token', data.token); //armazena o token no localStorage
         msgError.setAttribute('style', 'display: none')
         msgSucess.setAttribute('style', 'display: block')
         msgSucess.innerHTML = 'Sucesso no login'
+        window.location.href = "http://localhost:3000/pages/meu-perfil.html";
       })
 }

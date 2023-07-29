@@ -1069,7 +1069,17 @@ div.bar-lf-acesso-rapido {
     padding: 30px; /* margem interna*/
     align-items: center;
     gap: 2rem;
-    box-shadow: rgba(40, 41, 61, 0.04) 0px 2px 4px, rgba(96, 97, 112, 0.16) 0px 8px 16px
+    box-shadow: rgba(40, 41, 61, 0.04) 0px 2px 4px, rgba(96, 97, 112, 0.16) 0px 8px 16px;
+    transition: .3s;
+}
+
+div.bar-lf-acesso-rapido svg {
+    transition: 0.3s;
+}
+
+div.bar-lf-acesso-rapido svg:hover {
+    color: var(--cor3);
+    cursor: pointer;
 }
 
 /** conteudo **/
