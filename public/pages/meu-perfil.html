@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -131,33 +131,33 @@
                         <h5>DADOS BÁSICOS</h5>
                     </div>
                     <div class="botoes">
-                        <button class="btn-primario">ALTERAR E-MAIL</button>
-                        <button class="btn-secundario">ALTERAR SENHA </button>
+                        <button class="btn-primario" onclick="alterarCampos()">ALTERAR DADOS</button>
+                        <button class="btn-secundario" onclick="alterarSenha()">ALTERAR SENHA </button>
                     </div>
                     <form class="formulario-adm" autocomplete="on" method="post">
                         <div class="nome"> 
-                            <input type="text" id="idnome" name="nome" placeholder="Nome completo" autocomplete="name"></input>
-                            <label for="idnome">Nome completo*</label>
+                            <input type="text" class="required" id="nameForm" name="name" placeholder="Nome completo" autocomplete="name"></input>
+                            <label for="nameForm">Nome completo*</label>
                         </div>
                         <div class="telefone">
-                            <input type="tel" id="idtelefone" name="telefone" placeholder="(xx) xxxxx-xxxx" autocomplete="tel"></input>
-                            <label for="idtelefone">Telefone*</label>
+                            <input type="tel" class="required" id="telForm" name="telefone" placeholder="(xx) xxxxx-xxxx" autocomplete="tel"></input>
+                            <label for="telForm">Telefone*</label>
                         </div>
                         <div class="email">
-                            <input type="email" id="idemail" name="email" placeholder="E-mail" autocomplete="email"></input>
-                            <label for="idemail">E-mail*</label>
+                            <input type="email" class="required" id="emailForm" name="email" placeholder="E-mail" autocomplete="email"></input>
+                            <label for="emailForm">E-mail*</label>
                         </div>
                         <div class="cpf"> 
-                            <input type="text"  id="idcpf" name="cpf" placeholder="CPF"></input>
-                            <label for="idcpf">CPF*</label>
+                            <input type="text" class="required" id="cpfForm" name="cpf" placeholder="CPF"></input>
+                            <label for="cpfForm">CPF*</label>
                         </div>
                         <div class="nascimento"> 
-                            <input type="date" id="idnascimento" name="nascimento" autocomplete="bday-day"></input>
-                            <label for="idnascimento">Data de Nascimento*</label>
+                            <input type="date" class="required" id="birthForm" name="nascimento" f autocomplete="bday-day"></input>
+                            <label for="birthForm">Data de Nascimento*</label>
                         </div>
                         <span>(*) Campos obrigatórios</span>
                     </form>
-                    <button class="btn-primario">SALVAR ALTERAÇÕES</button>
+                    <button class="btn-primario" onclick="carregarDados()">SALVAR ALTERAÇÕES</button>
                 </section>
                 <section class="formulario-adm">
                     <div class="titulo">

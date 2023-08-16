@@ -56,9 +56,8 @@ module.exports = {
         if(!user){
             json.error = 'Código não encontrado';
         } else {
-            json.result = displayUser(user)
+            json.result = displayUser(user);
         }
-
         res.json(json);
     },
     //altera usuario

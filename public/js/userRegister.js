@@ -111,8 +111,8 @@ function comparePassword() {
 
 function sendAPI(name, cpf, age, tel, email, pwd) {
 
-    var formData = new URLSearchParams();
-    formData.append("name", name);
+    var formData = new URLSearchParams(); //var recebe os parametros da URL
+    formData.append("name", name); //associa as varieis com mesmo nome da API
     formData.append("cpf", cpf);
     formData.append("dt_birth", age);
     formData.append("tel", tel);
@@ -130,7 +130,7 @@ function sendAPI(name, cpf, age, tel, email, pwd) {
             if (response.ok) {
                 // envio bem-sucedido
                 alert("Dados enviados com sucesso!");
-                window.location.href = "http://localhost:3000/index.html";
+                window.location.href = "http://localhost:3000/pages/login.html";
             } else if (response.status === 400) {
                 return response.json();
             } 

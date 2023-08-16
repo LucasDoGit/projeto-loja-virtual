@@ -42,13 +42,14 @@ module.exports = (req, res, next) => {
                 message:"Token inválido/expirado"
             })
         }
+        /*
         //exibe o usuario valido
-        req.userLogged = decoded;
+        req.userLogged = decoded; 
 
-        console.log(err);
-        console.log(decoded);
-        //executa proxima tarefa
-        return next();
+        console.log(err); //exibe o erro caso ocorra
+        console.log(decoded); //token decodificado
+        */
+        return next(); //executa proxima tarefa
     })
 
     

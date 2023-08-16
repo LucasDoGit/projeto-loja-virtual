@@ -12,7 +12,7 @@ function randomNumber (max, min) {
 const generateToken = (user = {}) => {
     return jwt.sign({
         id: user.id_user,
-        cpf: user.cpf
+        name: user.name
     } , authConfig.secret , {
         expiresIn: 86400,
     });
