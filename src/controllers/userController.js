@@ -88,8 +88,8 @@ module.exports = {
 
         user.password = undefined;
 
-        res.json({
-            user: displayUser(user),
+        res.status(200).json({
+            id_user: user.id_user,
             token: generateToken(user)
         });
     }
