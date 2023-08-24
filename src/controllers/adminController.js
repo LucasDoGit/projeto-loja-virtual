@@ -1,15 +1,23 @@
 const userService = require('../services/userService'); //model do usuario
 const bcrypt = require('bcrypt'); //criptografador para as senhas
+const jwt = require('jsonwebtoken');
+const authConfig = require("../config/auth.json");
 
 //numero aleatorio para gerar um hash
 function randomNumber (max, min) {
     return Math.floor(Math.random() * (min - max + 1)) + max
 }
 
+function decoder (usertoken) {
+    const token = usertoken.split(' '); // divide o token
+    const decoder = jwt.verify(token[1], authConfig.secret); // decodifica o token
+    return decoder;
+}
+
 //exibe todas as informacoes do usuario
 const displayUser = (user = {}) => {
     return user = {
-        code: user.id_user,
+        id: user.id_user,
         cpf: user.cpf,
         name: user.name,
         birth: user.dt_birth,
@@ -23,102 +31,109 @@ const displayUser = (user = {}) => {
 
 module.exports = {
     findAll: async (req, res) => {
-        let json = {error:'', result:[]};
+        let json = {users:[]};
+        const users = await userService.findAll(); // busca todos os usuarios no BD
 
-        const user = await userService.findAll();
-
-        if(!user) {
-            json.error = 'Não exitem usuários cadastrados';
+        if(!users) {
+           return res.status(401).send({message: 'Nenhum usuário encontrados'}); // retorna erro caso nao encontre
         }
-
-        for(let i in user){
-            json.result.push({
-                code: user[i].id_user,
-                cpf: user[i].cpf,
-                name: user[i].name,
-                birth: user[i].dt_birth,
-                tel: user[i].tel,
-                email: user[i].email,
+        for(let i in users){ // percorre todos os usuarios
+            json.users.push({
+                id: users[i].id_user,
+                cpf: users[i].cpf,
+                name: users[i].name,
+                birth: users[i].dt_birth,
+                tel: users[i].tel,
+                email: users[i].email,
                 password: undefined,
-                createdAt: user[i].created_at,
-                updateAt: user[i].updated_at
+                createdAt: users[i].created_at,
+                updateAt: users[i].updated_at
             });
         }
-        res.json(json);
+        return res.status(201).send(json); // retorna todos os usuarios
     },
-    //busca usuario pelo codigo
-    findUser: async(req, res) => {
-        let json = {error:'', result:{}};
+    // busca usuario pelo codigo
+    findUser: async(req, res) => { 
+        const usertoken = req.headers.authorization; // recebe o token da sessao
+        let token = decoder(usertoken) // decodifica o token
+        const user = await userService.findUser(token.id); // busca o usuario pelo ID
 
-        let code = req.params.code;
-        const user = await userService.findUser(code);
-
-        if(!user){
-            json.error = 'Código não encontrado';
-        } else {
-            json.result = displayUser(user);
+        if(!user){ // trata erro ao buscar usuario
+           return res.status(401).send({ error: true, message: 'Código não encontrado' });
         }
-        res.json(json);
+        return res.status(201).send({ user: displayUser(user) }) // exibe todas as informacoes do usuario
     },
-    //altera usuario
-    alterUser: async(req, res) => {
-        let json = {error:'', result:{}};
-
-        let code = req.params.code;
+    // altera usuario pelo codigo
+    alterUser: async(req, res) => { 
+        const usertoken = req.headers.authorization; // recebe o token da sessao
+        let token = decoder(usertoken) // decodifica o token
         let { cpf, name, dt_birth, tel, email, password } = req.body; 
 
-        //verifica se os campos foram digitados
-        if(cpf && name && dt_birth && email && password){
-            const findUserRegistred = await userService.findUserRegistred(email, cpf);
-            if(findUserRegistred) {
-                return res.status(400).send({
-                    error: true,
-                    message: 'email ou cpf já registrados!'
-                })
+        if(cpf && name && dt_birth && email && password){ //verifica se os campos foram digitados
+            const userRegistred = await userService.findUserRegistred(email, cpf);
+            if(userRegistred) { 
+                return res.status(400).send({ error: true, message: 'email ou cpf já registrados!' })    
             }
-            //cria uma hash aleatoria para a senha
-            const RandomSalt = randomNumber(10, 16);
-            const hashedPassword = await bcrypt.hash(password, RandomSalt);
-            password = hashedPassword;
-            //registra o usuario
-            await userService.alterUser(code, cpf, name, dt_birth, tel, email, password);
-            const user = await userService.findUser(code);
-            json.result = displayUser(user);
-        } else {
-            json.error = 'campos não enviados';
-        }
+            const RandomSalt = randomNumber(10, 16); // gera um numero aleatorio
+            const hashedPassword = await bcrypt.hash(password, RandomSalt); // cria uma hash aleatoria para a senha
+            password = hashedPassword; // recebe o hash da senha para salvar no BD
+            const userAlter = await userService.alterUser(token.id, cpf, name, dt_birth, tel, email, password); // registra as alteracoes do usuario
 
-        res.json(json);
+            if(!userAlter) { // trata erro ao alterar usuario
+                return res.status(400).send({ message: 'erro ao alterar usuario'});
+            }
+            const user = await userService.findUser(token.id); // busca o usuario alterado
+
+            if(!user){ // trata erro ao buscar usuario
+                return res.status(401).send({ error: true, message: 'Código não encontrado' });
+             }
+             return res.status(201).send({ user: displayUser(user) }) // exibe todas as informacoes do usuario
+        } else {
+            return res.status(400).send({ message: 'campos não enviados'}); 
+        }
+    },
+    updateUser: async (req, res) => { // usuario atualiza os proprios dados
+        const usertoken = req.headers.authorization; // recebe o token da sessao
+        let token = decoder(usertoken) // decodifica o token
+        let { cpf, name, birth, tel, email } = req.body;
+
+        if(cpf && name && birth && email){ //verifica se os campos foram digitados
+            const userRegistred = await userService.findUserRegistred(email, cpf); // busca email ou cpf já registrados
+            
+            if(userRegistred.email == email || userRegistred.cpf == cpf){ // verifica se o email ou senha sao iguais aos campos digitados, para nao duplicar no BD.
+                if(userRegistred.id_user != token.id) return res.status(400).send({message: 'email ou cpf já cadastrados'}) // Se o id do resultado for diferente, nao atualiza.
+            }
+            const updateUser = await userService.updateUser(token.id, cpf, name, birth, tel, email); // registra as atualizacoes do usuario
+
+            if(!updateUser) { // trata erro ao alterar usuario
+                return res.status(400).send({ message: 'erro ao alterar usuario'});
+            }
+            res.status(200).send({message: `dados do usuário ${token.id} alterados`})
+        } else {
+            return res.status(400).send({ message: 'campos não enviados'}); 
+        }
     },
     //deleta usuario
-    deleteUser: async(req, res) => {
-        let json = {error:'', result:{}};
-        
-        let code = (req.params.code);
+    deleteUser: async(req, res) => {        
+        let id = (req.params.code);
 
-        if (code == ':code') {
-            json.error = 'codigo não recebido'
-        } else {
-            await userService.deleteUser(req.params.code);
-            json.result = {
-                code: code,
-                message: 'codigo excluído'
-            }
+        if (id == ':code') { // verifica se foi recebido o ID
+            return res.status(401).send({ message: 'codigo não recebido' });
+        } 
+        const user = await userService.deleteUser(req.params.code); // exclui o usuario pelo ID no BD
+
+        if (!user) { // tratamento de erro ao excluir usuário
+            return res.status(401).send({ message: 'Erro ao excluir usuario' });
         }
-
-        res.json(json);
+        return res.status(200).send({message: `usuario ${id} excluído`})
     },
     //deleta todos os usuarios
     deleteAll: async (req, res) => {
-        let json = {error:'', result:[]};
+        const user = await userService.deleteAll(); // apaga todos os usuarios do BD
 
-        let user = await userService.deleteAll();
-
-        for(let i in user){
-            json.result.push({
-                code: user[i].id_user,
-            });
+        if(!user) {
+            return res.status(401).send({ error: true, message: 'nenhum usuario encontrado'});
         }
-        res.json(json);
+        return res.status(200).send({message: 'Todos os usuarios foram apagados'})
     }
 }

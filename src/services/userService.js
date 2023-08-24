@@ -43,11 +43,11 @@ module.exports = {
         });
     },
     //altera um users do banco
-    alterUser: (code, cpf, name, dt_birth, tel, email, password) => {
+    alterUser: (id, cpf, name, dt_birth, tel, email, password) => {
         return new Promise((accept, rejected)=>{
 
             db.query('UPDATE users SET cpf = ?, name = ?, dt_birth = ?, tel = ?, email = ?, password = ? WHERE id_user = ?', 
-                [cpf, name, dt_birth, tel, email, password, code], 
+                [cpf, name, dt_birth, tel, email, password, id], 
                 (error, results) => {
                     if(error) { rejected(error); return; }
                     accept(results);
@@ -100,6 +100,18 @@ module.exports = {
                     accept(false);
                 }
             });
+        });
+    },
+    updateUser: (id, cpf, name, birth, tel, email) => {
+        return new Promise((accept, rejected)=>{
+
+            db.query('UPDATE users SET cpf = ?, name = ?, dt_birth = ?, tel = ?, email = ? WHERE id_user = ?', 
+                [cpf, name, birth, tel, email, id], 
+                (error, results) => {
+                    if(error) { rejected(error); return; }
+                    accept(results);
+                }
+            );
         });
     }
 };

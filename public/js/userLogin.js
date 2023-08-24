@@ -83,7 +83,6 @@ function entrar(user, pwd) {
       .then(function(data) {
         // Dados de autenticação válidos
         localStorage.setItem('token', data.token); //armazena o token no localStorage
-        localStorage.setItem('id_user', data.id_user); //armazena o id do usuario
         msgError.setAttribute('style', 'display: none')
         msgSucess.setAttribute('style', 'display: block')
         msgSucess.innerHTML = 'Sucesso no login'

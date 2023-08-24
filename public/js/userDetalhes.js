@@ -1,3 +1,4 @@
+let token = localStorage.getItem('token');
 const nameForm = document.getElementById("nameForm");
 const telForm = document.getElementById("telForm");
 const emailForm = document.getElementById("emailForm");
@@ -5,22 +6,21 @@ const cpfForm = document.getElementById("cpfForm");
 const birthForm = document.getElementById("birthForm");
 
 document.addEventListener("DOMContentLoaded", function() { //ao carregar a pagina este codigo e executado
-    if(localStorage.getItem('id_user') == null){ //verifica se possui um id no localStorage
+    if(token == null){ //verifica se possui um id no localStorage
         throw new Error("Erro ao buscar usuário.");
     }
-
-    let a = localStorage.getItem('id_user'); //recebe o id para buscar no banco
-    let b = localStorage.getItem('token'); //recebe o token para autorizacao
-    var url = `/api/admin/user/${a}`; //requisicao do usuario pelo id
+    var url = `/api/admin/user`; //requisicao do usuario pelo id
 
     fetch(url, {
       method: "GET",
       headers: {"Content-Type": "application/x-www-form-urlencoded",
-                'Authorization': `Bearer ${b}`} //faz acesso da rota privada 
+                'Authorization': `Bearer ${token}`} //faz acesso da rota privada 
     })
     .then((res) =>{
         if(!res.ok) { //erro ao acessar a rota privada
-            throw new Error('Erro ao acessar a rota privada');
+            alert('Erro na sessao, faça login novamente!');
+            window.location.href = "http://localhost:3000/pages/login.html";
+            throw new Error('Erro ao requisitar dados do usuario');
         } 
         return res.json();
     })
@@ -28,11 +28,11 @@ document.addEventListener("DOMContentLoaded", function() { //ao carregar a pagin
         desabilitarCampos() //desabilita a edicao de todos os campos.
         
         //campos recebem os valores do usuario requisitado da API
-        nameForm.value      = data.result.name;
-        telForm.value       = data.result.tel;
-        emailForm.value     = data.result.email;
-        cpfForm.value       = data.result.cpf;
-        birthForm.value     = dateFormatter(data.result.birth); //chama funcao para converter a data para o input
+        nameForm.value      = data.user.name;
+        telForm.value       = data.user.tel;
+        emailForm.value     = data.user.email;
+        cpfForm.value       = data.user.cpf;
+        birthForm.value     = dateFormatter(data.user.birth); //chama funcao para converter a data para o input
     })
     .catch((err) => console.log(err))
 });
