@@ -98,18 +98,17 @@ module.exports = {
         let { cpf, name, birth, tel, email } = req.body;
 
         if(cpf && name && birth && email){ //verifica se os campos foram digitados
-            const userRegistred = await userService.findUserRegistred(email, cpf); // busca email ou cpf já registrados
-            
-            if(userRegistred.email == email || userRegistred.cpf == cpf){ // verifica se o email ou senha sao iguais aos campos digitados, para nao duplicar no BD.
-                if(userRegistred.id_user != token.id) return res.status(400).send({message: 'email ou cpf já cadastrados'}) // Se o id do resultado for diferente, nao atualiza.
-            }
-            const updateUser = await userService.updateUser(token.id, cpf, name, birth, tel, email); // registra as atualizacoes do usuario
+            const findUserRegistered = await userService.findUserRegistered(cpf, email, token.id);
 
+            if (findUserRegistered) return res.status(409).send({ error: true, message: 'Email ou CPF já sendo utilizados '});      
+
+            const updateUser = await userService.updateUser(name, birth, tel, token.id); // registra as atualizacoes do usuario
             if(!updateUser) { // trata erro ao alterar usuario
                 return res.status(400).send({ message: 'erro ao alterar usuario'});
             }
             res.status(200).send({message: `dados do usuário ${token.id} alterados`})
-        } else {
+            }
+        else {
             return res.status(400).send({ message: 'campos não enviados'}); 
         }
     },

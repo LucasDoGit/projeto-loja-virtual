@@ -103,14 +103,14 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group first">
-                      <input type="text" class="form-control required" autocomplete="username"  placeholder="Nome completo*" name="name" id="idname" oninput="nameValidade()">
-                      <span class="span-required">Nome deve ter no mínimo 3 caracteres</span>
+                      <input type="text" class="form-control required" autocomplete="username"  placeholder="Nome completo*" name="name" id="idname">
+                      <span class="error-message"></span>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group first">
                       <input type="text" class="form-control required" placeholder="CPF*" name="cpf" id="idcpf" oninput="cpfValidade()">
-                      <span class="span-required">Digite um CPF válido</span>
+                      <span class="error-message"></span>
                     </div>
                   </div>
                 </div>
@@ -118,13 +118,13 @@
                   <div class="col-md-6 ">
                     <div class="form-group first ">
                       <input type="date" class="form-control required" placeholder="Data de nascimento*" name="dt_birth" id="iddt_birth" oninput="ageValidate()">
-                      <span class="span-required">Você deve ter mais de 18 anos!</span>
+                      <span class="error-message"></span>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group first">
                       <input type="text" class="form-control required" autocomplete="tel" placeholder="tel: (xx) xxxxx-xxxx*" name="tel" id="idtel" oninput="telValidate()">
-                      <span class="span-required">Digite um telefone válido</span>
+                      <span class="error-message"></span>
                     </div>
                   </div>
                 </div>
@@ -132,7 +132,7 @@
                   <div class="col-md-12">
                     <div class="form-group first">
                       <input type="email" class="form-control required" autocomplete="email" placeholder="Email*" name="email" id="idemail" oninput="emailValidate()">
-                      <span class="span-required">Digite um email válido</span>
+                      <span class="error-message"></span>
                     </div>
                   </div>
                 </div>
@@ -140,13 +140,13 @@
                   <div class="col-md-6">
                     <div class="form-group first">
                       <input type="password" class="form-control required" placeholder="Crie sua senha*" name="password" id="idpassword" oninput="mainPasswordValidade()">
-                      <span class="span-required">Digite uma senha válida</span>
+                      <span class="error-message"></span>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group first">
                       <input type="password" class="form-control required" placeholder="Confirme sua senha*" name="password2" id="idpassword2" oninput="comparePassword()">
-                      <span class="span-required">Senhas não são compatíveis</span>
+                      <span class="error-message"></span>
                     </div>
                   </div>
                 </div>

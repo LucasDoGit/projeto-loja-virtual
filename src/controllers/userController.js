@@ -22,9 +22,9 @@ module.exports = {
         let { cpf, name, dt_birth, tel, email, password } = req.body; // recebe as informacoes do usuario do body
         
         if(cpf && name && dt_birth && email && password){ // verifica se os campos foram digitados
-            const findUserRegistred = await userService.findUserRegistred(email, cpf); // busca os usuario cadastrados pelo email e CPF
+            const usersRegistered = await userService.usersRegistered(email, cpf); // busca os usuario cadastrados pelo email e CPF
             
-            if(findUserRegistred) { // caso usuario esteja cadastrado retorna erro
+            if(usersRegistered) { // caso usuario esteja cadastrado retorna erro
                 return res.status(400).send({ error: true, message: 'Usuário já cadastrado' })
             }
             const RandomSalt = randomNumber(10, 16); // gera um numero aleatorio entre 10 e 16

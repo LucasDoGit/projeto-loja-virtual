@@ -511,7 +511,7 @@ section#login form {
     width: 100%;
 }
 
-#msgError {
+#msgError, .msgError {
     width: 75%;
     margin: 0 auto;
     text-align: center;
@@ -522,7 +522,7 @@ section#login form {
     display: none;
 }
 
-#msgSucess {
+#msgSucess, .msgSucess {
     width: 75%;
     margin: 0 auto;
     text-align: center;
@@ -935,13 +935,24 @@ div.login-social .botoes {
     text-transform: uppercase;
 }
 
+/* formularios de cadastrado - usuario */
+
+.campoInvalido {
+    border: 2px solid #e63636;
+}
+
+#form-atualizar-usuario .error-message {
+    font-size: 12px;
+    font-weight: 500;
+    margin: 3px 0 0 1px;
+    color:  #e63636;
+}
+
 /* pagina de cadastro */
 
 section#cadastro {
     min-height: 80vh;
 }
-
-section
 
 div.titulo-form {
     display: flex;
@@ -1234,6 +1245,7 @@ div.inf-perfil form.formulario-adm > div {
 div.inf-perfil form div > label { /* label titulo nas bordas dos input's */
     color: var(--cor4);
     position: absolute;
+    box-sizing: border-box;
     pointer-events: none;
     top: -14%;
     left: 3%;
@@ -1244,6 +1256,26 @@ div.inf-perfil form div > label { /* label titulo nas bordas dos input's */
 div.inf-perfil section > button {
     display: block;
     width: 50%;
+    margin: 1rem auto;
+}
+
+#msgSpan {
+    width: 50%;
+    margin: 1rem auto;
+}
+
+#alterarUsuario, #alterarSenha {
+    display: none;
+}
+
+.nova-senha {
+    display: none;
+    width: 45%;
+}
+
+#form-atualizar-usuario .btn-primario, #form-atualizar-usuario .btn-secundario {
+    display: block;
+    width: 40%;
     margin: 1rem auto;
 }
 
@@ -1758,10 +1790,6 @@ div.tipo-pagamento select .btn-secundario{
     height: 6.75rem;
     border-radius: 0.25rem;
 }
-
-/* COMEÇO PESQUISA PRODUTO */
-
-
 
 
 /* MEDIA QUERY */

@@ -6,14 +6,15 @@
 - Bruno Henrique Naiser Hernandes
 
 ## Orientador do curso
-- Luiz Fernando Corcini
+- Rodrigo Gomes Lemos
 
 ### Linguagens, Framework e Banco de dados
 - HTML5
 - CSS3
 - Bootstrap 5
 - Java Script
-- Node.js (Express, Cors, dotenv, body-parsev)
+- Node.js
+    - Express, Cors, dotenv, body-parsev, mysql2, bcrypt, jsonwebtoken;
 - MySQL
 
 ### Ambiente de desenvolvimento
@@ -21,3 +22,12 @@
 - GitHub Desktop - Version 3.2.3
 - MySQL Workbech Comumnity - Version 8.0.33
 - Node.js - Version 18.16.0
+
+## **IMPORTANTE:** para iniciar o site, é necessário seguir os passos abaixo:
+1. Definir as configurações do BD no arquivo "variaveis-g.env"; 
+2. Abrir o diretorio do site com o _**Prompt de Comando**_;
+    > Exemplo: **CD X:\Workspace\projeto-loja-virtual**
+3. executar `` npm install `` (baixa as dependências);
+4. executar `` npm start `` (executar o projeto);
+5. Abrir em localhost com a porta definida;
+    > `` http://localhost:3000 ``

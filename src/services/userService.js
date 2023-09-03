@@ -75,8 +75,22 @@ module.exports = {
             });
         });
     },
-    //encontra usuario cadastrado
-    findUserRegistred: (email, cpf) => {
+    // busca usuarios com CPF e Email diferentes do ID informado
+    findUserRegistered: (email, cpf, id) => {
+        return new Promise((accept, rejected)=>{
+
+            db.query('SELECT id_user FROM users WHERE (email = ? OR cpf = ?) AND id_user = ?', [email, cpf, id], (error, results) => {
+                if(error) { rejected(error); return; }
+                if(results.length > 0){
+                    accept(results[0]);
+                } else {
+                    accept(false);
+                }
+            });
+        });
+    },
+    // encontra em todos os usuario cadastrado o CPF ou EMAIL informado
+    usersRegistered: (email, cpf) => {
         return new Promise((accept, rejected)=>{
 
             db.query('SELECT * FROM users WHERE email = ? OR cpf = ?', [email, cpf], (error, results) => {
@@ -89,6 +103,7 @@ module.exports = {
             });
         });
     },
+    // busca usuario pelo email
     findEmail: (email) => {
         return new Promise((accept, rejected)=>{
 
@@ -102,11 +117,12 @@ module.exports = {
             });
         });
     },
-    updateUser: (id, cpf, name, birth, tel, email) => {
+    // atualiza somente os dados básicos do usuário 
+    updateUser: (name, birth, tel, id) => {
         return new Promise((accept, rejected)=>{
 
-            db.query('UPDATE users SET cpf = ?, name = ?, dt_birth = ?, tel = ?, email = ? WHERE id_user = ?', 
-                [cpf, name, birth, tel, email, id], 
+            db.query('UPDATE users SET name = ?, dt_birth = ?, tel = ? WHERE id_user = ?', 
+                [name, birth, tel, id], 
                 (error, results) => {
                     if(error) { rejected(error); return; }
                     accept(results);

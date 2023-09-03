@@ -130,34 +130,51 @@
                         </div>
                         <h5>DADOS BÁSICOS</h5>
                     </div>
+                    <span id="msgSpan" class="msgError msgSucess"></span>
                     <div class="botoes">
                         <button class="btn-primario" onclick="alterarCampos()">ALTERAR DADOS</button>
-                        <button class="btn-secundario" onclick="alterarSenha()">ALTERAR SENHA </button>
+                        <button class="btn-secundario" onclick="alterarSenha()">ALTERAR SENHA</button>
                     </div>
-                    <form class="formulario-adm" autocomplete="on" method="post">
-                        <div class="nome"> 
-                            <input type="text" class="required" id="nameForm" name="name" placeholder="Nome completo" autocomplete="name"></input>
-                            <label for="nameForm">Nome completo*</label>
+                    <form class="formulario-adm" id="form-atualizar-usuario" autocomplete="on">
+                        <div id="nome">
+                            <label for="name">Nome completo*</label>
+                            <input type="text" class="user-required campoInvalido" id="idname" name="name" placeholder="Nome completo" autocomplete="name"></input>
+                            <span class="error-message"></span>
                         </div>
                         <div class="telefone">
-                            <input type="tel" class="required" id="telForm" name="telefone" placeholder="(xx) xxxxx-xxxx" autocomplete="tel"></input>
-                            <label for="telForm">Telefone*</label>
+                            <label for="idtel">Telefone*</label>
+                            <input type="tel" class="user-required campoInvalido" id="idtel" name="telefone" placeholder="(xx) xxxxx-xxxx" autocomplete="tel"></input>
+                            <span class="error-message"></span>
                         </div>
                         <div class="email">
-                            <input type="email" class="required" id="emailForm" name="email" placeholder="E-mail" autocomplete="email"></input>
-                            <label for="emailForm">E-mail*</label>
+                            <label for="idemail">E-mail*</label>
+                            <input type="email" class="user-required campoInvalido" id="idemail" name="email" placeholder="E-mail" autocomplete="email"></input>
+                            <span class="error-message"></span>
                         </div>
                         <div class="cpf"> 
-                            <input type="text" class="required" id="cpfForm" name="cpf" placeholder="CPF"></input>
-                            <label for="cpfForm">CPF*</label>
+                            <label for="idcpf">CPF*</label>
+                            <input type="text" class="user-required campoInvalido" id="idcpf" name="cpf" placeholder="CPF"></input>
+                            <span class="error-message"></span>
                         </div>
                         <div class="nascimento"> 
-                            <input type="date" class="required" id="birthForm" name="nascimento" f autocomplete="bday-day"></input>
-                            <label for="birthForm">Data de Nascimento*</label>
+                            <label for="idbirthdate">Data de Nascimento*</label>
+                            <input type="date" class="user-required campoInvalido" id="idbirthdate" name="nascimento" f autocomplete="bday-day"></input>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="nova-senha"> 
+                            <label for="idpwd">Nova senha*</label>
+                            <input type="password" class="user-required campoInvalido" id="idpwd" name="password" placeholder="Nova senha"></input>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="nova-senha"> 
+                            <label for="idpdw2">Confirmar nova senha*</label>
+                            <input type="password" class="user-required campoInvalido" id="idpwd2" name="password2" placeholder="Confirmar nova senha"></input>
+                            <span class="error-message"></span>
                         </div>
                         <span>(*) Campos obrigatórios</span>
+                        <button class="btn-primario" id="alterarUsuario">SALVAR ALTERAÇÕES</button>
+                        <button class="btn-secundario" id="alterarSenha">ATUALIZAR SENHA</button>
                     </form>
-                    <button class="btn-primario" onclick="carregarDados()">SALVAR ALTERAÇÕES</button>
                 </section>
                 <section class="formulario-adm">
                     <div class="titulo">
@@ -335,7 +352,8 @@
     </footer>
     <script src="../js/main.js"></script>
     <script src="../js/userLogout.js"></script>
-    <script src="../js/userDetalhes.js"></script>
+    <script src="../js/user/regexUser.js"></script>
+    <script src="../js/meu-perfil.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>

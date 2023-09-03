@@ -1,11 +1,12 @@
-const form = document.getElementById('form-register');
+const formRegister = document.getElementById('form-register');
 const campos = document.querySelectorAll('.required');
 const spans = document.querySelectorAll('.span-required');
+const nameRegex = /^(?![ ])(?!.*[ ]{2})((?:e|da|do|das|dos|de|d'|D'|la|las|el|los)\s*?|(?:[A-Z][^\s]*\s*?)(?!.*[ ]$))+$/; // Nome com letras e espacos 
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 const cpfRegex = /^[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}/;
 const telRegex = /^(1[1-9]|[4689][0-9]|2[12478]|3([1-5]|[7-8])|5([13-5])|7[193-7])9[0-9]{8}$/;
 
-form.addEventListener('submit', (event) => {
+formRegister.addEventListener('submit', (event) => {
     event.preventDefault();
 
     var name = document.getElementById("idname").value;
@@ -30,27 +31,29 @@ form.addEventListener('submit', (event) => {
     }
 });
 
-function setError(index) {
-    campos[index].style.border = '2px solid #e63636'
-    spans[index].style.display = 'block'
+function setError(input, errorMessage) {
+    campos[input].style.border = '2px solid #e63636'
+    input.nextElementSibling.textContent = errorMessage;
     document.getElementById("btn-submit").disabled = true;
     document.getElementById("btn-submit").style.opacity = '50%'
 }
 
-function removeError(index) {
-    campos[index].style.border = ''
-    spans[index].style.display = 'none';
+function removeError(input) {
+    campos[input].style.border = ''
+    spans[input].style.display = 'none';
     document.getElementById("btn-submit").disabled = false;
     document.getElementById("btn-submit").style.opacity = '100%'
 }
 
-function nameValidade() {
-    if (campos[0].value.length < 3) {
-        setError(0);
+document.getElementById("idname").addEventListener('input', function nameValidade() {
+    const value = campos[0].value.trim()
+    if (!nameRegex.test(value)) {
+        setError(0, 'digite um nome válido');
     } else {
-        removeError(0);
+        removeError(0, '');
     }
-}
+})
+
 
 function cpfValidade() {
     if (!cpfRegex.test(campos[1].value)) {
@@ -119,7 +122,7 @@ function sendAPI(name, cpf, age, tel, email, pwd) {
     formData.append("email", email);
     formData.append("password", pwd);
 
-    fetch("http://localhost:3000/api/auth/register", {
+    fetch("/api/auth/register", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -130,7 +133,7 @@ function sendAPI(name, cpf, age, tel, email, pwd) {
             if (response.ok) {
                 // envio bem-sucedido
                 alert("Dados enviados com sucesso!");
-                window.location.href = "http://localhost:3000/pages/login.html";
+                window.location.href = "/pages/login.html";
             } else if (response.status === 400) {
                 return response.json();
             } 
