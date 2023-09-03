@@ -2,9 +2,9 @@
   "name": "projeto-loja-virtual",
   "version": "1.0.0",
   "description": "Loja virtual desenvolvida em HTML, CSS, JS e Bootstrap como projeto final de bacharel em sistemas de informações.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon ./src/server.js",
+    "start": "nodemon ./back/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
