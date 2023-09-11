@@ -101,15 +101,16 @@
                   <p class="mb-4 text-center">Insira seus dados abaixo.</p>
                 </div>
                 <div class="row">
+                  <span id="data-message"></span>
                   <div class="col-md-6">
                     <div class="form-group first">
-                      <input type="text" class="form-control required" autocomplete="username"  placeholder="Nome completo*" name="name" id="idname">
+                      <input type="text" class="form-control required" placeholder="Nome Completo*" name="cpf" id="idname">
                       <span class="error-message"></span>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group first">
-                      <input type="text" class="form-control required" placeholder="CPF*" name="cpf" id="idcpf" oninput="cpfValidade()">
+                      <input type="text" class="form-control required" placeholder="CPF*" name="cpf" id="idcpf">
                       <span class="error-message"></span>
                     </div>
                   </div>
@@ -117,13 +118,13 @@
                 <div class="row">
                   <div class="col-md-6 ">
                     <div class="form-group first ">
-                      <input type="date" class="form-control required" placeholder="Data de nascimento*" name="dt_birth" id="iddt_birth" oninput="ageValidate()">
+                      <input type="date" class="form-control required" placeholder="Data de nascimento*" name="dt_birth" id="idbirthdate">
                       <span class="error-message"></span>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group first">
-                      <input type="text" class="form-control required" autocomplete="tel" placeholder="tel: (xx) xxxxx-xxxx*" name="tel" id="idtel" oninput="telValidate()">
+                      <input type="text" class="form-control required" autocomplete="tel" placeholder="tel: (xx) xxxxx-xxxx*" name="tel" id="idtel">
                       <span class="error-message"></span>
                     </div>
                   </div>
@@ -131,7 +132,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group first">
-                      <input type="email" class="form-control required" autocomplete="email" placeholder="Email*" name="email" id="idemail" oninput="emailValidate()">
+                      <input type="email" class="form-control required" autocomplete="email" placeholder="Email*" name="email" id="idemail">
                       <span class="error-message"></span>
                     </div>
                   </div>
@@ -139,19 +140,19 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group first">
-                      <input type="password" class="form-control required" placeholder="Crie sua senha*" name="password" id="idpassword" oninput="mainPasswordValidade()">
+                      <input type="password" class="form-control required" placeholder="Crie sua senha*" name="password" id="idpwd">
                       <span class="error-message"></span>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group first">
-                      <input type="password" class="form-control required" placeholder="Confirme sua senha*" name="password2" id="idpassword2" oninput="comparePassword()">
+                      <input type="password" class="form-control required" placeholder="Confirme sua senha*" name="password2" id="idpwd2">
                       <span class="error-message"></span>
                     </div>
                   </div>
                 </div>
                 <div class="d-flex txt-importante">
-                  <a>(*)Campos Obrigatórios!</a>
+                  <span class="campo-obrigatorio">(*)Campos Obrigatórios!</span>
                 </div>
                 <div class="d-flex mb-5 mt-4 align-items-left">
                     <div class="d-flex align-items-left">
@@ -162,7 +163,7 @@
                     </div>
                   </div>
                   <div class="d-flex justify-content-center mb-2">
-                    <button id="btn-submit" type="submit" class="btn-primario w-75">Cadastrar</button>
+                    <button type="submit" class="btn-primario w-75">Cadastrar</button>
                   </div>
                   <h6 class="text-center txt-importante">Ja possui cadastro? <A><a href="login.html">ACESSAR </A></h6>
               </form>
@@ -311,7 +312,7 @@
     <p>Site desenvolvido por @Mondie</p>
   </div>
   </footer>
-  <script src="../js/userRegister.js"></script>
+  <script type="module" src="../js/user/userRegister.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
     crossorigin="anonymous"></script>

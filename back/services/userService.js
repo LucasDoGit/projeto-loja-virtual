@@ -118,16 +118,26 @@ module.exports = {
         });
     },
     // atualiza somente os dados básicos do usuário 
-    updateUser: (name, birth, tel, id) => {
+    updateUser: (name, birthdate, tel, id) => {
         return new Promise((accept, rejected)=>{
 
             db.query('UPDATE users SET name = ?, dt_birth = ?, tel = ? WHERE id_user = ?', 
-                [name, birth, tel, id], 
+                [name, birthdate, tel, id], 
                 (error, results) => {
                     if(error) { rejected(error); return; }
                     accept(results);
                 }
             );
         });
-    }
+    },
+    updateUserPwd: (password, id) => {
+        return new Promise((accept, rejected)=>{
+
+            db.query('UPDATE users SET password = ? WHERE id_user = ?', [password, id], (error, results) => {
+                if(error) { rejected(error); return; }
+                accept(results);
+                }
+            );
+        });
+    },
 };

@@ -504,37 +504,43 @@ footer{
     padding: 5px 0;
 }
 
-/* tela de login */
+/* mensagens de alerta */
 
-section#login form {
-    margin: 0 auto;
-    width: 100%;
+.msgAlert {
+    width: 75%;
+    margin: 0px auto 1rem auto;
+    text-align: center;
+    color: #ffa200;
+    background-color: #ffd48a;
+    padding: 10px;
+    border-radius: 5px;
 }
 
-#msgError, .msgError {
+.msgError {
     width: 75%;
-    margin: 0 auto;
+    margin: 0px auto 1rem auto;
     text-align: center;
     color: #ff0000;
     background-color: #ffbbbb;
     padding: 10px;
     border-radius: 5px;
-    display: none;
 }
 
-#msgSucess, .msgSucess {
+.msgSucess {
     width: 75%;
-    margin: 0 auto;
+    margin: 0px auto 1rem auto;
     text-align: center;
     color: #00b800;
     background-color: rgb(152, 251, 152);
     padding: 10px;
-    border-radius: 5px;
-    display: none;
+    border-radius: 3px;
 }
 
-section#login div.row {
-    margin: 1rem 0;
+/* tela de login */
+
+section#login form {
+    margin: 0 auto;
+    width: 100%;
 }
 
 .input-login {
@@ -552,6 +558,10 @@ a.recover-pwd {
     margin-top: 5px;
     font-size: 13px;
     transition: .3s;
+}
+
+#form-sigin span.error-message {
+    margin-left: 1.6rem;
 }
 
 a.recover-pwd:hover {
@@ -937,18 +947,12 @@ div.login-social .botoes {
 
 /* formularios de cadastrado - usuario */
 
-.campoInvalido {
-    border: 2px solid #e63636;
+button.error-button {
+    opacity: 50%;
+    color: #e63636;
 }
 
-#form-atualizar-usuario .error-message {
-    font-size: 12px;
-    font-weight: 500;
-    margin: 3px 0 0 1px;
-    color:  #e63636;
-}
-
-/* pagina de cadastro */
+/* tela de cadastro */
 
 section#cadastro {
     min-height: 80vh;
@@ -972,14 +976,6 @@ div.conteudo > div {
     box-shadow: rgba(40, 41, 61, 0.04) 0px 2px 4px, rgba(96, 97, 112, 0.16) 0px 8px 16px
 }
 
-.campo-obrigatorio {
-    position: absolute;
-    top: 50px;
-    left: 15px;
-    font-size: 12px;
-    opacity: 1;
-}
-
 .span-required {
     font-size: 12px;
     font-weight: 500;
@@ -999,12 +995,14 @@ div.conteudo > div {
     padding-top: 10px;
 }
 
-.rowcad, .col-md-6, .col-md-12 {
-    margin-bottom: 10px;
-}
-
 .txt-importante{
     font-size: 0.8rem;
+}
+
+span.msgObrigatorio {
+    font-size: 11px;
+    font-weight: 500;
+    margin-left: 1.7rem;
 }
 
 /* Tela de confirmar metodo de endereço */
@@ -1152,7 +1150,7 @@ form.formulario-adm > div { /* espaço entre os input's */
     position: relative;
 }
 
-form.formulario-adm input { /* estilo input */
+input.input-form { /* estilo input */
     font-size: 0.95rem;
     line-height: 2rem;
     border: 1px solid var(--cor4);
@@ -1161,18 +1159,24 @@ form.formulario-adm input { /* estilo input */
     padding: 0.3rem 1rem;
 }
 
-form.formulario-adm input::placeholder { /* fonte nos inputs */
+input.input-form::placeholder { /* fonte nos inputs */
     font-size: 14px;
     font-style: italic;
 }
 
-form.formulario-adm input:focus {
+input.input-form:focus {
     outline: 0;
 }
 
-form.formulario-adm span {
-    font-size: 0.625rem;
-    margin-left: 1.5rem;
+input.invalid {
+    border: 3px solid #e63636;
+}
+
+span.error-message {
+    font-size: 12px;
+    font-weight: 500;
+    margin: 3px 0 0 1px;
+    color:  #e63636;
 }
 
 /** estilo icones svg **/
@@ -1221,12 +1225,12 @@ button.btn-secundario:hover {
 
 /* pagina Meu Perfil */
 
-div.inf-perfil { /* posicionamento e espaço entre as sections */
+div.inf-perfil { /* posicionamento e espaço entre as sections user e endereco */
     display: flex;
     gap: 2rem;
 }
 
-div.inf-perfil section .botoes { /* botoes alterar informacoes */
+div.inf-perfil section .botoes { /* div dos botoes alterar informacoes */
     display: flex;
     justify-content: center;
     gap: 7px;
@@ -1237,7 +1241,7 @@ div.inf-perfil section .botoes button { /* botoes alterar informacoes */
     margin-bottom: 1.5rem;
 }
 
-div.inf-perfil form.formulario-adm > div {
+div.inf-perfil form.formulario-adm > div { 
     margin: 0.8rem 1.5rem;
     padding: 2px;
 }
@@ -1259,24 +1263,27 @@ div.inf-perfil section > button {
     margin: 1rem auto;
 }
 
-#msgSpan {
-    width: 50%;
-    margin: 1rem auto;
-}
+/* form update user / pwd */
 
-#alterarUsuario, #alterarSenha {
+/* botoes submit */
+form#form-update-user button, form#form-update-pwd button { 
     display: none;
-}
-
-.nova-senha {
-    display: none;
-    width: 45%;
-}
-
-#form-atualizar-usuario .btn-primario, #form-atualizar-usuario .btn-secundario {
-    display: block;
     width: 40%;
     margin: 1rem auto;
+}
+
+span.data-message-user{
+    display: block;
+    width: 400px;
+    margin: 1rem auto;
+}
+
+form#form-update-pwd {
+    display: none;
+}
+
+div.update-pwd {
+    width: 45%;
 }
 
 div.contain-input { /* dois inputs na mesma linha */

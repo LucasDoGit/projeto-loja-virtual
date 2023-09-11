@@ -5,6 +5,5 @@ if(localStorage.getItem('token') == null) {
 
 function sair() {
     localStorage.removeItem('token')
-    localStorage.removeItem('id_user')
     window.location.href = "http://localhost:3000/pages/login.html";
 }

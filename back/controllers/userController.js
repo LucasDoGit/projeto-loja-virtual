@@ -19,9 +19,9 @@ const generateToken = (user = {}) => { // token baseado no id e nome do usuario 
 module.exports = {
     // registra usuario no BD
     register: async(req, res) => {
-        let { cpf, name, dt_birth, tel, email, password } = req.body; // recebe as informacoes do usuario do body
+        let { cpf, name, birthdate, tel, email, password } = req.body; // recebe as informacoes do usuario do body
         
-        if(cpf && name && dt_birth && email && password){ // verifica se os campos foram digitados
+        if(cpf && name && birthdate && email && password){ // verifica se os campos foram digitados
             const usersRegistered = await userService.usersRegistered(email, cpf); // busca os usuario cadastrados pelo email e CPF
             
             if(usersRegistered) { // caso usuario esteja cadastrado retorna erro
@@ -31,14 +31,14 @@ module.exports = {
             const hashedPassword = await bcrypt.hash(password, RandomSalt); //cria um hash da senha digitada pelo usuario
             password = hashedPassword; // senha é criptografada para salvar no banco
             
-            const user = await userService.register(cpf, name, dt_birth, tel, email, password); // faz o registro do usuario no BD
+            const user = await userService.register(cpf, name, birthdate, tel, email, password); // faz o registro do usuario no BD
 
             if(!user) { // trata erro ao cadastrar usuario
                 return res.status(400).send({ error: true, message: 'erro ao cadastrar usuario' });
             }
             return res.status(200).send({ message: 'usuario cadastrado' });
         } else { // campos nao sao validos
-           return res.status(400).send({ error: true, message: 'campos não enviados' });
+           return res.status(400).send({ error: true, message: 'preencha todos os campos' });
         }
     },
     // autentica usuario
@@ -51,7 +51,7 @@ module.exports = {
         }
         
         if(!await bcrypt.compare(password, user.password)) { // compara a senha digitada com a senha do usuario
-            return res.status(400).send({ error: true, message: 'senha inválida' })
+            return res.status(400).send({ error: true, message: 'Verifique os dados digitados' })
         }
         return res.status(200).json({token: generateToken(user)}); // gera um token para sessao do usuario
     },

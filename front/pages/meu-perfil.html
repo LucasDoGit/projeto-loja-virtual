@@ -118,6 +118,7 @@
                 </div>
                 <h3>MEUS DADOS</h3>
             </div>
+            <span id="data-message" class="data-message-user"></span>
             <div class="inf-perfil">
                 <section class="formulario-adm">
                     <div class="titulo">
@@ -130,50 +131,51 @@
                         </div>
                         <h5>DADOS BÁSICOS</h5>
                     </div>
-                    <span id="msgSpan" class="msgError msgSucess"></span>
                     <div class="botoes">
-                        <button class="btn-primario" onclick="alterarCampos()">ALTERAR DADOS</button>
-                        <button class="btn-secundario" onclick="alterarSenha()">ALTERAR SENHA</button>
+                        <button class="btn-primario" id="update-user">ALTERAR DADOS</button>
+                        <button class="btn-secundario" id="update-user-pwd">ALTERAR SENHA</button>
                     </div>
-                    <form class="formulario-adm" id="form-atualizar-usuario" autocomplete="on">
+                    <form class="formulario-adm" id="form-update-user" autocomplete="on">
                         <div id="nome">
                             <label for="name">Nome completo*</label>
-                            <input type="text" class="user-required campoInvalido" id="idname" name="name" placeholder="Nome completo" autocomplete="name"></input>
+                            <input type="text" class="input-form" id="idname" name="name" placeholder="Nome completo" autocomplete="name"></input>
                             <span class="error-message"></span>
                         </div>
                         <div class="telefone">
                             <label for="idtel">Telefone*</label>
-                            <input type="tel" class="user-required campoInvalido" id="idtel" name="telefone" placeholder="(xx) xxxxx-xxxx" autocomplete="tel"></input>
+                            <input type="tel" class="input-form" id="idtel" name="telefone" placeholder="(xx) xxxxx-xxxx" autocomplete="tel"></input>
                             <span class="error-message"></span>
                         </div>
                         <div class="email">
                             <label for="idemail">E-mail*</label>
-                            <input type="email" class="user-required campoInvalido" id="idemail" name="email" placeholder="E-mail" autocomplete="email"></input>
+                            <input type="email" class="input-form" id="idemail" name="email" placeholder="E-mail" autocomplete="email"></input>
                             <span class="error-message"></span>
                         </div>
                         <div class="cpf"> 
                             <label for="idcpf">CPF*</label>
-                            <input type="text" class="user-required campoInvalido" id="idcpf" name="cpf" placeholder="CPF"></input>
+                            <input type="text" class="input-form" id="idcpf" name="cpf" placeholder="CPF"></input>
                             <span class="error-message"></span>
                         </div>
                         <div class="nascimento"> 
                             <label for="idbirthdate">Data de Nascimento*</label>
-                            <input type="date" class="user-required campoInvalido" id="idbirthdate" name="nascimento" f autocomplete="bday-day"></input>
+                            <input type="date" class="input-form" id="idbirthdate" name="nascimento" f autocomplete="bday-day"></input>
                             <span class="error-message"></span>
                         </div>
-                        <div class="nova-senha"> 
+                        <span class="msgObrigatorio">(*) Campos obrigatórios</span>
+                        <button type="submit" class="btn-primario" id="submit-user">SALVAR ALTERAÇÕES</button>
+                    </form>
+                    <form id="form-update-pwd" class="formulario-adm">
+                        <div class="update-pwd"> 
                             <label for="idpwd">Nova senha*</label>
-                            <input type="password" class="user-required campoInvalido" id="idpwd" name="password" placeholder="Nova senha"></input>
+                            <input type="password" class="input-form" id="idpwd" name="password" placeholder="Nova senha"></input>
                             <span class="error-message"></span>
                         </div>
-                        <div class="nova-senha"> 
+                        <div class="update-pwd">
                             <label for="idpdw2">Confirmar nova senha*</label>
-                            <input type="password" class="user-required campoInvalido" id="idpwd2" name="password2" placeholder="Confirmar nova senha"></input>
+                            <input type="password" class="input-form" id="idpwd2" name="password2" placeholder="Confirmar nova senha"></input>
                             <span class="error-message"></span>
                         </div>
-                        <span>(*) Campos obrigatórios</span>
-                        <button class="btn-primario" id="alterarUsuario">SALVAR ALTERAÇÕES</button>
-                        <button class="btn-secundario" id="alterarSenha">ATUALIZAR SENHA</button>
+                        <button type="submit" class="btn-secundario" id="submit-pwd">ATUALIZAR SENHA</button>
                     </form>
                 </section>
                 <section class="formulario-adm">
@@ -187,44 +189,44 @@
                     </div>
                     <form class="formulario-adm">
                         <div class="identificacao">
-                            <input type="text" id="ididentificacao" name="identificacao" placeholder="Indetificação do endereço" autocomplete="postal-code"></input>
+                            <input type="text" class="input-form" id="ididentificacao" name="identificacao" placeholder="Indetificação do endereço" autocomplete="postal-code"></input>
                             <label for="ididentificacao">Identificacao*</label>
                         </div>
                         <div class="cep"> 
-                            <input type="text" id="idcep" name="cep" placeholder="CEP" autocomplete="postal-code"></input>
+                            <input type="text" class="input-form" id="idcep" name="cep" placeholder="CEP" autocomplete="postal-code"></input>
                             <label for="idcep">CEP*</label>
                         </div>
                         <div class="endereco">
-                            <input type="text" id="idendereco" name="endereco" placeholder="Rua..." autocomplete="street-address"></input>
+                            <input type="text" class="input-form" id="idendereco" name="endereco" placeholder="Rua..." autocomplete="street-address"></input>
                             <label for="idendereco">Endereco*</label>
                         </div>
                         <div class="contain-input">
                             <div class="numero">
-                                <input type="text" id="idnumerocasa" name="numerocasa" placeholder="Número casa"></input>
+                                <input type="text" class="input-form" id="idnumerocasa" name="numerocasa" placeholder="Número casa"></input>
                                 <label for="idnumerocasa">Numero*</label>
                             </div>
                             <div class="complemento">
-                                <input type="text" id="idcomplemento" name="complemento" placeholder="Casa, apartamento ou outros"></input>
+                                <input type="text" class="input-form" id="idcomplemento" name="complemento" placeholder="Casa, apartamento ou outros"></input>
                                 <label for="idcomplemento">Complemento</label>
                             </div>
                         </div>
                         <div class="referencia"> 
-                            <input type="text" id="idreferencia" name="referencia" placeholder="Pontos de referência"></input>
+                            <input type="text" class="input-form" id="idreferencia" name="referencia" placeholder="Pontos de referência"></input>
                             <label for="idreferencia">Referência</label>
                         </div>
                         <div class="bairro"> 
-                            <input type="text" id="idbairro" name="bairro" placeholder="Bairro"></input>
+                            <input type="text" class="input-form" id="idbairro" name="bairro" placeholder="Bairro"></input>
                             <label for="idbairro">Bairro*</label>
                         </div>
                         <div class="cidade"> 
-                            <input type="text" id="idcidade" name="cidade" placeholder="Cidade"></input>
+                            <input type="text" class="input-form" id="idcidade" name="cidade" placeholder="Cidade"></input>
                             <label for="idcidade">Cidade*</label>
                         </div>
                         <div class="estado"> 
-                            <input type="text" id="idestado" name="estado" placeholder="Unidade Federativa"></input>
+                            <input type="text" class="input-form" id="idestado" name="estado" placeholder="Unidade Federativa"></input>
                             <label for="idestado">Estado*</label>
                         </div>
-                        <span>(*) Campos obrigatórios</span>
+                        <span class="msgObrigatorio">(*) Campos obrigatórios</span>
                     </form>
                     <button class="btn-primario">SALVAR ALTERAÇÕES</button>
                 </section>
@@ -351,9 +353,8 @@
         </div>
     </footer>
     <script src="../js/main.js"></script>
-    <script src="../js/userLogout.js"></script>
-    <script src="../js/user/regexUser.js"></script>
-    <script src="../js/meu-perfil.js"></script>
+    <script src="../js/user/userLogout.js"></script>
+    <script type="module" src="../js/user/userPerfil.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>

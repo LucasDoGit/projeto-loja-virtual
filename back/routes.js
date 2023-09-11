@@ -22,6 +22,7 @@ router.get('/admin/users', authenticateMiddlewares , adminController.findAll); /
 router.get('/admin/user', authenticateMiddlewares , adminController.findUser); // busca somente um usuario pelo token
 router.put('/admin/user', authenticateMiddlewares , adminController.alterUser); // altera usuario pelo ID
 router.put('/admin/update-user', authenticateMiddlewares, adminController.updateUser); // altera usuario pelo token
+router.put('/admin/update-password', authenticateMiddlewares, adminController.updateUserPwd); // altera senha do usuario pelo token
 router.delete('/admin/user/:code', authenticateMiddlewares , adminController.deleteUser); // deleta usuario pelo ID
 router.delete('/admin/users', authenticateMiddlewares , adminController.deleteAll); // deleta todos os usuarios
 

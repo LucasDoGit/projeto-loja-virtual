@@ -17,7 +17,7 @@ server.use('/css', express.static('front/css')); //ler arquivo css
 
 //ler arquivo favicon
 server.get('/favicon.ico', (req, res) => {
-    res.sendFile(__dirname + '/front/favicon/favicon.png');
+    res.sendFile(__dirname + '../front/favicon/favicon.png');
 });
 
 //inicia servidor na porta definida no arquivo .env

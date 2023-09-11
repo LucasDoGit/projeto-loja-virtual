@@ -95,21 +95,45 @@ module.exports = {
     updateUser: async (req, res) => { // usuario atualiza os proprios dados
         const usertoken = req.headers.authorization; // recebe o token da sessao
         let token = decoder(usertoken) // decodifica o token
-        let { cpf, name, birth, tel, email } = req.body;
+        let { cpf, name, birthdate, tel, email } = req.body;
 
-        if(cpf && name && birth && email){ //verifica se os campos foram digitados
+        if(cpf && name && birthdate && email){ //verifica se os campos foram digitados
             const findUserRegistered = await userService.findUserRegistered(cpf, email, token.id);
 
             if (findUserRegistered) return res.status(409).send({ error: true, message: 'Email ou CPF já sendo utilizados '});      
 
-            const updateUser = await userService.updateUser(name, birth, tel, token.id); // registra as atualizacoes do usuario
+            const updateUser = await userService.updateUser(name, birthdate, tel, token.id); // registra as atualizacoes do usuario
             if(!updateUser) { // trata erro ao alterar usuario
-                return res.status(400).send({ message: 'erro ao alterar usuario'});
+                return res.status(400).send({ error: true, message: 'erro ao alterar usuario'});
+            } else {
+                res.status(200).send({ message: 'dados do usuário alterados' })
             }
-            res.status(200).send({message: `dados do usuário ${token.id} alterados`})
-            }
+        }
         else {
-            return res.status(400).send({ message: 'campos não enviados'}); 
+            return res.status(400).send({ error: true, message: 'campos não enviados'}); 
+        }
+    },
+    // atualiza a senha do usuario
+    updateUserPwd: async (req, res) => { 
+        const usertoken = req.headers.authorization;
+        let token = decoder(usertoken)
+        let { password } = req.body;
+
+        if(!password) {
+            return res.status(400).send({ error: true, message: 'nenhuma senha fornecida' });
+        }
+        else {
+            const RandomSalt = randomNumber(10, 16); // gera um numero aleatorio
+            const hashedPassword = await bcrypt.hash(password, RandomSalt); // cria uma hash aleatoria para a senha
+            password = hashedPassword; // recebe o hash da senha para salvar no BD
+
+            const updateUserPwd = await userService.updateUserPwd(password, token.id);
+            
+            if (!updateUserPwd) {
+                return res.status(401).send({ error: true, message: 'senha não foi alterada' });
+            } else {
+                return res.status(200).send({ message: 'senha alterada com sucesso' });
+            }
         }
     },
     //deleta usuario
