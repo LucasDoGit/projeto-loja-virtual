@@ -30,11 +30,11 @@ module.exports = {
         });
     },
     //insere novos users no banco
-    register: (cpf, name, dt_birth, tel, email, password) => {
+    register: (cpf, name, birthdate, tel, email, password) => {
         return new Promise((accept, rejected)=>{
 
-            db.query('INSERT INTO users (cpf, name, dt_birth, tel, email, password) VALUES (?, ?, ?, ?, ?, ?)', 
-                [cpf, name, dt_birth, tel, email, password], 
+            db.query('INSERT INTO users (cpf, name, birthdate, tel, email, password) VALUES (?, ?, ?, ?, ?, ?)', 
+                [cpf, name, birthdate, tel, email, password], 
                 (error, results) => {
                     if(error) { rejected(error); return; }
                     accept(results.insertId);
@@ -43,11 +43,11 @@ module.exports = {
         });
     },
     //altera um users do banco
-    alterUser: (id, cpf, name, dt_birth, tel, email, password) => {
+    alterUser: (id, cpf, name, birthdate, tel, email, password) => {
         return new Promise((accept, rejected)=>{
 
-            db.query('UPDATE users SET cpf = ?, name = ?, dt_birth = ?, tel = ?, email = ?, password = ? WHERE id_user = ?', 
-                [cpf, name, dt_birth, tel, email, password, id], 
+            db.query('UPDATE users SET cpf = ?, name = ?, birthdate = ?, tel = ?, email = ?, password = ? WHERE id_user = ?', 
+                [cpf, name, birthdate, tel, email, password, id], 
                 (error, results) => {
                     if(error) { rejected(error); return; }
                     accept(results);
@@ -121,7 +121,7 @@ module.exports = {
     updateUser: (name, birthdate, tel, id) => {
         return new Promise((accept, rejected)=>{
 
-            db.query('UPDATE users SET name = ?, dt_birth = ?, tel = ? WHERE id_user = ?', 
+            db.query('UPDATE users SET name = ?, birthdate = ?, tel = ? WHERE id_user = ?', 
                 [name, birthdate, tel, id], 
                 (error, results) => {
                     if(error) { rejected(error); return; }

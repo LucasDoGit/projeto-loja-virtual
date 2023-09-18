@@ -1129,11 +1129,11 @@ section.formulario-adm {
     margin-bottom: 2rem;
 }
 
-section.formulario-adm .titulo { /* div titulo formulários */
+section.formulario-adm > div.titulo { /* div titulo formulários */
     margin: 1.5rem 0 1.5rem 1.5rem;
 }
 
-section.formulario-adm .titulo h5 { /* estilo titulo */
+section.formulario-adm > div.titulo h5 { /* estilo titulo */
     font-size: 15px;
     font-weight: bold;
     margin: auto 0;
@@ -1257,12 +1257,6 @@ div.inf-perfil form div > label { /* label titulo nas bordas dos input's */
     font-size: 0.75rem;
 }
 
-div.inf-perfil section > button {
-    display: block;
-    width: 50%;
-    margin: 1rem auto;
-}
-
 /* form update user / pwd */
 
 /* botoes submit */
@@ -1294,6 +1288,104 @@ div.contain-input { /* dois inputs na mesma linha */
 
 form div.contain-input div.complemento label {
     left: 28.5%;
+}
+
+/* Formulario endereco - meu perfil */
+
+div.lista-enderecos {
+    display: flex;
+    flex-direction: column;
+}
+
+div.endereco {
+    max-width: 70%;
+    display: flex;
+    flex-direction: column;
+    margin: 0.8rem 1.5rem;
+    padding: 1rem;
+    border-width: 0.0625rem 0.25rem 0.0625rem 0.0625rem;
+    border-style: solid;
+    border-color: var(--cor4);
+    background-color: #ceb5be40;
+}
+
+div.endereco div.titulo {
+    display: flex;
+    justify-content: flex-end;
+}
+
+div.endereco div.titulo h4 {
+    font-size: 13px;
+    color: var(--cor4);
+    font-weight: bold;
+}
+
+div.endereco div.titulo span {
+    font-size: 12px;
+    color: var(--cor3);
+    text-transform: uppercase;
+}
+
+div.endereco div.informacoes {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+div.endereco div.informacoes span {
+    text-align: start;
+    font-size: 12px;
+    color: var(--cor4);
+}
+
+div.endereco div.informacoes span:last-child {
+    margin-bottom: 0.8rem;
+}
+
+div.endereco div.editar {
+    display: flex;
+    justify-content: end;
+}
+
+div.endereco div.editar button {
+    font-size: 14px;
+    padding: 2px 1rem;
+    border: 1px solid var(--cor4);
+    background-color: transparent;
+    color: var(--cor4);
+    border-radius: 2px;
+    transition: .3s;
+}
+
+div.endereco div.editar button:hover{
+    border: 1px solid var(--cor4);
+    color: var(--cor1);
+    background-color: var(--cor4);
+}
+
+form#form-user-adress {
+    display: none;
+}
+
+form#form-user-adress button#btnCancelarEndereco {
+    display: block;
+    font-size: 13px;
+    text-transform: uppercase;
+    margin: 1rem 0;
+    padding: 3px 16px;
+    margin-left: 25px;
+}
+
+form#form-user-adress button#salvarEndereco {
+    display: block;
+    width: 50%;
+    margin: 1rem auto;
+}
+
+section#enderecosUser button#btnCadastrarEndereco {
+    display: block;
+    width: 50%;
+    margin: 1rem auto;
 }
 
 /**** pagina carrinho ****/

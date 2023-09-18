@@ -1,8 +1,11 @@
 import { validateFormUpdate, validateFormPwd } from "./userRegex.js";
+import { validateFormEndereco } from "./userAdress.js";
 const formUpdateUser = document.getElementById('form-update-user');
 const formUpdatePwd = document.getElementById('form-update-pwd');
+let formEndereco = document.forms.enderecos;
 const errorElement = document.getElementById('data-message');
 let token = localStorage.getItem('token'); // token
+
 
 // ao carregar a pagina exibe as informacoes do usuario
 document.addEventListener("DOMContentLoaded", function() { //ao carregar a pagina este codigo e executado
@@ -19,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function() { //ao carregar a pagin
     desabilitarSenha(pwdInput, pwd2Input) // desabilita a edicao das senhas
 });
 
+// Escuta submit no formulario de atualizacao do usuario e valida os campos
 formUpdateUser.addEventListener('submit', function(event) {
     event.preventDefault(); // Impede o envio do formulário padrão
     const nameInput         = document.getElementById('idname');
@@ -36,7 +40,7 @@ formUpdateUser.addEventListener('submit', function(event) {
         atualizarUsuario(nameInput, cpfInput, birthdateInput, telInput, emailInput, pwdInput)
     }
 });
-
+// Escuta submit no formulario de atualizacao de senha e valida os campos
 formUpdatePwd.addEventListener('submit', function(event) {
     event.preventDefault();
     const pwdInput          = document.getElementById('idpwd');
@@ -50,38 +54,31 @@ formUpdatePwd.addEventListener('submit', function(event) {
     }
 });
 
-//desabilita a edição dos camposUser com dados do usuario.
-function desabilitarCampos(nameInput, cpfInput, telInput, birthdateInput, emailInput) {
-    nameInput.disabled      = true;
-    cpfInput.disabled       = true;
-    telInput.disabled       = true;
-    birthdateInput.disabled = true;
-    emailInput.disabled     = true;
-    document.getElementById('submit-user').style.display = 'none';
-}
-// desabilita a alteracao da senha
-function desabilitarSenha(pwdInput, pwd2Input) { 
-    pwdInput.disabled       = true;
-    pwd2Input.disabled      = true;
-    document.getElementById('submit-pwd').style.display = 'none';
-}
+formEndereco.addEventListener('submit', async function(event) {
+    event.preventDefault(); // Impede o envio do formulário padrão
+    const nomeRefInput      = formEndereco.elements.nomeRef;
+    const cepInput          = formEndereco.elements.cep;
+    const ruaInput          = formEndereco.elements.logradouro;
+    const numeroInput       = formEndereco.elements.numero;
+    const complementoInput  = formEndereco.elements.complemento;
+    const referenciaInput   = formEndereco.elements.referencia;
+    const bairroInput       = formEndereco.elements.bairro;
+    const cidadeInput       = formEndereco.elements.localidade;
+    const estadoInput       = formEndereco.elements.uf;
 
-//habilita os campos para atualizar dados do usuario
-function habilitaCampos(nameInput, telInput, birthdateInput) {
-    nameInput.disabled      = false;
-    telInput.disabled       = false;
-    birthdateInput.disabled = false;
-    document.getElementById('submit-user').style.display = 'block'; // botao submit para enviar os dados
-}
+    // Executa a validação e envio se tudo for válido
+    if(validateFormEndereco(nomeRefInput, cepInput, ruaInput, numeroInput, bairroInput, cidadeInput, estadoInput) && await validarCEP(cepInput, 'Preencha este campo')) {
+        errorElement.classList.remove('msgAlert');
+        errorElement.classList.add('msgSucess');
+        errorElement.textContent = 'Deu boa';
+    } else {
+        errorElement.classList.remove('msgSucess');
+        errorElement.classList.add('msgAlert');
+        errorElement.textContent = 'Preencha todos os campos';
+    }
+});
 
-//habilita os campo para alterar senha
-function habilitaCamposSenha(pwdInput, pwd2Input) {
-    pwdInput.disabled   = false;
-    pwd2Input.disabled  = false;
-    document.getElementById('submit-pwd').style.display = 'block'; // botao submit para enviar a nova senha
-}
-
-// Event listeners para habilitar seus devidos campos
+// Event listeners para habilitar seus devidos campos ao clicar nos botoes
 document.getElementById('update-user').addEventListener('click', function() {
     habilitaCampos(document.getElementById('idname'), document.getElementById('idtel'), document.getElementById('idbirthdate'));
     desabilitarSenha(document.getElementById('idpwd'), document.getElementById('idpwd2')) // desabilita a edicao das senhas
@@ -94,7 +91,66 @@ document.getElementById('update-user-pwd').addEventListener('click', function() 
     formUpdatePwd.style.display = 'block';
 });
 
-//funcao para retornar datas em formato YYYY-MM-DD
+document.getElementById('btnCadastrarEndereco').addEventListener('click', function() {
+    formEndereco.style.display = 'block';
+    document.getElementById('btnCadastrarEndereco').style.display = 'none';
+});
+
+document.getElementById('btnCancelarEndereco').addEventListener('click', function() {
+    formEndereco.style.display = 'none';
+    document.getElementById('btnCadastrarEndereco').style.display = 'block';
+});
+
+// Event listener para escutar o campo cep e realizar busca na API VIACEP 
+document.forms.enderecos.elements.cep.addEventListener('input', function(){
+    validarCEP(this, 'CEP Inválido');
+});
+
+// Funcoes para desabilitar os campos dos formularios
+function desabilitarCampos(nameInput, cpfInput, telInput, birthdateInput, emailInput) {
+    nameInput.disabled      = true;
+    cpfInput.disabled       = true;
+    telInput.disabled       = true;
+    birthdateInput.disabled = true;
+    emailInput.disabled     = true;
+    document.getElementById('submit-user').style.display = 'none';
+}
+
+function desabilitarSenha(pwdInput, pwd2Input) {
+    pwdInput.disabled       = true;
+    pwd2Input.disabled      = true;
+    document.getElementById('form-update-pwd').style.display = 'none';
+}
+
+function desabilitarCamposEndereco() {
+    formEndereco.elements.logradouro.disabled   = true;
+    formEndereco.elements.bairro.disabled       = true;
+    formEndereco.elements.localidade.disabled   = true;
+    formEndereco.elements.uf.disabled           = true;
+}
+
+// Funcoes para habilitar os campos dos formularios
+function habilitaCampos(nameInput, telInput, birthdateInput) {
+    nameInput.disabled      = false;
+    telInput.disabled       = false;
+    birthdateInput.disabled = false;
+    document.getElementById('submit-user').style.display = 'block'; // botao submit para enviar os dados
+}
+
+function habilitaCamposSenha(pwdInput, pwd2Input) {
+    pwdInput.disabled   = false;
+    pwd2Input.disabled  = false;
+    document.getElementById('submit-pwd').style.display = 'block'; // botao submit para enviar a nova senha
+}
+
+function habilitarCamposEndereco() {
+    formEndereco.elements.logradouro.disabled   = false;
+    formEndereco.elements.bairro.disabled       = false;
+    formEndereco.elements.localidade.disabled   = false;
+    formEndereco.elements.uf.disabled           = false;
+}
+
+// Funcao para retornar datas em formato YYYY-MM-DD
 function dateFormatter(date){
     let newDate = new Date(date); //converte string para tipo date
     let day = newDate.getDate(); //recebe o dia da data
@@ -110,6 +166,35 @@ function dateFormatter(date){
     return dateFormated; //retorna o valor em formato YYYY-MM-DD
 }
 
+// Funcao para validar o campo cep antes de fazer request na API VIACEP
+async function validarCEP(cepInput, errorMessage) {
+    // limpa todas as letras digitadas
+    const cep = cepInput.value.replace(/\D/g, '');
+    let isValid;
+    // Limpa o resultado anterior
+    habilitarCamposEndereco()
+    formEndereco.elements.logradouro.value = '';
+    formEndereco.elements.complemento.value = '';
+    formEndereco.elements.bairro.value = '';
+    formEndereco.elements.localidade.value = '';
+    formEndereco.elements.uf.value = '';
+    
+    // Verifica se o CEP tem 8 dígitos
+    if (cep.length === 8) {
+        // Formata o CEP com o hífen
+        cepInput.value = `${cep.slice(0, 5)}-${cep.slice(5)}`;
+        cepInput.classList.remove('invalid');
+        cepInput.nextElementSibling.textContent = '';
+        isValid = await consultarCEP(cepInput) // funcao assincrona que recebe boolean da busca do CEP.
+    } else {
+        cepInput.nextElementSibling.textContent = errorMessage;
+        cepInput.classList.add('invalid');
+        isValid = false;
+    }
+    return isValid;
+}
+
+// Funcao fetch para carregar os dados do usuario no formulario
 function carregaUsuario(nameInput, cpfInput, telInput, birthdateInput, emailInput) {
     if(token == null){ //verifica se possui um id no localStorage
         throw new Error("Erro ao buscar usuário.");
@@ -144,6 +229,7 @@ function carregaUsuario(nameInput, cpfInput, telInput, birthdateInput, emailInpu
     .catch((err) => console.log(err))
 }
 
+// Funcao fetch para enviar dados atualzados do usuario
 function atualizarUsuario(nameInput, cpfInput, birthdateInput, telInput, emailInput) {
 
     var formData = new URLSearchParams(); //var recebe os parametros da URL
@@ -163,7 +249,6 @@ function atualizarUsuario(nameInput, cpfInput, birthdateInput, telInput, emailIn
     })
     .then((res) =>{
         if(!res.ok) { //erro ao acessar a rota privada
-            alert('Verifique os campos novamente!');
             throw new Error('Erro ao atualizar dados do usuario');
         } 
         return res.json();
@@ -178,9 +263,10 @@ function atualizarUsuario(nameInput, cpfInput, birthdateInput, telInput, emailIn
             desabilitarCampos(nameInput, cpfInput, birthdateInput, telInput, emailInput);
         }
     })
-    .catch((err) => console.log(err))
+    .catch((err) => console.log('Erro ao atualizar usuario: ', err))
 }
 
+// Funcao fetch para atualizar a senha do usuarios
 function atualizarSenha(pwdInput, pwd2Input) {
 
     var formData = new URLSearchParams(); //var recebe os parametros da URL
@@ -196,8 +282,7 @@ function atualizarSenha(pwdInput, pwd2Input) {
     })
     .then((res) =>{
         if(!res.ok) { //erro ao acessar a rota privada
-            alert('Verifique a senha digitada');
-            throw new Error('Erro ao atualizar senha do usuario');
+            throw new Error('Verifique a senha digitada');
         } 
         return res.json();
     })
@@ -211,5 +296,37 @@ function atualizarSenha(pwdInput, pwd2Input) {
             desabilitarSenha(pwdInput, pwd2Input);
         }
     })
-    .catch((err) => console.log(err))
+    .catch((err) => console.log('Erro ao atualizar senha: ', err))
+}
+
+// funcao fetch para buscar enderecos na API VIACEP
+async function consultarCEP(cepInput) {
+    const errorElement = cepInput.nextElementSibling;
+  
+    const url = `https://viacep.com.br/ws/${cepInput.value}/json/`;
+    return await fetch(url)
+    .then(response => {
+        if (!response.ok) {
+        throw new Error(`Erro HTTP! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.erro){
+            cepInput.classList.add('invalid');
+            errorElement.textContent = 'CEP não encontrado';
+            return false;
+        } else {
+            cepInput.classList.remove('invalid');
+            errorElement.textContent = '';
+            formEndereco.elements.logradouro.value = data.logradouro;
+            formEndereco.elements.complemento.value = data.complemento;
+            formEndereco.elements.bairro.value = data.bairro;
+            formEndereco.elements.localidade.value = data.localidade;
+            formEndereco.elements.uf.value = data.uf;
+            desabilitarCamposEndereco(formEndereco.elements.logradouro, formEndereco.elements.bairro, formEndereco.elements.localidade, formEndereco.elements.uf);
+            return true;
+        }
+    })
+    .catch((error) => console.log('Erro ao consultar CEP:', error))
 }

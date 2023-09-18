@@ -20,7 +20,8 @@ function validateField(input, regex, errorMessage) {
   }
   return isValid; // retorna boolean do resultado
 }
-// Valida a idade do usuario acima de 18 anos para se cadastrar no site.
+
+// Funcao para validar a idade acima de 18 anos no cadastro
 function ageValide(input, errorMessage) { 
     const errorElement = input.nextElementSibling;
     let isValid = false;
@@ -43,6 +44,7 @@ function ageValide(input, errorMessage) {
     }
     return isValid;
 }
+
 // Função que comparara as senhas para evitar o erro em senhas digitada erradas. 
 function comparePassword(input, regex, errorMessage) {
   const value = input.value.trim();
@@ -61,7 +63,8 @@ function comparePassword(input, regex, errorMessage) {
   }
   return isValid;
 }
-// valida os campos do formulario de registro
+
+// valida os campos do formulario de registro de usuarios e retorna boolean
 export function validateForm(nameInput, cpfInput, telInput, birthdateInput, emailInput, pwdInput, pwd2Input) {
   // inicia a validacao do formulario em false
   let formvalid = false;
@@ -69,7 +72,7 @@ export function validateForm(nameInput, cpfInput, telInput, birthdateInput, emai
 
   if (validateField(nameInput, nameRegex) && validateField(cpfInput, cpfRegex) && validateField(telInput, telRegex) && ageValide(birthdateInput)
       && validateField(emailInput, emailRegex) && validateField(pwdInput, passwordRegex) && comparePassword(pwd2Input, passwordRegex)) {
-    formvalid = true; // caso todos os campos estejam corretos ele retorna true
+      formvalid = true; // caso todos os campos estejam corretos ele retorna true
   } else {
       // Valida todos os campos do formulario
       validateField(nameInput, nameRegex, errorMessagee);
@@ -83,7 +86,8 @@ export function validateForm(nameInput, cpfInput, telInput, birthdateInput, emai
   }
   return formvalid;
 }
-// valida os campos do formulario update user
+
+// Funcao que valida os campos do formulario de atualização do usuario
 export function validateFormUpdate(nameInput, telInput, birthdateInput) {
   // inicia a validacao do formulario em false
   let formvalid = false;
@@ -100,7 +104,8 @@ export function validateFormUpdate(nameInput, telInput, birthdateInput) {
   }
   return formvalid;
 }
-// valida os campos do formulario update pwd
+
+// Funcao que valida os campos do formulario de atualização de senha
 export function validateFormPwd(pwdInput, pwd2Input) {
   // inicia a validacao do formulario em false
   let formvalid = false;

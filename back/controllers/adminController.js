@@ -20,7 +20,7 @@ const displayUser = (user = {}) => {
         id: user.id_user,
         cpf: user.cpf,
         name: user.name,
-        birth: user.dt_birth,
+        birth: user.birthdate,
         tel: user.tel,
         email: user.email,
         password: undefined,
@@ -42,7 +42,7 @@ module.exports = {
                 id: users[i].id_user,
                 cpf: users[i].cpf,
                 name: users[i].name,
-                birth: users[i].dt_birth,
+                birth: users[i].birthdate,
                 tel: users[i].tel,
                 email: users[i].email,
                 password: undefined,
@@ -67,9 +67,9 @@ module.exports = {
     alterUser: async(req, res) => { 
         const usertoken = req.headers.authorization; // recebe o token da sessao
         let token = decoder(usertoken) // decodifica o token
-        let { cpf, name, dt_birth, tel, email, password } = req.body; 
+        let { cpf, name, birthdate, tel, email, password } = req.body; 
 
-        if(cpf && name && dt_birth && email && password){ //verifica se os campos foram digitados
+        if(cpf && name && birthdate && email && password){ //verifica se os campos foram digitados
             const userRegistred = await userService.findUserRegistred(email, cpf);
             if(userRegistred) { 
                 return res.status(400).send({ error: true, message: 'email ou cpf já registrados!' })    
@@ -77,7 +77,7 @@ module.exports = {
             const RandomSalt = randomNumber(10, 16); // gera um numero aleatorio
             const hashedPassword = await bcrypt.hash(password, RandomSalt); // cria uma hash aleatoria para a senha
             password = hashedPassword; // recebe o hash da senha para salvar no BD
-            const userAlter = await userService.alterUser(token.id, cpf, name, dt_birth, tel, email, password); // registra as alteracoes do usuario
+            const userAlter = await userService.alterUser(token.id, cpf, name, birthdate, tel, email, password); // registra as alteracoes do usuario
 
             if(!userAlter) { // trata erro ao alterar usuario
                 return res.status(400).send({ message: 'erro ao alterar usuario'});

@@ -167,7 +167,7 @@
                     <form id="form-update-pwd" class="formulario-adm">
                         <div class="update-pwd"> 
                             <label for="idpwd">Nova senha*</label>
-                            <input type="password" class="input-form" id="idpwd" name="password" placeholder="Nova senha"></input>
+                            <input type="password" class="input-form" id="idpwd" name="password" placeholder="Nova senha" autocomplete="new-password"></input>
                             <span class="error-message"></span>
                         </div>
                         <div class="update-pwd">
@@ -178,7 +178,7 @@
                         <button type="submit" class="btn-secundario" id="submit-pwd">ATUALIZAR SENHA</button>
                     </form>
                 </section>
-                <section class="formulario-adm">
+                <section id="enderecosUser" class="formulario-adm">
                     <div class="titulo">
                         <div class="icone-svg">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
@@ -187,48 +187,88 @@
                         </div>
                         <h5>ENDEREÇOS</h5>
                     </div>
-                    <form class="formulario-adm">
-                        <div class="identificacao">
-                            <input type="text" class="input-form" id="ididentificacao" name="identificacao" placeholder="Indetificação do endereço" autocomplete="postal-code"></input>
-                            <label for="ididentificacao">Identificacao*</label>
-                        </div>
-                        <div class="cep"> 
-                            <input type="text" class="input-form" id="idcep" name="cep" placeholder="CEP" autocomplete="postal-code"></input>
-                            <label for="idcep">CEP*</label>
+                    <div id="listagemEnderecos" class="lista-enderecos">
+                        <div class="endereco">
+                            <div class="titulo">
+                                <h4>Endereco Titulo</h4>
+                                <span>(Padrão)</span>
+                            </div>
+                            <div class="informacoes">
+                                <span>Rua</span>
+                                <span>Numero</span>
+                                <span>CEP, Cidade e UF</span>
+                            </div>
+                            <div class="editar">
+                                <button id="btnEditarEndereco">Editar</button>
+                            </div>
                         </div>
                         <div class="endereco">
-                            <input type="text" class="input-form" id="idendereco" name="endereco" placeholder="Rua..." autocomplete="street-address"></input>
-                            <label for="idendereco">Endereco*</label>
+                            <div class="titulo">
+                                <h4>Endereco 2 Titulo</h4>
+                            </div>
+                            <div class="informacoes">
+                                <span>Rua</span>
+                                <span>Numero</span>
+                                <span>CEP, Cidade e UF</span>
+                            </div>
+                            <div class="editar">
+                                <button id="btnEditarEndereco">Editar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <form id="form-user-adress" class="formulario-adm" name="enderecos">
+                        <button type="reset" id="btnCancelarEndereco" class="btn-primario">Cancelar</button>
+                        <div class="identificacao">
+                            <label for="idnome-ref">Identificacao*</label>
+                            <input type="text" class="input-form" id="idnome-ref" name="nomeRef" placeholder="Indetificação do endereço"></input>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="cep"> 
+                            <label for="idcep">CEP*</label>
+                            <input class="input-form" type="text" id="idcep" name="cep" placeholder="CEP" autocomplete="postal-code"></input>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="logradouro">
+                            <label for="idlogradouro">Rua*</label>
+                            <input type="text" class="input-form" id="idlogradouro" name="logradouro" placeholder="Rua..." autocomplete="street-address"></input>
+                            <span class="error-message"></span>
                         </div>
                         <div class="contain-input">
                             <div class="numero">
-                                <input type="text" class="input-form" id="idnumerocasa" name="numerocasa" placeholder="Número casa"></input>
-                                <label for="idnumerocasa">Numero*</label>
+                                <label for="idnumero">Numero*</label>
+                                <input type="text" class="input-form" id="idnumero" name="numero" placeholder="Número"></input>
+                                <span class="error-message"></span>
                             </div>
                             <div class="complemento">
-                                <input type="text" class="input-form" id="idcomplemento" name="complemento" placeholder="Casa, apartamento ou outros"></input>
                                 <label for="idcomplemento">Complemento</label>
+                                <input type="text" class="input-form" id="idcomplemento" name="complemento" placeholder="Casa, apartamento ou outros"></input>
+                                <span class="error-message"></span>
                             </div>
                         </div>
                         <div class="referencia"> 
-                            <input type="text" class="input-form" id="idreferencia" name="referencia" placeholder="Pontos de referência"></input>
                             <label for="idreferencia">Referência</label>
+                            <input type="text" class="input-form" id="idreferencia" name="referencia" placeholder="Pontos de referência"></input>
+                            <span class="error-message"></span>
                         </div>
                         <div class="bairro"> 
-                            <input type="text" class="input-form" id="idbairro" name="bairro" placeholder="Bairro"></input>
                             <label for="idbairro">Bairro*</label>
+                            <input type="text" class="input-form" id="idbairro" name="bairro" placeholder="Bairro"></input>
+                            <span class="error-message"></span>
                         </div>
                         <div class="cidade"> 
-                            <input type="text" class="input-form" id="idcidade" name="cidade" placeholder="Cidade"></input>
-                            <label for="idcidade">Cidade*</label>
+                            <label for="idlocalidade">Cidade*</label>
+                            <input type="text" class="input-form" id="idlocalidade" name="localidade" placeholder="Cidade"></input>
+                            <span class="error-message"></span>
                         </div>
                         <div class="estado"> 
-                            <input type="text" class="input-form" id="idestado" name="estado" placeholder="Unidade Federativa"></input>
-                            <label for="idestado">Estado*</label>
+                            <label for="iduf">Estado*</label>
+                            <input type="text" class="input-form" id="iduf" name="uf" placeholder="Estado" autocomplete="address-level2"></input>
+                            <span class="error-message"></span>
                         </div>
                         <span class="msgObrigatorio">(*) Campos obrigatórios</span>
+                        <button type="submit" id="salvarEndereco" class="btn-primario">SALVAR ENDEREÇO</button>
                     </form>
-                    <button class="btn-primario">SALVAR ALTERAÇÕES</button>
+                    <button id="btnCadastrarEndereco" class="btn-primario">CADASTRAR NOVO ENDEREÇO</button>
                 </section>
             </div>
         </div>
