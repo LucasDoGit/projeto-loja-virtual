@@ -70,7 +70,7 @@ formEndereco.addEventListener('submit', async function(event) {
     if(validateFormEndereco(nomeRefInput, cepInput, ruaInput, numeroInput, bairroInput, cidadeInput, estadoInput) && await validarCEP(cepInput, 'Preencha este campo')) {
         errorElement.classList.remove('msgAlert');
         errorElement.classList.add('msgSucess');
-        errorElement.textContent = 'Deu boa';
+        cadastrarEndereco(nomeRefInput, cepInput, ruaInput, numeroInput, complementoInput, referenciaInput, bairroInput, cidadeInput, estadoInput);
     } else {
         errorElement.classList.remove('msgSucess');
         errorElement.classList.add('msgAlert');
@@ -329,4 +329,44 @@ async function consultarCEP(cepInput) {
         }
     })
     .catch((error) => console.log('Erro ao consultar CEP:', error))
+}
+
+// Funcao fetch para enviar dados de endereco do usuario
+function cadastrarEndereco(nomeRefInput, cepInput, ruaInput, numeroInput, complementoInput, referenciaInput, bairroInput, cidadeInput, estadoInput) {
+
+    var formData = new URLSearchParams(); //var recebe os parametros da URL
+    formData.append("cep", cepInput.value);
+    formData.append("logradouro", ruaInput.value);
+    formData.append("numero", numeroInput.value);
+    formData.append("complemento", complementoInput.value);
+    formData.append("referencia", referenciaInput.value);
+    formData.append("bairro", bairroInput.value);
+    formData.append("localidade", cidadeInput.value);
+    formData.append("uf", estadoInput.value);
+    formData.append("nome", nomeRefInput.value);
+
+    var url = `/api/admin/register-adress`;
+
+    fetch(url, {
+      method: "POST",
+      headers: {"Content-Type": "application/x-www-form-urlencoded",
+                'Authorization': `Bearer ${token}`}, //faz acesso da rota privada
+      body: formData.toString()
+    })
+    .then((res) =>{
+        if(!res.ok) { //erro ao acessar a rota privada
+            throw new Error('Erro ao cadastrar dados do usuario');
+        } 
+        return res.json();
+    })
+    .then((data) => {
+        if (data && data.error) {
+            errorElement.classList.add('msgError');
+            errorElement.textContent = data.message;
+        } else {
+            errorElement.classList.add('msgSucess');
+            errorElement.textContent = data.message;
+        }
+    })
+    .catch((err) => console.log('Erro no cadastro de endereço: ', err))
 }
