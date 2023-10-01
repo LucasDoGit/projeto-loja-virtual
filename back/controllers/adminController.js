@@ -35,7 +35,7 @@ module.exports = {
         const users = await userService.findAll(); // busca todos os usuarios no BD
 
         if(!users) {
-           return res.status(401).send({message: 'Nenhum usuário encontrados'}); // retorna erro caso nao encontre
+           return res.status(401).send({ error: true, message: 'Nenhum usuário encontrados'}); // retorna erro caso nao encontre
         }
         for(let i in users){ // percorre todos os usuarios
             json.users.push({

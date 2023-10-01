@@ -17,9 +17,11 @@ document.addEventListener("DOMContentLoaded", function() { //ao carregar a pagin
     const pwdInput          = document.getElementById('idpwd');
     const pwd2Input         = document.getElementById('idpwd2');
 
-    carregaUsuario(nameInput, cpfInput, telInput, birthdateInput, emailInput) //
+    formEndereco.style.display = 'none'; // carrega a pagina com o formulario escondido
+    carregaUsuario(nameInput, cpfInput, telInput, birthdateInput, emailInput) // carrega as informacoes do usuarios nos campos do formulario
     desabilitarCampos(nameInput, cpfInput, telInput, birthdateInput, emailInput, pwdInput, pwd2Input) //desabilita a edicao de todos os camposUser
     desabilitarSenha(pwdInput, pwd2Input) // desabilita a edicao das senhas
+    carregarEnderecos() // mostra lista de enderecos ou mensagem de aviso
 });
 
 // Escuta submit no formulario de atualizacao do usuario e valida os campos
@@ -56,6 +58,7 @@ formUpdatePwd.addEventListener('submit', function(event) {
 
 formEndereco.addEventListener('submit', async function(event) {
     event.preventDefault(); // Impede o envio do formulário padrão
+    const idInput           = formEndereco.elements.idEndereco;
     const nomeRefInput      = formEndereco.elements.nomeRef;
     const cepInput          = formEndereco.elements.cep;
     const ruaInput          = formEndereco.elements.logradouro;
@@ -70,40 +73,16 @@ formEndereco.addEventListener('submit', async function(event) {
     if(validateFormEndereco(nomeRefInput, cepInput, ruaInput, numeroInput, bairroInput, cidadeInput, estadoInput) && await validarCEP(cepInput, 'Preencha este campo')) {
         errorElement.classList.remove('msgAlert');
         errorElement.classList.add('msgSucess');
-        cadastrarEndereco(nomeRefInput, cepInput, ruaInput, numeroInput, complementoInput, referenciaInput, bairroInput, cidadeInput, estadoInput);
+        if(!idInput.value){ // verifica foi digitado algum ID para cadastrado ou atualização de endereço
+            cadastrarEndereco(nomeRefInput, cepInput, ruaInput, numeroInput, complementoInput, referenciaInput, bairroInput, cidadeInput, estadoInput);
+        } else {
+            atualizarEndereco(idInput, nomeRefInput, cepInput, ruaInput, numeroInput, complementoInput, referenciaInput, bairroInput, cidadeInput, estadoInput)
+        }
     } else {
         errorElement.classList.remove('msgSucess');
         errorElement.classList.add('msgAlert');
         errorElement.textContent = 'Preencha todos os campos';
     }
-});
-
-// Event listeners para habilitar seus devidos campos ao clicar nos botoes
-document.getElementById('update-user').addEventListener('click', function() {
-    habilitaCampos(document.getElementById('idname'), document.getElementById('idtel'), document.getElementById('idbirthdate'));
-    desabilitarSenha(document.getElementById('idpwd'), document.getElementById('idpwd2')) // desabilita a edicao das senhas
-    formUpdatePwd.style.display = 'none'; // esconde o formulario para pwd
-});
-
-document.getElementById('update-user-pwd').addEventListener('click', function() {
-    desabilitarCampos(document.getElementById('idname'), document.getElementById('idcpf'), document.getElementById('idtel'), document.getElementById('idbirthdate'), document.getElementById('idemail'));
-    habilitaCamposSenha(document.getElementById('idpwd'), document.getElementById('idpwd2')) // desabilita a edicao das senhas
-    formUpdatePwd.style.display = 'block';
-});
-
-document.getElementById('btnCadastrarEndereco').addEventListener('click', function() {
-    formEndereco.style.display = 'block';
-    document.getElementById('btnCadastrarEndereco').style.display = 'none';
-});
-
-document.getElementById('btnCancelarEndereco').addEventListener('click', function() {
-    formEndereco.style.display = 'none';
-    document.getElementById('btnCadastrarEndereco').style.display = 'block';
-});
-
-// Event listener para escutar o campo cep e realizar busca na API VIACEP 
-document.forms.enderecos.elements.cep.addEventListener('input', function(){
-    validarCEP(this, 'CEP Inválido');
 });
 
 // Funcoes para desabilitar os campos dos formularios
@@ -122,13 +101,6 @@ function desabilitarSenha(pwdInput, pwd2Input) {
     document.getElementById('form-update-pwd').style.display = 'none';
 }
 
-function desabilitarCamposEndereco() {
-    formEndereco.elements.logradouro.disabled   = true;
-    formEndereco.elements.bairro.disabled       = true;
-    formEndereco.elements.localidade.disabled   = true;
-    formEndereco.elements.uf.disabled           = true;
-}
-
 // Funcoes para habilitar os campos dos formularios
 function habilitaCampos(nameInput, telInput, birthdateInput) {
     nameInput.disabled      = false;
@@ -143,11 +115,37 @@ function habilitaCamposSenha(pwdInput, pwd2Input) {
     document.getElementById('submit-pwd').style.display = 'block'; // botao submit para enviar a nova senha
 }
 
+function desabilitarCamposEndereco() {
+    formEndereco.elements.logradouro.disabled   = true;
+    formEndereco.elements.bairro.disabled       = true;
+    formEndereco.elements.localidade.disabled   = true;
+    formEndereco.elements.uf.disabled           = true;
+}
+
 function habilitarCamposEndereco() {
     formEndereco.elements.logradouro.disabled   = false;
     formEndereco.elements.bairro.disabled       = false;
     formEndereco.elements.localidade.disabled   = false;
     formEndereco.elements.uf.disabled           = false;
+}
+
+// Operador ternário para alternar o estilo de um elemento
+function alterarDisplay(element){
+    if (element) {
+        element.style.display = (element.style.display === 'none') ? 'block' : 'none';
+    }
+}
+
+function mostraFormEndereco() {
+    alterarDisplay(formEndereco);
+    document.getElementById('listagemEnderecos').classList.add('display-none');
+    document.getElementById('btnCadastrarEndereco').classList.add('display-none');
+}
+
+function mostrarListaEnderecos(){
+    alterarDisplay(formEndereco);
+    document.getElementById('listagemEnderecos').classList.remove('display-none');
+    document.getElementById('btnCadastrarEndereco').classList.remove('display-none');
 }
 
 // Funcao para retornar datas em formato YYYY-MM-DD
@@ -166,6 +164,90 @@ function dateFormatter(date){
     return dateFormated; //retorna o valor em formato YYYY-MM-DD
 }
 
+function mostrarEnderecos(data, container) {
+    //onclick="apagarEndereco(${element.id})"
+    data.enderecos.forEach((element)=>{
+        let divEnderecos = document.createElement("div"); // <div class="enderecos"></div>
+        divEnderecos.classList.add('endereco');
+    
+        // div titulo
+        let divTitulo = document.createElement('div'); // <div class="titulo"></div>
+        divTitulo.classList.add('titulo');
+        let btnApagar = document.createElement('button'); // <button id="btnApagarEndereco${element.id}">Deletar</button>
+        btnApagar.id = `btnApagarEndereco${element.id}`;
+        btnApagar.innerText = "Apagar";
+        divTitulo.appendChild(btnApagar); 
+        let h4Titulo = document.createElement('h4'); // <h4><strong>identificação: </strong>${element.nome}</h4>
+        h4Titulo.innerHTML = (`<strong>Identificação: </strong> ${element.nome}`);
+        divTitulo.appendChild(h4Titulo);
+        divEnderecos.appendChild(divTitulo); // inclui a div titulo no card de endereco
+    
+        // div informacoes
+        let divInf = document.createElement('div'); // <div class="endereco"></div>
+        divInf.classList.add('informacoes')
+        let spanRow1 = document.createElement('span');
+        let spanRow2 = document.createElement('span');
+        let spanRow3 = document.createElement('span');
+        let spanRow4 = document.createElement('span');
+        spanRow1.innerHTML = `<strong>Rua: </strong>${element.logradouro}`; // <span><strong>Rua: </strong>${element.logradouro}</span>
+        spanRow2.innerHTML = `<strong>Numero: </strong>${element.numero}`; // <span><strong>Numero: </strong>${element.numero}</span>
+        spanRow3.innerHTML = `<strong>Complemento: </strong>${element.complemento} | <strong>Referência: </strong>${element.referencia}`; // </strong>${element.complemento} , <strong>Referência: </strong>${element.referencia}</span>
+        spanRow4.innerHTML = `<strong>CEP: </strong>${element.cep} | <strong>Localidade: </strong> ${element.localidade} | <strong>UF:</strong> ${element.uf}`; // <span><strong>CEP: </strong>${element.cep}, <strong>Localidade: </strong> ${element.localidade} e <strong>UF:</strong> ${element.uf}</span>
+        divInf.appendChild(spanRow1);
+        divInf.appendChild(spanRow2);
+        divInf.appendChild(spanRow3);
+        divInf.appendChild(spanRow4);
+        divEnderecos.appendChild(divInf); // inclui a div informacoes no card de endereco
+    
+        // div editar
+        let divEdit = document.createElement('div'); // <div class="editar">
+        divEdit.classList.add('editar')
+        let btnEdit = document.createElement('button'); // <button id="btnEditarEndereco${element.id}">Editar</button>
+        btnEdit.id = `btnEditarEndereco${element.id}`;
+        btnEdit.innerText = "Editar";
+        divEdit.appendChild(btnEdit);
+        divEnderecos.appendChild(divEdit); // inclui a div edit no card endereco
+    
+        container.appendChild(divEnderecos);
+
+        document.getElementById(`btnApagarEndereco${element.id}`).addEventListener('click', function(){
+            apagarEndereco(element.id)
+        })
+        document.getElementById(`btnEditarEndereco${element.id}`).addEventListener('click', function(){
+            document.getElementById('listagemEnderecos').classList.add('display-none');
+            document.getElementById('btnCadastrarEndereco').classList.add('display-none');
+            carregarDadosEndereco(element.id)
+            formEndereco.style.display = 'block';
+        })
+    })
+}
+
+// Event listeners para habilitar seus devidos campos ao clicar nos botoes
+document.getElementById('update-user').addEventListener('click', function() {
+    habilitaCampos(document.getElementById('idname'), document.getElementById('idtel'), document.getElementById('idbirthdate'));
+    desabilitarSenha(document.getElementById('idpwd'), document.getElementById('idpwd2')) // desabilita a edicao das senhas
+    formUpdatePwd.style.display = 'none'; // esconde o formulario para pwd
+});
+
+document.getElementById('update-user-pwd').addEventListener('click', function() {
+    desabilitarCampos(document.getElementById('idname'), document.getElementById('idcpf'), document.getElementById('idtel'), document.getElementById('idbirthdate'), document.getElementById('idemail'));
+    habilitaCamposSenha(document.getElementById('idpwd'), document.getElementById('idpwd2')) // desabilita a edicao das senhas
+    alterarDisplay(formUpdatePwd);
+});
+
+// Event listener para escutar o campo cep e realizar busca na API VIACEP 
+document.forms.enderecos.elements.cep.addEventListener('input', function(){
+    validarCEP(this, 'CEP Inválido');
+});
+
+document.getElementById('btnCadastrarEndereco').addEventListener('click', function() {
+    mostraFormEndereco()
+});
+
+document.getElementById('btnCancelarEndereco').addEventListener('click', function() {
+    mostrarListaEnderecos()
+});
+
 // Funcao para validar o campo cep antes de fazer request na API VIACEP
 async function validarCEP(cepInput, errorMessage) {
     // limpa todas as letras digitadas
@@ -174,7 +256,6 @@ async function validarCEP(cepInput, errorMessage) {
     // Limpa o resultado anterior
     habilitarCamposEndereco()
     formEndereco.elements.logradouro.value = '';
-    formEndereco.elements.complemento.value = '';
     formEndereco.elements.bairro.value = '';
     formEndereco.elements.localidade.value = '';
     formEndereco.elements.uf.value = '';
@@ -226,7 +307,7 @@ function carregaUsuario(nameInput, cpfInput, telInput, birthdateInput, emailInpu
         birthdateInput.value  = dateFormatter(data.user.birth); //chama funcao para converter a data para o input   
         emailInput.value      = data.user.email;
     })
-    .catch((err) => console.log(err))
+    .catch((err) => console.log("Erro ao carregar usuaruo", err))
 }
 
 // Funcao fetch para enviar dados atualzados do usuario
@@ -260,6 +341,7 @@ function atualizarUsuario(nameInput, cpfInput, birthdateInput, telInput, emailIn
         } else {
             errorElement.classList.add('msgSucess');
             errorElement.textContent = data.message;
+            carregaUsuario(nameInput, cpfInput, telInput, birthdateInput, emailInput)
             desabilitarCampos(nameInput, cpfInput, birthdateInput, telInput, emailInput);
         }
     })
@@ -319,16 +401,15 @@ async function consultarCEP(cepInput) {
         } else {
             cepInput.classList.remove('invalid');
             errorElement.textContent = '';
-            formEndereco.elements.logradouro.value = data.logradouro;
-            formEndereco.elements.complemento.value = data.complemento;
-            formEndereco.elements.bairro.value = data.bairro;
-            formEndereco.elements.localidade.value = data.localidade;
-            formEndereco.elements.uf.value = data.uf;
+            formEndereco.elements.logradouro.value  = data.logradouro;
+            formEndereco.elements.bairro.value      = data.bairro;
+            formEndereco.elements.localidade.value  = data.localidade;
+            formEndereco.elements.uf.value          = data.uf;
             desabilitarCamposEndereco(formEndereco.elements.logradouro, formEndereco.elements.bairro, formEndereco.elements.localidade, formEndereco.elements.uf);
             return true;
         }
     })
-    .catch((error) => console.log('Erro ao consultar CEP:', error))
+    .catch((error) => console.log('Erro ao consultar CEP:', error));
 }
 
 // Funcao fetch para enviar dados de endereco do usuario
@@ -343,7 +424,7 @@ function cadastrarEndereco(nomeRefInput, cepInput, ruaInput, numeroInput, comple
     formData.append("bairro", bairroInput.value);
     formData.append("localidade", cidadeInput.value);
     formData.append("uf", estadoInput.value);
-    formData.append("nome", nomeRefInput.value);
+    formData.append("nome_ref", nomeRefInput.value);
 
     var url = `/api/admin/register-adress`;
 
@@ -354,8 +435,58 @@ function cadastrarEndereco(nomeRefInput, cepInput, ruaInput, numeroInput, comple
       body: formData.toString()
     })
     .then((res) =>{
+        if(res.ok) { //erro ao acessar a rota privada
+            return res.json();
+        } else if (res.status === 400) {
+            return res.json();
+        } else { 
+            throw new Error('Erro ao requisitar dados para o servidor');
+        }
+    })
+    .then((data) => {
+        if (data && data.error) {
+            errorElement.classList.remove('msgSucess');
+            errorElement.classList.add('msgAlert');
+            errorElement.textContent = data.message;
+            
+        } else {
+            errorElement.classList.remove('msgAlert');
+            errorElement.classList.add('msgSucess');
+            errorElement.textContent = data.message;
+            listagemEnderecos.innerHTML = ''; // limpa a lista com dados desatualizados
+            
+            carregarEnderecos()
+        }
+    })
+    .catch((err) => console.log('Erro no cadastro de endereço: ', err))
+}
+
+function atualizarEndereco(idInput, nomeRefInput, cepInput, ruaInput, numeroInput, complementoInput, referenciaInput, bairroInput, cidadeInput, estadoInput) {
+    
+    let listagemEnderecos = document.getElementById('listagemEnderecos')
+    var formData = new URLSearchParams(); //var recebe os parametros da URL
+    formData.append("id", idInput.value);
+    formData.append("cep", cepInput.value);
+    formData.append("logradouro", ruaInput.value);
+    formData.append("numero", numeroInput.value);
+    formData.append("complemento", complementoInput.value);
+    formData.append("referencia", referenciaInput.value);
+    formData.append("bairro", bairroInput.value);
+    formData.append("localidade", cidadeInput.value);
+    formData.append("uf", estadoInput.value);
+    formData.append("nome_ref", nomeRefInput.value);
+
+    var url = `/api/admin/update-adress`;
+
+    fetch(url, {
+      method: "PUT",
+      headers: {"Content-Type": "application/x-www-form-urlencoded",
+                'Authorization': `Bearer ${token}`}, //faz acesso da rota privada
+      body: formData.toString()
+    })
+    .then((res) =>{
         if(!res.ok) { //erro ao acessar a rota privada
-            throw new Error('Erro ao cadastrar dados do usuario');
+            throw new Error('Erro ao atualizar enderecos');
         } 
         return res.json();
     })
@@ -363,10 +494,116 @@ function cadastrarEndereco(nomeRefInput, cepInput, ruaInput, numeroInput, comple
         if (data && data.error) {
             errorElement.classList.add('msgError');
             errorElement.textContent = data.message;
+            
         } else {
             errorElement.classList.add('msgSucess');
             errorElement.textContent = data.message;
+            listagemEnderecos.innerHTML = ''; // limpa a lista com dados desatualizados
+            carregarEnderecos()
         }
     })
     .catch((err) => console.log('Erro no cadastro de endereço: ', err))
+}
+// funcao que apaga o endereco do usuario pelo token e ID do endereco
+function apagarEndereco(idEndereco) {
+    var formData = new URLSearchParams(); //var recebe os parametros da URL
+    formData.append("id", idEndereco);
+
+    var url = `/api/admin/delete-adress`;
+
+    fetch(url, {
+      method: "DELETE",
+      headers: {"Content-Type": "application/x-www-form-urlencoded",
+                'Authorization': `Bearer ${token}`}, //faz acesso da rota privada
+      body: formData.toString()
+    })
+    .then((res) =>{
+        if(!res.ok) { //erro ao acessar a rota privada
+            throw new Error('Erro ao deletar endereco');
+        } 
+        return res.json();
+    })
+    .then((data) => {
+        if (data && data.error) {
+            errorElement.classList.add('msgError');
+            errorElement.textContent = data.message;
+            
+        } else {
+            errorElement.classList.add('msgSucess');
+            errorElement.textContent = data.message;
+            listagemEnderecos.innerHTML = ''; // limpa a lista com dados desatualizados
+            carregarEnderecos()
+        }
+    })
+    .catch((err) => console.log('Erro ao editar endereços: ', err))
+}
+
+// Funcao fetch que carrega todos os enderecos do usuario
+function carregarEnderecos() {
+
+    let listagemEnderecos = document.getElementById('listagemEnderecos');
+
+    var url = `/api/admin/user-adressess`; //requisicao do usuario pelo token
+
+    fetch(url, {
+      method: "GET",
+      headers: {"Content-Type": "application/x-www-form-urlencoded",
+                'Authorization': `Bearer ${token}`} //faz acesso da rota privada 
+    })
+    .then((res) =>{
+        if(res.ok) { //erro ao acessar a rota privada
+            return res.json();
+        } else if (res.status === 404) {
+            return res.json();
+        } else { 
+            throw new Error('Erro ao requisitar dados para o servidor');
+        }
+    })
+    .then((data) => {
+        if (data && data.error){
+            return listagemEnderecos.innerHTML += `<span class="error-message">${data.message}</span>`
+        }
+        // chama funcao para listar os enderecos do usuario
+        mostrarEnderecos(data, listagemEnderecos)
+    })
+    .catch((err) => console.log("Erro ao carregar enderecos", err))
+}
+
+// Funcao fetch que carrega todos os enderecos do usuario
+function carregarDadosEndereco(idEndereco) {
+    let listagemEnderecos = document.getElementById('listagemEnderecos');
+
+    var url = `/api/admin/adress/${idEndereco}`; //requisicao do usuario pelo token
+
+    fetch(url, {
+      method: "GET",
+      headers: {"Content-Type": "application/x-www-form-urlencoded",
+                'Authorization': `Bearer ${token}`} //faz acesso da rota privada 
+    })
+    .then((res) =>{
+        if(res.ok) { //erro ao acessar a rota privada
+            return res.json();
+        } else if (res.status === 404) {
+            return res.json();
+        } else { 
+            throw new Error('Erro ao requisitar dados para o servidor');
+        }
+    })
+    .then((data) => {
+        if (data && data.error){
+            return listagemEnderecos.innerHTML += `<span class="error-message">${data.message}</span>`
+        }
+        //camposUser recebem os valores do usuario requisitado da API
+        formEndereco.elements.idEndereco.value       = data.adress.id;
+        formEndereco.elements.nomeRef.value          = data.adress.nome_ref;
+        formEndereco.elements.cep.value              = data.adress.cep;
+        formEndereco.elements.logradouro.value       = data.adress.logradouro;
+        formEndereco.elements.numero.value           = data.adress.numero;
+        formEndereco.elements.complemento.value      = data.adress.complemento;
+        formEndereco.elements.referencia.value       = data.adress.referencia;
+        formEndereco.elements.bairro.value           = data.adress.bairro;
+        formEndereco.elements.localidade.value       = data.adress.localidade;
+        formEndereco.elements.uf.value               = data.adress.uf;
+    })
+    .catch((err) => console.log("Erro ao carregar enderecos", err))
 }

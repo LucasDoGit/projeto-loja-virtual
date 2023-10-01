@@ -15,10 +15,9 @@ const authenticateMiddlewares = require('./middlewares/authenticate');
 router.post('/auth/register', userController.register); // registra novos usuarios
 router.post('/auth/authenticate', userController.authenticate); // login dos usuarios
 
-
 //rotas privadas
 
-//user 
+// user 
 router.get('/admin/users', authenticateMiddlewares , adminController.findAll); // busca todos os usuarios
 router.get('/admin/user', authenticateMiddlewares , adminController.findUser); // busca somente um usuario pelo token
 router.put('/admin/user', authenticateMiddlewares , adminController.alterUser); // altera usuario pelo ID
@@ -26,7 +25,12 @@ router.put('/admin/update-user', authenticateMiddlewares, adminController.update
 router.put('/admin/update-password', authenticateMiddlewares, adminController.updateUserPwd); // altera senha do usuario pelo token
 router.delete('/admin/user/:code', authenticateMiddlewares , adminController.deleteUser); // deleta usuario pelo ID
 router.delete('/admin/users', authenticateMiddlewares , adminController.deleteAll); // deleta todos os usuarios
-//user-endereco
+// user-endereco 
 router.post('/admin/register-adress', authenticateMiddlewares , adressController.registerAdress); // cadastra novos enderecos
+router.get('/admin/adress/:id', authenticateMiddlewares , adressController.findAdress); // busca enderecos especifico de um usuario
+router.get('/admin/user-adressess', authenticateMiddlewares , adressController.findAdressess); // busca enderecos especifico de um usuario
+router.put('/admin/update-adress', authenticateMiddlewares , adressController.updateAdress); // busca um endereco especifico
+router.delete('/admin/delete-adress', authenticateMiddlewares , adressController.deleteAdress); // deleta endereco de um usuario
+
 
 module.exports = router;

@@ -1246,6 +1246,10 @@ div.inf-perfil form.formulario-adm > div {
     padding: 2px;
 }
 
+div.inf-perfil section.formulario-adm { /* tamanho dos formularios */
+    height: 90vh;
+}
+
 div.inf-perfil form div > label { /* label titulo nas bordas dos input's */
     color: var(--cor4);
     position: absolute;
@@ -1292,9 +1296,24 @@ form div.contain-input div.complemento label {
 
 /* Formulario endereco - meu perfil */
 
-div.lista-enderecos {
+div#listagemEnderecos {
     display: flex;
     flex-direction: column;
+    overflow-y: auto; 
+    max-height: 470px;
+}  
+
+.display-none {
+    display: none !important;
+}
+
+div#listagemEnderecos > span.error-message {
+    font-size: 15px;
+    background-color: var(--cor1);
+    text-transform: uppercase;
+    margin: 1rem auto;
+    padding: 8px;
+    border-radius: 2px;
 }
 
 div.endereco {
@@ -1311,7 +1330,26 @@ div.endereco {
 
 div.endereco div.titulo {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+div.endereco div.titulo button {
+    font-size: 14px;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    border: 1px solid var(--cor4);
+    background-color: transparent;
+    color: var(--cor4);
+    border-radius: 2px;
+    transition: .3s;
+}
+
+
+div.endereco div.titulo button:hover {
+    border: 1px solid var(--cor4);
+    color: var(--cor1);
+    background-color: var(--cor4);
 }
 
 div.endereco div.titulo h4 {
@@ -1363,10 +1401,6 @@ div.endereco div.editar button:hover{
     background-color: var(--cor4);
 }
 
-form#form-user-adress {
-    display: none;
-}
-
 form#form-user-adress button#btnCancelarEndereco {
     display: block;
     font-size: 13px;
@@ -1376,7 +1410,7 @@ form#form-user-adress button#btnCancelarEndereco {
     margin-left: 25px;
 }
 
-form#form-user-adress button#salvarEndereco {
+form#form-user-adress button:last-child {
     display: block;
     width: 50%;
     margin: 1rem auto;
