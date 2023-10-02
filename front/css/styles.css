@@ -8,7 +8,7 @@
     --cor1: #F2F2F2;
     --cor2: #F2A0CD;
     --cor3: #D94E9A;
-    --cor4: #590222;
+    --cor4: #590222; /* Pode ser usado como Titulo */
     --cor5: #0D0D0D;
 
     --fonte-padrao: Arial, Verdana, Helvetica, sans-serif;
@@ -1929,7 +1929,7 @@ div.tipo-pagamento select .btn-secundario{
 
 section.page-header-privacy {
     padding: 45px 0;
-    background: rgba(128, 128, 128, 0.096);
+    background: rgba(228, 14, 14, 0.096);
     font-family: var(--fonte-poppins), var(--fonte-padrao);
 }
 
@@ -1972,18 +1972,13 @@ a{
 
 section.content-privacy{
     display: block;
+    max-width: 1300px;
+    width: 100%;
+    color: var(--cor5);
+    margin: 1rem auto;
 }
 
-.privacy-policy{
-        display: block;
-        margin-block-start: 1em;
-        margin-block-end: 1em;
-        margin-inline-start: 0px;
-        margin-inline-end: 0px;    
-        color: #0b1d21;
-}
-
-p {
+section.content-privacy div.container-politicas p {
     display: block;
     margin-block-start: 1em;
     margin-block-end: 1em;
@@ -1991,34 +1986,14 @@ p {
     margin-inline-end: 0px;
 }
 
-h2, .h2 {
-    font-size: 34px;
-    font-weight: 700;
-    margin-block-end: 0.83em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-}
+/*  */
 
-h3, .h3 {
+section.content-privacy div.container-politicas h3{
     font-size: 20px;
     font-weight: 700;
+    color: var(--cor4);
+    margin-top: 15px;
 }
-
-h3 {
-    display: block;
-    font-size: 1.17em;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-}
-
-.privacy-policy::after{
-    box-sizing: border-box;
-}
-
-
 
 /* MEDIA QUERY */
 @media screen and (max-width: 1440px){
