@@ -1929,7 +1929,7 @@ div.tipo-pagamento select .btn-secundario{
 
 section.page-header-privacy {
     padding: 45px 0;
-    background: rgba(228, 14, 14, 0.096);
+    background: white;
     font-family: var(--fonte-poppins), var(--fonte-padrao);
 }
 
