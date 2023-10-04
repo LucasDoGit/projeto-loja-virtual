@@ -2,6 +2,11 @@ const formSigin = document.getElementById('form-sigin');
 const errorElement = document.getElementById('data-message');
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/; // Email válido
 
+// usuário já logado entra direto na tela de perfil.
+if(localStorage.getItem('token')) {
+  window.location.href = 'http://localhost:3000/pages/meu-perfil.html'
+}
+
 formSigin.addEventListener("submit", function (event) {
   event.preventDefault(); // Impede o envio do formulário padrão
 

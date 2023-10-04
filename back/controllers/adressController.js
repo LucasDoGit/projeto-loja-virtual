@@ -34,13 +34,13 @@ module.exports = {
     // busca um endereco pelo token do usuario
     findAdress: async (req, res) => {
         const usertoken = req.headers.authorization; // recebe o token da sessao
-        const idEndereco = req.params.id;
+        const addressId = req.params.addressId;
         let token = decoder(usertoken) // decodifica o token
         
-        if (idEndereco == ':id'){
+        if (addressId == ':id'){
             return res.status(404).send({ erro: true, message: 'id de endereco inválido'})
         } 
-        const endereco = await adressService.findOneAdress(token.id, idEndereco);
+        const endereco = await adressService.findOneAdress(token.id, addressId);
 
         if(!endereco){
             return res.status(404).send({ error: true, message: 'Endereco não existe' });
@@ -77,33 +77,34 @@ module.exports = {
     },
     // atualiza endereco pelo token recebido
     updateAdress: async (req, res) => {
-        let { cep, logradouro, numero, complemento, bairro, referencia, localidade, uf, nome_ref, id } = req.body;
         const usertoken = req.headers.authorization;
         let token = decoder(usertoken)
-        
-        let attEndereco = await adressService.update(cep, logradouro, numero, complemento, bairro, referencia, localidade, uf, nome_ref, token.id, id);
+        let addressId = req.params.addressId;
+        let { cep, logradouro, numero, complemento, bairro, referencia, localidade, uf, nome_ref } = req.body;
 
-        if (cep && token.id){        
-            if(!attEndereco) {
+        if (cep && token.id && addressId){     
+            const updateAdress = await adressService.update(cep, logradouro, numero, complemento, bairro, referencia, localidade, uf, nome_ref, token.id, addressId);
+
+            if(!updateAdress) {
                 return res.status(404).send({ error: true, message: 'Endereço não está cadastrados' });
-            } 
+            }
             return res.status(200).send({ message: 'endereço alterado' });
         } else {
-            return res.status(400).send({ error: true, message: 'Dados inválidos' });
+            return res.status(400).send({ error: true, message: 'Digite os dados do endereço' });
         }
     },
     // deleta endereco pelo id
     deleteAdress: async(req, res) => {  
         const usertoken = req.headers.authorization;
         let token = decoder(usertoken)   
-        let { id } = req.body;
+        let addressId = req.params.addressId;
         
-        if (!id && !token.id) { // verifica se foi recebido o ID
+        if (!addressId) { // verifica se foi recebido o ID
             return res.status(401).send({ message: 'Código inválido' });
         } 
-        const user = await adressService.delete(id, token.id); // exclui o endereco pelo ID no BD
+        const deleteAdress = await adressService.delete(addressId, token.id); // exclui o endereco pelo ID no BD
 
-        if (!user) { // tratamento de erro ao excluir usuário
+        if (!deleteAdress) { // tratamento de erro ao excluir usuário
             return res.status(404).send({ message: 'Endereço não está cadastrado!' });
         }
         return res.status(200).send({message: 'Endereco excluído'})

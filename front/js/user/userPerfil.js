@@ -75,6 +75,16 @@ formEndereco.addEventListener('submit', async function(event) {
         errorElement.classList.add('msgSucess');
         if(!idInput.value){ // verifica foi digitado algum ID para cadastrado ou atualização de endereço
             cadastrarEndereco(nomeRefInput, cepInput, ruaInput, numeroInput, complementoInput, referenciaInput, bairroInput, cidadeInput, estadoInput);
+            // limpa os campos do formulario
+            nomeRefInput.value = '';    
+            cepInput.value = '';        
+            ruaInput.value = '';        
+            numeroInput.value = '';     
+            complementoInput.value = '';
+            referenciaInput.value = ''; 
+            bairroInput.value = '';     
+            cidadeInput.value = '';     
+            estadoInput.value = '';
         } else {
             atualizarEndereco(idInput, nomeRefInput, cepInput, ruaInput, numeroInput, complementoInput, referenciaInput, bairroInput, cidadeInput, estadoInput)
         }
@@ -144,6 +154,7 @@ function mostraFormEndereco() {
 
 function mostrarListaEnderecos(){
     alterarDisplay(formEndereco);
+    formEndereco.elements.idEndereco.value = '';
     document.getElementById('listagemEnderecos').classList.remove('display-none');
     document.getElementById('btnCadastrarEndereco').classList.remove('display-none');
 }
@@ -280,7 +291,7 @@ function carregaUsuario(nameInput, cpfInput, telInput, birthdateInput, emailInpu
     if(token == null){ //verifica se possui um id no localStorage
         throw new Error("Erro ao buscar usuário.");
     }
-    var url = `/api/admin/user`; //requisicao do usuario pelo token
+    var url = `/api/users/me`; //requisicao do usuario pelo token
 
     fetch(url, {
       method: "GET",
@@ -320,7 +331,7 @@ function atualizarUsuario(nameInput, cpfInput, birthdateInput, telInput, emailIn
     formData.append("tel", telInput.value);
     formData.append("email", emailInput.value);
 
-    var url = `/api/admin/update-user`; //requisicao do usuario pelo id
+    var url = `/api/users/me`; //requisicao do usuario pelo id
 
     fetch(url, {
       method: "PUT",
@@ -354,7 +365,7 @@ function atualizarSenha(pwdInput, pwd2Input) {
     var formData = new URLSearchParams(); //var recebe os parametros da URL
     formData.append("password", pwdInput.value);
 
-    var url = `/api/admin/update-password`; //requisicao do usuario pelo id
+    var url = `/api/users/me/password`; //requisicao do usuario pelo id
 
     fetch(url, {
       method: "PUT",
@@ -426,7 +437,7 @@ function cadastrarEndereco(nomeRefInput, cepInput, ruaInput, numeroInput, comple
     formData.append("uf", estadoInput.value);
     formData.append("nome_ref", nomeRefInput.value);
 
-    var url = `/api/admin/register-adress`;
+    var url = "/api/users/me/addresses";
 
     fetch(url, {
       method: "POST",
@@ -454,88 +465,11 @@ function cadastrarEndereco(nomeRefInput, cepInput, ruaInput, numeroInput, comple
             errorElement.classList.add('msgSucess');
             errorElement.textContent = data.message;
             listagemEnderecos.innerHTML = ''; // limpa a lista com dados desatualizados
-            
             carregarEnderecos()
+            mostrarListaEnderecos()
         }
     })
     .catch((err) => console.log('Erro no cadastro de endereço: ', err))
-}
-
-function atualizarEndereco(idInput, nomeRefInput, cepInput, ruaInput, numeroInput, complementoInput, referenciaInput, bairroInput, cidadeInput, estadoInput) {
-    
-    let listagemEnderecos = document.getElementById('listagemEnderecos')
-    var formData = new URLSearchParams(); //var recebe os parametros da URL
-    formData.append("id", idInput.value);
-    formData.append("cep", cepInput.value);
-    formData.append("logradouro", ruaInput.value);
-    formData.append("numero", numeroInput.value);
-    formData.append("complemento", complementoInput.value);
-    formData.append("referencia", referenciaInput.value);
-    formData.append("bairro", bairroInput.value);
-    formData.append("localidade", cidadeInput.value);
-    formData.append("uf", estadoInput.value);
-    formData.append("nome_ref", nomeRefInput.value);
-
-    var url = `/api/admin/update-adress`;
-
-    fetch(url, {
-      method: "PUT",
-      headers: {"Content-Type": "application/x-www-form-urlencoded",
-                'Authorization': `Bearer ${token}`}, //faz acesso da rota privada
-      body: formData.toString()
-    })
-    .then((res) =>{
-        if(!res.ok) { //erro ao acessar a rota privada
-            throw new Error('Erro ao atualizar enderecos');
-        } 
-        return res.json();
-    })
-    .then((data) => {
-        if (data && data.error) {
-            errorElement.classList.add('msgError');
-            errorElement.textContent = data.message;
-            
-        } else {
-            errorElement.classList.add('msgSucess');
-            errorElement.textContent = data.message;
-            listagemEnderecos.innerHTML = ''; // limpa a lista com dados desatualizados
-            carregarEnderecos()
-        }
-    })
-    .catch((err) => console.log('Erro no cadastro de endereço: ', err))
-}
-// funcao que apaga o endereco do usuario pelo token e ID do endereco
-function apagarEndereco(idEndereco) {
-    var formData = new URLSearchParams(); //var recebe os parametros da URL
-    formData.append("id", idEndereco);
-
-    var url = `/api/admin/delete-adress`;
-
-    fetch(url, {
-      method: "DELETE",
-      headers: {"Content-Type": "application/x-www-form-urlencoded",
-                'Authorization': `Bearer ${token}`}, //faz acesso da rota privada
-      body: formData.toString()
-    })
-    .then((res) =>{
-        if(!res.ok) { //erro ao acessar a rota privada
-            throw new Error('Erro ao deletar endereco');
-        } 
-        return res.json();
-    })
-    .then((data) => {
-        if (data && data.error) {
-            errorElement.classList.add('msgError');
-            errorElement.textContent = data.message;
-            
-        } else {
-            errorElement.classList.add('msgSucess');
-            errorElement.textContent = data.message;
-            listagemEnderecos.innerHTML = ''; // limpa a lista com dados desatualizados
-            carregarEnderecos()
-        }
-    })
-    .catch((err) => console.log('Erro ao editar endereços: ', err))
 }
 
 // Funcao fetch que carrega todos os enderecos do usuario
@@ -543,7 +477,7 @@ function carregarEnderecos() {
 
     let listagemEnderecos = document.getElementById('listagemEnderecos');
 
-    var url = `/api/admin/user-adressess`; //requisicao do usuario pelo token
+    var url = "/api/users/me/addresses"; //requisicao do usuario pelo token
 
     fetch(url, {
       method: "GET",
@@ -573,7 +507,7 @@ function carregarEnderecos() {
 function carregarDadosEndereco(idEndereco) {
     let listagemEnderecos = document.getElementById('listagemEnderecos');
 
-    var url = `/api/admin/adress/${idEndereco}`; //requisicao do usuario pelo token
+    var url = `/api/users/me/addresses/${idEndereco}`; //requisicao do usuario pelo token
 
     fetch(url, {
       method: "GET",
@@ -606,4 +540,80 @@ function carregarDadosEndereco(idEndereco) {
         formEndereco.elements.uf.value               = data.adress.uf;
     })
     .catch((err) => console.log("Erro ao carregar enderecos", err))
+}
+
+function atualizarEndereco(idInput, nomeRefInput, cepInput, ruaInput, numeroInput, complementoInput, referenciaInput, bairroInput, cidadeInput, estadoInput) {
+    
+    let listagemEnderecos = document.getElementById('listagemEnderecos')
+    const addressId = idInput.value;
+
+    var formData = new URLSearchParams(); //var recebe os parametros da URL
+    formData.append("cep", cepInput.value);
+    formData.append("logradouro", ruaInput.value);
+    formData.append("numero", numeroInput.value);
+    formData.append("complemento", complementoInput.value);
+    formData.append("referencia", referenciaInput.value);
+    formData.append("bairro", bairroInput.value);
+    formData.append("localidade", cidadeInput.value);
+    formData.append("uf", estadoInput.value);
+    formData.append("nome_ref", nomeRefInput.value);
+
+    var url = `/api/users/me/addresses/${addressId}`;
+
+    fetch(url, {
+      method: "PUT",
+      headers: {"Content-Type": "application/x-www-form-urlencoded",
+                'Authorization': `Bearer ${token}`}, //faz acesso da rota privada
+      body: formData.toString()
+    })
+    .then((res) =>{
+        if(!res.ok) { //erro ao acessar a rota privada
+            throw new Error('Erro ao atualizar enderecos');
+        } 
+        return res.json();
+    })
+    .then((data) => {
+        if (data && data.error) {
+            errorElement.classList.add('msgError');
+            errorElement.textContent = data.message;
+            
+        } else {
+            errorElement.classList.add('msgSucess');
+            errorElement.textContent = data.message;
+            listagemEnderecos.innerHTML = ''; // limpa a lista com dados desatualizados
+            carregarEnderecos()
+        }
+    })
+    .catch((err) => console.log('Erro no cadastro de endereço: ', err))
+}
+// funcao que apaga o endereco do usuario pelo token e ID do endereco
+function apagarEndereco(idEndereco) {
+
+    const addressId = idEndereco;
+    var url = `/api/users/me/addresses/${addressId}`;
+
+    fetch(url, {
+      method: "DELETE",
+      headers: {"Content-Type": "application/x-www-form-urlencoded",
+                'Authorization': `Bearer ${token}`}, //faz acesso da rota privada
+    })
+    .then((res) =>{
+        if(!res.ok) { //erro ao acessar a rota privada
+            throw new Error('Erro ao deletar endereco');
+        } 
+        return res.json();
+    })
+    .then((data) => {
+        if (data && data.error) {
+            errorElement.classList.add('msgError');
+            errorElement.textContent = data.message;
+            
+        } else {
+            errorElement.classList.add('msgSucess');
+            errorElement.textContent = data.message;
+            listagemEnderecos.innerHTML = ''; // limpa a lista com dados desatualizados
+            carregarEnderecos()
+        }
+    })
+    .catch((err) => console.log('Erro ao editar endereços: ', err))
 }

@@ -1,6 +1,19 @@
 const db = require('../database/db'); //conexao com o banco de dados
 
 module.exports = {
+    //insere novos users no banco
+    register: (cpf, name, birthdate, tel, email, password) => {
+        return new Promise((accept, rejected)=>{
+
+            db.query('INSERT INTO users (cpf, name, birthdate, tel, email, password) VALUES (?, ?, ?, ?, ?, ?)', 
+                [cpf, name, birthdate, tel, email, password], 
+                (error, results) => {
+                    if(error) { rejected(error); return; }
+                    accept(results.insertId);
+                }
+            );
+        });
+    },
     //puxa todos os usarios do banco
     findAll: () => {
         return new Promise((accept, rejected)=>{
@@ -29,25 +42,12 @@ module.exports = {
             });
         });
     },
-    //insere novos users no banco
-    register: (cpf, name, birthdate, tel, email, password) => {
+    // atualiza somente os dados básicos do usuário 
+    updateUser: (name, birthdate, tel, id) => {
         return new Promise((accept, rejected)=>{
 
-            db.query('INSERT INTO users (cpf, name, birthdate, tel, email, password) VALUES (?, ?, ?, ?, ?, ?)', 
-                [cpf, name, birthdate, tel, email, password], 
-                (error, results) => {
-                    if(error) { rejected(error); return; }
-                    accept(results.insertId);
-                }
-            );
-        });
-    },
-    //altera um users do banco
-    alterUser: (id, cpf, name, birthdate, tel, email, password) => {
-        return new Promise((accept, rejected)=>{
-
-            db.query('UPDATE users SET cpf = ?, name = ?, birthdate = ?, tel = ?, email = ?, password = ? WHERE id_user = ?', 
-                [cpf, name, birthdate, tel, email, password, id], 
+            db.query('UPDATE users SET name = ?, birthdate = ?, tel = ? WHERE id_user = ?', 
+                [name, birthdate, tel, id], 
                 (error, results) => {
                     if(error) { rejected(error); return; }
                     accept(results);
@@ -117,20 +117,7 @@ module.exports = {
             });
         });
     },
-    // atualiza somente os dados básicos do usuário 
-    updateUser: (name, birthdate, tel, id) => {
-        return new Promise((accept, rejected)=>{
-
-            db.query('UPDATE users SET name = ?, birthdate = ?, tel = ? WHERE id_user = ?', 
-                [name, birthdate, tel, id], 
-                (error, results) => {
-                    if(error) { rejected(error); return; }
-                    accept(results);
-                }
-            );
-        });
-    },
-    updateUserPwd: (password, id) => {
+    updatePwd: (password, id) => {
         return new Promise((accept, rejected)=>{
 
             db.query('UPDATE users SET password = ? WHERE id_user = ?', [password, id], (error, results) => {

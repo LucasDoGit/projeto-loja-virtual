@@ -3,17 +3,25 @@ const bcrypt = require('bcrypt'); //criptografador para as senhas
 const jwt = require('jsonwebtoken');
 const authConfig = require("../config/auth.json");
 
-//numero aleatorio para gerar um hash
-function randomNumber (max, min) {
+// gera um numero aleatorio entre um dois numeros
+function randomNumber (max, min) { // numero aleatorio para gerar um hash
     return Math.floor(Math.random() * (min - max + 1)) + max
 }
-
+// cria token de sessão
+const generateToken = (user = {}) => { // token baseado no id e nome do usuario por 1 dia
+    return jwt.sign({
+        id: user.id_user,
+        name: user.name
+    } , authConfig.secret , { // chave secreta
+        expiresIn: 86400, // 1 dia em segundos
+    });
+}
+// decodifica o token para receber as informações
 function decoder (usertoken) {
     const token = usertoken.split(' '); // divide o token
     const decoder = jwt.verify(token[1], authConfig.secret); // decodifica o token
     return decoder;
 }
-
 //exibe todas as informacoes do usuario
 const displayUser = (user = {}) => {
     return user = {
@@ -53,10 +61,13 @@ module.exports = {
         return res.status(201).send(json); // retorna todos os usuarios
     },
     // busca usuario pelo codigo
-    findUser: async(req, res) => { 
-        const usertoken = req.headers.authorization; // recebe o token da sessao
-        let token = decoder(usertoken) // decodifica o token
-        const user = await userService.findUser(token.id); // busca o usuario pelo ID
+    findOne: async(req, res) => { 
+        let userId = req.params.userId;
+
+        if (!userId){
+            res.status(404).send({ message: 'Digite um código de usuário'});
+        }
+        const user = await userService.findUser(userId); // busca o usuario pelo ID
 
         if(!user){ // trata erro ao buscar usuario
            return res.status(401).send({ error: true, message: 'Código não encontrado' });
@@ -64,91 +75,33 @@ module.exports = {
         return res.status(201).send({ user: displayUser(user) }) // exibe todas as informacoes do usuario
     },
     // altera usuario pelo codigo
-    alterUser: async(req, res) => { 
-        const usertoken = req.headers.authorization; // recebe o token da sessao
-        let token = decoder(usertoken) // decodifica o token
-        let { cpf, name, birthdate, tel, email, password } = req.body; 
+    updateUser: async(req, res) => {
+        let userId = req.params.userId;
+        let { name, birthdate, tel } = req.body;
 
-        if(cpf && name && birthdate && email && password){ //verifica se os campos foram digitados
-            const userRegistred = await userService.findUserRegistred(email, cpf);
-            if(userRegistred) { 
-                return res.status(400).send({ error: true, message: 'email ou cpf já registrados!' })    
-            }
-            const RandomSalt = randomNumber(10, 16); // gera um numero aleatorio
-            const hashedPassword = await bcrypt.hash(password, RandomSalt); // cria uma hash aleatoria para a senha
-            password = hashedPassword; // recebe o hash da senha para salvar no BD
-            const userAlter = await userService.alterUser(token.id, cpf, name, birthdate, tel, email, password); // registra as alteracoes do usuario
-
-            if(!userAlter) { // trata erro ao alterar usuario
-                return res.status(400).send({ message: 'erro ao alterar usuario'});
-            }
-            const user = await userService.findUser(token.id); // busca o usuario alterado
-
-            if(!user){ // trata erro ao buscar usuario
-                return res.status(401).send({ error: true, message: 'Código não encontrado' });
-             }
-             return res.status(201).send({ user: displayUser(user) }) // exibe todas as informacoes do usuario
+        if(userId == ':userId'){ //verifica se os campos foram digitados   
+            return res.status(400).send({ error: true, message: 'Preencha os campos obrigatórios'}); 
+        }
+        const updateUser = await userService.updateUser(name, birthdate, tel, userId); // registra as atualizacoes do usuario
+        if(!updateUser) { // trata erro ao alterar usuario
+            return res.status(400).send({ error: true, message: 'erro ao alterar usuario'});
         } else {
-            return res.status(400).send({ message: 'campos não enviados'}); 
-        }
-    },
-    updateUser: async (req, res) => { // usuario atualiza os proprios dados
-        const usertoken = req.headers.authorization; // recebe o token da sessao
-        let token = decoder(usertoken) // decodifica o token
-        let { cpf, name, birthdate, tel, email } = req.body;
-
-        if(cpf && name && birthdate && email){ //verifica se os campos foram digitados
-            const findUserRegistered = await userService.findUserRegistered(cpf, email, token.id);
-
-            if (findUserRegistered) return res.status(409).send({ error: true, message: 'Email ou CPF já sendo utilizados '});      
-
-            const updateUser = await userService.updateUser(name, birthdate, tel, token.id); // registra as atualizacoes do usuario
-            if(!updateUser) { // trata erro ao alterar usuario
-                return res.status(400).send({ error: true, message: 'erro ao alterar usuario'});
-            } else {
-                res.status(200).send({ message: 'dados do usuário alterados' })
-            }
-        }
-        else {
-            return res.status(400).send({ error: true, message: 'campos não enviados'}); 
-        }
-    },
-    // atualiza a senha do usuario
-    updateUserPwd: async (req, res) => { 
-        const usertoken = req.headers.authorization;
-        let token = decoder(usertoken)
-        let { password } = req.body;
-
-        if(!password) {
-            return res.status(400).send({ error: true, message: 'nenhuma senha fornecida' });
-        }
-        else {
-            const RandomSalt = randomNumber(10, 16); // gera um numero aleatorio
-            const hashedPassword = await bcrypt.hash(password, RandomSalt); // cria uma hash aleatoria para a senha
-            password = hashedPassword; // recebe o hash da senha para salvar no BD
-
-            const updateUserPwd = await userService.updateUserPwd(password, token.id);
-            
-            if (!updateUserPwd) {
-                return res.status(401).send({ error: true, message: 'senha não foi alterada' });
-            } else {
-                return res.status(200).send({ message: 'senha alterada com sucesso' });
-            }
+            res.status(200).send({ message: `dados do usuário ${userId} alterados` })
         }
     },
     //deleta usuario
     deleteUser: async(req, res) => {        
-        let id = (req.params.code);
+        let userId = (req.params.userId);
 
-        if (id == ':code') { // verifica se foi recebido o ID
-            return res.status(401).send({ message: 'codigo não recebido' });
-        } 
-        const user = await userService.deleteUser(req.params.code); // exclui o usuario pelo ID no BD
+        if (userId == ':userId') { // verifica se foi recebido o ID
+            return res.status(401).send({ message: 'Codigo de usuários inválido' });
+        }
+        const user = await userService.deleteUser(userId); // exclui o usuario pelo ID no BD
 
         if (!user) { // tratamento de erro ao excluir usuário
             return res.status(401).send({ message: 'Erro ao excluir usuario' });
         }
-        return res.status(200).send({message: `usuario ${id} excluído`})
+        return res.status(200).send({message: `usuario ${userId} excluído`})
     },
     //deleta todos os usuarios
     deleteAll: async (req, res) => {
