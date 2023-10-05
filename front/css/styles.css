@@ -1925,7 +1925,7 @@ div.tipo-pagamento select .btn-secundario{
 }
 
 
-/** Política de Privacidade **/
+/* Política de Privacidade */
 
 section.page-header-privacy {
     padding: 45px 0;
@@ -1986,13 +1986,67 @@ section.content-privacy div.container-politicas p {
     margin-inline-end: 0px;
 }
 
-/*  */
-
 section.content-privacy div.container-politicas h3{
     font-size: 20px;
     font-weight: 700;
     color: var(--cor4);
     margin-top: 15px;
+}
+
+/* Administração de Usuarios */
+
+div.inf-user{
+    display:flex;
+    gap: 2rem;
+    height: 60vh;
+}
+
+div.conteudo-adm .btn-admin-voltar {
+    border: 1px solid var(--cor4);
+    background-color: white;
+    color: var(--cor4);
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+div.conteudo-adm .btn-admin-voltar:hover {
+    background-color: var(--cor2);
+    color: var(--cor1);
+    border: 1px solid var(--cor2);
+}
+
+
+div.conteudo-adm div.inf-user section.formulario-adm {
+    width: 25%;
+    display: flex;
+}
+
+div.conteudo-adm div.inf-user section.formulario-adm-2{
+    background-color: white;
+    border-radius: 5px;
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 2rem;
+}
+
+div.conteudo-adm div.inf-user section.formulario-adm form.formulario-adm{
+    margin-top: 2rem;
+}
+
+div.conteudo-adm div.inf-user section.formulario-adm div.usuarios form.formulario-adm{
+    margin-bottom: 1.5rem;
+}
+
+div.conteudo-adm div.inf-user section.formulario-adm form.formulario-adm .botoes{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+
+.status-user select{
+    border: 1px solid var(--cor4);
+    border-radius: 5px;
 }
 
 /* MEDIA QUERY */
