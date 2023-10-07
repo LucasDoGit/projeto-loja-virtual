@@ -1,9 +1,10 @@
-require('dotenv').config({path:'variaveis.env'}); //leitura e configuração das variáveis de ambiente
-const express = require('express'); //permite criar rotas e envios para aplicacao
-const cors = require('cors'); //cors permite acesso recursos de outros sitesz
-const bodyParser = require('body-parser'); //modulo para converter body
+import dotenv from "dotenv";
+dotenv.config(); //leitura e configuração das variáveis de ambiente
+import express from 'express'; //permite criar rotas e envios para aplicacao
+import cors from 'cors'; //cors permite acesso recursos de outros sitesz
+import bodyParser from 'body-parser'; //modulo para converter body
 
-const routes = require('./routes');
+import routes from './routes.js';
 
 const server = express();
 server.use(cors());

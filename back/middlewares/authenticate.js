@@ -1,7 +1,8 @@
-const jwt = require('jsonwebtoken'); //token para autenticacao de sessao
-const authConfig = require("../config/auth.json");
+import jwt from 'jsonwebtoken';
+import { readJSON } from "../controllers/globalController.js";
+const authConfig = readJSON("../config/auth.json");
 
-module.exports = (req, res, next) => {
+const authenticate = (req, res, next) => {
 
     const authHeader = req.headers.authorization;
 
@@ -50,7 +51,7 @@ module.exports = (req, res, next) => {
         console.log(decoded); //token decodificado
         */
         return next(); //executa proxima tarefa
-    })
-
-    
+    })   
 }
+
+export default authenticate;

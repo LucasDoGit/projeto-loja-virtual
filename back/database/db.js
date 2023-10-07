@@ -1,4 +1,6 @@
-const mysql = require('mysql2');
+import mysql from 'mysql2';
+import dotenv from "dotenv";
+dotenv.config(); //leitura e configuração das variáveis de ambiente
 
 const connection = mysql.createConnection({
     host: process.env.DB_HOST,     // Endereço do servidor do banco de dados
@@ -12,17 +14,6 @@ connection.connect((error) =>{
    console.log(`Conectado ao banco de dados: ${process.env.DB_DATABASE}`)
 });
 
-// connection.query('SELECT * FROM usuarios', function(err, results, fields) {
-//   if (err) {
-//     console.error('Erro ao executar a consulta: ' + err.stack);
-//     return;
-//   }
-
-//   // Manipule os resultados da consulta
-//   console.log(results);
-// });
-
-
 // connection.end(function(error) {
 //     if (error) {
 //       console.error('Erro ao encerrar a conexão com o banco de dados: ' + err.stack);
@@ -32,5 +23,4 @@ connection.connect((error) =>{
 //     console.log('Conexão encerrada com o banco de dados.');
 // });
   
-
-module.exports = connection;
+export default connection;
