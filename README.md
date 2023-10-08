@@ -14,20 +14,22 @@
 - Bootstrap 5
 - Java Script
 - Node.js
-    - Express, Cors, dotenv, body-parsev, mysql2, bcrypt, jsonwebtoken;
-- MySQL
+    - Express, Cors, dotenv, body-parsev, moongose, bcrypt, jsonwebtoken;
+- MongoDB 
 
 ### Ambiente de desenvolvimento
 - Virtual Studio Code - Version 1.79.0
 - GitHub Desktop - Version 3.2.3
-- MySQL Workbech Comumnity - Version 8.0.33
 - Node.js - Version 18.16.0
+- MongoDB Atlas Database
 
-## **IMPORTANTE:** para iniciar o site, é necessário seguir os passos abaixo:
-1. Definir as configurações do BD no arquivo "variaveis-g.env"; 
+### **IMPORTANTE:** para iniciar o site, é necessário seguir os passos abaixo:
+1. Definir as variaveis do seu ambiente do BD no arquivo ".env";
+    * *PORT* se refere a porta local onde o server vai ser executado;
+    * *DB_USER* e *DB_PASSWORD* são credênciais do usuario cadastrado no Atlas;
 2. Abrir o diretorio do site com o _**Prompt de Comando**_;
     > Exemplo: **CD X:\Workspace\projeto-loja-virtual**
-3. executar `` npm install `` (baixa as dependências);
-4. executar `` npm start `` (executar o projeto);
+3. executar o comando `` npm install `` para baixar as dependências;
+4. executar `` npm start `` para iniciar o projeto;
 5. Abrir em localhost com a porta definida;
     > `` http://localhost:3000 ``

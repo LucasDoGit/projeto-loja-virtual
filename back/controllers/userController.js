@@ -1,90 +1,102 @@
-import userService from '../services/userService.js'; //model do usuario
-import { decoder, displayUser, hashedPassword, generateToken} from "../controllers/globalController.js";
-import bcrypt from 'bcrypt'; // criptografador para as senhas
+import User from "../models/User.js";
+import { decoder, displayUser, hashedPassword } from "../controllers/globalController.js";
 
-const createUser = async(req, res) => {
-    let { cpf, name, birthdate, tel, email, password } = req.body; // recebe as informacoes do usuario do body
-    
-    if(cpf && name && birthdate && email && password){ // verifica se os campos foram digitados
-        const usersRegistered = await userService.usersRegistered(email, cpf); // busca os usuario cadastrados pelo email e CPF
-        
-        if(usersRegistered) { // caso usuario esteja cadastrado retorna erro
-            return res.status(400).send({ error: true, message: 'Usuário já cadastrado' })
-        }
-        password = await hashedPassword(password); // chama funcao para criar hash da senha do usuario
-        
-        const user = await userService.createUser(cpf, name, birthdate, tel, email, password); // faz o registro do usuario no BD
-
-        if(!user) { // trata erro ao cadastrar usuario
-            return res.status(400).send({ error: true, message: 'erro ao cadastrar usuario' });
-        }
-        return res.status(200).send({ message: 'usuario cadastrado' });
-    } else { // campos nao sao validos
-       return res.status(400).send({ error: true, message: 'Preencha os campos necessários' });
-    }
-}
 // busca usuario pelo codigo
 const findUser = async(req, res) => { 
-    const usertoken = req.headers.authorization; // recebe o token da sessao
-    let token = decoder(usertoken) // decodifica o token
-    const user = await userService.findById(token.id); // busca o usuario pelo ID
+      const usertoken = req.headers.authorization; // recebe o token da sessao
+      let token = decoder(usertoken) // decodifica o token
 
-    if(!user){ // trata erro ao buscar usuario
-        return res.status(401).send({ error: true, message: 'Código não encontrado' });
-    }
-    return res.status(201).send({ user: displayUser(user) }) // exibe todas as informacoes do usuario
-}
-const updateUser = async (req, res) => { // usuario atualiza os proprios dados
-    const usertoken = req.headers.authorization; // recebe o token da sessao
-    let token = decoder(usertoken) // decodifica o token
-    let { cpf, name, birthdate, tel, email } = req.body;
+      try {
+        // busca o usuario pelo ID do token
+        const user = await User.findById(token.id);
 
-    if(!token.id || !cpf || !name || !birthdate || !email){
-        return res.status(400).send({ error: true, message: 'Preencha os campos obrigatórios'}); 
-    } else {
-        const findUserRegistered = await userService.findUserRegistered(cpf, email, token.id);
-
-        if (findUserRegistered) return res.status(409).send({ error: true, message: 'Email ou CPF já sendo utilizados '});      
-
-        const updateUser = await userService.updateUser(name, birthdate, tel, token.id); // registra as atualizacoes do usuario
-        if(!updateUser) { // trata erro ao alterar usuario
-            return res.status(400).send({ error: true, message: 'Erro ao alterar usuario'});
+        // nao recebe nenhum usuario
+        if(!user){
+            return res.status(401).json({ error: true, message: 'Código não encontrado' });
         }
-        res.status(200).send({ message: 'Dados do usuário alterado' })
-    }
+
+        // retorna algumas informacoes do usuario
+        return res.status(201).json({ user: displayUser(user) }) // exibe todas as informacoes do usuario
+      } catch (error) {
+        res.status(500).json({ message: 'Erro ao criar usuário.', error: error.message });
+      }
 }
-// atualiza a senha do usuario
+// usuario atualiza os proprios dados
+const updateUser = async (req, res) => {
+  const usertoken = req.headers.authorization; // recebe o token da sessao
+  let token = decoder(usertoken) // decodifica o token
+  let { cpf, name, birthdate, tel, email } = req.body;
+
+  // verifica se todos os campos foram digitados
+  if(!token.id || !cpf || !name || !birthdate || !email){
+      return res.status(400).json({ error: true, message: 'Preencha os campos obrigatórios'}); 
+  } 
+  try {
+    // Verifique se já existe um usuário com o mesmo CPF ou e-mail
+    const existingUser = await User.findOne({
+      $or: [{ cpf: cpf }, { email: email }],
+      _id: { $ne: token.id }, // usuário é excluido da pesquisa
+    });
+    
+    if (existingUser) {
+      // Se um usuário com o mesmo CPF ou e-mail existir, retorna um erro
+      return res.status(400).json({ message: 'CPF ou e-mail já existem.', erro: true });
+    }
+
+    // recebe os dados do usuario
+    const updatedUserData = {
+      name: name,
+      cpf: cpf,
+      birthdate: birthdate,
+      tel: tel,
+    };
+
+    // registra as atualizacoes do usuario
+    await User.findByIdAndUpdate(token.id, updatedUserData, { new: true })
+      .then((user) => {
+        if(!user){
+          // usuario nao foi encontrado
+          return res.status(404).json({ erro: true, message: 'usuario nao encontrado'})
+        } else {
+          // atualizacao do usuario foi bem sucessida
+          res.status(200).send({ message: 'Dados do usuário alterado', user: displayUser(user) })
+        }
+      })
+      .catch((error) => {
+        // erro durante a atualizacao do usuario
+        return res.status(400).json({ message: 'Erro durante a atualizacao do usuario.', erro: error})
+      })
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao atualizar usuário.', error: error.message });
+  }
+}
+// usuario atualiza a propria senha
 const updatePwd = async (req, res) => { 
     const usertoken = req.headers.authorization;
     let token = decoder(usertoken)
     let { password } = req.body;
 
     if(!password) {
-        return res.status(400).send({ error: true, message: 'nenhuma senha fornecida' });
-    } else {
-        password = await hashedPassword(password); // chama funcao para criar hash da senha do usuario
-        const updatePwd = await userService.updatePwd(password, token.id);
-        
-        if (!updatePwd) {
-            return res.status(401).send({ error: true, message: 'senha não foi alterada' });
-        } else {
-            return res.status(200).send({ message: 'senha alterada com sucesso' });
-        }
+      return res.status(400).json({ error: true, message: 'nenhuma senha fornecida' });
     }
-}
-// autentica usuario
-const authenticate = async (req, res) => { 
-    let { email, password } = req.body;
-    const user = await userService.findEmail(email) // busca usuario pelo email no BD
-    
-    if(!user) { // se nao achar retorna erro
-        return res.status(400).send({ error: true, message: 'usuario não cadastrado' })
+
+    try {
+      // chama funcao para criar hash da senha do usuario
+      password = await hashedPassword(password);
+
+      // atualiza a senha do usuario pelo id
+      const updatePassword = await User.findByIdAndUpdate(token.id, { password: password });
+
+      if (!updatePassword) {
+          // retorna erro caso a senha nao for atualizada
+          return res.status(401).json({ message: 'Senha não foi alterada', error: true });
+      }
+      // retorna somente um json infomando que a senha foi atualizada
+      return res.status(200).json({ message: 'Senha alterada com sucesso' });
+
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao atualizar a senha do usuário.', error: error.message });
     }
-    
-    if(!await bcrypt.compare(password, user.password)) { // compara a senha digitada com a senha do usuario
-        return res.status(400).send({ error: true, message: 'Verifique os dados digitados' })
-    }
-    return res.status(200).json({token: generateToken(user)}); // gera um token para sessao do usuario
 }
 
-export default { createUser, findUser, updateUser, updatePwd, authenticate }
+export default { findUser, updatePwd, updateUser }

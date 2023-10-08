@@ -48,8 +48,9 @@ const authenticate = (req, res, next) => {
         req.userLogged = decoded; 
 
         console.log(err); //exibe o erro caso ocorra
-        console.log(decoded); //token decodificado
+        
         */
+        //console.log(decoded); //token decodificado
         return next(); //executa proxima tarefa
     })   
 }

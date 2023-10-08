@@ -176,20 +176,20 @@ function dateFormatter(date){
 }
 
 function mostrarEnderecos(data, container) {
-    //onclick="apagarEndereco(${element.id})"
-    data.enderecos.forEach((element)=>{
+    //onclick="apagarEndereco(${element._id})"
+    data.addressess.forEach((element)=>{
         let divEnderecos = document.createElement("div"); // <div class="enderecos"></div>
         divEnderecos.classList.add('endereco');
     
         // div titulo
         let divTitulo = document.createElement('div'); // <div class="titulo"></div>
         divTitulo.classList.add('titulo');
-        let btnApagar = document.createElement('button'); // <button id="btnApagarEndereco${element.id}">Deletar</button>
-        btnApagar.id = `btnApagarEndereco${element.id}`;
+        let btnApagar = document.createElement('button'); // <button id="btnApagarEndereco${element._id}">Deletar</button>
+        btnApagar.id = `btnApagarEndereco${element._id}`;
         btnApagar.innerText = "Apagar";
         divTitulo.appendChild(btnApagar); 
         let h4Titulo = document.createElement('h4'); // <h4><strong>identificação: </strong>${element.nome}</h4>
-        h4Titulo.innerHTML = (`<strong>Identificação: </strong> ${element.nome}`);
+        h4Titulo.innerHTML = (`<strong>Identificação: </strong> ${element.nome_ref}`);
         divTitulo.appendChild(h4Titulo);
         divEnderecos.appendChild(divTitulo); // inclui a div titulo no card de endereco
     
@@ -213,21 +213,21 @@ function mostrarEnderecos(data, container) {
         // div editar
         let divEdit = document.createElement('div'); // <div class="editar">
         divEdit.classList.add('editar')
-        let btnEdit = document.createElement('button'); // <button id="btnEditarEndereco${element.id}">Editar</button>
-        btnEdit.id = `btnEditarEndereco${element.id}`;
+        let btnEdit = document.createElement('button'); // <button id="btnEditarEndereco${element._id}">Editar</button>
+        btnEdit.id = `btnEditarEndereco${element._id}`;
         btnEdit.innerText = "Editar";
         divEdit.appendChild(btnEdit);
         divEnderecos.appendChild(divEdit); // inclui a div edit no card endereco
     
         container.appendChild(divEnderecos);
 
-        document.getElementById(`btnApagarEndereco${element.id}`).addEventListener('click', function(){
-            apagarEndereco(element.id)
+        document.getElementById(`btnApagarEndereco${element._id}`).addEventListener('click', function(){
+            apagarEndereco(element._id)
         })
-        document.getElementById(`btnEditarEndereco${element.id}`).addEventListener('click', function(){
+        document.getElementById(`btnEditarEndereco${element._id}`).addEventListener('click', function(){
             document.getElementById('listagemEnderecos').classList.add('display-none');
             document.getElementById('btnCadastrarEndereco').classList.add('display-none');
-            carregarDadosEndereco(element.id)
+            carregarDadosEndereco(element._id)
             formEndereco.style.display = 'block';
         })
     })
@@ -498,6 +498,7 @@ function carregarEnderecos() {
             return listagemEnderecos.innerHTML += `<span class="error-message">${data.message}</span>`
         }
         // chama funcao para listar os enderecos do usuario
+        console.log(data)
         mostrarEnderecos(data, listagemEnderecos)
     })
     .catch((err) => console.log("Erro ao carregar enderecos", err))
@@ -528,16 +529,16 @@ function carregarDadosEndereco(idEndereco) {
             return listagemEnderecos.innerHTML += `<span class="error-message">${data.message}</span>`
         }
         //camposUser recebem os valores do usuario requisitado da API
-        formEndereco.elements.idEndereco.value       = data.adress.id;
-        formEndereco.elements.nomeRef.value          = data.adress.nome_ref;
-        formEndereco.elements.cep.value              = data.adress.cep;
-        formEndereco.elements.logradouro.value       = data.adress.logradouro;
-        formEndereco.elements.numero.value           = data.adress.numero;
-        formEndereco.elements.complemento.value      = data.adress.complemento;
-        formEndereco.elements.referencia.value       = data.adress.referencia;
-        formEndereco.elements.bairro.value           = data.adress.bairro;
-        formEndereco.elements.localidade.value       = data.adress.localidade;
-        formEndereco.elements.uf.value               = data.adress.uf;
+        formEndereco.elements.idEndereco.value       = data.address._id;
+        formEndereco.elements.nomeRef.value          = data.address.nome_ref;
+        formEndereco.elements.cep.value              = data.address.cep;
+        formEndereco.elements.logradouro.value       = data.address.logradouro;
+        formEndereco.elements.numero.value           = data.address.numero;
+        formEndereco.elements.complemento.value      = data.address.complemento;
+        formEndereco.elements.referencia.value       = data.address.referencia;
+        formEndereco.elements.bairro.value           = data.address.bairro;
+        formEndereco.elements.localidade.value       = data.address.localidade;
+        formEndereco.elements.uf.value               = data.address.uf;
     })
     .catch((err) => console.log("Erro ao carregar enderecos", err))
 }
@@ -567,16 +568,19 @@ function atualizarEndereco(idInput, nomeRefInput, cepInput, ruaInput, numeroInpu
       body: formData.toString()
     })
     .then((res) =>{
-        if(!res.ok) { //erro ao acessar a rota privada
-            throw new Error('Erro ao atualizar enderecos');
-        } 
-        return res.json();
+        if(res.ok) { //erro ao acessar a rota privada
+            return res.json();
+        } else if (res.status === 405) {
+            return res.json();
+        } else { 
+            throw new Error('Erro ao requisitar dados para o servidor');
+        }
     })
     .then((data) => {
         if (data && data.error) {
-            errorElement.classList.add('msgError');
+            errorElement.classList.remove('msgSucess');
+            errorElement.classList.add('msgAlert');
             errorElement.textContent = data.message;
-            
         } else {
             errorElement.classList.add('msgSucess');
             errorElement.textContent = data.message;

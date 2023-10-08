@@ -17,7 +17,7 @@ export function randomNumber (max, min) { // numero aleatorio para gerar um hash
 // cria token de sessão
 export const generateToken = (user = {}) => { // token baseado no id e nome do usuario por 1 dia
     return jwt.sign({
-        id: user.id_user,
+        id: user.id,
         name: user.name
     } , authConfig.secret , { // chave secreta
         expiresIn: 86400, // 1 dia em segundos
@@ -41,14 +41,14 @@ export function hashedPassword (password) {
 // exibe todas as informacoes do usuario
 export const displayUser = (user = {}) => {
     return user = {
-        id: user.id_user,
+        id: user.id,
         cpf: user.cpf,
         name: user.name,
         birth: user.birthdate,
         tel: user.tel,
         email: user.email,
         password: undefined,
-        createdAt: user.created_at,
-        updateAt: user.updated_at
+        createdAt: user.createdAt,
+        updateAt: user.updatedAt
     }
 }

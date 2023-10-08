@@ -40,29 +40,31 @@ function cadastrarUsuario(name, cpf, birthdate, tel, email, pwd) {
         },
         body: formData.toString()
     })
-        .then(function (response) {
-            if (response.ok) {
-                // envio bem-sucedido
-                errorElement.style.display = 'block'; // mostra o elemento span id="data-message"
-                errorElement.classList.add('msgSucess'); // atribui classe de sucesso
-                errorElement.textContent = 'Usuário Cadastrado'; // recebe a resposta da requisicao
-                window.location.href = "/pages/login.html"; // envia o usuario para tela de login
-            } else if (response.status === 400) {
-                return response.json();
-            } else {
-                throw new Error("Erro ao enviar dados para o backend.");
-            }
-        })
-        .then(function(data) {
-            // verifica se recebeu alguma mensagem de erro
-            if (data && data.error) {
-                errorElement.style.display = 'block'; // mostra o elemento span id="data-message"
-                errorElement.classList.add('msgError'); // atribui classe erro
-                errorElement.textContent = (data.message); // recebe a resposta da requisicao
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-            alert("Ocorreu um erro ao enviar os dados");
-        });
+    .then((res) => {
+        if(res.ok) { //erro ao acessar a rota privada
+            return res.json();
+        } else if (res.status === 400) {
+            return res.json();
+        } else { 
+            throw new Error('Erro ao requisitar dados para o servidor');
+        }
+    })
+    .then((data) => {
+        // verifica se recebeu alguma mensagem de erro
+        if (data && data.error) {
+            errorElement.style.display = 'block'; // mostra o elemento span id="data-message"
+            errorElement.classList.remove('msgSucess'); // atribui classe de sucesso
+            errorElement.classList.add('msgAlert'); // atribui classe erro
+            return errorElement.textContent = data.message; // recebe a resposta da requisicao
+        } else {
+            // envio bem-sucedido
+            errorElement.style.display = 'block'; // mostra o elemento span id="data-message"
+            errorElement.classList.add('msgSucess'); // atribui classe de sucesso
+            errorElement.textContent = data.message; // recebe a resposta da requisicao
+            window.location = './login.html'
+        }
+    })
+    .catch((err) => {
+        throw new Error ("Ocorreu um erro ao enviar os dados", err);
+    });
 }

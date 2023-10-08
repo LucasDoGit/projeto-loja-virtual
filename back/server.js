@@ -3,12 +3,15 @@ dotenv.config(); //leitura e configuração das variáveis de ambiente
 import express from 'express'; //permite criar rotas e envios para aplicacao
 import cors from 'cors'; //cors permite acesso recursos de outros sitesz
 import bodyParser from 'body-parser'; //modulo para converter body
-
+import connectToDatabase from './database/conn.js';
 import routes from './routes.js';
 
 const server = express();
 server.use(cors());
 server.use(bodyParser.urlencoded({extended: false}));
+
+// DB Connection
+await connectToDatabase()
 
 //todos os enderecos da minhas rotas o prefixo /api
 server.use('/api', routes);
