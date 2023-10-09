@@ -1,87 +1,116 @@
-import userService from '../services/userService.js'; //model do usuario
+import User from '../models/User.js';
 import { displayUser } from '../controllers/globalController.js';
+import mongoose from 'mongoose';
 
+// Busca todos os usuarios
 const findAll = async (req, res) => {
-    let json = {users:[]};
-    const users = await userService.findAll(); // busca todos os usuarios no BD
+    try {
+        const users = await User.find()
 
-    if(!users) {
-       return res.status(401).send({ error: true, message: 'Nenhum usuário encontrados'}); // retorna erro caso nao encontre
+        // se o array de usuarios for vazio retorna mensagem
+        if (users.length === 0) {
+            // Se não houver usuarios, retorna erro
+            return res.status(404).json({ message: 'Nenhum usuario cadastrado', error: true });
+        }
+        return res.status(201).json({ users: users }) // exibe todas as informacoes dos usuarios
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar todos os usuarios.', error: error.message });
     }
-    for(let i in users){ // percorre todos os usuarios
-        json.users.push({
-            id: users[i].id_user,
-            cpf: users[i].cpf,
-            name: users[i].name,
-            birth: users[i].birthdate,
-            tel: users[i].tel,
-            email: users[i].email,
-            password: undefined,
-            createdAt: users[i].created_at,
-            updateAt: users[i].updated_at
-        });
-    }
-    return res.status(201).send(json); // retorna todos os usuarios
 }
-// busca usuario pelo codigo
-const findOne = async(req, res) => { 
-    let userId = req.params.userId;
+// Busca usuario pelo codigo
+const findOne = async(req, res) => {
+    const userId = req.params.userId; // recebe o ID do usuario
 
-    if (!userId){
-        res.status(404).send({ message: 'Digite um código de usuário'});
+    // valida se o ID é válido
+    if(!mongoose.Types.ObjectId.isValid(userId) || !userId){
+        return res.status(400).json({ message: 'Digite um ID válido', error: true })
     }
-    const user = await userService.findOne(userId); // busca o usuario pelo ID
 
-    if(!user){ // trata erro ao buscar usuario
-       return res.status(401).send({ error: true, message: 'Código não encontrado' });
+    try {
+      // busca o usuario pelo ID
+      const user = await User.findById(userId);
+
+      // nao recebe nenhum usuario
+      if(!user){
+          return res.status(401).json({ error: true, message: 'Código não encontrado' });
+      }
+
+      // retorna algumas informacoes do usuario
+      return res.status(201).json({ user: displayUser(user) }) // exibe todas as informacoes do usuario
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao criar usuário.', error: error.message });
     }
-    return res.status(201).send({ user: displayUser(user) }) // exibe todas as informacoes do usuario
 }
-// altera usuario pelo codigo
+// Altera usuario pelo codigo
 const updateUser = async(req, res) => {
     let userId = req.params.userId;
     let { cpf, name, birthdate, tel, email } = req.body;
 
-    if(userId == ':userId' || !cpf || !name || !birthdate || !email){
-        return res.status(400).send({ error: true, message: 'Preencha os campos obrigatórios'}); 
-    } else {
-        const findUserRegistered = await userService.findUserRegistered(cpf, email, userId);
+    if(!mongoose.Types.ObjectId.isValid(userId) || !cpf || !name || !birthdate || !email){
+        return res.status(400).send({ error: true, message: 'Verifique os campos digitados'}); 
+    }
 
-        if (findUserRegistered) return res.status(409).send({ error: true, message: 'Email ou CPF já sendo utilizados '});      
-
-        const updateUser = await userService.updateUser(name, birthdate, tel, userId); // registra as atualizacoes do usuario
-        if(!updateUser) { // trata erro ao alterar usuario
-            return res.status(400).send({ error: true, message: 'erro ao alterar usuario'});
+    try {
+        // verifica se o ID do permissao digitado existe
+        if(!await User.findById(userId)){
+            return res.status(404).json({ message: 'Usuário não existe', error: true })
         }
-        res.status(200).send({ message: 'dados do usuário alterados' })
+        // Verifique se já existe um usuário com o mesmo CPF ou e-mail
+        const existingUser = await User.findOne({
+            $or: [{ cpf: cpf }, { email: email }],
+            _id: { $ne: userId }, // usuário é excluido da pesquisa
+        });
+    
+        if (existingUser) {
+            // Se um usuário com o mesmo CPF ou e-mail existir, retorna erro.
+            return res.status(400).json({ message: 'CPF ou e-mail já existem.', erro: true });
+        }
+    
+        // recebe os dados do usuario
+        const updatedUserData = {
+            name: name,
+            cpf: cpf,
+            birthdate: birthdate,
+            tel: tel,
+        };
+    
+        // registra as atualizacoes do usuario
+        await User.findByIdAndUpdate(userId, updatedUserData, { new: true })
+            .then((user) => {
+                if (!user) {
+                    // usuario nao foi encontrado
+                    return res.status(404).json({ erro: true, message: 'usuario nao encontrado' })
+                } else {
+                    // atualizacao do usuario foi bem sucessida
+                    res.status(200).send({ message: 'Dados do usuário alterado', user: displayUser(user) })
+                }
+            })
+            .catch((error) => {
+                // erro durante a atualizacao do usuario
+                return res.status(400).json({ message: 'Erro durante a atualizacao do usuario.', erro: error })
+            })
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao atualizar usuário.', error: error.message });
     }
 }
-//deleta usuario
-const deleteUser = async(req, res) => {        
-    let userId = (req.params.userId);
+// Deleta usuario
+const deleteUser = async(req, res) => {
+    const userId = (req.params.userId);
+    
+    try {
+        // verifica se foi recebido um ID válido e se ele existe
+        if (!mongoose.Types.ObjectId.isValid(userId) || !await User.findById(userId)) {
+            return res.status(401).json({ message: 'Usuário não encontrado', error: true });
+        }
+        const deleteUser = await User.findByIdAndDelete(userId); // exclui o usuario pelo ID no BD
 
-    if (userId == ':userId') { // verifica se foi recebido o ID
-        return res.status(401).send({ message: 'Codigo de usuários inválido' });
+        return res.status(200).json({message: 'Usuário excluído com sucesso', user: displayUser(deleteUser)})
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao excluir usuário.', error: error.message })
     }
-    const user = await userService.deleteUser(userId); // exclui o usuario pelo ID no BD
-
-    if (!user) { // tratamento de erro ao excluir usuário
-        return res.status(401).send({ message: 'Erro ao excluir usuario' });
-    }
-    return res.status(200).send({message: `usuario ${userId} excluído`})
-}
-// deleta todos os usuarios
-const deleteAllUsers = async (req, res) => {
-    const user = await userService.deleteAllUsers(); // apaga todos os usuarios do BD
-
-    if(!user) {
-        return res.status(401).send({ error: true, message: 'nenhum usuario encontrado'});
-    }
-    return res.status(200).send({message: 'Todos os usuarios foram apagados'})
 }
 
 export default {
-    deleteAllUsers,
     findAll,
     findOne,
     updateUser,

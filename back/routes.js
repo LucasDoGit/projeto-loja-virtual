@@ -4,7 +4,7 @@ const router = express.Router();
 // rotas
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-//import adminRoutes from "./routes/adminRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
 // middlewares
 import authenticate from "./middlewares/authenticate.js";
@@ -14,6 +14,6 @@ router.use("/auth", authRoutes);
 // CLIENTE USUARIOS
 router.use('/users', authenticate, userRoutes);
 // ADMINISTRADOR
-//router.use('/admin', authenticate, adminRoutes);
+router.use('/admin', authenticate, adminRoutes);
 
 export default router;

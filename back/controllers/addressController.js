@@ -94,7 +94,7 @@ const updateAddress = async (req, res) => {
 
     // valida se todos os campos necessários foram recebidos
     if (!mongoose.Types.ObjectId.isValid(addressId) || !cep || !logradouro || !numero || !bairro || !localidade || !uf || !nome_ref){     
-        return res.status(400).json({ error: true, message: 'Preencha todos os campos.' });
+        return res.status(400).json({ message: 'Preencha todos os campos.', error: true });
     }
 
     try {
@@ -126,18 +126,17 @@ const updateAddress = async (req, res) => {
         // registra as atualizacoes do endereco
         await Address.findByIdAndUpdate(addressId, updatedAddressData, { new: true })
             .then((address) => {
-            if(!address){
-                // endereco nao foi encontrado
-                return res.status(404).json({ message: 'Endereço não encontrado.', erro: true })
-            } else {
-                // atualizacao do endereco foi bem sucessida
-                res.status(200).send({ message: 'Dados do endereço alterado', address })
-            }
+                if(!address){
+                    // endereco nao foi encontrado
+                    return res.status(404).json({ message: 'Endereço não encontrado.', erro: true })
+                } else {
+                    // atualizacao do endereco foi bem sucessida
+                    res.status(200).send({ message: 'Dados do endereço alterado', address })
+                    }
+            }) .catch((error) => {
+                // erro durante a atualizacao do endereco
+                return res.status(400).json({ message: 'Erro durante a atualizacao do endereço.', erro: error})
             })
-            .catch((error) => {
-            // erro durante a atualizacao do endereco
-            return res.status(400).json({ message: 'Erro durante a atualizacao do endereço.', erro: error})
-        })
     } catch (error) {
         res.status(500).json({ message: 'Erro ao atualizar endereço.', error: error.message });
     }
@@ -151,7 +150,7 @@ const deleteAddress = async(req, res) => {
     try {
         // verifica se foi recebido um ID válido
         if (!mongoose.Types.ObjectId.isValid(addressId) || !await Address.findById(addressId)) {
-            return res.status(401).json({ message: 'Endereço não encontrado' });
+            return res.status(401).json({ message: 'Endereço não encontrado', error: true });
         }
         const deleteAddress = await Address.findByIdAndDelete(addressId); // exclui o endereco pelo ID no BD
 
