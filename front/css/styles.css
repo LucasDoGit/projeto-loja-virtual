@@ -42,6 +42,11 @@
     display: grid;
 }
 
+.contain-colum {
+    display: flex;
+    flex-direction: column;
+}
+
 h2 {
     margin: 0px; /* retira margin do bootstrap */
 }
@@ -371,22 +376,22 @@ div.main-banner-fita div.fita-informacoes img {
 
 /* section 2 - produtos mais vendidos */
 
+/* grade de produtos */
+.container-produtos {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 3 colunas de largura igual */
+    grid-gap: 20px; /* Espaço entre as colunas */
+    justify-content: start; /* Alinhamento à esquerda */
+    margin: 2rem 0; /* margem antes e depois das grids */
+    justify-items: center; /* alinhas os produtos ao centro */
+}
+
 .section-titulo {
     margin-left: 1.2rem;
     font-weight: 400;
     font-size: 30px;
     text-decoration: 2px var(--cor2) underline;
     color: var(--cor4);
-}
-
-/* grade de produtos */
-.section-produtos {
-    padding: 20px;
-    align-self: center;
-    justify-content: space-evenly;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
 }
 
 /* footer */
@@ -643,7 +648,7 @@ div.login-social .botoes {
     background-color: var(--cor1);
 }
 
-#btn-voltar {
+button#btn-voltar {
     max-width: 100px;
     padding: 3px 16px;
     margin: 1rem 0;
@@ -1065,10 +1070,6 @@ span.msgObrigatorio {
 
 /*======/ classes paginas adm/usuario /======*/
 
-main#adm { /* estilo main */
-    background-color: var(--cor1);
-}
-
 /** barra esquerda de acesso rapido **/
 div.bar-lf-acesso-rapido {
     background-color: white;
@@ -1091,55 +1092,62 @@ div.bar-lf-acesso-rapido svg:hover {
     cursor: pointer;
 }
 
-/** conteudo **/
-div.conteudo-adm {
-    max-width: 1500px;
+/** div container para conteudo das telas adm **/
+/** container para o conteudo das paginas **/
+div.contain-conteudo-adm {
     width: 100%;
-    margin: 0 auto;
-    margin-top: 2.5rem;
+    margin: 2.5rem auto;
 }
 
-div.conteudo-adm > div.titulo div.icone-svg { /* padrao pra svg em titulos nos container */
+div.contain-conteudo-adm > div.titulo div.icone-svg { /* padrao pra svg em titulos nos container */
     width: 35px;
     height: 35px;
 }
 
-div.conteudo-adm div.titulo { /* todas as divs com classe titulo na telas adm */
+div.contain-conteudo-adm div.titulo { /* todas as divs com classe titulo na telas adm */
     display: flex;
     gap: 12px;
 }
 
-div.conteudo-adm > div.titulo { /* titulo principal container */
+div.contain-conteudo-adm > div.titulo { /* titulo principal container */
     margin-left: 0.8rem;
     margin-bottom: 2rem;
 }
 
-div.conteudo-adm > .titulo h3 { 
+div.contain-conteudo-adm > .titulo h3 { 
     font-size: 20.5px;
     font-weight: bold;
     margin: auto 0;
 }
 
-/** estilo section com formulario **/
-section.formulario-adm { 
+/** container para sections **/
+div.container-section { /* posicionamento e espaço entre as sections user e endereco */
+    display: flex;
+    margin: 0 1rem;
+    gap: 2rem;
+}
+
+/** estilo section para telas adm **/
+section.section-adm { 
     background-color: white;
-    width: 100%;
+    min-height: 700px;
     border-radius: 5px;
     padding: 10px;
+    width: 100%;
     margin-bottom: 2rem;
 }
 
-section.formulario-adm > div.titulo { /* div titulo formulários */
+section.section-adm > div.titulo { /* div titulo formulários */
     margin: 1.5rem 0 1.5rem 1.5rem;
 }
 
-section.formulario-adm > div.titulo h5 { /* estilo titulo */
+section.section-adm > div.titulo h5 { /* estilo titulo */
     font-size: 15px;
     font-weight: bold;
     margin: auto 0;
 }
 
-section.formulario-adm form { /* espaçamento inferior nos formularios */
+section.section-adm form { /* espaçamento inferior nos formularios */
     margin-bottom: 1.5rem;
 }
 
@@ -1225,32 +1233,27 @@ button.btn-secundario:hover {
 
 /* pagina Meu Perfil */
 
-div.inf-perfil { /* posicionamento e espaço entre as sections user e endereco */
-    display: flex;
-    gap: 2rem;
-}
-
-div.inf-perfil section .botoes { /* div dos botoes alterar informacoes */
+div.container-section section .botoes { /* div dos botoes alterar informacoes */
     display: flex;
     justify-content: center;
     gap: 7px;
 }
 
-div.inf-perfil section .botoes button { /* botoes alterar informacoes */
+div.container-section section .botoes button { /* botoes alterar informacoes */
     width: 45%;
     margin-bottom: 1.5rem;
 }
 
-div.inf-perfil form.formulario-adm > div { 
+div.container-section form.formulario-adm > div { 
     margin: 0.8rem 1.5rem;
     padding: 2px;
 }
 
-div.inf-perfil section.formulario-adm { /* tamanho dos formularios */
+div.container-section section.formulario-adm { /* tamanho dos formularios */
     height: 90vh;
 }
 
-div.inf-perfil form div > label { /* label titulo nas bordas dos input's */
+div.container-section form div > label { /* label titulo nas bordas dos input's */
     color: var(--cor4);
     position: absolute;
     box-sizing: border-box;
@@ -1345,7 +1348,6 @@ div.endereco div.titulo button {
     transition: .3s;
 }
 
-
 div.endereco div.titulo button:hover {
     border: 1px solid var(--cor4);
     color: var(--cor1);
@@ -1420,6 +1422,74 @@ section#enderecosUser button#btnCadastrarEndereco {
     display: block;
     width: 50%;
     margin: 1rem auto;
+}
+/* formularios adm */
+
+form.form-usuario-adm select {
+    padding: 10px;
+    border: solid 1px var(--cor4);
+    border-radius: 5px;
+}
+
+form.form-usuario-adm div.status-acesso {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* pagina usuario adm */
+
+div.botao-submit {
+    display: flex;
+    justify-content: center;
+}
+
+div.botao-submit button {
+    width: 35%;
+}
+
+/**** pagina cadastro adm ***/
+
+form#cadastro-admin div.contain-senhas {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+}
+
+div.contain-senhas div.senha {
+    width: 40%;
+}
+
+/* foto de perfil */
+
+section.section-adm div.section-foto-perfil {
+    height: 100%;
+}
+
+div.foto-perfil {
+    display: flex;
+    width: 350px;
+    height: 350px;
+    border: 2px solid var(--cor4);
+    border-radius: 50%; /* Define a forma circular */
+    background-color: var(--cor1); /* Cor de fundo padrão */
+    overflow: hidden; /* Recorta a imagem para o formato circular */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem auto;
+}
+
+div.foto-perfil img {
+    width: 80%;
+}
+
+#btnAlterarFotoPerfil {
+    width: 50%;
+    margin: auto;
+}
+
+section.section-adm div.senha-acesso button {
+    width: 50%;
 }
 
 /**** pagina carrinho ****/
@@ -1956,12 +2026,6 @@ h1.h2.title-line.mb-2::after{
     scroll-behavior: smooth;
 }
 
-a{
-    color: #0b1d21;
-    fill: #0b1d21;
-    text-decoration: none;
-}
-
 
 .divider {
     margin-top: 20px;
@@ -1993,60 +2057,88 @@ section.content-privacy div.container-politicas h3{
     margin-top: 15px;
 }
 
-/* Administração de Usuarios */
+/* painel do administrador */
 
-div.inf-user{
-    display:flex;
-    gap: 2rem;
-    height: 60vh;
+/* container dos modulos e titulo */
+div.modulos-administrativos {
+    margin: 2rem 1.5rem;
 }
 
-div.conteudo-adm .btn-admin-voltar {
-    border: 1px solid var(--cor4);
-    background-color: white;
-    color: var(--cor4);
-    border-radius: 5px;
-    transition: 0.3s;
+div.modulos-administrativos div.titulo h5 {
+    text-transform: uppercase;
+    padding: 8px;
+    border: 0;
+    border-bottom: 2px;
+    border-style: solid; 
+    border-color: var(--cor4);
 }
 
-div.conteudo-adm .btn-admin-voltar:hover {
-    background-color: var(--cor2);
-    color: var(--cor1);
-    border: 1px solid var(--cor2);
+/* espaco entre os modulos */
+div.modulos-administrativos div.container-modulos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas de largura igual */
+    grid-gap: 3rem; /* Espaço entre as colunas */
+    justify-content: start; /* Alinhamento à esquerda */
+    margin: 2rem 0;
+    justify-items: center;
+
+    /* Opcional: definir a largura máxima do container 
+    max-width: 800px;
+    */
 }
 
-
-div.conteudo-adm div.inf-user section.formulario-adm {
-    width: 25%;
-    display: flex;
-}
-
-div.conteudo-adm div.inf-user section.formulario-adm-2{
-    background-color: white;
-    border-radius: 5px;
-    width: 80%;
+/* tamanho do icone dos modulos */
+div.modulos-administrativos div.icone-svg {
+    width: 170px;
+    height: 170px;
+    border: 2px solid var(--cor4);
+    border-radius: 10px;
     padding: 10px;
-    margin-bottom: 2rem;
 }
 
-div.conteudo-adm div.inf-user section.formulario-adm form.formulario-adm{
-    margin-top: 2rem;
+/* div container de cada modulo */
+div.modulos-administrativos div.modulo {
+    width: 170px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
 }
 
-div.conteudo-adm div.inf-user section.formulario-adm div.usuarios form.formulario-adm{
-    margin-bottom: 1.5rem;
+div.modulos-administrativos div.modulo a {
+    text-decoration: none;
+    color: var(--cor5);
+    transition: 0.3;
 }
 
-div.conteudo-adm div.inf-user section.formulario-adm form.formulario-adm .botoes{
-    margin-top: 2rem;
+div.modulos-administrativos div.modulo a:hover {
+    font-weight: bold;
+    color: var(--cor5);
+}
+
+/* gerenciamento de usuarios */
+
+section.usuarios-sistema {
+    width: 40%;
+}
+
+section.usuarios-sistema div.status-pesquisar {
     display: flex;
     justify-content: space-between;
-    flex-direction: row-reverse;
 }
-
-.status-user select{
+section.usuarios-sistema div.status-user select{
     border: 1px solid var(--cor4);
     border-radius: 5px;
+}
+
+/* botao que redireciona para novo usuario */
+a.link-novo-adm {
+    text-decoration: none;
+    color: var(--cor4);
+    border: solid 1px var(--cor4);
+    padding: 8px;
+    border-radius: 5px;
+    background: var(--cor1);
 }
 
 /* MEDIA QUERY */
@@ -2059,6 +2151,11 @@ div.conteudo-adm div.inf-user section.formulario-adm form.formulario-adm .botoes
     /* header */
     .header-inner-content {
         padding: 0 1rem;
+    }
+
+    /* grade de produtos */
+    .container-produtos {
+        grid-template-columns: repeat(4, 1fr); /* 3 colunas de largura igual */
     }
 
     /* banner fita */
@@ -2088,6 +2185,11 @@ div.conteudo-adm div.inf-user section.formulario-adm form.formulario-adm .botoes
         gap: 1rem;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* grade de produtos */
+    .container-produtos {
+        grid-template-columns: repeat(3, 1fr); /* 3 colunas de largura igual */
     }
 
     /* PAGINA PRODUTO */ 
@@ -2158,6 +2260,11 @@ div.conteudo-adm div.inf-user section.formulario-adm form.formulario-adm .botoes
         flex-direction: column;
         align-items: center;
     }
+
+    /* grade de produtos */
+    .container-produtos {
+        grid-template-columns: repeat(2, 1fr); /* 3 colunas de largura igual */
+    }
 }
 
 @media screen and (max-width: 992px){
@@ -2205,7 +2312,7 @@ div.conteudo-adm div.inf-user section.formulario-adm form.formulario-adm .botoes
         display: none;
     }
 
-    div.inf-perfil {
+    div.container-section {
         flex-direction: column;
     }
 }

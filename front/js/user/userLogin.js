@@ -2,10 +2,10 @@ const formSigin = document.getElementById('form-sigin');
 const errorElement = document.getElementById('data-message');
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/; // Email válido
 
-// usuário já logado entra direto na tela de perfil.
+/* usuário já logado entra direto na tela de perfil.
 if(localStorage.getItem('token')) {
   window.location.href = 'http://localhost:3000/pages/meu-perfil.html'
-}
+}*/
 
 formSigin.addEventListener("submit", function (event) {
   event.preventDefault(); // Impede o envio do formulário padrão
@@ -77,13 +77,24 @@ document.getElementById('idpwd').addEventListener('input', function() {
 });
 
 function entrar(user, pwd) {
-    var url = "/api/auth/authenticate";
+    const urlAtual = window.location.href;
+    let urlDestino;
+    let loginAPI;
+    
+    // verifica se a URL atual é para login de adm ou cliente
+    if(urlAtual === "http://localhost:3000/front/pages/admin/login-adm.html"){
+      loginAPI = "/api/auth/authenticate/admin";
+      urlDestino = "/front/pages/admin/painel-administrador.html"
+    } else {
+      loginAPI = "/api/auth/authenticate";
+      urlDestino = "http://localhost:3000/front/pages/meu-perfil.html"
+    }
     
     var loginData = new URLSearchParams();
     loginData.append("email", user);
     loginData.append("password", pwd);
 
-    fetch(url, {
+    fetch(loginAPI, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -107,7 +118,7 @@ function entrar(user, pwd) {
         } else {
           // Dados de autenticação válidos
           localStorage.setItem('token', data.token); //armazena o token no localStorage
-          window.location.href = "http://localhost:3000/pages/meu-perfil.html";
+          window.location.href = urlDestino;
         }
       })
 }

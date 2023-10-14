@@ -43,14 +43,14 @@ const authenticate = (req, res, next) => {
                 message:"Token inválido/expirado"
             })
         }
-        /*
-        //exibe o usuario valido
-        req.userLogged = decoded; 
-
-        console.log(err); //exibe o erro caso ocorra
         
-        */
+        // salva os dados do usuario para serem usados em outras rotas/middlewares
+        req.user = decoded; 
+
+        /*
+        console.log(err); //exibe o erro caso ocorra
         //console.log(decoded); //token decodificado
+        */
         return next(); //executa proxima tarefa
     })   
 }

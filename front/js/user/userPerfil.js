@@ -498,7 +498,6 @@ function carregarEnderecos() {
             return listagemEnderecos.innerHTML += `<span class="error-message">${data.message}</span>`
         }
         // chama funcao para listar os enderecos do usuario
-        console.log(data)
         mostrarEnderecos(data, listagemEnderecos)
     })
     .catch((err) => console.log("Erro ao carregar enderecos", err))

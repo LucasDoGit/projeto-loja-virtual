@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/styles.css" />
-    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon.png">
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon.png">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
-    <title>Faça Login | Entrega no mesmo dia - Sex Shop para todo o Brasil</title>
+    <title> Meu Perfil | Entrega no mesmo dia - Sex Shop para todo o Brasil</title>
 </head>
 <body class="body-pg-principal">
     <header id="header">
         <div class="header-inner-content">
             <div class="first-content">
-                <a href="../index.html"><img id='header-logo' src="../img/logo/Logo-mondie-200.png" alt="Logo Mondie"></a>
+                <a href="/front/index.html"><img id='header-logo' src="/img/logo/Logo-mondie-200.png" alt="Logo Mondie"></a>
             </div>
             <div class="second-content">
                 <div class="header-search-box">
@@ -32,14 +32,14 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" /></svg>
                     </button>
                     <div class="header-icon-navegation">
-                        <a href="../pages/login.html" class="header-icon-link">
+                        <a href="/front/pages/login.html" class="header-icon-link">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
                               </svg>
                             <span>Minha conta</span>
                         </a>
-                        <a href="../pages/carrinho.html" class="header-icon-link">
+                        <a href="/front/pages/carrinho.html" class="header-icon-link">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-plus" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z" /><path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" /></svg>
                             <span>Carrinho</span>
                         </a>
@@ -71,69 +71,148 @@
                 <a href="#">barra de categorias 4</a>
             </div>
         </nav>
-      </header>
-    <main>
-        <section id="login">
-            <div class="contain-flex">
-                <div class="conteudo">
-                    <div class="bg-white rounded-3 p-5">
-                        <form id="form-sigin">
-                            <div class="titulo-form">
-                                <h3 class="text-center text-upper">Faça Login</h3>
-                                <p class="mb-4 text-center">Insira seus dados abaixo.</p>
-                                <span id="data-message"></span>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                  <div class="form-group first">
-                                    <input type="email" class="form-control input-login required" autocomplete="email" placeholder="Insira o seu e-mail" name="email" id="idemail">
-                                    <span class="error-message"></span>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="form-group first">
-                                    <input type="password" class="form-control input-login required" autocomplete="current-password" placeholder="Senha de acesso" name="password" id="idpwd">
-                                    <span class="error-message"></span>
-                                  </div>
-                                  <a href="#" class="recover-pwd">Esqueceu a senha?</a>
-                                </div>
-                              </div>
-                              <div class="form-check btn-group btn-remember">
-                                <input class="form-check-input" type="checkbox" value="" id="save-pwd" />
-                                <label class="form-check-label ms-1" for="form1Example3"> Lembrar minha senha </label>
-                              </div>
-                              <button class="btn-primario" id="btn-login" type="submit"> Entrar</button>
-                              <div class="linha-horizontal mb-3"></div>
-                              <div class="contain-flex login-social">
-                                <h6 class="titulo">ACESSAR MINHA CONTA USANDO REDES SOCIAIS</h6>
-                                <div class="botoes">
-                                    <button class="btn btn-lg bd-inline-block btn-outline-primary login-btn-social"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-facebook"
-                                        viewBox="0 0 16 16">
-                                        <path
-                                          d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
-                                      </svg>
-                                      <span>Facebook</span>
-                                    </button>
-                                      <!-- BOTÃO GOOGLE -->
-                                    <button class="btn btn-lg d-inline-block btn-outline-danger login-btn-social" type="submit"> <svg
-                                      xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-google"
-                                      viewBox="0 0 16 16">
-                                      <path
-                                        d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
-                                    </svg><span>Google</span></button>
-                                </div>
-                                <h6 class="titulo">Novo na Mondie? <A ><a href="cadastro.html">CADASTRE-SE</A></h6>
-                              </div>
-                        </form>
-                    </div>
-                </div>
+      </header> 
+    <main id="adm">
+    <div class="contain-flex">
+        <div class="bar-lf-acesso-rapido">
+            <!-- Home -->
+            <div class="icone-svg">
+                <a href="/front/pages/admin/painel-administrador.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
+                        <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
+                    </svg>
+                </a>
             </div>
-        </section>
+            <!-- GERENCIAR USUARIOS -->
+            <div class="icone-svg coodenador">
+                <a href="/front/pages/admin/gerenciamento-usuarios.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                    </svg>
+                </a>
+            </div>
+            <!-- GERENCIAR PEDIDOS -->
+            <div class="icone-svg coodenador">
+                <a href="/front/pages/admin/gerenciamento-pedidos.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-receipt-cutoff" viewBox="0 0 16 16">
+                        <path d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zM11.5 4a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+                        <path d="M2.354.646a.5.5 0 0 0-.801.13l-.5 1A.5.5 0 0 0 1 2v13H.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1H15V2a.5.5 0 0 0-.053-.224l-.5-1a.5.5 0 0 0-.8-.13L13 1.293l-.646-.647a.5.5 0 0 0-.708 0L11 1.293l-.646-.647a.5.5 0 0 0-.708 0L9 1.293 8.354.646a.5.5 0 0 0-.708 0L7 1.293 6.354.646a.5.5 0 0 0-.708 0L5 1.293 4.354.646a.5.5 0 0 0-.708 0L3 1.293 2.354.646zm-.217 1.198.51.51a.5.5 0 0 0 .707 0L4 1.707l.646.647a.5.5 0 0 0 .708 0L6 1.707l.646.647a.5.5 0 0 0 .708 0L8 1.707l.646.647a.5.5 0 0 0 .708 0L10 1.707l.646.647a.5.5 0 0 0 .708 0L12 1.707l.646.647a.5.5 0 0 0 .708 0l.509-.51.137.274V15H2V2.118l.137-.274z"/>
+                    </svg>
+                </a>
+            </div>
+            <!-- GERENCIAR PRODUTOS -->
+            <div class="icone-svg operador">
+                <a href="/front/pages/admin/gerenciamento-produtos.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.01-.003.268-.108a.75.75 0 0 1 .558 0l.269.108.01.003 6.97 2.789ZM10.404 2 4.25 4.461 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339L8 5.961 5.596 5l6.154-2.461L10.404 2Z"/>
+                    </svg>
+                </a>
+            </div>
+            <!-- GERENCIAR CATEGORIAS -->
+            <div class="icone-svg master">
+                <a href="/front/pages/admin/gerenciamento-categorias.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tag-fill" viewBox="0 0 16 16">
+                        <path d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1H2zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                    </svg>
+                </a>
+            </div>
+            <!-- Deslogar -->
+            <div class="icone-svg" onclick="sair()">
+                <a href="/front/pages/admin/login-adm.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                        <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="contain-conteudo-adm">
+            <div id="data-message"></div>
+            <div class="container-section">
+                <section class="section-adm">
+                    <div class="titulo">                       
+                        <div class="icone-svg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-task" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z"/>
+                                <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9z"/>
+                                <path fill-rule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H2zm1 .5H2v1h1v-1z"/>
+                            </svg>
+                        </div>
+                        <h5>DADOS BÁSICOS</h5>
+                    </div>
+                    <form class="formulario-adm form-usuario-adm" id="cadastro-admin">
+                        <div class="status-acesso">
+                            <div class="status">
+                                <select name="status-conta" id="idstatus-conta">
+                                    <option value="0">ativo</option>
+                                    <option value="1">inativo</option>
+                                </select>
+                            </div>
+                            <div class="cargo">
+                                <select name="cargo" id="idcargo">
+                                    <option value="0">Master</option>
+                                    <option value="1">Coodenador</option>
+                                    <option value="1">Operador</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="nome-completo">
+                            <label for="name">Nome completo*</label>
+                            <input type="text" class="input-form" id="idname" name="name" placeholder="Nome completo" autocomplete="name"></input>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="nome-exibicao">
+                            <label for="nomeExibicao">Nome de Exibição*</label>
+                            <input type="text" class="input-form" id="nomeExibicao" name="name" placeholder="Nome de exibicao" autocomplete="username"></input>
+                            <span class="error-message"></span>
+                        </div>
+                        <div id="email">
+                            <label for="name">E-mail*</label>
+                            <input type="text" class="input-form" id="idemail" name="email" placeholder="email"></input>
+                            <span class="error-message"></span>
+                        </div>
+                        <div id="departamento">
+                            <label for="iddepartamento">Departamento*</label>
+                            <input type="text" class="input-form" id="iddepartamento" name="departamento" placeholder="Departamento"></input>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="contain-senhas">
+                            <div class="senha"> 
+                                <input type="password" class="input-form" id="idpwd" name="password" placeholder="Nova senha" autocomplete="new-password"></input>
+                                <span class="error-message"></span>
+                            </div>
+                            <div class="senha">
+                                <input type="password" class="input-form" id="idpwd2" name="password2" placeholder="Confirmar nova senha"></input>
+                                <span class="error-message"></span>
+                            </div>
+                       </div>
+                        <div class="botoes">
+                            <button class="btn-primario" id="update-user">CADASTRAR</button>
+                        </div>
+                    </form>
+                </section>
+                <section class="section-adm">
+                    <div class="titulo">
+                        <div class="icone-svg">
+                             <svg width="41" height="41" viewBox="0 0 41 41" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20.5 0C17.8079 0 15.1422 0.530248 12.655 1.56047C10.1678 2.59069 7.90791 4.10071 6.00431 6.00431C2.15982 9.84881 0 15.0631 0 20.5C0 25.9369 2.15982 31.1512 6.00431 34.9957C7.90791 36.8993 10.1678 38.4093 12.655 39.4395C15.1422 40.4698 17.8079 41 20.5 41C25.9369 41 31.1512 38.8402 34.9957 34.9957C38.8402 31.1512 41 25.9369 41 20.5C41 17.8079 40.4698 15.1422 39.4395 12.655C38.4093 10.1678 36.8993 7.90791 34.9957 6.00431C33.0921 4.10071 30.8322 2.59069 28.345 1.56047C25.8578 0.530248 23.1921 0 20.5 0ZM10.3935 33.374C11.275 31.529 16.646 29.725 20.5 29.725C24.354 29.725 29.725 31.529 30.6065 33.374C27.7352 35.6619 24.1713 36.9053 20.5 36.9C16.687 36.9 13.1815 35.588 10.3935 33.374ZM33.538 30.4015C30.6065 26.8345 23.493 25.625 20.5 25.625C17.507 25.625 10.3935 26.8345 7.462 30.4015C5.28118 27.5615 4.09931 24.0807 4.1 20.5C4.1 11.4595 11.4595 4.1 20.5 4.1C29.5405 4.1 36.9 11.4595 36.9 20.5C36.9 24.231 35.629 27.675 33.538 30.4015ZM20.5 8.2C16.523 8.2 13.325 11.398 13.325 15.375C13.325 19.352 16.523 22.55 20.5 22.55C24.477 22.55 27.675 19.352 27.675 15.375C27.675 11.398 24.477 8.2 20.5 8.2ZM20.5 18.45C19.6845 18.45 18.9023 18.126 18.3256 17.5494C17.749 16.9727 17.425 16.1905 17.425 15.375C17.425 14.5595 17.749 13.7773 18.3256 13.2006C18.9023 12.624 19.6845 12.3 20.5 12.3C21.3155 12.3 22.0977 12.624 22.6744 13.2006C23.251 13.7773 23.575 14.5595 23.575 15.375C23.575 16.1905 23.251 16.9727 22.6744 17.5494C22.0977 18.126 21.3155 18.45 20.5 18.45Z"/>
+                            </svg>
+                        </div>
+                        <h5>FOTO DE PERFIL</h5>
+                    </div>
+                    <div class="contain-colum section-foto-perfil">
+                        <div class="foto-perfil">
+                            <img src="/img/icones/perfil-usuario.png" alt="foto-perfil">
+                        </div>
+                        <button class="btn-primario" id="btnAlterarFotoPerfil">ALTERAR FOTO DE PERFIL</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
     </main>
-     <footer>
+    <footer>
         <div class="contain">
             <div class="footer-inf">
                 <div class="informacoes">
@@ -214,10 +293,10 @@
                     <section>
                         <h3>Minha conta</h3>
                         <ul>
-                            <li><a href="../pages/meuperfil.html">Minhas compras</a></li>
-                            <li><a href="../pages/meuperfil.html">Meus endereços</a></li>
-                            <li><a href="../pages/meuperfil.html">Minhas informações</a></li>
-                            <li><a href="../pages/loginADM.html">Administração</a></li>
+                            <li><a href="/front/pages/meuperfil.html">Minhas compras</a></li>
+                            <li><a href="/front/pages/meuperfil.html">Meus endereços</a></li>
+                            <li><a href="/front/pages/meuperfil.html">Minhas informações</a></li>
+                            <li><a href="/front/pages/loginADM.html">Administração</a></li>
                         </ul>
                     </section>
                     <section id="sec-btn-crc">
@@ -251,8 +330,8 @@
             <p>Site desenvolvido por @Mondie</p>
         </div>
     </footer>
-    <script src="../js/main.js"></script>
-    <script type="module" src="../js/user/userLogin.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/user/userLogout.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>

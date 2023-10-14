@@ -16,12 +16,15 @@ await connectToDatabase()
 //todos os enderecos da minhas rotas o prefixo /api
 server.use('/api', routes);
 
-server.use(express.static('front')); //ler arquivo html
-server.use('/css', express.static('front/css')); //ler arquivo css
+server.use('/front', express.static('front')); //ler arquivo html
+server.use('/css', express.static('front/css')); // ler arquivo css
+server.use('/img', express.static('front/img')); // carrega imagens do server
+server.use('/favicon', express.static('front/favicon')); // carrega favicon
+server.use('/js', express.static('front/js')); // carrega favicon)
 
 //ler arquivo favicon
 server.get('/favicon.ico', (req, res) => {
-    res.sendFile(__dirname + '../front/favicon/favicon.png');
+    res.sendFile(__dirname + '/front/favicon/favicon.png');
 });
 
 //inicia servidor na porta definida no arquivo .env
