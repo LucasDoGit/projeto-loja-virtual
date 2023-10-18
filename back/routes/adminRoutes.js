@@ -9,12 +9,13 @@ import authController from "../controllers/authController.js";
 import checkAccess from '../middlewares/acessControl.js'; // define os cargos que podem acessar as rotas
 
 // ROTAS - USUARIOS
-router.use('/users', checkAccess('Master', 'Coodenador')); // somente master e coordenador podem acessar a rota
-router.post('/users', authController.createAdmin)
-router.get('/users', adminController.findAll); // busca todos os usuarios
-router.get('/users/:userId', adminController.findOne) // busca usuario pelo ID
-router.put('/users/:userId', adminController.updateUser); // altera usuario pelo ID
-router.delete('/users/:userId', adminController.deleteUser); // deleta usuario pelo ID
+router.use('/admins', checkAccess('Master', 'Coodenador')); // somente master e coordenador podem acessar a rota
+router.post('/admins', authController.createAdmin)
+router.get('/admins', adminController.findAll); // busca todos os usuarios
+router.get('/admins/:adminId', adminController.findOne); // busca usuario pelo ID
+router.put('/admins/:adminId', adminController.updateUser); // altera usuario pelo ID
+router.put('/admins/password/:adminId', adminController.updatePassword); // altera usuario pelo ID
+router.delete('/admins/:adminId', adminController.deleteUser); // deleta usuario pelo ID
 // ROTAS - CARGOS
 router.use('/roles', checkAccess('Master')); // somente master pode criar cargos
 router.post('/roles', rolesController.createRole);
@@ -24,10 +25,12 @@ router.get('/roles/:roleName', rolesController.findOne);
 router.put('/roles/:roleId', rolesController.updateRole);
 router.delete('/roles/:roleId', rolesController.deleteRole);
 // ROTAS - GERENCIAR CARGOS DOS USUARIOS
-router.use('/userrole', checkAccess('Master', 'Coodenador')); // Coodenador e Masterp podem atribuir e retirar cargos
-router.post('/adminrole', userRolesController.createAdminRole);
-router.get('/adminrole', userRolesController.findAll);
-router.get('/adminrole/:adminId', userRolesController.findOne);
-router.delete('/adminrole/:adminId', userRolesController.deleteAdminRole);
+router.use('/adminsroles', checkAccess('Master', 'Coodenador')); // Coodenador e Masterp podem atribuir e retirar cargos
+router.post('/adminsroles', userRolesController.createAdminRole);
+router.get('/adminsroles/ids', userRolesController.findAll);
+router.get('/adminsroles', userRolesController.findAllAndRole);
+router.get('/adminsroles/:adminId', userRolesController.findOne);
+router.put('/adminsroles/:adminId', userRolesController.findOneAndUpdate);
+router.delete('/adminsroles/:adminId', userRolesController.deleteAdminRole);
 
 export default router;

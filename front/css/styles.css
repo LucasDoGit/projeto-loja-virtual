@@ -22,7 +22,7 @@
     scroll-behavior: smooth;
 }
 
-/**estilos globais**/
+/** estilos globais global**/
 /* estilo uppercase texto*/
 .text-upper {
     text-transform: uppercase;
@@ -46,6 +46,8 @@
     display: flex;
     flex-direction: column;
 }
+
+/* resposta data */
 
 h2 {
     margin: 0px; /* retira margin do bootstrap */
@@ -511,34 +513,29 @@ footer{
 
 /* mensagens de alerta */
 
-.msgAlert {
-    width: 75%;
-    margin: 0px auto 1rem auto;
+.msgAlert, .msgError, .msgSucess {
+    width: 25%; /* Defina a largura desejada */
+    max-width: 450px; /* Defina a largura máxima desejada */
+    white-space: pre-wrap; /* Permite quebrar linhas de acordo com o texto */
     text-align: center;
-    color: #ffa200;
-    background-color: #ffd48a;
+    margin: 0.8rem auto;
     padding: 10px;
     border-radius: 5px;
+}
+
+.msgAlert {
+    color: #ffa200;
+    background-color: #ffd48a;
 }
 
 .msgError {
-    width: 75%;
-    margin: 0px auto 1rem auto;
-    text-align: center;
     color: #ff0000;
     background-color: #ffbbbb;
-    padding: 10px;
-    border-radius: 5px;
 }
 
 .msgSucess {
-    width: 75%;
-    margin: 0px auto 1rem auto;
-    text-align: center;
     color: #00b800;
     background-color: rgb(152, 251, 152);
-    padding: 10px;
-    border-radius: 3px;
 }
 
 /* tela de login */
@@ -2126,7 +2123,7 @@ section.usuarios-sistema div.status-pesquisar {
     display: flex;
     justify-content: space-between;
 }
-section.usuarios-sistema div.status-user select{
+section.usuarios-sistema div.status select{
     border: 1px solid var(--cor4);
     border-radius: 5px;
 }
@@ -2139,6 +2136,37 @@ a.link-novo-adm {
     padding: 8px;
     border-radius: 5px;
     background: var(--cor1);
+}
+
+/* tabela que mostra todos os usuários administrativos */
+
+div#containerTabela {
+    overflow-y: auto;
+    max-height: 675px;
+}
+
+table#usuariosAdmin {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table#usuariosAdmin th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+table#usuariosAdmin th {
+    background-color: #f2f2f2;
+}
+
+table#usuariosAdmin tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table#usuariosAdmin tr:hover {
+    cursor: pointer;
+    background-color: bisque;
 }
 
 /* MEDIA QUERY */
@@ -2195,6 +2223,13 @@ a.link-novo-adm {
     /* PAGINA PRODUTO */ 
     .produto-exibicao {
         flex-direction: column;
+    }
+
+    /* pagina gerenciamento usuarios */
+
+    div#containerTabela {
+        overflow-x: auto;
+        max-width: 712px;
     }
 
     .produto-exibicao .container-produto {

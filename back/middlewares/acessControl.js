@@ -20,7 +20,7 @@ export default function checkAccess(...rolesRoutes) {
 
     // valida se o cargo do usuario esta incluso nos cargos da rota
     if (!rolesRoutes.includes(adminRole)){
-        return res.status(401).json({ message: 'Acesso negado', erro: true }).end();
+        return res.status(401).json({ message: 'Acesso negado', error: true }).end();
     }
     return next(); 
   };

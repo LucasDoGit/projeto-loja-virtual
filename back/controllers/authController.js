@@ -74,7 +74,7 @@ const createAdmin = async (req, res) => {
     await newAdmin.save();
 
     // Responda com o usuário criado
-    return res.status(201).json({ message: 'usuario cadastrado' });
+    return res.status(201).json({ message: 'usuario cadastrado', admin_id: newAdmin._id });
   } catch (error) {
     res.status(500).json({ message: 'Erro ao criar usuário.', error: error.message });
   }

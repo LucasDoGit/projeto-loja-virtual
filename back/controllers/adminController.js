@@ -1,5 +1,5 @@
 import Admin from '../models/Admin.js';
-import { displayUser } from '../controllers/globalController.js';
+import { hashedPassword } from '../controllers/globalController.js';
 import mongoose from 'mongoose';
 
 // Busca todos os usuarios admin
@@ -17,22 +17,23 @@ const findAll = async (req, res) => {
         res.status(500).json({ message: 'Erro ao buscar todos os usuarios.', error: error.message });
     }
 }
+
 // Busca usuario pelo codigo
 const findOne = async(req, res) => {
-    const userId = req.params.userId; // recebe o ID do usuario
+    const adminId = req.params.adminId; // recebe o ID do usuario
 
     // valida se o ID é válido
-    if(!mongoose.Types.ObjectId.isValid(userId) || !userId){
+    if(!mongoose.Types.ObjectId.isValid(adminId) || !adminId){
         return res.status(400).json({ message: 'Digite um ID válido', error: true })
     }
 
     try {
       // busca o usuario pelo ID
-      const user = await Admin.findById(userId);
+      const user = await Admin.findById(adminId);
 
       // nao recebe nenhum usuario
       if(!user){
-          return res.status(401).json({ error: true, message: 'Usuário não encontrado' });
+          return res.status(404).json({ error: true, message: 'Usuário não encontrado' });
       }
 
       // retorna algumas informacoes do usuario
@@ -43,20 +44,20 @@ const findOne = async(req, res) => {
 }
 // Altera usuario pelo codigo
 const updateUser = async(req, res) => {
-    let userId = req.params.userId;
+    let adminId = req.params.adminId;
     let { nome, nomeExibicao, email, departamento, status, password } = req.body; // recebe as informacoes do usuario do body
 
-    if(!mongoose.Types.ObjectId.isValid(userId) || !nome || !nomeExibicao || !departamento || !status){
+    if(!mongoose.Types.ObjectId.isValid(adminId) || !nome || !nomeExibicao || !departamento || !status){
         return res.status(400).send({ error: true, message: 'Verifique os campos digitados'}); 
     }
 
     try {
         // verifica se o ID do permissao digitado existe
-        if(!await Admin.findById(userId)){
+        if(!await Admin.findById(adminId)){
             return res.status(404).json({ message: 'Usuário não existe', error: true })
         }
         // Verifique se já existe um usuário com o mesmo CPF ou e-mail
-        const existingUser = await Admin.findOne({ email: email, _id: { $ne: userId } });
+        const existingUser = await Admin.findOne({ email: email, _id: { $ne: adminId } });
     
         if (existingUser) {
             // Se um usuário com o mesmo e-mail existir, retorna erro.
@@ -74,7 +75,7 @@ const updateUser = async(req, res) => {
         };
     
         // registra as atualizacoes do usuario
-        await Admin.findByIdAndUpdate(userId, updatedAdminData, { new: true })
+        await Admin.findByIdAndUpdate(adminId, updatedAdminData, { new: true })
             .then((user) => {
                 if (!user) {
                     // usuario nao foi encontrado
@@ -92,16 +93,42 @@ const updateUser = async(req, res) => {
         res.status(500).json({ message: 'Erro ao atualizar usuário.', error: error.message });
     }
 }
+// atualiza a senha do usuario Admin
+const updatePassword = async (req, res) => { 
+    let adminId = req.params.adminId;
+    let { password } = req.body;
+
+    if(!password || !mongoose.Types.ObjectId.isValid(adminId)) {
+      return res.status(400).json({ message: 'Verifique os campos digitados', error: true });
+    }
+    try {
+      // chama funcao para criar hash da senha do usuario
+      password = await hashedPassword(password);
+
+      // atualiza a senha do usuario pelo id
+      const updatePassword = await Admin.findByIdAndUpdate(adminId, { password: password });
+
+      if (!updatePassword) {
+          // retorna erro caso a senha nao for atualizada
+          return res.status(401).json({ message: 'Senha não foi alterada', error: true });
+      }
+      // retorna json infomando que a senha foi atualizada
+      return res.status(200).json({ message: 'Senha alterada com sucesso' });
+
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao atualizar a senha do usuário.', error: error.message });
+    }
+}
 // Deleta usuario
 const deleteUser = async(req, res) => {
-    const userId = (req.params.userId);
+    const adminId = (req.params.adminId);
     
     try {
         // verifica se foi recebido um ID válido e se ele existe
-        if (!mongoose.Types.ObjectId.isValid(userId) || !await Admin.findById(userId)) {
+        if (!mongoose.Types.ObjectId.isValid(adminId) || !await Admin.findById(adminId)) {
             return res.status(401).json({ message: 'Usuário não encontrado', error: true });
         }
-        const deleteUser = await Admin.findByIdAndDelete(userId); // exclui o usuario pelo ID no BD
+        const deleteUser = await Admin.findByIdAndDelete(adminId); // exclui o usuario pelo ID no BD
 
         return res.status(200).json({message: 'Usuário excluído com sucesso', user: deleteUser})
     } catch (error) {
@@ -113,5 +140,6 @@ export default {
     findAll,
     findOne,
     updateUser,
+    updatePassword,
     deleteUser
 };

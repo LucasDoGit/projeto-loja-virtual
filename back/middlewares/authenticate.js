@@ -9,8 +9,8 @@ const authenticate = (req, res, next) => {
     //verifica se recebeu um token
     if(!authHeader){
         return res.status(401).json({
+            message: "Nenhum token recebido",
             error: true,
-            message: "Nenhum token recebido"
         })
     }
 
