@@ -2169,6 +2169,46 @@ table#usuariosAdmin tr:hover {
     background-color: bisque;
 }
 
+/* Buscar Produtos */
+
+.filtros {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem;
+}
+
+aside{
+    border: 1px solid #0D0D0D;
+    background-color: white;
+    border-radius: 5px;
+    padding: 0;
+    margin: 2rem 0;
+    width: 20%;
+}
+
+
+.conteudo-pesquisa {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.conteudo-filtros{
+    margin: 1rem;
+    padding: 0;
+}
+
+div.conteudo-filtros h2 {
+    color:#e8840a;
+    font: (--fonte-padrao);
+    margin-bottom: 15px;
+}
+
+div.conteudo-filtros p {
+    color:rgb(195, 154, 154);
+    padding: 0;
+}
+
 /* MEDIA QUERY */
 @media screen and (max-width: 1440px){
     /* global */
