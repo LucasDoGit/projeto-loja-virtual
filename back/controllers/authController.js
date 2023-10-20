@@ -94,9 +94,11 @@ const authenticate = async (req, res) => {
         if(!user) { 
             return res.status(400).json({ error: true, message: 'Usuario não cadastrado' })
         }
+        // compara a senha do do usuario com a senha cadastrada
         if(!await bcrypt.compare(password, user.password)) { // compara a senha digitada com a senha do usuario
             return res.status(400).json({ error: true, message: 'Verifique os dados digitados' })
         }
+        // retorna token de acesso
         return res.status(200).json({token: generateToken(user)}); // gera um token para sessao do usuario
     } catch (error) {
         res.status(500).json({ message: 'Erro ao fazer login.', error: error.message });
@@ -119,8 +121,14 @@ const authenticateAdmin = async (req, res) => {
       if(!admin) { 
           return res.status(400).json({ error: true, message: 'Usuario não cadastrado' })
       }
+      // compara a senha do do usuario com a senha cadastrada
       if(!await bcrypt.compare(password, admin.password)) { // compara a senha digitada com a senha do usuario
           return res.status(400).json({ error: true, message: 'Verifique os dados digitados' })
+      }
+
+      // valida se o usuario esta ativo no sitema
+      if (admin.status === 'inativo') {
+          return res.status(401).json({ message: 'Usuario não está ativo', error: true })
       }
       return res.status(200).json({token: generateToken(admin)}); // gera um token para sessao do usuario
   } catch (error) {

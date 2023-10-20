@@ -89,7 +89,7 @@ const findOne = async (req, res) => {
     
     // verifica se recebeu algum resultado
     if (adminRoleExisting.length === 0){
-      return res.status(404).json({ message: 'Usuario não possui cargo atribuído', error: true })
+      return res.status(404).json({ message: 'Usuario não existe', error: true })
     }
     // retorna o item do array
     return res.status(200).json({ admin_role: adminRoleExisting[0] })
@@ -186,8 +186,8 @@ const findOneAndUpdate = async (req, res) => {
 const deleteAdminRole = async(req, res) => {
     const adminId = req.params.adminId;
 
-    if(!mongoose.Types.ObjectId.isValid(adminId) || !adminId){
-      return res.status(400).json({ message: 'ID usuario inválido', error: true })
+    if(!mongoose.Types.ObjectId.isValid(adminId)){
+      return res.status(400).json({ message: 'ID de usuário inválido!', error: true })
     }
     try {
         const adminRoleExisting = await AdminRole.findOne({ admin_id: adminId });

@@ -140,52 +140,51 @@
                             <h5>USUÁRIOS DO SISTEMA</h5>
                         </div>  
                         <form class="formulario-adm" name="formBuscaUsuarios">
-                            <div id="codigo-user">
-                                <label for="code">Código</label>
-                                <input type="text" class="input-form" id="idname" name="name" placeholder="Código" autocomplete="name"></input>
-                                <span class="error-message"></span>
-                            </div>
-                            <div class="nome-user">
-                                <label for="idnome-user">Nome:</label>
-                                <input type="text" class="input-form" id="idname" name="name" placeholder="Nome completo" autocomplete="name"></input>
+                            <div class="nomeExibicao">
+                                <label for="idnomeExibicao">Nome:</label>
+                                <input type="text" class="input-form" id="idnomeExibicao" name="nomeExibicao" placeholder="Nome de Exibicao"></input>
                                 <span class="error-message"></span>
                             </div>
                             <div class="email">
                                 <label for="idemail">E-mail:</label>
-                                <input type="email" class="input-form" id="idemail" name="email" placeholder="E-mail" autocomplete="email"></input>
+                                <input type="email" class="input-form" id="idemail" name="email" placeholder="E-mail"></input>
                                 <span class="error-message"></span>
                             </div>
-                            <div id="acesso-user">
-                                <label for="name">Acesso:</label>
-                                <input type="text" class="input-form" id="idacesso" name="name" placeholder="Acesso" autocomplete="name"></input>
-                                <span class="error-message"></span>
+                            <div id="acesso">
+                                <select class="select-form" name="acesso" id="idacesso">
+                                    <option value="todos">Todos</option>
+                                    <option value="Operador">Operador</option>
+                                    <option value="Coodenador">Coodenador</option>
+                                    <option value="Master">Master</option>
+                                </select>
                             </div>
-                            <div class="departamento-user">
-                                <label for="iddepartamento-user">Departamento:</label>
-                                <input type="text" class="input-form" id="iddepartamento" name="name" placeholder="Departamento" autocomplete="name"></input>
+                            <div class="departamento">
+                                <label for="iddepartamento">Departamento:</label>
+                                <input type="text" class="input-form" id="iddepartamento" name="departamento" placeholder="Departamento"></input>
                                 <span class="error-message"></span>
                             </div>
                             <div class="botoes status-pesquisar">
                                 <div class="status">
-                                    <select name="statusConta" id="idstatus-conta">
+                                    <select name="statusConta" id="idstatusConta">
+                                        <option value="todos">Todos</option>
                                         <option value="ativo">ativo</option>
                                         <option value="inativo">inativo</option>
                                     </select>
                                 </div>
-                                <button class="btn-primario" id="pesquisar-user">PESQUISAR</button>
-                            </div>
-                            <div class="contain-flex">
-                                <a href="/front/pages/admin/cadastro-adm.html" class="d-flex gap-3 link-novo-adm">
-                                    CADASTRAR NOVO USUARIOS
-                                    <div class="icone-svg">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
-                                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                                            <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-                                        </svg>
-                                    </div>
-                                </a>
+                                <button type="submit" class="btn-primario">PESQUISAR</button>
                             </div>
                         </form>
+                        <div class="d-flex ms-4">
+                            <a href="/front/pages/admin/cadastro-adm.html" class="d-flex gap-3 link-novo-adm">
+                                CADASTRAR NOVO USUARIOS
+                                <div class="icone-svg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                                        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                        <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                    </svg>
+                                </div>
+                            </a>
+                        </div>
                     </section>  
                     <section class="section-adm">                 
                         <div id="containerTabela">

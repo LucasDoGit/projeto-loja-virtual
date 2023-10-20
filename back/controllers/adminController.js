@@ -121,7 +121,7 @@ const updatePassword = async (req, res) => {
 }
 // Deleta usuario
 const deleteUser = async(req, res) => {
-    const adminId = (req.params.adminId);
+    const adminId = req.params.adminId;
     
     try {
         // verifica se foi recebido um ID válido e se ele existe

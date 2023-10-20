@@ -101,11 +101,11 @@ function entrar(user, pwd) {
       },
       body: loginData.toString()
     })
-      .then(function(response) {
-        if (response.ok) {
-          return response.json();
-        } else if (response.status === 400) {
-          return response.json();
+      .then(function(res) {
+        if (res.ok) {
+          return res.json();
+        } else if (res.status === 400 || res.status === 401) {
+          return res.json();
         } else {
           throw new Error("Erro ao autenticar usuário.");
         }

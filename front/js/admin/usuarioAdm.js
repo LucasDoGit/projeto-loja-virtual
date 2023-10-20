@@ -75,6 +75,7 @@ function desabilitarCampos() {
         elements[i].disabled = true;
     }
     document.getElementById('updateAdmin').classList.add('display-none');
+    document.getElementById('apagarAdmin').classList.add('display-none');
 }
 
 // Função para desabilitar todos os campos do formulário 'atualizarSenhaAdmin'
@@ -103,6 +104,7 @@ function habilitarCamposAdmin() {
         }
     }
     document.getElementById('updateAdmin').classList.remove('display-none');
+    document.getElementById('apagarAdmin').classList.remove('display-none');
 }
 
 // Função para desabilitar todos os campos do formulário 'atualizarSenhaAdmin'
@@ -126,6 +128,14 @@ document.getElementById('btnAtualizarSenha').addEventListener('click', function(
     // mostra o formulário para atualizar a senha do usuário
     habilitarCamposSenha();
     desabilitarCampos(); // desabilita a edição dos campos do formulário de atualização do Admin
+})
+
+document.getElementById('apagarAdmin').addEventListener('click', async function() {
+    const adminId = formAtualizarAdmin.elements.adminid.value;
+    await apagarCargo(adminId); // retira o cargo antes de excluir
+    await apagarAdmin(adminId); // apaga o usuario do banco
+    alert('Este usuário foi apagado!');
+    window.location.href = "/front/pages/admin/gerenciamento-usuarios.html"
 })
 
 // funcao que carrega os dados do admin nos campos do formulario
@@ -254,5 +264,69 @@ async function atualizarSenhaAdmin(passwordInput, password2Input){
         }
     })
     .catch((err) => console.log('Erro ao atualizar senha: ', err))
+}
+
+async function apagarAdmin(adminId) {
+
+    var url = `/api/admin/admins/${adminId}`; // rota para atualizar o admin e cargo
+
+    fetch(url, {
+        method: "DELETE",
+        headers: {'Authorization': `Bearer ${token}`}, //faz acesso da rota privada
+    })
+    .then((res) => {
+        if(res.ok) {
+            return res.json();
+        } else if (res.status === 404 || res.status === 401) {
+            return res.json();
+        } else { 
+            throw new Error('Erro ao requisitar dados para o servidor');
+        }
+    })
+    .then((data) => {
+        // verifica se recebeu alguma mensagem de erro
+        if (data && data.error) {
+            messageElement.classList.remove('msgSucess'); 
+            messageElement.classList.add('msgAlert'); 
+            messageElement.textContent = data.message;
+        } else {
+            messageElement.classList.remove('msgAlert'); 
+            messageElement.classList.add('msgSucess');
+            messageElement.textContent = 'Usuário apagado com sucesso!';
+        }
+    })
+    .catch((err) => console.log("Ocorreu um erro ao enviar dados: ", err))
+}
+// funcao fetch que retira o cargo do usuario
+async function apagarCargo(adminId) {
+
+    var url = `/api/admin/adminsroles/${adminId}`; // rota para atualizar o admin e cargo
+
+    fetch(url, {
+        method: "DELETE",
+        headers: {'Authorization': `Bearer ${token}`}, //faz acesso da rota privada
+    })
+    .then((res) => {
+        if(res.ok) {
+            return res.json();
+        } else if (res.status === 404 || res.status === 401) {
+            return res.json();
+        } else { 
+            throw new Error('Erro ao requisitar dados para o servidor');
+        }
+    })
+    .then((data) => {
+        // verifica se recebeu alguma mensagem de erro
+        if (data && data.error) {
+            messageElement.classList.remove('msgSucess'); 
+            messageElement.classList.add('msgAlert'); 
+            messageElement.textContent = data.message;
+        } else {
+            messageElement.classList.remove('msgAlert'); 
+            messageElement.classList.add('msgSucess');
+            messageElement.textContent = data.message;
+        }
+    })
+    .catch((err) => console.log("Ocorreu um erro ao enviar dados: ", err))
 }
 

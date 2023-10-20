@@ -1,4 +1,4 @@
-let formBuscaUsuarios = document.forms.buscarUsuarios;
+let formBusca = document.forms.formBuscaUsuarios;
 let messageElement = document.getElementById('data-message');
 let token = localStorage.getItem('token'); // token do usuario
 
@@ -26,7 +26,39 @@ function mostraUsuariosAdmin(data) {
     })
 }
 
+// funcao que filtra os dados da tabela
+formBusca.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const tableBody = document.getElementById('adminTableBody');
 
+    const nomeExibicao  = formBusca.nomeExibicao.value.toLowerCase();
+    const email         = formBusca.email.value.toLowerCase();
+    const acesso        = formBusca.acesso.value.toLowerCase();
+    const departamento  = formBusca.departamento.value.toLowerCase();
+    const status        = formBusca.statusConta.value;
+
+    // busca todos os elementos tr do body da tabela de busca
+    const rows = tableBody.querySelectorAll('tr');
+
+    rows.forEach(row => {
+        const rowData = row.getElementsByTagName('td');
+
+        // Valida se o conteudo digitado esta incluso na linha da tabela.
+        if (
+            (nomeExibicao === '' || rowData[0].textContent.toLowerCase().includes(nomeExibicao)) &&
+            (email === ''        || rowData[1].textContent.toLowerCase().includes(email)) &&
+            (acesso === 'todos'  || rowData[3].textContent.toLowerCase().includes(acesso)) &&
+            (departamento === '' || rowData[2].textContent.toLowerCase().includes(departamento)) &&
+            (status === 'todos'  || rowData[4].textContent.toLowerCase() === status)
+        ) {
+            row.style.display = 'table-row';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+});
+
+// funcao fetch que busca todos os usuarios do banco e lista no <form id="usuariosAdmin">
 function buscarTodosAdmins() {
 
     var url = "/api/admin/adminsroles"; //requisicao do usuario pelo token

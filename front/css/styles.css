@@ -514,7 +514,6 @@ footer{
 /* mensagens de alerta */
 
 .msgAlert, .msgError, .msgSucess {
-    width: 25%; /* Defina a largura desejada */
     max-width: 450px; /* Defina a largura máxima desejada */
     white-space: pre-wrap; /* Permite quebrar linhas de acordo com o texto */
     text-align: center;
@@ -1175,6 +1174,16 @@ input.input-form:focus {
 
 input.invalid {
     border: 3px solid #e63636;
+}
+
+select.select-form {
+    font-size: 0.95rem;
+    line-height: 2rem;
+    border: 1px solid var(--cor4);
+    border-radius: 5px;
+    max-width: 50%;
+    width: 100%;
+    padding: 0.5rem 0;
 }
 
 span.error-message {
