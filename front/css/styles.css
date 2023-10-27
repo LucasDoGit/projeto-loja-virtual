@@ -2180,42 +2180,87 @@ table#usuariosAdmin tr:hover {
 
 /* Buscar Produtos */
 
-.filtros {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 1rem;
+.container-conteudo-pesquisa{
+    width: 100%;
+    margin: 2.5rem auto;
 }
 
-aside{
-    border: 1px solid #0D0D0D;
-    background-color: white;
-    border-radius: 5px;
-    padding: 0;
-    margin: 2rem 0;
-    width: 20%;
+.item-pesquisado{
+    font-size: 10px;
 }
 
-
-.conteudo-pesquisa {
+.filtro{
     display: flex;
     flex-direction: column;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+    width: 200px;
+    height: 250px;
+}
+
+.filtro p{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+div.listagem-categoria{
+        display: flex;
+        flex-direction: column;
+        font-size: 12px;
+        margin-bottom: 1.5rem;
+}
+
+div.listagem-categoria a{
+    text-decoration: none;
+    color: black;
+    margin-left: 10px;
+}
+
+div.listagem-categoria button{
+    width: 30%;
+    color: #823860;
+    border: none;
+    background: none;
+}
+
+div.filtro div.preco{
+    display: flex;
+    flex-direction: column;
+}
+
+div.filtro div.filtro-preco{
+    display: flex;
     width: 100%;
 }
 
-.conteudo-filtros{
-    margin: 1rem;
-    padding: 0;
+div.filtro div.filtro-preco div input{
+    width: 90%;
 }
 
-div.conteudo-filtros h2 {
-    color:#e8840a;
-    font: (--fonte-padrao);
-    margin-bottom: 15px;
+div.grade-produtos {
+    width: 1200px;
+    background-color: white;
+    border-radius: 5px;
+    height: auto;
+    margin-left: 1.5rem;
+    margin-bottom: 10px;
 }
 
-div.conteudo-filtros p {
-    color:rgb(195, 154, 154);
-    padding: 0;
+div.grade-produtos div.titulo{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid var(--cor2);
+}
+
+div.grade-produtos select{
+    width: 180px;
+    margin-left: 5px;
+}
+
+div.produtos section{
+    margin: 2rem 1.5rem;
 }
 
 /* MEDIA QUERY */
