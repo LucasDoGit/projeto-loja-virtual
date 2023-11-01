@@ -128,8 +128,9 @@
             </div>
         </div>
         <div class="contain-conteudo-adm">
+            <div id="data-message"></div>
                 <div class="container-section">
-                    <section class="section-adm usuarios-sistema">                 
+                    <section class="section-adm contain-formulario">                 
                         <div class="titulo">
                             <div class="icone-svg">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tag-fill" viewBox="0 0 16 16">
@@ -138,45 +139,36 @@
                             </div>
                             <h5>CATEGORIAS</h5>
                         </div>  
-                        <form class="formulario-adm">
-                            <div id="codigo-user">
-                                <label for="code">Código</label>
-                                <input type="text" class="input-form" id="idname" name="name" placeholder="Código" autocomplete="name"></input>
-                                <span class="error-message"></span>
+                        <form class="formulario-adm" id="gerenciarCategorias" name="gerenciarCategorias">
+                            <input type="hidden" name="categoriaid" id="categoriaid">
+                            <div class="nome">
+                                <label for="nome">Nome da Categoria:</label>
+                                <input type="text" class="input-form" id="nome" name="nome" placeholder="Nome"></input>
                             </div>
-                            <div class="nome-user">
-                                <label for="idnome-user">Nome:</label>
-                                <input type="text" class="input-form" id="idname" name="name" placeholder="Nome completo" autocomplete="name"></input>
-                                <span class="error-message"></span>
+                            <div class="descricao">
+                                <label for="descricao">Descrição da Categoria:</label>
+                                <textarea name="descricao" id="descricao" cols="40" rows="5"></textarea>
                             </div>
-                            <div class="email">
-                                <label for="idemail">E-mail:</label>
-                                <input type="email" class="input-form" id="idemail" name="email" placeholder="E-mail" autocomplete="email"></input>
-                                <span class="error-message"></span>
+                            <div>
+                                <button class="btn-primario" type="submit">SALVAR</button>
                             </div>
-                            <div id="acesso-user">
-                                <label for="name">Acesso:</label>
-                                <input type="text" class="input-form" id="idacesso" name="name" placeholder="Acesso" autocomplete="name"></input>
-                                <span class="error-message"></span>
-                            </div>
-                            <div class="departamento-user">
-                                <label for="iddepartamento-user">Departamento:</label>
-                                <input type="text" class="input-form" id="iddepartamento" name="name" placeholder="Departamento" autocomplete="name"></input>
-                                <span class="error-message"></span>
-                            </div>
-                            <div class="botoes status-pesquisar">
-                                <div class="status-user">
-                                    <select>
-                                      <option value="0">Status da Conta</option>
-                                      <option value="1">Ativa</option>
-                                      <option value="1">Desativada</option>
-                                    </select>
-                                </div>
-                                <button class="btn-primario" id="pesquisar-user">PESQUISAR</button>
-                            </div>
+                        </form>
                     </section>  
                     <section class="section-adm">                 
-                        
+                        <div id="containerTabela">
+                            <table id="tabelaCategorias" class="tabela">
+                                <thead>
+                                    <tr>
+                                        <th>NOME</th>
+                                        <th>DESCRIÇÃO</th>
+                                        <th>AÇÃO</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="categoriasTabelaBody">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
                             
                     </section>       
                 </div>
@@ -304,6 +296,7 @@
     </footer>
     <script src="/js/main.js"></script>
     <script src="/js/user/userLogout.js"></script>
+    <script type="module" src="/js/admin/gerenciamentoCategorias.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>

@@ -129,7 +129,7 @@
         </div>
         <div class="contain-conteudo-adm">
                 <div class="container-section">
-                    <section class="section-adm usuarios-sistema">                 
+                    <section class="section-adm contain-formulario">                 
                         <div class="titulo">
                             <div class="icone-svg">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam-fill" viewBox="0 0 16 16">
@@ -138,45 +138,85 @@
                             </div>
                             <h5>PRODUTOS</h5>
                         </div>  
-                        <form class="formulario-adm">
-                            <div id="codigo-user">
-                                <label for="code">Código</label>
-                                <input type="text" class="input-form" id="idname" name="name" placeholder="Código" autocomplete="name"></input>
-                                <span class="error-message"></span>
-                            </div>
-                            <div class="nome-user">
-                                <label for="idnome-user">Nome:</label>
-                                <input type="text" class="input-form" id="idname" name="name" placeholder="Nome completo" autocomplete="name"></input>
-                                <span class="error-message"></span>
-                            </div>
-                            <div class="email">
-                                <label for="idemail">E-mail:</label>
-                                <input type="email" class="input-form" id="idemail" name="email" placeholder="E-mail" autocomplete="email"></input>
-                                <span class="error-message"></span>
-                            </div>
-                            <div id="acesso-user">
-                                <label for="name">Acesso:</label>
-                                <input type="text" class="input-form" id="idacesso" name="name" placeholder="Acesso" autocomplete="name"></input>
-                                <span class="error-message"></span>
-                            </div>
-                            <div class="departamento-user">
-                                <label for="iddepartamento-user">Departamento:</label>
-                                <input type="text" class="input-form" id="iddepartamento" name="name" placeholder="Departamento" autocomplete="name"></input>
-                                <span class="error-message"></span>
-                            </div>
-                            <div class="botoes status-pesquisar">
-                                <div class="status-user">
-                                    <select>
-                                      <option value="0">Status da Conta</option>
-                                      <option value="1">Ativa</option>
-                                      <option value="1">Desativada</option>
-                                    </select>
+                        <form class="formulario-adm" name="formBuscaProduto">
+                            <div class="contain-input2">
+                                <label for="idsku">SKU:</label>
+                                <label for="idnome">Nome:</label>
+                                <div class="sku">
+                                    <input type="text" class="input-form2" id="idsku" name="sku"></input>
+                                    <span class="error-message"></span>
                                 </div>
-                                <button class="btn-primario" id="pesquisar-user">PESQUISAR</button>
+                                <div class="nome">
+                                    <input type="text" class="input-form2" id="idnome" name="nome"></input>
+                                    <span class="error-message"></span>
+                                </div>
                             </div>
+                            <div class="fabricante">
+                                <label for="idfabricante">Fabricante:</label>
+                                <input type="text" class="input-form2" id="idfabricante" name="fabricante"></input>
+                                <span class="error-message"></span>
+                            </div>
+                            <div class="categoria">
+                                <select id="categoria" name="categoria">
+                                    <option value="">Selecione uma categoria</option>
+                                    <!-- Opções preenchidas dinamicamente -->
+                                </select>
+                            </div>
+                            <div class="contain-input2">
+                                <label for="idpreco">Preço:</label>
+                                <div class="preco">
+                                    <input type="text" class="input-form2" id="idpreco" name="preco"></input>
+                                    <span class="error-message"></span>
+                                </div>
+                            </div>
+                            <div class="contain-select">
+                                <p>Em estoque: </p>
+                                <select class="select-form" name="disponivel" id="iddisponivel">
+                                    <option value="todos">Todos</option>
+                                    <option value="true">sim</option>
+                                    <option value="false">não</option>
+                                </select>
+                                <p>Tipo de Oferta: </p>
+                                <select class="select-form" name="status" id="idstatus">
+                                    <option value="todos">Todas</option>
+                                    <option value="Oferta">Oferta</option>
+                                    <option value="Novos">Novos</option>
+                                </select>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" id="filtrarProdutos" class="btn-primario">Pesquisar</button>
+                            </div>
+                        </form>
+                        <div class="d-flex ms-4">
+                            <a href="/front/pages/admin/cadastro-produto.html" class="d-flex gap-3 link-novo-adm">
+                                CADASTRAR NOVO PRODUTO
+                                <div class="icone-svg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
+                                      </svg>
+                                </div>
+                            </a>
+                        </div>
                     </section>  
                     <section class="section-adm">                 
-                        
+                        <div id="containerTabela">
+                            <table id="produtos" class="tabela">
+                                <thead>
+                                    <tr>
+                                        <th>SKU</th>
+                                        <th>NOME</th>
+                                        <th>Fabricante</th>
+                                        <th>Categoria</th>
+                                        <th>Preço</th>
+                                        <th>Disponível</th>
+                                        <th>Oferta</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="produtosTabelaBody">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
                             
                     </section>       
                 </div>
@@ -304,6 +344,7 @@
     </footer>
     <script src="/js/main.js"></script>
     <script src="/js/user/userLogout.js"></script>
+    <script type="module" src="/js/admin/gerenciamentoProdutos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>

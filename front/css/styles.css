@@ -47,6 +47,10 @@
     flex-direction: column;
 }
 
+.min-vh-80 {
+    min-height: 80vh;
+}
+
 /* resposta data */
 
 h2 {
@@ -1163,17 +1167,17 @@ input.input-form { /* estilo input */
     padding: 0.3rem 1rem;
 }
 
-input.input-form::placeholder { /* fonte nos inputs */
+input.input-form::placeholder, input.input-form2::placeholder { /* fonte nos inputs */
     font-size: 14px;
     font-style: italic;
 }
 
-input.input-form:focus {
+input.input-form:focus, input.input-form2:focus {
     outline: 0;
 }
 
-input.invalid {
-    border: 3px solid #e63636;
+input.invalid, select.invalid {
+    border: 3px solid #e63636 !important;
 }
 
 select.select-form {
@@ -1181,9 +1185,18 @@ select.select-form {
     line-height: 2rem;
     border: 1px solid var(--cor4);
     border-radius: 5px;
+    padding: 5px;
     max-width: 50%;
-    width: 100%;
-    padding: 0.5rem 0;
+    height: 100%;
+}
+
+div.contain-select {
+    display: flex;
+    gap: 8px;
+}
+
+div.contain-select p {
+    font-size: 14px;
 }
 
 span.error-message {
@@ -1197,9 +1210,20 @@ span.error-message {
 div.icone-svg { 
     width: 26px;
     height: 26px;
-} 
+}
 
 div.icone-svg svg {
+    width: 100%;
+    height: 100%;
+    color: var(--cor4);
+}
+
+button.btn-svg {
+    width: 26px;
+    height: 26px;
+}
+
+button.btn-svg svg {
     width: 100%;
     height: 100%;
     color: var(--cor4);
@@ -1299,8 +1323,18 @@ div.contain-input { /* dois inputs na mesma linha */
     column-gap: 0.2rem;
 }
 
-form div.contain-input div.complemento label {
+div.contain-input label:nth-child(even) {
     left: 28.5%;
+}
+
+div.contain-input2 {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    column-gap: 0.2rem;
+}
+
+div.contain-input2 label:nth-child(even) {
+    left: 43.5%;
 }
 
 /* Formulario endereco - meu perfil */
@@ -2124,15 +2158,24 @@ div.modulos-administrativos div.modulo a:hover {
 
 /* gerenciamento de usuarios */
 
-section.usuarios-sistema {
-    width: 40%;
+input.input-form2 {
+    font-size: 0.90rem;
+    line-height: 1.7rem;
+    border: 1px solid var(--cor4);
+    border-radius: 5px;
+    width: 100%;
+    padding: 0.3rem 1rem;
 }
 
-section.usuarios-sistema div.status-pesquisar {
+section.contain-formulario {
+    width: 35%;
+}
+
+section.contain-formulario div.status-pesquisar {
     display: flex;
     justify-content: space-between;
 }
-section.usuarios-sistema div.status select{
+form.formulario-adm select{
     border: 1px solid var(--cor4);
     border-radius: 5px;
 }
@@ -2154,31 +2197,260 @@ div#containerTabela {
     max-height: 675px;
 }
 
-table#usuariosAdmin {
+table.tabela {
     width: 100%;
     border-collapse: collapse;
 }
 
-table#usuariosAdmin th, td {
+table.tabela th, td {
     border: 1px solid #ccc;
     padding: 8px;
     text-align: center;
+    font-size: 14px;
 }
 
-table#usuariosAdmin th {
+table.tabela th {
     background-color: #f2f2f2;
 }
 
-table#usuariosAdmin tr:nth-child(even) {
+table.tabela tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-table#usuariosAdmin tr:hover {
+table.tabela tr:hover {
     cursor: pointer;
     background-color: bisque;
 }
 
-/* Buscar Produtos */
+/* gerenciamento de categorias */
+
+
+form#gerenciarCategorias div.descricao label {
+    position: relative;
+}
+
+form#gerenciarCategorias div.descricao textarea {
+    font-size: 14px;
+    border-radius: 3px;
+    border: 1px solid var(--cor4);
+    width: 100%;
+}
+
+form#gerenciarCategorias button {
+    width: 100%;
+    max-width: 150px;
+}   
+
+tbody#categoriasTabelaBody div.botoesTabela {
+    justify-content: center;
+    display: flex;
+    gap: 30px;
+}
+
+/* gerenciamento de produtos*/
+
+/* tabela que mostra todos os produtos */
+table#produtos {
+    font-size: 12px;
+}
+
+button#filtrarProdutos {
+    width: 50%;
+}
+
+/* cadastrar produto */
+
+div.containConteudoProduto {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    padding: 2.5rem 1.8rem;
+}
+
+div.containConteudoProduto div.header {
+    display: flex; 
+    gap: 10px;
+    margin-bottom: 1.5rem;
+} 
+
+div.containConteudoProduto div.header h2 {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+div.conteudoCadastroProduto {
+    display: flex;
+    width: 90vw;
+    gap: 1rem;
+}
+
+div.conteudoCadastroProduto h3 {
+    display: block;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f3c2dd;
+    margin-bottom: 1.5rem;
+}
+
+div.containerFormCadastro {
+    width: 60%;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: rgba(40, 41, 61, 0.04) 0px 2px 4px, rgba(96, 97, 112, 0.16) 0px 8px 16px;
+}
+
+form.formCadastro {
+    max-width: 900px;
+    margin: 0 0.8rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+form.formCadastro div.input-contain {
+    display: flex;
+    flex-direction: column;
+    max-width: 420px;
+    width: 100%;
+}
+
+form.formCadastro input,
+form.formCadastro select,
+form.formCadastro textarea {
+    font-size: 14px;
+    line-height: 11px;
+    border: 1px solid var(--cor4);
+    border-radius: 3px;
+    padding: 3px 5px;
+}
+
+form.formCadastro div.input-contain select#disponivel {
+    max-width: 100px;
+}
+
+form.formCadastro div.input-contain label {
+    text-transform: uppercase;
+    font-size: 13px;
+    margin-bottom: 3px;
+    font-weight: bold;
+}
+
+form.formCadastro div.input-group-contain {
+    display: flex;
+    width: 100%;
+    gap: 12px;
+}
+
+div.input-group-contain div.input-contain:first-child {
+    max-width: 350px;
+}
+
+div.input-group-contain div.input-contain:nth-child(even) {
+    max-width: 200px;
+}
+
+form.formCadastro div.descricao {
+    font-size: 12px;
+    max-width: 700px;
+}
+
+div.containerFotosBotoes {
+    width: 35%;
+}
+
+div.cadastroFotos {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: rgba(40, 41, 61, 0.04) 0px 2px 4px, rgba(96, 97, 112, 0.16) 0px 8px 16px;
+}
+
+div.fotoPrincipal {
+    position: relative;
+    display: inline-block; /* Para garantir que o tamanho da div se ajuste à imagem */
+    display: flex;
+    margin: 1.3rem auto;
+    justify-content: center;
+}
+
+div.fotoPrincipal img {
+    width: 246px;
+    height: 246px;
+    border: 1px solid var(--cor3);
+    border-radius: 3px;
+    object-fit: cover;
+}
+
+div.fotoPrincipal button {
+    position: absolute;
+    top: 2px; /* Alinha o botão ao topo da div .foto */
+    right: 2px; /* Alinha o botão à direita da div .foto */
+    width: 35px;
+    height: 35px;
+    border: none;
+    background-color: transparent;
+}
+
+div.fotosSecundarias {
+    display: flex;
+    padding: 5px 1rem;
+    gap: 5px;
+}
+
+div.fotosSecundarias div.foto {
+    position: relative;
+    display: inline-block;
+}
+
+div.fotosSecundarias div.foto img {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    padding: 1px;
+    border: 1px solid var(--cor3);
+    border-radius: 5px;
+}
+
+div.fotosSecundarias button.botaoApagar {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 2px; /* Alinha o botão ao topo da div .foto */
+    right: 2px; /* Alinha o botão à direita da div .foto */
+}
+
+
+div.alterarDados {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: rgba(40, 41, 61, 0.04) 0px 2px 4px, rgba(96, 97, 112, 0.16) 0px 8px 16px;
+}
+div.alterarDados div.botoes {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 12px 6px;
+    justify-content: center;  
+    align-content: center;
+    gap: 5px;  
+}
+
+div.alterarDados div.botoes button {
+    max-width: 300px;
+    width: 100%;
+    padding: 7px 10px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+/* Tela buscar Produtos */
 
 .filtros {
     display: flex;

@@ -4,6 +4,8 @@ import adminController from "../controllers/adminController.js";
 import rolesController from "../controllers/rolesController.js";
 import userRolesController from "../controllers/AdminRoleController.js";
 import authController from "../controllers/authController.js";
+import categoriesController from "../controllers/categoryController.js"
+import produtctController from "../controllers/productController.js";
 
 // middlewares
 import checkAccess from '../middlewares/acessControl.js'; // define os cargos que podem acessar as rotas
@@ -32,5 +34,18 @@ router.get('/adminsroles', userRolesController.findAllAndRole);
 router.get('/adminsroles/:adminId', userRolesController.findOne);
 router.put('/adminsroles/:adminId', userRolesController.findOneAndUpdate);
 router.delete('/adminsroles/:adminId', userRolesController.deleteAdminRole);
+// ROTAS - CATEGORIAS
+router.use('/categories', checkAccess('Master', 'Operador'));
+router.post('/categories', categoriesController.createCategory);
+router.get('/categories/:categoryId', categoriesController.getOneCategory);
+router.put('/categories/:categoryId', categoriesController.updateCategory);
+router.delete('/categories/:categoryId', categoriesController.deleteCategory);
+// ROTAS - PRODUTOS
+router.use('/products', checkAccess('Master', 'Operador'));
+router.post('/products', produtctController.createProduct);
+router.get('/products', produtctController.getProducts);
+router.get('/products/:productSku', produtctController.getOneProduct);
+router.put('/products/:productId', produtctController.updateProduct);
+router.delete('/products/:productId', produtctController.deleteProduct);
 
 export default router;
