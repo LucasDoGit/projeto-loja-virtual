@@ -2535,6 +2535,114 @@ div.produtos section{
     margin: 2rem 1.5rem;
 }
 
+/* Meus Pedidos */
+
+.container-meus-pedidos{
+    width: 100%;
+    height: 800px;
+    margin: 2.5rem auto;
+}
+
+div.container-meus-pedidos div.titulo{
+    display: flex;
+    
+    border-radius: 5px;
+    padding: 5px;
+    width: 255px;
+    height: 50px;
+    margin-bottom: 1rem;
+}
+
+div.container-meus-pedidos div.titulo select{
+    margin-left: 10px;
+    border-radius: 5px;
+    color: #823860;
+    width: 205px;
+}
+
+div.container-meus-pedidos div.titulo h3{
+    margin-left: 10px;
+}
+
+div.grade-conteudo-pedidos{
+    width: 100%;
+    border-radius: 5px;
+    height: auto;
+    margin-top: 2rem;
+}
+
+div.grade-conteudo-pedidos div.titulo{
+    width: 330px;
+    margin-top: 10px;
+}
+
+div.grade-conteudo-pedidos div.titulo p{   
+    margin-top: 8px;
+}
+
+div.listagem-pedidos {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border-radius: 5px; 
+    
+    height: 120px;
+}
+
+.pedidos-feitos{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    padding: 32px;
+    border-radius: 5px;
+    gap: 13rem;
+}
+
+.pedidos-feitos h1{
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+.pedidos-feitos p{
+    display: flex;
+}
+
+.status-pedido{
+    display: flex;
+    flex-direction: column;
+}
+
+.status-pedido p{
+    color: red;
+    font-weight: bold;
+}
+
+.data-pedido{
+    display: flex;
+    flex-direction: column;
+}
+
+.pagamento-pedido{
+    display: flex;
+    flex-direction: column;
+}
+
+.detalhes-pedido{
+    display: flex;
+    align-items: center;
+}
+
+div.detalhes-pedido button a{
+    font-size: 19px;
+    color: var(--cor4);
+    text-decoration: none;
+    
+}
+
 /* MEDIA QUERY */
 @media screen and (max-width: 1440px){
     /* global */
