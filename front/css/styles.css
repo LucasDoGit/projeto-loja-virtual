@@ -2545,10 +2545,9 @@ div.produtos section{
 
 div.container-meus-pedidos div.titulo{
     display: flex;
-    
     border-radius: 5px;
     padding: 5px;
-    width: 255px;
+    width: 100%;
     height: 50px;
     margin-bottom: 1rem;
 }
@@ -2584,9 +2583,8 @@ div.listagem-pedidos {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    border-radius: 5px; 
-    
-    height: 120px;
+    border-radius: 5px;  
+    height: auto;
 }
 
 .pedidos-feitos{
@@ -2642,6 +2640,34 @@ div.detalhes-pedido a{
     text-decoration: none;
     
 }
+
+.area-detalhes{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(184, 79, 79);
+    padding: 32px;
+}
+
+.area-detalhes h1{
+    color: rgb(66, 70, 77);
+    font-size: 16px;
+}
+
+div.area-detalhes  p{
+    color: rgb(127, 133, 141);
+    font-size: 0.875rem;
+    gap: 0.5rem;
+    font-family: Poppins, sans-serif !important;
+}
+
+div.div.area-detalhes  b{
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    font-weight: 400;
+    font-family: Poppins, sans-serif !important;
+}
+
+
 
 /* MEDIA QUERY */
 @media screen and (max-width: 1440px){
