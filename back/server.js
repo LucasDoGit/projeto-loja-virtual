@@ -5,10 +5,14 @@ import cors from 'cors'; //cors permite acesso recursos de outros sitesz
 import bodyParser from 'body-parser'; //modulo para converter body
 import connectToDatabase from './database/conn.js';
 import routes from './routes.js';
+import fileUpload from "express-fileupload";
 
 const server = express();
+// server.use(express.json())
+server.use(fileUpload())
 server.use(cors());
-server.use(bodyParser.urlencoded({extended: false}));
+server.use(bodyParser.urlencoded({ extended: false }))
+
 
 // DB Connection
 await connectToDatabase()
@@ -22,10 +26,10 @@ server.use('/img', express.static('front/img')); // carrega imagens do server
 server.use('/favicon', express.static('front/favicon')); // carrega favicon
 server.use('/js', express.static('front/js')); // carrega favicon)
 
-//ler arquivo favicon
-server.get('/favicon.ico', (req, res) => {
-    res.sendFile(__dirname + '/front/favicon/favicon.png');
-});
+// //ler arquivo favicon
+// server.get('/favicon.ico', (req, res) => {
+//     res.sendFile(__dirname + '/front/favicon/favicon.png');
+// });
 
 //inicia servidor na porta definida no arquivo .env
 server.listen(process.env.PORT, ()=>{

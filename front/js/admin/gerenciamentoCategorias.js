@@ -1,11 +1,11 @@
 let formCategoria = document.forms.gerenciarCategorias;
 let token = localStorage.getItem('token'); // token
 let messageElement = document.getElementById('data-message');
-import { mensagemAviso } from "/front/js/admin/globalFunctions.js";
+import { mensagemAviso, carregarCategorias } from "/front/js/admin/globalFunctions.js";
 
 // ao carregar a pagina exibe todos os usuarios
 document.addEventListener("DOMContentLoaded", function() { //ao carregar a pagina este codigo e executado
-    buscaTodasCategorias()
+    listarCategorias()
 });
 
 formCategoria.addEventListener('submit', function(event) {
@@ -28,11 +28,12 @@ formCategoria.addEventListener('submit', function(event) {
     }
 });
 
-function listarCategorias(categoriasData){
+async function listarCategorias(){
+    const categorias = await carregarCategorias();
     const categoriasTabelaBody = document.getElementById('categoriasTabelaBody');
     categoriasTabelaBody.innerHTML = '';
 
-    categoriasData.categorias.forEach(categoria => {
+    categorias.forEach(categoria => {
         const row = categoriasTabelaBody.insertRow();
         row.insertCell(0).textContent = categoria.nome;
         row.insertCell(1).textContent = categoria.descricao;
@@ -101,7 +102,7 @@ function cadastrarCategoria(nomeInput, descricaoInput){
             mensagemAviso(messageElement, data, responseStatus)
         } else {
             mensagemAviso(messageElement, data, responseStatus)
-            buscaTodasCategorias()
+            listarCategorias()
         }
     })
     .catch((err) => console.log("Ocorreu um erro ao enviar dados: ", err))
@@ -140,7 +141,7 @@ function atualizarCategoria(categoriaIdInput, nomeInput, descricaoInput){
             mensagemAviso(messageElement, data, responseStatus)
         } else {
             mensagemAviso(messageElement, data, responseStatus)
-            buscaTodasCategorias()
+            listarCategorias()
         }
     })
     .catch((err) => console.log("Ocorreu um erro ao enviar dados: ", err))
@@ -171,41 +172,10 @@ function apagarCategoria(categoriaId){
             mensagemAviso(messageElement, data, responseStatus)
         } else {
             mensagemAviso(messageElement, data, responseStatus)
-            buscaTodasCategorias()
+            listarCategorias()
         }
     })
     .catch((err) => console.log("Ocorreu um erro ao enviar dados: ", err))
-}
-
-// funcao fetch que busca todos os usuarios do banco e lista no <form id="usuariosAdmin">
-function buscaTodasCategorias() {
-
-    var url = "/api/admin/categories"; //requisicao do usuario pelo token
-    let responseStatus = null;
-
-    fetch(url, {
-      method: "GET",
-      headers: {"Content-Type": "application/x-www-form-urlencoded",
-                'Authorization': `Bearer ${token}`} //faz acesso da rota privada 
-    })
-    .then((res) =>{
-        responseStatus = res.status;
-        if(res.ok) { //erro ao acessar a rota privada
-            return res.json();
-        } else if (res.status === 404) {
-            return res.json();
-        } else { 
-            throw new Error('Erro ao requisitar dados para o servidor');
-        }
-    })
-    .then((data) => {
-        // verifica se recebeu alguma mensagem de erro
-        if (data && data.error) {
-            mensagemAviso(messageElement, data, responseStatus)
-        } 
-        listarCategorias(data)
-    })
-    .catch((err) => console.log("Erro ao carregar as categorias", err))
 }
 
 function carregarCategoria(categoriaId){

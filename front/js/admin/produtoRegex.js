@@ -34,18 +34,18 @@ export function validarFormCadastroProduto(nomeInput, precoInput, fabricanteInpu
   }
 
 // Event listeners  para validar os campos em tempo real do formulario de endereços
-document.forms.cadastrarProduto.elements.nome.addEventListener('input', function(){
+document.getElementById('nome').addEventListener('input', function(){
   validateField(this, campoRegex, 'Digite um nome para o produto');
 })
 
-document.forms.cadastrarProduto.elements.preco.addEventListener('input', function(){
+document.getElementById('preco').addEventListener('input', function(){
   validateField(this, precoRegex, 'Digite o valor do produto');
 })
 
-document.forms.cadastrarProduto.elements.quantidade.addEventListener('input', function(){
+document.getElementById('quantidade').addEventListener('input', function(){
   validateField(this, numeroRegex, 'Digite uma quantidade de produto(s)');
 })
 
-document.forms.cadastrarProduto.elements.fabricante.addEventListener('input', function(){
+document.getElementById('fabricante').addEventListener('input', function(){
   validateField(this, campoRegex, 'Digite o nome do fabricante do produto.');
 })

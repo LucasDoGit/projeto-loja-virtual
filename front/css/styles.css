@@ -2329,6 +2329,25 @@ form.formCadastro textarea {
     padding: 3px 5px;
 }
 
+input.input_file {
+    border: none !important;
+}
+
+input.input_file[type="file"]{
+    display: none;
+}
+
+label.button_file {
+    padding: 10px;
+    width: 200px;
+    background-color: #eee;
+    color: var(--cor5);
+    text-transform: uppercase;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+}
+
 form.formCadastro div.input-contain select#disponivel {
     max-width: 100px;
 }
@@ -2364,6 +2383,7 @@ div.containerFotosBotoes {
 }
 
 div.cadastroFotos {
+    height: 75%;
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;

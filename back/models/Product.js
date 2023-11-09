@@ -36,6 +36,7 @@ const productSchema = new mongoose.Schema({
   },
   fabricante: String,
   status: String, // campo reservado para produtos "Em oferta", "Destaques" e etc.
+  descricao: String
 });
 
 // Crie um modelo com base no esquema
