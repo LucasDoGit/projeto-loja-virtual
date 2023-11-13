@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import Product from "../models/Product.js";
 import fs from "fs";
 import path from "path";
+import { rimraf } from "rimraf";
 
 // Criação de novos produtos
 const createProduct = async (req, res) => {
@@ -51,12 +52,16 @@ const createProduct = async (req, res) => {
       for (const foto in files) {
         const imagem = files[foto];
         const nomeImagem = `${sku}_${imagem.md5}` + path.extname(imagem.name); // sku produto + md5 da imagem + extensao do arquivo
-        const caminhoImagem = `${pastaDoProduto}/${nomeImagem}`; 
-
+        const caminhoImagem = `${pastaDoProduto}/${nomeImagem}`
         // salva a imagem no diretório do servidor
         imagem.mv(caminhoImagem);
-        // adiciona o caminho da imagem ao array de fotos
-        fotos.push(caminhoImagem);
+        // cria o arquivo da foto para incluir no array fotos
+        const novaFoto = {
+          src: caminhoImagem,
+          api: `/imagens/${sku}/${nomeImagem}`,
+        }
+        // Adicionando múltiplos objetos ao array fotos
+        fotos.push(novaFoto);
       }
     }
 
@@ -74,9 +79,14 @@ const createProduct = async (req, res) => {
       descricao: descricao
     })
 
-    const productSave = await newProduct.save();
-
-    return res.status(201).json({ message: 'Produto cadastrado', produto: productSave }); 
+    await newProduct.save()
+    .then((produtoSalvo) =>{
+      return res.status(201).json({ message: 'Produto cadastrado', produto: produtoSalvo }); 
+    })
+    .catch((err)=>{
+      console.log('Erro ao cadastrar produto', err)
+      return res.status(400).json({ message: 'Erro ao cadastrar produto', error: err })
+    })
   } catch (error) {
     return res.status(500).json({ message: 'Erro ao criar o produto.', error: error.message });
   }
@@ -99,14 +109,8 @@ const getOneProduct = async (req, res) => {
     return res.status(400).json({ message: 'Verifique o código do produto', error: true });
   }
   try {
-    // busca o produto pelo SKU ou ID
-    let produto = null;
     // verifica se busca pelo id ou sku
-    if (req.params.produtoSku != ':produtoSku' && req.params.produtoSku) {
-      produto = await Product.findOne({ sku: req.params.produtoSku }); // Recupere todos os produtos do banco de dados
-    } else {
-      produto = await Product.findById(req.params.produtoId)
-    }
+    const produto = await Product.findById(req.params.productId)
 
     // se nao encontrar nenhum produto
     if(!produto) {
@@ -118,36 +122,102 @@ const getOneProduct = async (req, res) => {
   }
 };
 
-// Atualiza produto
+// Criação de novos produtos
 const updateProduct = async (req, res) => {
   let productId = req.params.productId;
-  let { sku, nome, preco, categoria, disponivel } = req.body
-
+  let { nome, preco, categoria, disponivel, atributos, quantidade, fabricante, status, descricao } = req.body
+  let files, fotos = []; // array para os arquivos e caminho para fotos
+  
   // valida se todos os campos necessarios foram digitados
-  if( !mongoose.Types.ObjectId.isValid(productId) || !sku || !nome || !preco || !categoria || !disponivel ) {
-     return res.status(400).json({ message: 'Verifique os campos digitados', error: true });
+  if(!mongoose.Types.ObjectId.isValid(productId) || !nome || !preco || !categoria || !disponivel ) {
+      return res.status(400).json({ message: 'Verifique os campos digitados', erro: true });
   }
   try {
-    // verifica se o SKU já existe
-    const existingProduct = await Product.findOne({ sku: sku, _id: { $ne: productId } })
+    // verifica se o produto existe
+    const produto = await Product.findById(productId)
 
-    // retorna mensagem de erro
-    if (existingProduct){
-       return res.status(400).json({ message: 'SKU já cadastrado', error: true })
+    // trata erro caso o produto nao exista
+    if (!produto){
+       return res.status(400).json({ message: 'Produto não cadastrado', error: true })
     }
 
-    // atualiza o produto com os dados da requisão
-    const product = await Product.findByIdAndUpdate(productId, req.body, {new: true,}); // Atualize o produto com base no ID
-    if (!product) {
-      return res.status(404).json({ message: 'Produto não encontrado', error: true });
+    // converter preco para number 
+    const precoComPonto = preco.replace(",",".");
+    preco = parseFloat(precoComPonto)
+
+    // recebe as fotos contidos em req.files
+    if(req.files && req.files.fotos){
+      files = req.files.fotos
+
+      // verifica se o produto possui uma pasta de fotos 
+      const pastaDoProduto = path.join(`back/uploads/produtos/${produto.sku}`);
+
+      // se o diretorio nao existir, cria um novo
+      if(!fs.existsSync(pastaDoProduto)){
+        const pastaDoProduto = `back/uploads/produtos/${produto.sku}`;
+        fs.mkdirSync(pastaDoProduto, {recursive: true});
+      }
+
+      // Se houver apenas uma foto, envolve no array para que o código de iteração funcione
+      if (!Array.isArray(files)) {
+        files = [files];
+      }
+  
+      // faz iteração com todas as fotos para adicionar ao array fotos e criar a pasta no servidor
+      for (const foto in files) {
+        const imagem = files[foto];
+        const nomeImagem = `${produto.sku}_${imagem.md5}` + path.extname(imagem.name); // sku produto + md5 da imagem + extensao do arquivo
+        const caminhoImagem = `${pastaDoProduto}/${nomeImagem}`
+        // salva a imagem no diretório do servidor
+        imagem.mv(caminhoImagem);
+        // cria o arquivo da foto para incluir no array fotos
+        const novaFoto = {
+          src: caminhoImagem,
+          api: `/imagens/${produto.sku}/${nomeImagem}`,
+        }
+        // Adicionando múltiplos objetos ao array fotos
+        fotos.push(novaFoto);
+      }
     }
-    res.status(200).json({ message: 'Produto atualizado', produto: product }); // Responda com o produto atualizado*/
+
+    const updatedProductData = {
+      nome: nome,
+      preco: preco, 
+      categoria: categoria, 
+      disponivel: disponivel,
+      atributos: atributos,
+      quantidade: quantidade,
+      fabricante: fabricante, 
+      status: status, 
+      descricao: descricao
+    };
+
+    // Verifica se há fotos disponíveis
+    if (fotos && fotos.length > 0) {
+      // junta as fotos ja cadastradas com as novas fotos
+      updatedProductData.fotos = [...produto.fotos, ...fotos];
+    }
+    
+    await Product.findByIdAndUpdate(productId, updatedProductData, {new: true})
+    .then((produto) =>{
+      if(!produto){
+        // produto nao foi encontrado
+        return res.status(404).json({ message: 'produto nao encontrado', erro: true })
+      } else {
+        // atualizacao bem sucessida
+        return res.status(200).json({ message: 'Produto atualizado', produto: produto }); 
+      }
+    })
+    .catch((err)=>{
+      console.log('Erro ao atualizar produto ', err)
+      return res.status(400).json({ message: 'Erro ao atualizar produto', error: err })
+    })
   } catch (error) {
-    return res.status(500).json({ error: 'Erro ao atualizar o produto.', error: error.message });
+    return res.status(500).json({ message: 'Erro ao atualizar o produto.', error: error.message });
   }
 };
 
-// Deleta produto
+// Deleta produto e apaga a pasta de fotos do mesmo
 const deleteProduct = async (req, res) => {
   let productId = req.params.productId;
 
@@ -157,15 +227,82 @@ const deleteProduct = async (req, res) => {
   }
   try {
     // deleta o produto com o ID da requisição
-    const product = await Product.findByIdAndDelete(productId); // Exclua o produto com base no ID
+    const product = await Product.findById(productId); // Exclua o produto com base no ID
+    
     if (!product) {
       return res.status(404).json({ message: 'Produto não encontrado.', error: true });
     }
-    return res.status(201).json({ message: 'Produto excluído' }); 
+
+    // verifica se o produto possui uma pasta de fotos 
+    const pastaDoProduto = path.join(`back/uploads/produtos/${product.sku}`);
+
+    // se o diretorio existir, apaga o mesmo
+    if(fs.existsSync(pastaDoProduto)){
+      const pastaDoProduto = `back/uploads/produtos/${product.sku}`;
+      rimraf.sync(pastaDoProduto)
+    }
+    
+    // busca o produto com base no ID recebido
+    await Product.deleteOne({ _id: productId });
+
+    return res.status(200).json({ message: 'Produto excluido' }); 
   } catch (error) {
     return res.status(400).json({ error: 'Erro ao excluir o produto.', error: error.message });
   }
 };
+
+// Busca todos os produtos
+const getImages = async (req, res) => {
+  let sku = req.params.productSku
+  
+  const caminhoDasFotos = obterCaminhosDasFotos(sku)
+
+  return res.json(caminhoDasFotos)
+};
+
+const deleteImages = async (req, res) => {
+  let { productId } = req.params;
+  let { src } = req.body;
+
+  if (!productId){
+    return res.status(404).json({ message: 'produto ou fotos nao recebidas!', error: true})
+  }
+
+  try {
+    // 1. Exclusão no servidor local
+
+    // Itera sobre os caminhos e exclui cada foto no servidor
+    await Promise.all(
+      src.map((caminho) =>
+        fs.unlink(`${caminho}`, (err) => {
+          if (err) {
+            console.error("Erro ao excluir a foto:", err, `foto: ${caminho}`);
+            return res.status(500).json({ mensagem: "Erro interno do servidor" });
+          }
+        })
+      )
+    );
+
+    // 2. Exclui os caminhos no MongoDB
+
+    // Atualizar a coleção no MongoDB para remover os caminhos das fotos
+    const produto = await Product.findOneAndUpdate(
+      { 'fotos.src': { $in: src } },
+      { $pull: { fotos: { src: { $in: src } } } },
+      { new: true }
+    );
+
+    // caso o produto nao exista
+    if (!produto) {
+      return res.status(404).json({ message: 'Produto não encontrado', erro: true });
+    }
+
+    res.status(200).json({ message: "Foto excluída com sucesso", produto: produto });
+  } catch (error) {
+    console.error('Erro ao excluir a foto:', error);
+    res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+}
 
 export default {
   createProduct,
@@ -173,4 +310,6 @@ export default {
   getOneProduct,
   updateProduct,
   deleteProduct,
+  getImages,
+  deleteImages
 };

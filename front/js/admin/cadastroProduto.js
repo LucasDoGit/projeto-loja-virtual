@@ -136,7 +136,7 @@ function removerFoto(index){
   const fileInput = document.getElementById('fotos');
   const files = fileInput.files; // Obtém a lista de arquivos
   const indexToRemove = index; // Índice do arquivo a ser removido
-
+  
   // Converta a lista de arquivos em um array
   const filesArray = Array.from(files);
 

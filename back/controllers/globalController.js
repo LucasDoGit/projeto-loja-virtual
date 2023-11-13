@@ -1,6 +1,7 @@
 import { createRequire } from "module"; // importa o require
 import bcrypt from 'bcrypt'; // criptografador para as senhas
 import jwt from 'jsonwebtoken'; // biblioteca para criar/decodificar tokens
+// variaveis
 const require = createRequire(import.meta.url);
 const authConfig = readJSON("../config/auth.json");
 

@@ -8,8 +8,8 @@ import routes from './routes.js';
 import fileUpload from "express-fileupload";
 
 const server = express();
-// server.use(express.json())
-server.use(fileUpload())
+server.use(bodyParser.json()) // usa o bodyparser para ler arquivos json
+server.use(fileUpload()) // fileupload le arquivos com files
 server.use(cors());
 server.use(bodyParser.urlencoded({ extended: false }))
 
@@ -20,6 +20,7 @@ await connectToDatabase()
 //todos os enderecos da minhas rotas o prefixo /api
 server.use('/api', routes);
 
+server.use('/imagens', express.static('back/uploads/produtos'));
 server.use('/front', express.static('front')); //ler arquivo html
 server.use('/css', express.static('front/css')); // ler arquivo css
 server.use('/img', express.static('front/img')); // carrega imagens do server

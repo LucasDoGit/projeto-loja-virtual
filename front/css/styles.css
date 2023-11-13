@@ -1258,6 +1258,21 @@ button.btn-secundario:hover {
     border: 1px solid var(--cor2);
 }
 
+button.btn-exclusao {
+    text-transform: uppercase;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ff0000;
+    background-color: white;
+    color: #ff0000;
+    transition: 0.3s;
+}
+
+button.btn-exclusao:hover {
+    background-color: #ff0000;
+    color: white;
+}
+
 /*======/ fim classes tela de adm /======*/
 
 

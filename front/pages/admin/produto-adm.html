@@ -197,28 +197,26 @@
                                 <label for="descricao">Descricao do produto</label>
                                 <textarea name="descricao" id="descricao" cols="30" rows="10" placeholder="descreva o produto"></textarea>
                             </div>
+                            <div class="input-group-contain">
+                                <div class="input-contain">
+                                    <input type="file" class="input_file" name="fotos" id="fotos" accept="image/*" multiple>
+                                    <input type="file" class="input_file" name="adicionarFotos" id="adicionarFotos" accept="image/*" multiple>
+                                    <label class="button_file" for="adicionarFotos">selecionar imagens</label>
+                                </div>
+                            </div>
                         </form>
+                        <div class="d-flex justify-content-end">
+                            <button id="excluirProduto" class="btn-exclusao display-none" style="margin-bottom: 10px; margin-right: 10px;">Excluir produto</button>
+                        </div>
                     </div>
                     <div class="containerFotosBotoes">
-                        <div class="cadastroFotos">
+                        <div class="cadastroFotos" id="Preview">
                             <h3>Imagem do produto</h3>
-                            <div class="fotoPrincipal">
-                                <img src="/img/produtos/produto-teste2-full.jpeg" alt="foto-principal">
-                                <button class="btn-svg">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square-fill" viewBox="0 0 16 16">
-                                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 7.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1z"/>
-                                    </svg>
-                                </button>
+                            <div class="fotoPrincipal" id="fotoPrincipalPreview">
+                                <img id="fotoPrincipal" src="/img/icones/icone-imagem.png">
                             </div>
-                            <div class="fotosSecundarias">
-                                <div class="foto">
-                                    <img src="/img/produtos/produto-teste2-full.jpeg" alt="foto-secundaria">
-                                    <button class="btn-svg botaoApagar">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square-fill" viewBox="0 0 16 16">
-                                            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 7.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1z"/>
-                                        </svg>
-                                    </button>
-                                </div>
+                            <div class="fotosSecundarias" id="fotosSecundariasPreview">
+                                <!-- aqui sao geradas as fotos secundarias -->
                             </div>
                         </div>
                         <div class="alterarDados">
@@ -226,7 +224,7 @@
                             <div class="botoes" id="acoesForm">
                                 <button id="editarProduto" class="btn-primario">Editar produto</button>
                                 <button id="salvarEdicaoProduto" class="btn-primario display-none">salvar edicao</button>
-                                <button id="cancelarEdicaoProduto" class="btn-secundario display-none">cancelar edicao</button>
+                                <button id="cancelarEdicaoProduto" class="btn-secundario display-none">cancelar edicao</button>                                
                             </div>
                         </div>
                     </div>

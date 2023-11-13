@@ -12,7 +12,12 @@ const productSchema = new mongoose.Schema({
     required: [true, 'O nome é obrigatório!.']
   },
   cor: String,
-  fotos: [String], // Armazenando URLs das imagens como uma matriz
+  fotos: [
+    {
+      src: String,
+      api: String
+    }
+  ], // Armazenando URLs das imagens como uma matriz
   preco: {
     type: Number,
     required: [true, 'O Preço é obrigatório!.'],
