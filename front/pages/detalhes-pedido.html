@@ -84,11 +84,11 @@
                     <h3>Detalhes do Pedido</h3>
                 </div> 
                 
-                <button class="btn-primario" id="btn-voltar">Voltar</button>
+                <button class="btn-primario button-a" id="btn-voltar"><a href="../pages/meus-pedidos.html">Voltar</a></button>
                     
                 <div class="listagem-pedidos">
                     <div class="pedidos-feitos">
-                        <div cklass="numero-pedido">
+                        <div class="numero-pedido">
                             <h1>Número do Pedido</h1>
                         <p>#123456789</p>
                         </div>
@@ -107,14 +107,232 @@
                     </div> 
                     
                     <div class="area-detalhes">
-                        <h1>Endereço</h1>
-                        <p class="texto-detalhes"></p>
-                            <b>Rua Professora Valdomira Zortea</b>
-                            <p>Número 161, Umbará - Sobrado Branco</p>
-                            <p>CEP 81930606 - CURITIBA, PR</p>
+                        <span class="linha-horizontal"></span>
+                        <div class="detalhes-endereços">
+                            <h1>Endereço</h1>
+                            <p class="texto-detalhes"></p>
+                                <b>Rua Professora Valdomira Zortea</b>
+                                <p>Número 161, Umbará - Sobrado Branco</p>
+                                <p>CEP 81930606 - CURITIBA, PR</p>
+                        </div>
+                       
+                        <div class="processos-produtos">
+                            <div class="botoes">
+                                <button class="btn-secundario">
+                                    <div class="icone-svg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="1" y="3" width="15" height="13"></rect>
+                                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                        </svg>
+                                    </div>
+                                    Rastreio detalhado</button>
+                                <button class="btn-secundario">
+                                    <div class="icone-svg">
+                                        <svg width="15" height="14" viewBox="0 0 15 14" fill="none" class="IconNfe" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#:r8:)">
+                                            <path d="M8.51253 0.583333L12.5916 4.3225V13.4167H2.4098V0.583333H8.51253ZM8.51253 0H1.83071C1.79889 0 1.77344 0.0233333 1.77344 0.0525V13.9475C1.77344 13.9767 1.79889 14 1.83071 14H13.1707C13.2025 14 13.228 13.9767 13.228 13.9475V4.3225C13.228 4.165 13.158 4.01917 13.0434 3.90833L8.96435 0.169167C8.84344 0.0641667 8.67798 0 8.51253 0Z" fill="#590222">                                                </path>
+                                            <path d="M13.2276 4.66667H8.77308C8.42308 4.66667 8.13672 4.40417 8.13672 4.08333V0L13.2276 4.66667Z" fill="#590222"></path>
+                                            <path d="M11.4074 8.7207C11.1719 8.7207 10.9874 8.85487 10.9492 9.09404H11.8529C11.8529 8.8607 11.6492 8.7207 11.4074 8.7207Z" fill="#590222"></path>
+                                            <path d="M13.8636 6.41602H1.13636C0.786364 6.41602 0.5 6.67852 0.5 6.99935V11.0827C0.5 11.4035 0.786364 11.666 1.13636 11.666H13.8636C14.2136 11.666 14.5 11.4035 14.5 11.0827V6.99935C14.5 6.67852 14.2136 6.41602 13.8636 6.41602ZM5.06909 10.3885H4.34364L3.13455 8.70852V10.3885H2.40909V7.66435H3.13455L4.34364 9.35018V7.66435H5.06909V10.3885ZM7.52545 8.19518H6.31636V8.76685H7.22V9.28018H6.31636V10.3827H5.59091V7.65852H7.52545V8.19518ZM9.72727 9.30352H7.86273V8.74935H9.72727V9.30352ZM12.5782 9.46101H10.9427C10.9682 9.74685 11.1591 9.87518 11.3945 9.87518C11.5982 9.87518 11.7127 9.78185 11.77 9.66518H12.54C12.4255 10.0852 12.0055 10.4118 11.42 10.4118C10.7264 10.4118 10.2236 9.98601 10.2236 9.29768C10.2236 8.60935 10.7136 8.18352 11.42 8.18352C12.1073 8.18352 12.5973 8.60352 12.5973 9.26268C12.5909 9.33268 12.5845 9.39685 12.5782 9.46101Z" fill="#590222"></path></g><defs>
+                                            <clipPath id=":r8:"><rect width="15" height="14" fill="white" transform="translate(0.5)"></rect></clipPath></defs>
+                                        </svg>                                              
+                                    </div>
+                                    Nota fiscal
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="detalhes-endereços">
+                            <h1>ANDAMENTO DO PEDIDO</h1>
+                        </div>
+
+                        <div class="area-andamento">
+                            <div class="andamento">
+                                <div class="pedido-main">
+                                    <div class="pedido">
+                                        <div class="icone-svg">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-check-fill" viewBox="0 0 16 16">
+                                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+                                            </svg>
+                                        </div>
+                                    <span class="linha-horizontal"></span>
+                                    </div>
+                                    <div class="andamento-do-pedido">
+                                        <div class="icone-svg">
+                                            <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="https://www.w3.org/2000/svg" class="IconTrackingCheckedLabel"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.39683 16.3929L0.90332 10.8994L2.53968 9.26299L6.39683 13.1201L17.267 2.25L18.9033 3.88636L6.39683 16.3929Z" fill="#2DC26E"></path></svg>
+                                        </div>
+                                        <span class="texto-pedido-main">Pedido Recebido</span>
+                                    </div>
+                                    <div class="andamento-do-pedido">
+                                        <div class="icone-svg">
+                                            <!-- LUGAR DO SGV -->
+                                        </div>
+                                        <span class="texto-pedido-main">Pagamento Aprovado</span>
+                                    </div>
+                                    <div class="andamento-do-pedido">
+                                        <div class="icone-svg">
+                                            <!-- LUGAR DO SGV --> 
+                                        </div>
+                                        <span>Pedido em separação</span>
+                                    </div>
+                                    <div class="andamento-do-pedido">
+                                        <div class="icone-svg">
+                                            <!-- LUGAR DO SGV --> 
+                                        </div>
+                                        <span>Nota fiscal emitida</span>
+                                    </div>
+                                    <div class="andamento-do-pedido">
+                                        <div class="icone-svg">
+                                            <!-- LUGAR DO SGV -->      
+                                        </div>
+                                        <span>Produto expedido</span>
+                                    </div>
+                                </div>
+                              
+                                <div class="envio-main">
+                                    <div class="envio">
+                                        <div class="icone-svg">
+                                            <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="https://www.w3.org/2000/svg" class="IconTrackingReceived"><g><path d="M20.0057 16.5069C19.9603 16.4977 3.37212 16.4977 3.3267 16.5069C1.90044 16.58 0.764893 17.7778 0.764893 19.25C0.764893 20.7222 1.90044 21.92 3.3267 21.9931C3.37212 22.0023 19.9603 22.0023 20.0057 21.9931C21.4319 21.92 22.5675 20.7222 22.5675 19.25C22.5675 17.7778 21.4319 16.58 20.0057 16.5069ZM3.33578 20.4021C2.70896 20.4021 2.20023 19.8809 2.20023 19.25C2.20023 18.6191 2.70896 18.0979 3.33578 18.0979C3.96261 18.0979 4.47133 18.6191 4.47133 19.25C4.47133 19.8809 3.96261 20.4021 3.33578 20.4021ZM7.47828 20.4021C6.85145 20.4021 6.34272 19.8809 6.34272 19.25C6.34272 18.6191 6.85145 18.0979 7.47828 18.0979C8.1051 18.0979 8.61383 18.6191 8.61383 19.25C8.61383 19.8809 8.1051 20.4021 7.47828 20.4021ZM11.6299 20.4021C11.003 20.4021 10.4943 19.8809 10.4943 19.25C10.4943 18.6191 11.003 18.0979 11.6299 18.0979C12.2567 18.0979 12.7654 18.6191 12.7654 19.25C12.7654 19.8809 12.2567 20.4021 11.6299 20.4021ZM15.7723 20.4021C15.1455 20.4021 14.6368 19.8809 14.6368 19.25C14.6368 18.6191 15.1455 18.0979 15.7723 18.0979C16.3992 18.0979 16.9079 18.6191 16.9079 19.25C16.9079 19.8809 16.3992 20.4021 15.7723 20.4021ZM19.9239 20.4021C19.2971 20.4021 18.7884 19.8809 18.7884 19.25C18.7884 18.6191 19.2971 18.0979 19.9239 18.0979C20.5507 18.0979 21.0595 18.6191 21.0595 19.25C21.0595 19.8809 20.5507 20.4021 19.9239 20.4021Z" fill="#590222"></path><path d="M16.4069 0H12.6054V1.72549H10.7382V0H6.93673C5.52794 0 4.39868 1.22874 4.39868 2.74791V11.9188C4.39868 13.4379 5.52794 14.6667 6.92555 14.6667H16.4069C17.8045 14.6667 18.9337 13.4379 18.9337 11.9188V2.74791C18.9337 1.22874 17.8045 0 16.4069 0ZM12.5383 8.05382V11.0586H10.7941V8.05382C9.59776 8.05382 9.79902 8.05382 9.75429 8.05382L11.6662 5.74156L13.5781 8.05382C13.5446 8.05382 13.3545 8.05382 12.5383 8.05382Z" fill="#590222"></path></g><defs><clipPath><rect width="21.8026" height="22" fill="white" transform="translate(0.764893)"></rect></clipPath></defs></svg>
+                                        </div>
+                                        <span class="linha-horizontal"></span>
+                                    </div>
+                                    <div class="andamento-do-pedido">
+                                        <div class="icone-svg">
+                                            <!-- LUGAR DO SGV -->      
+                                        </div>
+                                        <span>Enviado para a <br>transportadora</span>
+                                    </div>
+                                </div>
+
+                                <div class="transportadora-main">
+                                    <div class="transportadora">
+                                        <div class="icone-svg">
+                                            <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="https://www.w3.org/2000/svg" class="IconTrackingReceived"><g><g clip-path="url(#:rj:)"><path d="M13.0887 18.7183C12.2328 19.0116 11.7733 19.965 12.0526 20.845C12.3319 21.725 13.2599 22.2108 14.1158 21.9175C14.9717 21.6241 15.4311 20.6708 15.1518 19.7908C14.8635 18.9016 13.9356 18.425 13.0887 18.7183ZM13.8545 21.1108C13.4311 21.2575 12.9626 21.0191 12.8274 20.5791C12.6833 20.1391 12.9175 19.6625 13.35 19.5158C13.7734 19.3691 14.2419 19.6075 14.377 20.0475C14.5122 20.4966 14.2779 20.9733 13.8545 21.1108Z" fill=#590222"></path><path d="M20.6385 17.4987C20.5665 17.2695 20.3322 17.1504 20.116 17.2237L15.1338 18.9195C15.314 19.1304 15.4491 19.3687 15.5392 19.6529C15.5392 19.662 15.5482 19.6712 15.5482 19.6804L20.3773 18.0395C20.5935 17.9662 20.7106 17.7187 20.6385 17.4987Z" fill="#590222"></path><path d="M10.4309 9.4877L13.2238 18.2419C13.5211 18.1869 13.8275 18.196 14.1068 18.2785L11.0706 8.75437C11.0436 8.6627 11.0075 8.5802 10.9625 8.4977C10.9354 7.99354 10.557 7.5077 9.8453 7.5077H8.54795L6.25055 4.95937C5.95324 4.63853 5.62891 4.35437 5.25051 4.14353C4.52075 3.74937 3.86306 3.70353 3.27745 4.06103C2.70986 4.40937 2.39453 5.06937 2.39453 5.73853V12.696H3.70089L5.74603 20.781C6.49381 22.8985 8.53894 21.936 7.79116 20.011L5.92622 12.696V8.0852L7.60196 9.6252H8.08847C8.09748 9.67103 8.10649 9.71687 8.12451 9.7627C8.19658 9.99187 8.43083 10.111 8.64705 10.0377C8.83625 9.97353 8.94436 9.80854 8.94436 9.6252H9.8453C10.0795 9.6252 10.2778 9.5702 10.4309 9.4877Z" fill="#590222"></path><path d="M2.02522 18.8647C-0.209115 20.9822 1.09725 22.3297 2.773 20.9822L5.00733 19.0572L4.25955 16.5547L2.02522 18.8647Z" fill="#590222"></path><path d="M5.3407 3.66667C6.33585 3.66667 7.14258 2.84586 7.14258 1.83333C7.14258 0.820811 6.33585 0 5.3407 0C4.34555 0 3.53882 0.820811 3.53882 1.83333C3.53882 2.84586 4.34555 3.66667 5.3407 3.66667Z" fill="#590222"></path><path d="M17.5215 10.7435L15.9899 11.266L16.2962 12.1826L15.5394 12.4393L15.2331 11.5226L13.7015 12.0452C13.1429 12.2377 12.8546 12.8976 13.0618 13.521L14.3051 17.2793C14.5124 17.9027 15.134 18.251 15.6926 18.0585L19.5126 16.7477C20.0712 16.5552 20.3595 15.8951 20.1522 15.2718L18.9089 11.5135C18.7017 10.8993 18.0801 10.551 17.5215 10.7435ZM17.053 14.5751L17.4584 15.8035L16.7557 16.0418L16.3503 14.8135C15.8728 14.9785 15.9448 14.951 15.9358 14.9601L16.3863 13.7501L17.4674 14.4376C17.4584 14.4376 17.3773 14.4651 17.053 14.5751Z" fill="#590222"></path></g></g><defs><clipPath><rect width="19.8207" height="22" fill="white" transform="translate(0.835938)"></rect></clipPath><clipPath id=":rj:"><rect width="19.8207" height="22" fill="white" transform="translate(0.835938)"></rect></clipPath></defs></svg>
+                                        </div>
+                                        <span class="linha-horizontal"></span>
+                                    </div>
+                                    <div class="andamento-do-pedido">
+                                        <div class="icone-svg">
+                                            <!-- LUGAR DO SGV -->      
+                                        </div>
+                                        <span>Recebido pela <br>transportadora</span>
+                                    </div>
+                                </div>
+                            
+                                <div class="transito-main">
+                                    <div class="transito">
+                                        <div class="icone-svg">
+                                            <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="https://www.w3.org/2000/svg" class="IconTrackingTruck"><path d="M19.2686 6.875H16.7911V4.8125C16.7911 3.67812 15.8991 2.75 14.809 2.75H2.91663C1.8265 2.75 0.93457 3.67812 0.93457 4.8125V14.0938C0.93457 15.2281 1.8265 16.1562 2.91663 16.1562C2.91663 17.8681 4.24461 19.25 5.88972 19.25C7.53483 19.25 8.86282 17.8681 8.86282 16.1562H14.809C14.809 17.8681 16.137 19.25 17.7821 19.25C19.4272 19.25 20.7552 17.8681 20.7552 16.1562H21.7462C22.2913 16.1562 22.7372 15.6922 22.7372 15.125V11.6909C22.7372 11.2475 22.5985 10.8144 22.3408 10.4534L20.0615 7.2875C19.8732 7.02969 19.5759 6.875 19.2686 6.875ZM5.88972 17.1875C5.34466 17.1875 4.89869 16.7234 4.89869 16.1562C4.89869 15.5891 5.34466 15.125 5.88972 15.125C6.43479 15.125 6.88075 15.5891 6.88075 16.1562C6.88075 16.7234 6.43479 17.1875 5.88972 17.1875ZM19.2686 8.42188L21.2111 11H16.7911V8.42188H19.2686ZM17.7821 17.1875C17.237 17.1875 16.7911 16.7234 16.7911 16.1562C16.7911 15.5891 17.237 15.125 17.7821 15.125C18.3272 15.125 18.7731 15.5891 18.7731 16.1562C18.7731 16.7234 18.3272 17.1875 17.7821 17.1875Z" fill="#590222"></path></svg>
+                                        </div>
+                                        <span class="linha-horizontal"></span>
+                                    </div>
+                                    <div class="andamento-do-pedido">
+                                        <div class="icone-svg">
+                                            <!-- LUGAR DO SGV -->      
+                                        </div>
+                                        <span>Mercadoria em trânsito</span>
+                                    </div>
+                                </div>
+
+                                <div class="rota-entrega-main">
+                                    <div class="rota-entrega">
+                                        <div class="icone-svg">
+                                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="https://www.w3.org/2000/svg" class="IconTrackingOutDelivery"><path d="M16.1754 4.46417H14.5039V5.29833H13.7226V4.46417H12.042C11.4333 4.46417 10.9428 4.95917 10.9428 5.57333V8.1675L12.8505 9.96417C12.9777 10.0833 13.0685 10.2208 13.1503 10.3675H16.1754C16.7841 10.3675 17.2746 9.8725 17.2746 9.25833V5.56417C17.2746 4.95917 16.7841 4.46417 16.1754 4.46417ZM14.5947 7.6725V9.295H13.6136V7.6725C12.9504 7.6725 12.9504 7.6725 12.9232 7.6725L14.1042 6.26083L15.2851 7.6725C15.2851 7.6725 15.2851 7.6725 14.5947 7.6725ZM4.5564 2.27333C4.5564 1.0175 5.57385 0 6.81842 0C8.06299 0 9.08045 1.0175 9.08045 2.27333C9.08045 3.52917 8.07208 4.55583 6.81842 4.55583C5.57385 4.55583 4.5564 3.53833 4.5564 2.27333ZM12.3781 11.55C12.2328 11.7058 12.0329 11.7883 11.8421 11.7883C11.6604 11.7883 11.4787 11.7242 11.3334 11.5867L8.29919 8.72667V13.1083C8.29919 13.5758 8.08116 13.9883 7.74504 14.2633L9.38932 21.0833C9.48925 21.4775 9.24397 21.8808 8.84426 21.9817C8.78975 21.9908 8.72616 22 8.67165 22C8.33553 22 8.03574 21.7708 7.95398 21.4317L7.0092 17.5175L6.47322 21.2667C6.41871 21.67 6.03716 21.9542 5.63745 21.8992C5.23773 21.8442 4.95611 21.4683 5.01062 21.0558L5.96449 14.3275C5.58294 14.0617 5.33766 13.6125 5.33766 13.1175V7.3425C5.33766 6.5175 6.00082 5.8575 6.81842 5.8575C7.0092 5.8575 7.1818 5.89417 7.35441 5.95833C7.48159 5.98583 7.60877 6.04083 7.71778 6.14167L12.3509 10.505C12.6416 10.78 12.6597 11.2567 12.3781 11.55Z" fill="#590222"></path></svg>
+                                        </div>
+                                        <span class="linha-horizontal"></span>
+                                    </div>
+                                    <div class="andamento-do-pedido">
+                                        <div class="icone-svg">
+                                            <!-- LUGAR DO SGV -->      
+                                        </div>
+                                        <span>Mercadoria em rota <br>de entrega</span>
+                                    </div>
+                                </div>
+
+                                <div class="entregado-main">
+                                    <div class="entregado">
+                                        <div class="icone-svg">
+                                            <svg width="21" height="21" viewBox="0 0 22 22" fill="none" xmlns="https://www.w3.org/2000/svg" class="IconTrackingCheckFill"><path fill-rule="evenodd" clip-rule="evenodd" d="M21.8882 11C21.8882 17.0751 17.0075 22 10.9868 22C4.96616 22 0.0854492 17.0751 0.0854492 11C0.0854492 4.92487 4.96616 0 10.9868 0C17.0075 0 21.8882 4.92487 21.8882 11ZM4.62769 12.0404L8.50923 16.1944L17.3459 6.73737L16.1897 5.5L8.50923 13.7197L5.78389 10.803L4.62769 12.0404Z" fill="#590222"></path></svg>
+                                        </div>
+                                    </div>
+                                    <div class="andamento-do-pedido">
+                                        <div class="icone-svg">
+                                            <!-- LUGAR DO SGV -->      
+                                        </div>
+                                        <span>Entregue</span>
+                                    </div>
+                                </div>                                                       
+                            </div>
+                           
+                            </div>
+                                <div class="aviso-importante">
+                                    <div class="titulo-aviso">
+                                        <div class="icone-svg">
+                                            <svg width="24" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg" class="IconAlert"><path fill-rule="evenodd" clip-rule="evenodd" d="M24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12ZM11.9183 19.3859C10.8643 19.3859 10.0283 18.5943 10.0283 17.6134C10.0283 16.6326 10.8643 15.841 11.9183 15.841C12.9722 15.841 13.8082 16.6326 13.8082 17.6134C13.8082 18.5943 12.9722 19.3859 11.9183 19.3859ZM10.5464 12.7859C10.6133 13.4935 11.2074 14.0342 11.9183 14.0342C12.6291 14.0342 13.2233 13.4935 13.2902 12.7859L13.8278 7.09862C13.9342 5.97299 13.0489 5 11.9183 5C10.7876 5 9.90227 5.97299 10.0087 7.09862L10.5464 12.7859Z" fill="#590222"></path></svg>
+                                        </div>
+                                        <h1>AVISOS IMPORTANTE</h1>
+                                    </div>
+                                    <div class="texto-aviso">
+                                        <p>Garantias e arrependimentos só podem ser solicitadas após o recebimento do produto. Caso haja desistência da compra, pedimos que recuse o produto no ato da entrega.</p>
+                                    </div>
+                                </div> 
+
+                                <span class="linha-horizontal"></span>
+                                <div class="titulo-informacoes-produto">
+                                    <h1>Produto(s)</h1>
+                                    <h1>Preço</h1>
+                                </div>
+                                <div class="produtos-adquiridos">
+                                    
+                                    <div class="produto-selecionado">
+                                        <img src="../img/produtos/produto-teste4-full.jpeg" alt="foto do produto">
+                                    </div>
+
+                                    <div class="informacoes-produto">
+                                        <h1>Vendido e entregue por: Mondie</h1>
+                                        <a>Nome do Produto, Tamanho 35px, Cor Preto, Com Pilhas, Não tem vibro</a>
+                                        <p>Quantidade: 1</p>
+                                        <div class="botoes">
+                                            <button class="btn-secundario">
+                                                <div class="icone-svg">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg" class="IconWarranty"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 13.2516H1.5V9.50156C1.5 7.88906 3.075 6.87656 4.5 6.87656H21.075L18.975 8.97656L20.025 10.0266L23.925 6.12656L20.025 2.22656L18.975 3.27656L21.075 5.37656H4.5C2.025 5.37656 0 7.21406 0 9.50156V13.2516ZM0.0749878 18.8766L3.97499 22.7766L5.02499 21.7266L2.92499 19.6266H19.5C21.975 19.6266 24 17.7891 24 15.5016V11.7516H22.5V15.5016C22.5 17.1141 20.925 18.1266 19.5 18.1266H2.92499L5.02499 16.0266L3.97499 14.9766L0.0749878 18.8766Z" fill="#590222"></path></svg>
+                                                </div>
+                                                Garantia</button>
+                                        </div>
+                                    </div>
+                                    <div class="preco-final">
+                                        <b>R$ 99,99</b>
+                                    </div>
+                                </div>
+
+                                <span class="linha-horizontal"></span>
+                                
+                                <div class="dados-finais">
+                                    <div class="total-produtos">
+                                        <p>TOTAL PRODUTOS(S)</p>
+                                        <p>R$ 99,99</p>
+                                    </div>
+                                    <div class="total-frete">
+                                        <p>FRETE</p>
+                                        <p>GRÁTIS</p>
+                                    </div>
+                                    <div class="total-desconto">
+                                        <p>DESCONTO</p>
+                                        <b>-R$ 20,00</b>
+                                    </div>
+                                    <span class="linha-horizontal"></span>
+                                    <div class="total-final">
+                                        <p>DESCONTO</p>
+                                        <b>R$ 79,99</b>
+                                    </div>
+
+                                </div>
+
+                        </div> 
                     </div>
                 </div>
-                
             </div>                
         </div>     
     </main>
