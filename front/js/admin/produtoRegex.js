@@ -1,11 +1,11 @@
 import { validateField } from "/js/admin/globalFunctions.js";
 // Expressões regulares para validação
 let numeroRegex = /^\d+$/; // valida se o campo digitado possui somente numeros
-let precoRegex = /^\d+(,\d{2})?$/; // valida se o valor do campo tem o formato de preco. Ex: 120/120,00/10,00
+let precoRegex = /^\d+(\.\d{1,2})?$/;
 let campoRegex = /[a-zA-Z\d]/ // valida se o campo possui letras digitadas
 
 // valida os campos do formulario de atualização do usuario e retorna boolean
-export function validarFormCadastroProduto(nomeInput, precoInput, fabricanteInput, quantidadeInput, categoriaSelect, disponivelSelect) {
+export function validarFormProduto(nomeInput, precoInput, fabricanteInput, quantidadeInput, categoriaSelect, disponivelSelect) {
     // inicia a validacao do formulario em false
     let formvalid = false;
     let errorMessagee = "Preencha este campos";

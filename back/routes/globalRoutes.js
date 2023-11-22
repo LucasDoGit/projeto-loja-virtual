@@ -9,5 +9,6 @@ import productController from "../controllers/productController.js";
 router.get('/products', productController.getProducts);
 // PRODUTOS
 router.get('/categories', categoriesController.getCategories);
+router.get('/offers/:offerName', productController.findAllProductsInOffer)
 
 export default router;

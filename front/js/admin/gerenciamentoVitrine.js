@@ -55,7 +55,7 @@ formBusca.addEventListener('submit', function (event) {
   const categoria    = formBusca.categoria.value.toLowerCase();
   const preco        = formBusca.preco.value;
   const disponivel   = formBusca.disponivel.value.toLowerCase();
-  const oferta       = formBusca.oferta.value.toLowerCase();
+  const oferta       = formBusca.status.value.toLowerCase();
 
   // busca todos os elementos tr do body da tabela de busca
   const rows = tableBody.querySelectorAll('tr');
@@ -70,8 +70,8 @@ formBusca.addEventListener('submit', function (event) {
           (fabricante === ''      || rowData[2].textContent.toLowerCase().includes(fabricante)) &&
           (categoria  === ''      || rowData[3].textContent.toLowerCase().includes(categoria)) &&
           (preco      === ''      || rowData[4].textContent.includes(preco)) &&
-          (disponivel === 'todos' || rowData[5].textContent.toLowerCase().includes(disponivel)) &&
-          (oferta     === 'todas' || rowData[6].textContent.toLowerCase().includes(oferta))
+          (disponivel === 'todos' || rowData[5].textContent.toLowerCase() === disponivel) &&
+          (oferta     === 'todas' || rowData[6].textContent.toLowerCase() === oferta)
       ) {
           row.style.display = 'table-row';
       } else {

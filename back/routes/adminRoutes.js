@@ -35,7 +35,7 @@ router.get('/adminsroles/:adminId', userRolesController.findOne);
 router.put('/adminsroles/:adminId', userRolesController.findOneAndUpdate);
 router.delete('/adminsroles/:adminId', userRolesController.deleteAdminRole);
 // ROTAS - CATEGORIAS
-router.use('/categories', checkAccess('Master', 'Operador'));
+router.use('/categories', checkAccess('Master', 'Coodenador'));
 router.post('/categories', categoriesController.createCategory);
 router.get('/categories/:categoryId', categoriesController.getOneCategory);
 router.put('/categories/:categoryId', categoriesController.updateCategory);
@@ -48,6 +48,5 @@ router.put('/products/:productId', productController.updateProduct);
 router.delete('/products/:productId', productController.deleteProduct);
 router.delete('/products/:productId/fotos', productController.deleteImages);
 
-router.get('/images/:productSku', productController.getImages);
  
 export default router;

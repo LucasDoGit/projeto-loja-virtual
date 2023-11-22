@@ -1,10 +1,10 @@
 import { carregarCategorias, mensagemAviso } from "./globalFunctions.js";
-import { validarFormCadastroProduto } from "./produtoRegex.js";
+import { validarFormProduto } from "./produtoRegex.js";
 let token = localStorage.getItem('token'); // token do usuario
 let formCadastroProduto     = document.forms.cadastrarProduto;
 let dataMessage             = document.getElementById('data-message'); // <span id="data-message"></span>
 
-// funcao que escuta o carregamento da pagina e executa funcoes
+// Escuta o carregamento da pagina e executa as funcoes
 document.addEventListener("DOMContentLoaded", async () => {
     listarCategorias()
 })
@@ -12,19 +12,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 // Escuta submit no formulario de atualizacao do usuario e valida os campos
 document.getElementById("btnCadastrarProduto").addEventListener('click', function(event) {
     event.preventDefault();
-    const nomeInput          = formCadastroProduto.elements.nome;
-    const fabricanteInput    = formCadastroProduto.elements.fabricante;
-    const quantidadeInput    = formCadastroProduto.elements.quantidade;
-    const categoriaSelect    = formCadastroProduto.elements.categoria;
-    const precoInput         = formCadastroProduto.elements.preco;
-    const atributosInput     = formCadastroProduto.elements.atributos;
-    const disponivelSelect   = formCadastroProduto.elements.disponivel;
-    const descricaoInput     = formCadastroProduto.elements.descricao;
-    const fotosInput         = formCadastroProduto.elements.fotos;
+    const nomeInput             = formCadastroProduto.elements.nome;
+    const fabricanteInput       = formCadastroProduto.elements.fabricante;
+    const quantidadeInput       = formCadastroProduto.elements.quantidade;
+    const categoriaSelect       = formCadastroProduto.elements.categoria;
+    const precoInput            = formCadastroProduto.elements.preco;
+    const atributosInput        = formCadastroProduto.elements.atributos;
+    const disponivelSelect      = formCadastroProduto.elements.disponivel;
+    const ofertaSelect          = formCadastroProduto.elements.oferta;
+    const precoPromocionalInput = formCadastroProduto.elements.precoPromocional;
+    const descricaoInput        = formCadastroProduto.elements.descricao;
+    const fotosInput            = formCadastroProduto.elements.fotos;
     
     // Executa a validação e envio se tudo for válido
-    if(validarFormCadastroProduto(nomeInput, precoInput, fabricanteInput, quantidadeInput, categoriaSelect, disponivelSelect)) {
-      cadastrarProduto(nomeInput, fabricanteInput, quantidadeInput, categoriaSelect, precoInput, atributosInput, disponivelSelect, descricaoInput, fotosInput)
+    if(validarFormProduto(nomeInput, precoInput, fabricanteInput, quantidadeInput, categoriaSelect, disponivelSelect)) {
+      cadastrarProduto(nomeInput, fabricanteInput, quantidadeInput, categoriaSelect, precoInput, atributosInput, disponivelSelect, ofertaSelect, precoPromocionalInput, descricaoInput, fotosInput)
     }
 });
 
@@ -172,7 +174,7 @@ formCadastroProduto.elements.adicionarFotos.addEventListener('change', () => {
 })
 
 // funcao fetch para cadastrar produtos
-function cadastrarProduto(nomeInput, fabricanteInput, quantidadeInput, categoriaInput, precoInput, atributosInput, disponivelInput, descricaoInput, fotosInput){
+function cadastrarProduto(nomeInput, fabricanteInput, quantidadeInput, categoriaSelect, precoInput, atributosInput, disponivelSelect, ofertaSelect, precoPromocionalInput, descricaoInput, fotosInput){
   let responseStatus = null;
 
   // var recebe os parametros da URL e relaciona com as parametros
@@ -180,10 +182,12 @@ function cadastrarProduto(nomeInput, fabricanteInput, quantidadeInput, categoria
   formData.append("nome", nomeInput.value);
   formData.append("fabricante", fabricanteInput.value);
   formData.append("quantidade", quantidadeInput.value);
-  formData.append("categoria", categoriaInput.value);
+  formData.append("categoria", categoriaSelect.value);
   formData.append("preco", precoInput.value);
   formData.append("atributos", atributosInput.value);
-  formData.append("disponivel", disponivelInput.value);
+  formData.append("oferta", ofertaSelect.value)
+  formData.append("precoPromocional", precoPromocionalInput.value)
+  formData.append("disponivel", disponivelSelect.value);
   formData.append("descricao", descricaoInput.value);
   
   // adiciona o campo de arquivo a partir do FileList Fotos

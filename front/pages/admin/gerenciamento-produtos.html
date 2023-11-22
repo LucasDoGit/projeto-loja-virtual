@@ -28,7 +28,7 @@
             </div>
             <div class="third-content">
                 <div class="header-navegation" id="header-navegation">
-                    <button onclick="toggleSidebar()" class="header-btn-icon">
+                    <button id="btnPainelLateral" class="header-btn-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" /></svg>
                     </button>
                     <div class="header-icon-navegation">
@@ -54,7 +54,7 @@
                         </button>
                     </div>
                 </div>
-                <button onclick="toggleSidebar()" class="header-btn-icon">
+                <button id="btnFecharPainelLateral" class="header-btn-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list"
                         viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
@@ -64,15 +64,12 @@
             </div>
         </div>
         <nav class="nav-categorias">
-            <div class="nav-categorias">
-                <a href="#">barra de categorias 1</a>
-                <a href="#">barra de categorias 2</a>
-                <a href="#">barra de categorias 3</a>
-                <a href="#">barra de categorias 4</a>
+            <div class="nav-categorias" id="navCategorias">
+                <!-- aqui as categorias sao geradas automaticamente -->
             </div>
         </nav>
       </header> 
-    <main class="adm">
+    <main id="main-content">
     <div class="contain-flex">
         <div class="bar-lf-acesso-rapido">
             <!-- Home -->
@@ -156,12 +153,6 @@
                                 <input type="text" class="input-form2" id="idfabricante" name="fabricante"></input>
                                 <span class="error-message"></span>
                             </div>
-                            <div class="categoria">
-                                <select id="categoria" name="categoria">
-                                    <option value="">Selecione uma categoria</option>
-                                    <!-- Opções preenchidas dinamicamente -->
-                                </select>
-                            </div>
                             <div class="contain-input2">
                                 <label for="idpreco">Preço:</label>
                                 <div class="preco">
@@ -169,18 +160,25 @@
                                     <span class="error-message"></span>
                                 </div>
                             </div>
+                            <div class="categoria">
+                                <select id="categoria" name="categoria">
+                                    <option value="">Selecione uma categoria</option>
+                                    <!-- Opções preenchidas dinamicamente -->
+                                </select>
+                            </div>
                             <div class="contain-select">
-                                <p>Em estoque: </p>
+                                <p>Disponivel: </p>
                                 <select class="select-form" name="disponivel" id="iddisponivel">
                                     <option value="todos">Todos</option>
-                                    <option value="true">sim</option>
-                                    <option value="false">não</option>
+                                    <option value="sim">sim</option>
+                                    <option value="não">não</option>
                                 </select>
-                                <p>Tipo de Oferta: </p>
-                                <select class="select-form" name="status" id="idstatus">
+                                <p>Oferta: </p>
+                                <select class="select-form" name="oferta" id="idoferta">
                                     <option value="todas">Todas</option>
-                                    <option value="Oferta">Oferta</option>
-                                    <option value="Novos">Novos</option>
+                                    <option value="promocao">Promoção</option>
+                                    <option value="recomendados">Recomendados</option>
+                                    <option value="sem oferta">Sem Oferta</option>
                                 </select>
                             </div>
                             <div class="d-flex justify-content-end">
@@ -342,7 +340,7 @@
             <p>Site desenvolvido por @Mondie</p>
         </div>
     </footer>
-    <script src="/js/main.js"></script>
+    <script type="module" src="/js/main.js"></script>
     <script src="/js/user/userLogout.js"></script>
     <script type="module" src="/js/admin/gerenciamentoProdutos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

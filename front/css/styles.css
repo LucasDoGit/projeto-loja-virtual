@@ -177,6 +177,7 @@ header {
 }
 
 .nav-categorias {
+    text-transform: uppercase;
     background-color: var(--cor4);
     display: flex;
     padding: 2px;
@@ -254,23 +255,24 @@ div#gif { /* banner gif */
 
 /* card produtos */
 .box-cards-produtos {
-    padding: 20px;
-    align-self: center;
-    justify-content: space-evenly;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 3 colunas de largura igual */
+    grid-gap: 20px; /* Espaço entre as colunas */
+    justify-content: start; /* Alinhamento à esquerda */
+    justify-items: center; /* alinhas os produtos ao centro */
     background-color: white;
 }
 
-.card-produto{
+.card-produto {
     background-color: white;
     border-radius: 5px;
     max-width: 250px;
     border: 1px solid var(--cor2);
     padding: 10px;
+    margin: 12px;
 }
 
-.card-produto .produto {
+.card-produto .foto {
     max-width: 228px;
     max-height: 228px;
     margin: 0 auto;
@@ -278,15 +280,21 @@ div#gif { /* banner gif */
     border-radius: 5px;
 }
 
-.card-produto .produto img {
-    width: 100%;
+.card-produto .foto img {
+    max-width: 226px;
+    max-height: 226px;
     border-radius: 5px;
 }
 
 .card-produto h4 {
+    text-transform: uppercase;
     font-size: 16px;
     text-align: left;
     margin: 0.8rem 5px;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adiciona uma elipse (...) se o texto ultrapassar a largura máxima */
+    white-space: normal;
 }
 
 .card-produto h5, .card-produto p, .card-produto a {
@@ -294,7 +302,11 @@ div#gif { /* banner gif */
     margin-right: 5px;
 }
 
-.preco-antigo {
+.card-preco {
+    height: 78px;
+}
+
+.preco-produto {
     font-size: 12px;
     text-decoration: line-through;
 }
@@ -390,6 +402,11 @@ div.main-banner-fita div.fita-informacoes img {
     justify-content: start; /* Alinhamento à esquerda */
     margin: 2rem 0; /* margem antes e depois das grids */
     justify-items: center; /* alinhas os produtos ao centro */
+}
+
+#produtosRecomendados, #produtosNovos {
+    max-height: 1450px; /* Substitua 400px pelo valor desejado */
+    overflow: hidden;
 }
 
 .section-titulo {
@@ -2344,6 +2361,10 @@ form.formCadastro textarea {
     padding: 3px 5px;
 }
 
+form.formCadastro textarea {
+    line-height: 16px;
+}
+
 input.input_file {
     border: none !important;
 }
@@ -2932,9 +2953,14 @@ div.andamento{
         padding: 0 1rem;
     }
 
+    .box-cards-produtos {
+        grid-template-columns: repeat(4, 1fr); /* 3 colunas de largura igual */
+    }
+
     /* grade de produtos */
     .container-produtos {
         grid-template-columns: repeat(4, 1fr); /* 3 colunas de largura igual */
+        
     }
 
     /* banner fita */

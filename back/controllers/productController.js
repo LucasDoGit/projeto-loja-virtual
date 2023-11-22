@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
 import Product from "../models/Product.js";
+import FeaturedProduct from "../models/FeaturedProduct.js";
 import fs from "fs";
 import path from "path";
 import { rimraf } from "rimraf";
 
 // Criação de novos produtos
 const createProduct = async (req, res) => {
-  let { nome, preco, categoria, disponivel, atributos, quantidade, fabricante, status, descricao } = req.body
+  let { nome, preco, categoria, disponivel, atributos, quantidade, fabricante, oferta, precoPromocional, descricao } = req.body
   let files, fotos = []; // array para os arquivos e caminho para fotos
   
   // recebe os arquivos contidos em req.files
@@ -32,10 +33,6 @@ const createProduct = async (req, res) => {
       const ultimoSKU = parseInt(ultimoProduto.sku.slice(1));
       sku = 'P' + ('000' + (ultimoSKU + 1)).slice(-4);
     }
-
-    // converter preco para number 
-    const precoComPonto = preco.replace(",",".");
-    const precoNumber = parseFloat(precoComPonto)
 
     // cria a pasta do produto para salvar as imagens
     const pastaDoProduto = `back/uploads/produtos/${sku}`;
@@ -69,24 +66,50 @@ const createProduct = async (req, res) => {
       sku: sku,
       nome: nome,
       fotos: fotos,
-      preco: precoNumber, 
+      preco: preco,
+      precoPromocional: precoPromocional ? precoPromocional : undefined,
       categoria: categoria, 
       disponivel: disponivel,
       atributos: atributos,
       quantidade: quantidade,
-      fabricante: fabricante, 
-      status: status, 
+      fabricante: fabricante,
       descricao: descricao
     })
 
+    
+
+    // cadastra o produto e salva as informacoes na constante
+    let savedProduct = {};
     await newProduct.save()
     .then((produtoSalvo) =>{
-      return res.status(201).json({ message: 'Produto cadastrado', produto: produtoSalvo }); 
+      savedProduct = produtoSalvo
+      // console.log('Produto cadastrado', produtoSalvo);
     })
     .catch((err)=>{
       console.log('Erro ao cadastrar produto', err)
       return res.status(400).json({ message: 'Erro ao cadastrar produto', error: err })
     })
+
+    // verifica se o produto está em oferta
+    if(oferta){
+      // Verifica se a oferta existe
+      const offer = await FeaturedProduct.findOne({ offer: oferta });
+      if (!offer) {
+        // Se não existir, cria uma nova oferta e adiciona o produto
+        const newOffer = new FeaturedProduct({
+            offer: oferta,
+            products: [savedProduct._id],
+        });
+        await newOffer.save();
+      } else {
+          // Se a oferta existir, adiciona o produto ao array de produtos
+          offer.products.push(savedProduct._id);
+          await offer.save();
+      }
+      return res.status(201).json({ message: 'Produto cadastrado e adicionado à oferta', produto: savedProduct });
+    }
+    // retorna mensagem informando o cadastro do produto
+    return res.status(201).json({ message: 'Produto cadastrado', produto: savedProduct }); 
   } catch (error) {
     return res.status(500).json({ message: 'Erro ao criar o produto.', error: error.message });
   }
@@ -96,6 +119,31 @@ const createProduct = async (req, res) => {
 const getProducts = async (req, res) => {
   try {
     const products = await Product.find(); // Recupere todos os produtos do banco de dados
+    if(products.length > 0){
+      let produtos = [];
+      
+      // funcao for que percorre todos os produtos e mostra o seu tipo de oferta
+      for (const produto of products) {
+        // Busca a oferta ativa verificando diretamente no array
+        const isInOffer = await FeaturedProduct.findOne({ products: produto._id });
+
+        // Adiciona informações do produto ao array
+        produtos.push({
+          _id: produto._id,
+          sku: produto.sku,
+          nome: produto.nome,
+          preco: produto.preco.toString(),
+          fotos: produto.fotos,
+          precoPromocional: produto.precoPromocional ? produto.precoPromocional.toString() : '',
+          categoria: produto.categoria, 
+          disponivel: produto.disponivel,
+          // quantidade: produto.quantidade,
+          fabricante: produto.fabricante,
+          oferta: isInOffer ? isInOffer.offer : 'Sem oferta',
+        });
+      }
+      return res.status(200).json({ produtos: produtos }); // lista de produtos
+    }
     return res.status(200).json({ produtos: products }); // lista de produtos
   } catch (error) {
     return res.status(400).json({ error: 'Erro ao recuperar os produtos.', error: error.message });
@@ -116,7 +164,15 @@ const getOneProduct = async (req, res) => {
     if(!produto) {
       return res.status(404).json({ message: 'Nenhum produto encontrado', error: true })
     }
-    return res.status(200).json({ produto: produto }); // lista de produtos
+    // Busca a oferta ativa verificando diretamente no array
+    const isInOffer = await FeaturedProduct.findOne({ products: req.params.productId });
+
+    // converte o preco e adiciona a oferta no retorno do JSON.
+    const produtoJSON = produto.toObject();
+    produtoJSON.preco = produto.preco.toString();
+    produtoJSON.precoPromocional = produto.precoPromocional ? produto.precoPromocional.toString() : '';
+    isInOffer ? produtoJSON.oferta = isInOffer.offer : ''; // retorna vaziu se nao encontrar oferta ativa
+    return res.status(200).json({ produto: produtoJSON });
   } catch (error) {
     return res.status(400).json({ message: 'Erro ao recuperar o produto.', error: error.message });
   }
@@ -125,7 +181,7 @@ const getOneProduct = async (req, res) => {
 // Criação de novos produtos
 const updateProduct = async (req, res) => {
   let productId = req.params.productId;
-  let { nome, preco, categoria, disponivel, atributos, quantidade, fabricante, status, descricao } = req.body
+  let { nome, preco, categoria, disponivel, atributos, quantidade, fabricante, oferta, precoPromocional, descricao } = req.body
   let files, fotos = []; // array para os arquivos e caminho para fotos
   
   // valida se todos os campos necessarios foram digitados
@@ -188,7 +244,7 @@ const updateProduct = async (req, res) => {
       atributos: atributos,
       quantidade: quantidade,
       fabricante: fabricante, 
-      status: status, 
+      precoPromocional: precoPromocional ? precoPromocional : undefined,
       descricao: descricao
     };
 
@@ -198,6 +254,7 @@ const updateProduct = async (req, res) => {
       updatedProductData.fotos = [...produto.fotos, ...fotos];
     }
     
+    let savedProduct = {};
     await Product.findByIdAndUpdate(productId, updatedProductData, {new: true})
     .then((produto) =>{
       if(!produto){
@@ -205,13 +262,44 @@ const updateProduct = async (req, res) => {
         return res.status(404).json({ message: 'produto nao encontrado', erro: true })
       } else {
         // atualizacao bem sucessida
-        return res.status(200).json({ message: 'Produto atualizado', produto: produto }); 
+        savedProduct = produto
       }
     })
     .catch((err)=>{
       console.log('Erro ao atualizar produto ', err)
       return res.status(400).json({ message: 'Erro ao atualizar produto', error: err })
     })
+
+    // Busca a oferta ativa verificando diretamente no array
+    const isInOffer = await FeaturedProduct.findOne({ products: productId });
+
+    if(oferta){
+      // Remove o produto de todas as categorias para evitar duplicidade
+      await FeaturedProduct.updateMany({}, { $pull: { products: productId } });
+
+      // verifica se a oferta recebida existe
+      const offer = await FeaturedProduct.findOne({ offer: oferta });
+      if (!offer) {
+        // Se não existir, cria uma nova oferta e adiciona o produto
+        const newOffer = new FeaturedProduct({
+            offer: oferta,
+            products: [savedProduct._id],
+        });
+        await newOffer.save();
+      } else {
+          // Se a oferta existir, adiciona o produto ao array de produtos
+          offer.products.push(savedProduct._id);
+          await offer.save();
+      }
+      // retorna uma mensagem informando o cadastro do produto e nas ofertas
+      return res.status(201).json({ message: 'Produto atualizado e adicionado à oferta', produto: savedProduct });
+    } else if (oferta === '' && isInOffer) {
+      // Se estiver vazia e o produto estiver em oferta, remove o produto da oferta ativa.
+      await FeaturedProduct.updateOne({ offer: isInOffer.offer }, { $pull: { products: productId } });
+      // console.log('produto removido das ofertas')
+    }
+    // retorna uma mensagem informando o cadastro do produto somente.
+    return res.status(200).json({ message: 'Produto atualizado', produto: savedProduct }); 
   } catch (error) {
     return res.status(500).json({ message: 'Erro ao atualizar o produto.', error: error.message });
   }
@@ -233,6 +321,9 @@ const deleteProduct = async (req, res) => {
       return res.status(404).json({ message: 'Produto não encontrado.', error: true });
     }
 
+    // Remove o produto de todas as ofertas
+    await FeaturedProduct.updateMany({}, { $pull: { products: productId } });
+
     // verifica se o produto possui uma pasta de fotos 
     const pastaDoProduto = path.join(`back/uploads/produtos/${product.sku}`);
 
@@ -251,15 +342,6 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-// Busca todos os produtos
-const getImages = async (req, res) => {
-  let sku = req.params.productSku
-  
-  const caminhoDasFotos = obterCaminhosDasFotos(sku)
-
-  return res.json(caminhoDasFotos)
-};
-
 const deleteImages = async (req, res) => {
   let { productId } = req.params;
   let { src } = req.body;
@@ -270,11 +352,9 @@ const deleteImages = async (req, res) => {
 
   try {
     // 1. Exclusão no servidor local
-
-    // Itera sobre os caminhos e exclui cada foto no servidor
     await Promise.all(
-      src.map((caminho) =>
-        fs.unlink(`${caminho}`, (err) => {
+      // Itera sobre os caminhos e exclui cada foto no servidor
+      src.map((caminho) => fs.unlink(`${caminho}`, (err) => {
           if (err) {
             console.error("Erro ao excluir a foto:", err, `foto: ${caminho}`);
             return res.status(500).json({ mensagem: "Erro interno do servidor" });
@@ -304,12 +384,53 @@ const deleteImages = async (req, res) => {
   }
 }
 
+const findAllProductsInOffer = async (req, res) => {
+  try {
+    const offerName = req.params.offerName;
+
+    // Busca a oferta desejada e popula os detalhes dos produtos
+    const offer = await FeaturedProduct.findOne({ offer: offerName }).populate("products");
+
+    if (!offer) {
+      return res.status(404).json({ message: "Oferta não encontrada." });
+    }
+    // Obtém os dados dos produtos
+    const products = offer.products;
+
+    if (products.length > 0) {
+      let produtos = [];
+
+      products.forEach((produto) => {
+        // Adiciona informações do produto ao array
+        produtos.push({
+          _id: produto._id,
+          sku: produto.sku,
+          nome: produto.nome,
+          preco: produto.preco.toString(),
+          fotos: produto.fotos,
+          precoPromocional: produto.precoPromocional ? produto.precoPromocional.toString() : '',
+          categoria: produto.categoria, 
+          disponivel: produto.disponivel,
+          quantidade: produto.quantidade,
+          fabricante: produto.fabricante,
+        });
+      });
+      return res.json({ oferta: offerName, produtos: produtos });
+    } else {
+      return res.status(404).json({ message: "Nenhum produto nesta oferta", error: true });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Erro interno do servidor.", error: true });
+  }
+};
+
 export default {
   createProduct,
   getProducts,
   getOneProduct,
   updateProduct,
   deleteProduct,
-  getImages,
-  deleteImages
+  deleteImages,
+  findAllProductsInOffer
 };

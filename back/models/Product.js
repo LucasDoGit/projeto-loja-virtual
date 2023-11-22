@@ -19,10 +19,17 @@ const productSchema = new mongoose.Schema({
     }
   ], // Armazenando URLs das imagens como uma matriz
   preco: {
-    type: Number,
+    type: mongoose.Decimal128,
     required: [true, 'O Preço é obrigatório!.'],
     validate: {
         validator: (value) => value >= 0, // valida se o preço é maior que 0
+        message: 'O preço não pode ser um valor negativo.'
+    }
+  },
+  precoPromocional: {
+    type: mongoose.Decimal128,
+    validate: {
+        validator: (value) => value >= 0 ? value : 0,
         message: 'O preço não pode ser um valor negativo.'
     }
   },
@@ -40,12 +47,11 @@ const productSchema = new mongoose.Schema({
     required: [true, 'Digite quantidade em estoque']
   },
   fabricante: String,
-  status: String, // campo reservado para produtos "Em oferta", "Destaques" e etc.
   descricao: String
 });
 
-// Crie um modelo com base no esquema
+// Modelos com base nos schemass  a
 const Product = mongoose.model('Product', productSchema);
 
-// Exporte o modelo para uso em outros lugares
+
 export default Product;

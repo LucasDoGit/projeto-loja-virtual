@@ -1,4 +1,4 @@
-import { validarFormCadastroProduto as validarForm } from "./produtoRegex.js";
+import { validarFormProduto } from "./produtoRegex.js";
 import { carregarCategorias, mensagemAviso, alternarEdicaoFormulario } from "./globalFunctions.js";
 // variaveis
 let token                   = localStorage.getItem('token'); // token do usuario
@@ -11,35 +11,39 @@ let fotosPreviewURL         = []; // array que contem as fotos ja salvas no serv
 let fotosData               = []; // array com o objeto fotosData recebidas do servidor
 let fotosParaExcluir        = []; // array com o caminho das fotos para excluir
 
-// ao carregar a pagina carrega os dados do usuario
+// ao carregar a pagina, executa as funcoes.
 document.addEventListener("DOMContentLoaded", async function() {
-    await listarCategorias()
-    decodeProdutoParameter(); // decodifica o id do usuario para carregar no formulario
+    await listarCategorias();
+    // decodifica o produto e mostra no formulario
+    decodeProdutoParameter(); 
+    // altera a edicao do formulario para bloqueado para editar
     alternarEdicaoFormulario(atualizaProdutoForm, true)
 });
 
-// Escuta submit no formulario de atualizacao do usuario e valida os campos
+// Escuta o click e valida os campos antes de enviar os dados atualizados
 document.getElementById("salvarEdicaoProduto").addEventListener('click', async function(event) {
     event.preventDefault();
-    const nomeInput          = atualizaProdutoForm.elements.nome;
-    const fabricanteInput    = atualizaProdutoForm.elements.fabricante;
-    const quantidadeInput    = atualizaProdutoForm.elements.quantidade;
-    const categoriaSelect    = atualizaProdutoForm.elements.categoria;
-    const precoInput         = atualizaProdutoForm.elements.preco;
-    const atributosInput     = atualizaProdutoForm.elements.atributos;
-    const disponivelSelect   = atualizaProdutoForm.elements.disponivel;
-    const descricaoInput     = atualizaProdutoForm.elements.descricao;
-    const fotosInput         = atualizaProdutoForm.elements.fotos;
+    const nomeInput             = atualizaProdutoForm.elements.nome;
+    const fabricanteInput       = atualizaProdutoForm.elements.fabricante;
+    const quantidadeInput       = atualizaProdutoForm.elements.quantidade;
+    const categoriaSelect       = atualizaProdutoForm.elements.categoria;
+    const precoInput            = atualizaProdutoForm.elements.preco;
+    const atributosInput        = atualizaProdutoForm.elements.atributos;
+    const disponivelSelect      = atualizaProdutoForm.elements.disponivel;
+    const ofertaSelect          = atualizaProdutoForm.elements.oferta;
+    const precoPromocionalInput = atualizaProdutoForm.elements.precoPromocional;
+    const descricaoInput        = atualizaProdutoForm.elements.descricao;
+    const fotosInput            = atualizaProdutoForm.elements.fotos;
     
     // Executa a validação e envio se tudo for válido
-    if(validarForm(nomeInput, precoInput, fabricanteInput, quantidadeInput, categoriaSelect, disponivelSelect)) {
+    if(validarFormProduto(nomeInput, precoInput, fabricanteInput, quantidadeInput, categoriaSelect, disponivelSelect)) {
         try {
           // exclui as fotoso caso o array de fotos para excluir possua itens
           if(fotosParaExcluir.length > 0) {
             await excluirFotos(fotosParaExcluir)
           }
           // atualiza o produto após a exclusão das fotos
-          await atualizarProduto(nomeInput, fabricanteInput, quantidadeInput, categoriaSelect, precoInput, atributosInput, disponivelSelect, descricaoInput, fotosInput)
+          await atualizarProduto(nomeInput, fabricanteInput, quantidadeInput, categoriaSelect, precoInput, atributosInput, disponivelSelect, ofertaSelect, precoPromocionalInput, descricaoInput, fotosInput)
         } catch (error) {
           console.error('Erro durante a exclusão ou atualização:', error);
           mensagemAviso(dataMessage, 'Erro ao atualizar produto')
@@ -125,7 +129,7 @@ function adicionarFotoPreview(fotosUrl) {
             imageElement.src = fotoUrl;
             
             const deleteButton = document.createElement('button'); // <button class="btn-svg">
-            deleteButton.classList.add('btn-svg', 'display-none') // adiciona icone svg no botao para remover
+            deleteButton.classList.add('btn-svg') // adiciona icone svg no botao para remover
             deleteButton.innerHTML = `
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square-fill" viewBox="0 0 16 16">
               <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 7.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1z"/>
@@ -137,8 +141,6 @@ function adicionarFotoPreview(fotosUrl) {
               deleteButton.remove()
               // remove a foto do index e do servidor se já estiver salva
               fotoUrl.toLowerCase().startsWith("blob") ? removerFotoInputFile(index) : removerFotoServer(fotoUrl)
-              // limpa o preview atual das imagens
-              limparPreviewFotos()
               // carrega o preview atualizado
               carregarPreviewFotos()
             });
@@ -152,7 +154,7 @@ function adicionarFotoPreview(fotosUrl) {
             fotoSecundaria.appendChild(imageElement); // adiciona a imagem na div fotoPrincipal
       
             const deleteButton = document.createElement('button'); // <button class="btn-svg botaoApagar">
-            deleteButton.classList.add('btn-svg', 'botaoApagar', 'display-none')
+            deleteButton.classList.add('btn-svg', 'botaoApagar')
             // adiciona icone svg no botao para remover
             deleteButton.innerHTML = ` 
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square-fill" viewBox="0 0 16 16">
@@ -165,8 +167,6 @@ function adicionarFotoPreview(fotosUrl) {
               fotoSecundaria.remove();
               // remove a foto do index e do servidor se já estiver salva
               fotoUrl.toLowerCase().startsWith("blob") ? removerFotoInputFile(index) : removerFotoServer(fotoUrl)
-              // limpa o preview atual das imagens
-              limparPreviewFotos()
               // carrega o preview atualizado
               carregarPreviewFotos()
             });
@@ -179,6 +179,28 @@ function limparInputFiles(inputFile) {
   // cria lista vazia e atribui aos input files de fotos
   const ListaVazia = new DataTransfer();
   inputFile.files = ListaVazia.files;
+}
+
+// alternar display dos botoes de apagar fotos
+function alterarExclusaoFotos(boolean){
+  const botoesApagar = document.querySelectorAll('.btn-svg'); // Seleciona todos os elementos com a tag "botaoApagar"
+  botoesApagar.forEach(botao => {
+    boolean === true ? botao.classList.remove('display-none') : botao.classList.add('display-none') 
+  });
+}
+// alternar display dos botoes de apagar fotos
+function alterarBotoesAcoes(boolean){
+    if(boolean === true){
+      document.getElementById('salvarEdicaoProduto').classList.remove('display-none');
+      document.getElementById('cancelarEdicaoProduto').classList.remove('display-none');
+      document.getElementById('excluirProduto').classList.remove('display-none');
+      document.getElementById('editarProduto').classList.add('display-none');
+    } else {
+      document.getElementById('salvarEdicaoProduto').classList.add('display-none');
+      document.getElementById('cancelarEdicaoProduto').classList.add('display-none');
+      document.getElementById('excluirProduto').classList.add('display-none');
+      document.getElementById('editarProduto').classList.remove('display-none');
+    }
 }
 
 // limpa o preview atual das fotos
@@ -255,39 +277,23 @@ atualizaProdutoForm.elements.adicionarFotos.addEventListener('change', () => {
 
 // Ecuta o click no botao editar produto e libera a edicao para o usuario
 document.getElementById('editarProduto').addEventListener('click', function() {
+    // alterna a edicao para o formulario como habilitada
     alternarEdicaoFormulario(atualizaProdutoForm, false)
-    this.classList.add('display-none')
-    
-    // mostra todos os botoes com ações 
-    const botoesApagar = document.querySelectorAll('.btn-svg'); // Seleciona todos os elementos com a tag "botaoApagar"
-    botoesApagar.forEach(botao => {
-      botao.classList.remove('display-none');
-    });
-    document.getElementById('salvarEdicaoProduto').classList.remove('display-none');
-    document.getElementById('cancelarEdicaoProduto').classList.remove('display-none');
-    document.getElementById('excluirProduto').classList.remove('display-none');
+    alterarExclusaoFotos(true);
+    alterarBotoesAcoes(true);
 })
 
 // Escuta o click no botao e cancela todas as acoes feitas, volta ao estado original
 document.getElementById('cancelarEdicaoProduto').addEventListener('click', function() {
-  alternarEdicaoFormulario(atualizaProdutoForm, true)
-  this.classList.add('display-none');
+    // limpa o preview e limpa as fotos adicionadas
+    limparPreviewFotos()
+    limparInputFiles(atualizaProdutoForm.elements.fotos)
 
-  // limpa o preview e limpa as fotos adicionadas
-  limparPreviewFotos()
-  limparInputFiles(atualizaProdutoForm.elements.fotos)
-
-  // carrega os dados originais do produto
-  carregaProdutoFormulario(produtoId);
-
-  // volta os botoes ao estado original
-  const botoesApagar = document.querySelectorAll('.btn-svg'); // Seleciona todos os elementos com a tag "botaoApagar"
-  botoesApagar.forEach(botao => {
-    botao.classList.add('display-none');
-  });
-  document.getElementById('salvarEdicaoProduto').classList.add('display-none');
-  document.getElementById('excluirProduto').classList.add('display-none');
-  document.getElementById('editarProduto').classList.remove('display-none');
+    // retorna o formulario ao estado original
+    carregaProdutoFormulario(produtoId);
+    alternarEdicaoFormulario(atualizaProdutoForm, true)
+    alterarExclusaoFotos(false)
+    alterarBotoesAcoes(false)
 });
 
 // Escuta o click para excluir o produto e chama a funcao fetch
@@ -320,16 +326,16 @@ function carregaProdutoFormulario(produtoId) {
         }
         // campos recebem os valores do usuario requisitado da API
         const produto = data.produto;
-        // converter preco para string
-        produto.preco = produto.preco.toString().replace(".",",");
-        atualizaProdutoForm.elements.sku.value         = produto.sku
-        atualizaProdutoForm.elements.nome.value        = produto.nome;
-        atualizaProdutoForm.elements.fabricante.value  = produto.fabricante;
-        atualizaProdutoForm.elements.quantidade.value  = produto.quantidade;
-        atualizaProdutoForm.elements.categoria.value   = produto.categoria;
-        atualizaProdutoForm.elements.preco.value       = produto.preco;
-        atualizaProdutoForm.elements.disponivel.value  = produto.disponivel;
-        atualizaProdutoForm.elements.descricao.value  =  produto.descricao === undefined ? '' : produto.descricao;
+        atualizaProdutoForm.elements.sku.value               = produto.sku
+        atualizaProdutoForm.elements.nome.value              = produto.nome;
+        atualizaProdutoForm.elements.fabricante.value        = produto.fabricante;
+        atualizaProdutoForm.elements.quantidade.value        = produto.quantidade;
+        atualizaProdutoForm.elements.categoria.value         = produto.categoria;
+        atualizaProdutoForm.elements.preco.value             = produto.preco;
+        atualizaProdutoForm.elements.disponivel.value        = produto.disponivel;
+        atualizaProdutoForm.elements.oferta.value            = produto.oferta;
+        atualizaProdutoForm.elements.precoPromocional.value  = produto.precoPromocional;
+        atualizaProdutoForm.elements.descricao.value         = produto.descricao === undefined ? '' : produto.descricao;
         // limpa os arrays com url das fotos antes de mostrar o preview (evita duplicidade)
         fotosData = produto.fotos
         fotosParaExcluir = []
@@ -341,13 +347,14 @@ function carregaProdutoFormulario(produtoId) {
         });
         // mostra as fotos no preview
         carregarPreviewFotos()
+        alterarExclusaoFotos(false)
         //atualizaProdutoForm.elements.status.value      = produto.status;
     })
     .catch((err) => console.log("Erro ao carregar produto", err))
 }
 
 // funcao fetch para cadastrar produtos
-async function atualizarProduto(nomeInput, fabricanteInput, quantidadeInput, categoriaSelect, precoInput, atributosInput, disponivelSelect, descricaoInput, fotosInput){
+async function atualizarProduto(nomeInput, fabricanteInput, quantidadeInput, categoriaSelect, precoInput, atributosInput, disponivelSelect, ofertaSelect, precoPromocionalInput, descricaoInput, fotosInput) {
     var responseStatus = null;
   
     // recebe os parametros e relaciona com o formData
@@ -360,6 +367,8 @@ async function atualizarProduto(nomeInput, fabricanteInput, quantidadeInput, cat
     formData.append("atributos", atributosInput.value);
     formData.append("disponivel", disponivelSelect.value);
     formData.append("descricao", descricaoInput.value);
+    formData.append("oferta", ofertaSelect.value);
+    formData.append("precoPromocional", precoPromocionalInput.value);
     
     // adiciona o campo de arquivo a partir do FileList Fotos
     console.log(fotosInput.files)
@@ -386,6 +395,9 @@ async function atualizarProduto(nomeInput, fabricanteInput, quantidadeInput, cat
       })
       .then((data) => {
         mensagemAviso(dataMessage, data, responseStatus);
+        alternarEdicaoFormulario(atualizaProdutoForm, true)
+        alterarExclusaoFotos(false)
+        alterarBotoesAcoes(false)
       })
       .catch((err) => {
         console.log("Erro ao cadastrar produto: ", err);
