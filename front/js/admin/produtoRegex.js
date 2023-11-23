@@ -3,6 +3,34 @@ import { validateField } from "/js/admin/globalFunctions.js";
 let numeroRegex = /^\d+$/; // valida se o campo digitado possui somente numeros
 let precoRegex = /^\d+(\.\d{1,2})?$/;
 let campoRegex = /[a-zA-Z\d]/ // valida se o campo possui letras digitadas
+let atributosRegex = /^(\w+):\s*(\w+)$/;
+
+// funcao que valida os atributos digitados do produto
+function validarLinhas(input, regex, errorMessage) {
+  const value = input.value.split('\n');
+  let isValid = undefined;
+  const errorElement = input.nextElementSibling;
+
+  // percore e valida todas as linhas digitadas
+  for (const linha of value) {
+      if (!regex.test(linha.trim())) {
+          isValid = false;
+      } else {
+        isValid = true;
+      }
+  }
+
+  if (isValid) {
+    input.classList.remove("invalid");
+    errorElement.classList.remove("error-message");
+    errorElement.textContent = "";
+  } else {
+    input.classList.add("invalid");
+    errorElement.classList.add("error-message");
+    errorElement.textContent = errorMessage;
+  }
+  return isValid; // retorna boolean do resultado
+}
 
 // valida os campos do formulario de atualização do usuario e retorna boolean
 export function validarFormProduto(nomeInput, precoInput, fabricanteInput, quantidadeInput, categoriaSelect, disponivelSelect) {
@@ -31,7 +59,7 @@ export function validarFormProduto(nomeInput, precoInput, fabricanteInput, quant
       formvalid = false;
     }
     return formvalid;
-  }
+}
 
 // Event listeners  para validar os campos em tempo real do formulario de endereços
 document.getElementById('nome').addEventListener('input', function(){
@@ -49,3 +77,8 @@ document.getElementById('quantidade').addEventListener('input', function(){
 document.getElementById('fabricante').addEventListener('input', function(){
   validateField(this, campoRegex, 'Digite o nome do fabricante do produto.');
 })
+
+document.getElementById('atributos').addEventListener('input', function(){
+  validarLinhas(this, atributosRegex, 'Digite corretamente os campos');
+})
+

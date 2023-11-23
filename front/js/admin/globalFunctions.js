@@ -85,6 +85,24 @@ export async function carregarProdutos() {
       .catch((err) => console.log("Ocorreu um erro ao enviar dados: ", err))
 }
 
+// funcao fetch que retorna um produto com todos os produtos cadastrados
+export async function carregarUmProduto(produtoId) {
+    return await fetch(`/api/global/products/${produtoId}`, { method: "GET", })
+      .then((res) => {
+          if(!res.ok){
+              throw new Error('Erro ao requisitar dados para o servidor');
+          }
+          return res.json();
+      })
+      .then((data) => {
+          if(data.error){
+              throw new Error('Erro ao requisitar produtos para o servidor');
+          }
+          return data.produto
+      })
+      .catch((err) => console.log("Ocorreu um erro ao enviar dados: ", err))
+}
+
 // funcao fetch que retorna um array com todos os produtos cadastrados
 export async function carregarProdutosEmOferta(oferta) {
     return await fetch(`/api/global/offers/${oferta}`, { method: "GET", })
@@ -180,13 +198,12 @@ export function criarCardProdutos(produtosArray, HTMLelement){
 
         // <a href="pages/produto.html">Comprar</a>
         const linkProduto = document.createElement('a');
-        linkProduto.href = '#';
         linkProduto.textContent = 'COMPRAR';
         cardContainer.appendChild(linkProduto);
 
         HTMLelement.appendChild(cardContainer)
 
-        cardContainer.addEventListener('click', () => {
+        linkProduto.addEventListener('click', () => {
             const produtoParam = encodeURIComponent(JSON.stringify(produto._id));
             window.location.href = `/front/pages/produto.html?produto=${produtoParam}`;
         });

@@ -69,29 +69,25 @@
             </div>
         </nav>
       </header> 
-    <!-- MAIN PRODUTO --> 
     <main>
-    <!--BUTTON VOLTAR-->
     <div class="contain">
-        <button class="btn-primario" id="btn-voltar">Voltar</button>
+        <button class="btn-primario" id="btn-voltar"><a href="/front/index.html">Voltar</a></button>
             <!--EXIBICAO DO PRODUTO-->
             <div class="produto-exibicao">
                 <div class="container-produto">
                     <!--IMAGEM DOS PRODUTOS-->
                     <div class="imagens-produto">
-                        <div class="btn-foto-produto">
-                            <button><img src="../img/produtos/produto-teste3-full.jpeg" alt=""></button>
-                            <button><img src="../img/produtos/produto-teste-full.jpeg" alt=""></button>
-                            <button><img src="../img/produtos/produto-teste2-full.jpeg" alt=""></button>
+                        <div class="btn-foto-produto" id="fotosProduto">
+                            <!-- fotos do produto sao geradas automaticamente -->
                         </div>
                         <div class="foto-principal">
-                            <img src="../img/produtos/produto-teste5-full.jpeg" alt="">
+                            <img id="fotoPreview" src="/img/icones/icone-imagem.png" alt="foto-produto">
                         </div>
                     </div>
                     <!--DESCRICAO DO PRODUTO-->
                     <div class="inf-produto">
                         <div class="titulo">
-                            <h4>Nome do Produto, Tamanho 35px, Cor Preto, Com Pilhas, Não tem vibro</h4>
+                            <h4 id="nomeProduto"></h4>
                         </div>
                         <!--ESTRELAS-->
                         <div class="stars">
@@ -103,28 +99,18 @@
                         </div>
                         <!--INFORMACOES CADASTRO-->
                         <div class="cadastro">
-                            <p>REFERÊNCIA: <strong>PD0001</strong></p>
-                            <p>Condição: <strong>Produto Novo</strong></p>
+                            <p id="skuProduto">REFERÊNCIA: </p>
                         </div>
                         <div class="valor">
-                            <h5>R$ 149,90</h5>
-                            <p>em 12x R$ 12,50</p>
+                            <h5 id="precoProduto"></h5>
+                            <p id="precoParcelado"></p>
                             <a href="#">ver meios de pagamento</a>
-                        </div>
-                        <!--SELECIONAR COR-->
-                        <div class="btn-selecionar-cor">
-                            <h5>COR: Bege</h5>
-                            <button><img src="../img/produtos/produto-teste3-full.jpeg" alt="#"></button>
                         </div>
                         <!--INFORMAÇÕES ADICIONAIS-->
                         <div class="inf-adicionais">
                             <h5>O que você precisa saber sobre este produto</h5>
-                            <ul>
-                                <li>Recarregável</li>
-                                <li>Com luzes de LED</li>
-                                <li>Resistente a água</li>
-                                <li>Alto Falante</li>
-                                <li>Usa cabo USB-C</li>
+                            <ul id="atributosProduto">
+                                <!-- atributos do produto são gerados automaticamente -->
                             </ul>
                         </div>
                     </div>
@@ -151,8 +137,8 @@
                     <div class="comprar-produto">
                         <h5>em estoque</h5>
                         <div class="botoes">
-                            <button class="btn-comprar">Comprar Agora</button>
-                            <button class="btn-adc-carrinho">Adicionar ao Carrinho</button>
+                            <button class="btn-primario" id="comprarAgora">Comprar Agora</button>
+                            <button class="btn-secundario" id="adicionarCarrinho">Adicionar ao Carrinho</button>
                         </div>
                         <ul>
                             <li>Devolução grátis. Você tem X dias a partir da data de recebimento.</li>
@@ -169,10 +155,7 @@
                         <h2>descrição do produto</h2>
                     </div>
                     <div class="txt-produto">
-                        <strong>Características</strong>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Delectus, quis suscipit natus voluptatum laboriosam assumenda eligendi omnis alias quae. In consequatur neque facilis adipisci corporis provident nulla. Blanditiis, et porro?</p>
-                        <strong>Específicações</strong>
-                        <p>Lorem ips um dolor, sit amet consectetur adipisicing elit. Delectus, quis suscipit natus voluptatum laboriosam assumenda eligendi omnis alias quae. In consequatur neque facilis adipisci corporis provident nulla. Blanditiis, et porro?</p>
+                        <p id="descricaoProduto"></p>
                     </div>
                 </section>
             </div>
@@ -336,5 +319,10 @@
             <p>Site desenvolvido por @Mondie</p>
         </div>
     </footer>
+    <script type="module" src="/js/main.js"></script>
+    <script type="module" src="/js/produto.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
 </body>
 </html>

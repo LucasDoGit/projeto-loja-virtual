@@ -7,6 +7,7 @@ import productController from "../controllers/productController.js";
 
 // PRODUTOS
 router.get('/products', productController.getProducts);
+router.get('/products/:productId', productController.getOneProduct);
 // PRODUTOS
 router.get('/categories', categoriesController.getCategories);
 router.get('/offers/:offerName', productController.findAllProductsInOffer)

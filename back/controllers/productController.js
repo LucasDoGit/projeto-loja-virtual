@@ -9,6 +9,7 @@ import { rimraf } from "rimraf";
 const createProduct = async (req, res) => {
   let { nome, preco, categoria, disponivel, atributos, quantidade, fabricante, oferta, precoPromocional, descricao } = req.body
   let files, fotos = []; // array para os arquivos e caminho para fotos
+  let atributosMap = new Map;
   
   // recebe os arquivos contidos em req.files
   if(req.files && req.files.fotos){
@@ -62,6 +63,20 @@ const createProduct = async (req, res) => {
       }
     }
 
+    // valida se recebeu atributos do produto
+    if(atributos){
+      // Converte o texto do textarea em um objeto de atributos
+      const atributosArray = atributos.split('\n');
+      atributosMap = new Map();
+  
+      atributosArray.forEach((linha) => {
+          const [chave, valor] = linha.split(':');
+          if (chave && valor) {
+              atributosMap.set(chave.trim(), valor.trim());
+          }
+      });
+    }
+
     const newProduct = new Product({
       sku: sku,
       nome: nome,
@@ -70,13 +85,11 @@ const createProduct = async (req, res) => {
       precoPromocional: precoPromocional ? precoPromocional : undefined,
       categoria: categoria, 
       disponivel: disponivel,
-      atributos: atributos,
+      atributos: atributosMap,
       quantidade: quantidade,
       fabricante: fabricante,
       descricao: descricao
     })
-
-    
 
     // cadastra o produto e salva as informacoes na constante
     let savedProduct = {};
@@ -172,6 +185,14 @@ const getOneProduct = async (req, res) => {
     produtoJSON.preco = produto.preco.toString();
     produtoJSON.precoPromocional = produto.precoPromocional ? produto.precoPromocional.toString() : '';
     isInOffer ? produtoJSON.oferta = isInOffer.offer : ''; // retorna vaziu se nao encontrar oferta ativa
+
+    // converte os atributos Map para um objeto JavaScript
+    const atributosJSON = {};
+    produto.atributos.forEach((valor, chave) => {
+      atributosJSON[chave] = valor;
+    });
+    produtoJSON.atributos = atributosJSON
+
     return res.status(200).json({ produto: produtoJSON });
   } catch (error) {
     return res.status(400).json({ message: 'Erro ao recuperar o produto.', error: error.message });
@@ -183,6 +204,7 @@ const updateProduct = async (req, res) => {
   let productId = req.params.productId;
   let { nome, preco, categoria, disponivel, atributos, quantidade, fabricante, oferta, precoPromocional, descricao } = req.body
   let files, fotos = []; // array para os arquivos e caminho para fotos
+  let atributosMap = new Map;
   
   // valida se todos os campos necessarios foram digitados
   if(!mongoose.Types.ObjectId.isValid(productId) || !nome || !preco || !categoria || !disponivel ) {
@@ -236,12 +258,26 @@ const updateProduct = async (req, res) => {
       }
     }
 
+    // valida se recebeu atributos do produto
+    if(atributos){
+      // Converte o texto do textarea em um objeto de atributos
+      const atributosArray = atributos.split('\n');
+      atributosMap = new Map();
+  
+      atributosArray.forEach((linha) => {
+          const [chave, valor] = linha.split(':');
+          if (chave && valor) {
+              atributosMap.set(chave.trim(), valor.trim());
+          }
+      });
+    }
+
     const updatedProductData = {
       nome: nome,
       preco: preco, 
       categoria: categoria, 
       disponivel: disponivel,
-      atributos: atributos,
+      atributos: atributosMap,
       quantidade: quantidade,
       fabricante: fabricante, 
       precoPromocional: precoPromocional ? precoPromocional : undefined,

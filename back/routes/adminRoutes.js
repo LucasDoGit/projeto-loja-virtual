@@ -43,7 +43,6 @@ router.delete('/categories/:categoryId', categoriesController.deleteCategory);
 // ROTAS - PRODUTOS
 router.use('/products', checkAccess('Master', 'Operador'));
 router.post('/products', productController.createProduct);
-router.get('/products/:productId', productController.getOneProduct);
 router.put('/products/:productId', productController.updateProduct);
 router.delete('/products/:productId', productController.deleteProduct);
 router.delete('/products/:productId/fotos', productController.deleteImages);

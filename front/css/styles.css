@@ -326,7 +326,7 @@ div#gif { /* banner gif */
 .card-produto a {
     display: block;
     text-decoration: none;
-    color: var(--cor1);
+    color: var(--cor1) !important;
     text-align: center;
     margin: auto;
     margin-top: 1rem;
@@ -338,8 +338,9 @@ div#gif { /* banner gif */
 }
 
 .card-produto a:hover {
+    cursor: pointer;
     background-color: var(--cor4);
-    color: var(--cor1);
+    text-transform: uppercase;
 }
 
 .card-produto:hover {
@@ -631,7 +632,6 @@ div.login-social .botoes {
     border: 1px solid var(--cor2);
 }
 
-
 #telaLogin{
     width: 18rem;
     position: absolute;
@@ -657,8 +657,6 @@ div.login-social .botoes {
     margin-right: 10px;
 }
 
-/* fim do codigo do bruno */
-
 /* PAGINA DO PRODUTO */
 
 .pagina-produto{
@@ -669,6 +667,12 @@ button#btn-voltar {
     max-width: 100px;
     padding: 3px 16px;
     margin: 1rem 0;
+}
+
+button#btn-voltar a {
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
 }
 
 .produto-exibicao {
@@ -694,8 +698,8 @@ button#btn-voltar {
 }
 
 .produto-exibicao .foto-principal {
-    max-width: 500px;
-    max-height: 500px;
+    width: 500px;
+    height: 500px;
     padding: 1px;
     border-radius: 5px;
 }
@@ -703,7 +707,6 @@ button#btn-voltar {
 .imagens-produto .foto-principal img {
     width: 100%;
 }
-
 
 .imagens-produto .btn-foto-produto button {
     border: none;
@@ -743,6 +746,7 @@ button#btn-voltar {
     width: 100%;
     font-size: 20px;
     font-weight: bold;
+    text-transform: uppercase;
 }
 
 .inf-produto .stars {
@@ -815,6 +819,7 @@ button#btn-voltar {
 }
 
 .inf-adicionais {
+    margin-top: 1.5rem;
     max-width: 350px;
 }
 
@@ -825,6 +830,7 @@ button#btn-voltar {
 .inf-adicionais ul, .inf-adicionais li {
     list-style: inside;
     font-size: 15px;
+    text-transform: capitalize;
 }
 
 .inf-compra {
@@ -907,32 +913,6 @@ button#btn-voltar {
 .comprar-produto .botoes button {
     max-width: 350px;
     height: 50px;
-}
-
-.botoes .btn-comprar{
-    border: none;
-    background-color: var(--cor4);
-    color: white;
-    border-radius: 5px;
-    transition: .3s;
-}
-
-.botoes .btn-comprar:hover {
-    background-color: var(--cor3);
-}
-
-.botoes .btn-adc-carrinho{
-    border: 1px solid var(--cor4);
-    background-color: white;
-    color: var(--cor4);
-    border-radius: 5px;
-    transition: 0.3s;
-}
-
-.botoes .btn-adc-carrinho:hover {
-    background-color: var(--cor2);
-    color: var(--cor1);
-    border: 1px solid var(--cor2);
 }
 
 .comprar-produto ul, .comprar-produto li {

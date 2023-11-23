@@ -14,5 +14,5 @@ node_modules
 #.sass-cache
 
 # ignorar as fotos salvar no servidor
-back/uploads
+# back/uploads
 

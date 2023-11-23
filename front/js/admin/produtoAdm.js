@@ -1,5 +1,5 @@
 import { validarFormProduto } from "./produtoRegex.js";
-import { carregarCategorias, mensagemAviso, alternarEdicaoFormulario } from "./globalFunctions.js";
+import { carregarCategorias, mensagemAviso, alternarEdicaoFormulario, carregarUmProduto } from "./globalFunctions.js";
 // variaveis
 let token                   = localStorage.getItem('token'); // token do usuario
 let dataMessage             = document.getElementById('data-message'); // <span id="data-message"></span>
@@ -302,55 +302,38 @@ document.getElementById('excluirProduto').addEventListener('click', () => {
 })
 
 // funcao que carrega os dados do produto nos campos do formulario
-function carregaProdutoFormulario(produtoId) {
-    var responseStatus = null;
+async function carregaProdutoFormulario(produtoId) {
+    // campos recebem os valores do usuario requisitado da API
+    const produto = await carregarUmProduto(produtoId);
+    atualizaProdutoForm.elements.sku.value               = produto.sku
+    atualizaProdutoForm.elements.nome.value              = produto.nome;
+    atualizaProdutoForm.elements.fabricante.value        = produto.fabricante;
+    atualizaProdutoForm.elements.quantidade.value        = produto.quantidade;
+    atualizaProdutoForm.elements.categoria.value         = produto.categoria;
+    atualizaProdutoForm.elements.preco.value             = produto.preco;
+    atualizaProdutoForm.elements.disponivel.value        = produto.disponivel;
+    atualizaProdutoForm.elements.oferta.value            = produto.oferta;
+    atualizaProdutoForm.elements.precoPromocional.value  = produto.precoPromocional;
+    atualizaProdutoForm.elements.descricao.value         = produto.descricao === undefined ? '' : produto.descricao;
 
-    fetch(`/api/admin/products/${produtoId}`, {
-      method: "GET",
-      headers: {"Content-Type": "application/x-www-form-urlencoded",
-                'Authorization': `Bearer ${token}`} //faz acesso da rota privada 
-    })
-    .then((res) =>{
-        responseStatus = res.status;
-        if(res.ok) { //erro ao acessar a rota privada
-            return res.json()
-        }  else if (res.status === 401 || res.status === 400){
-            return res.json()
-        } else {
-            throw new Error('Erro ao requisitar dados do usuario');
-        }
-    })
-    .then((data) => {
-        if (data && data.error) {
-            mensagemAviso(messageElement, data.message, responseStatus)
-        }
-        // campos recebem os valores do usuario requisitado da API
-        const produto = data.produto;
-        atualizaProdutoForm.elements.sku.value               = produto.sku
-        atualizaProdutoForm.elements.nome.value              = produto.nome;
-        atualizaProdutoForm.elements.fabricante.value        = produto.fabricante;
-        atualizaProdutoForm.elements.quantidade.value        = produto.quantidade;
-        atualizaProdutoForm.elements.categoria.value         = produto.categoria;
-        atualizaProdutoForm.elements.preco.value             = produto.preco;
-        atualizaProdutoForm.elements.disponivel.value        = produto.disponivel;
-        atualizaProdutoForm.elements.oferta.value            = produto.oferta;
-        atualizaProdutoForm.elements.precoPromocional.value  = produto.precoPromocional;
-        atualizaProdutoForm.elements.descricao.value         = produto.descricao === undefined ? '' : produto.descricao;
-        // limpa os arrays com url das fotos antes de mostrar o preview (evita duplicidade)
-        fotosData = produto.fotos
-        fotosParaExcluir = []
-        fotosPreviewURL = [];
-        fotosServidorURL = [];
-        // adiciona a url das fotos salavas no servidor no array.
-        fotosData.forEach(foto => {
-          fotosServidorURL.push(foto.api)
-        });
-        // mostra as fotos no preview
-        carregarPreviewFotos()
-        alterarExclusaoFotos(false)
-        //atualizaProdutoForm.elements.status.value      = produto.status;
-    })
-    .catch((err) => console.log("Erro ao carregar produto", err))
+    // Converte o objeto em uma string formatada com espaço
+    const stringAtributos = Object.entries(produto.atributos)
+    .map(([chave, valor]) => `${chave}: ${valor}`)
+    .join('\n');
+    atualizaProdutoForm.elements.atributos.value  = stringAtributos;
+
+    // limpa os arrays com url das fotos antes de mostrar o preview (evita duplicidade)
+    fotosData = produto.fotos
+    fotosParaExcluir = []
+    fotosPreviewURL = [];
+    fotosServidorURL = [];
+    // adiciona a url das fotos salavas no servidor no array.
+    fotosData.forEach(foto => {
+      fotosServidorURL.push(foto.api)
+    });
+    // mostra as fotos no preview
+    carregarPreviewFotos()
+    alterarExclusaoFotos(false)
 }
 
 // funcao fetch para cadastrar produtos
