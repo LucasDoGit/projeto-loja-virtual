@@ -1982,10 +1982,15 @@ div.cad-cadastro section .botoes {
 
 /* TELA DE PAGAMENTO*/
 
+.inf-perfil{
+    margin-left: 130px;
+    height: 500px;
+}
 .secao-botao {
     display: flex;
     gap: 0px 2rem;
-    margin-top: 1.5rem;    
+    margin-top: 1.5rem;
+    width: 1400px;
 }
 
 section.formulario-adm .titulo-pagamento{
