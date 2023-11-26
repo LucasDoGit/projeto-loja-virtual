@@ -1988,6 +1988,27 @@ div.cad-cadastro section .botoes {
     margin-top: 1.5rem;    
 }
 
+section.formulario-adm .titulo-pagamento{
+    display: flex;
+    margin-top: 5rem;
+}
+
+.titulo-pagamento h5{
+    margin-left: 10px;
+}
+
+section.formulario-adm .botoes-pagamento{
+    display: flex;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    justify-content: end;
+    gap: 1rem;
+}
+
+.botoes-pagamento button{
+    width: 275px;
+}
+
 .tipo-pagamento {
     display: flex;
     flex-direction: column;
@@ -2021,7 +2042,6 @@ div.cad-cadastro section .botoes {
 .container-total{
     display: flex;
     margin-top: 2rem;
-    
 }
 
 .total-color {
