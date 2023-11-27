@@ -5,6 +5,7 @@ export function mensagemAviso(messageElement, mensagem, status) {
     messageElement.classList.remove('msgSucess');
     messageElement.classList.remove('msgError');
     messageElement.textContent = '';
+    console.log(status)
   
     // valida se recebeus os paramestros mensagem e status
     if(mensagem && status){
@@ -12,6 +13,11 @@ export function mensagemAviso(messageElement, mensagem, status) {
         if(status >= 200 && status < 300) {
             messageElement.classList.add('msgSucess');
             messageElement.textContent = mensagem.message;
+        } else if (status === 401) {
+            messageElement.classList.add('msgAlert');
+            messageElement.textContent = mensagem.message; 
+            alert('Não tem acesso a essa página, logue novamente!')
+            window.location = '/front/pages/login.html'
         // se for status diferente de 200 - 299 atribiui classe de erro
         } else {
             messageElement.classList.add('msgError');

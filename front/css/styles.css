@@ -1570,7 +1570,7 @@ div.layout-carrinho {
     grid-template-areas: 
     "prod-carrinho prod-carrinho resumo-compra"
     "prod-carrinho prod-carrinho resumo-compra"
-    "calc-frete calc-frete resumo-compra" 
+    "endereco-padrao endereco-padrao resumo-compra" 
     "cupom cupom resumo-compra";
 }
 
@@ -1616,50 +1616,63 @@ section.prod-carrinho div.cabecalho button {
 }
 
 /** itens do carrinho **/
+
+div.centralizar-mensagem { /* centralizar mensagem de aviso de carrinho vazio */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    min-height: 460px;
+}
+
 div.item {
     display: grid;
     grid-template-columns: 1fr 4fr 1fr 1fr;
     justify-content: space-between;
+    align-items: center;
     padding: 5px;
     gap: 5px;
     margin-top: 10px;
 }
 
-div.item .imagem {
-    margin: auto;
-}
-
 div.item div.produto-imagem {
-    border-radius: 5px;
     width: 148px;
-    padding: 3px;
+    height: 148px;
 }
 
 div.item div.produto-imagem img {
+    border-radius: 5px;
     width: 100%;
 }
 
-div.item .nome-produto {
+div.item div.produto-imagem img:hover{
+    cursor: pointer;
+    border: 3px solid var(--cor1)
+}
+
+div.item .item-informacoes {
     display: flex;
     flex-direction: column;
     justify-content: start;
 }
 
-div.item .nome-produto span {
+div.item .item-informacoes span {
     font-size: 14px;
     color: rgba(0, 0, 0, 0.705);
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
-div.item .nome-produto a {
+div.item .item-informacoes a {
     font-size: 16.5px;
     color: black;
     text-decoration: none;
 }
 
-div.item .nome-produto p {
+div.item .item-informacoes p {
     font-size: 12.5px;
     color: rgba(0, 0, 0, 0.541);
+    max-height: 55px; /* Substitua 400px pelo valor desejado */
+    overflow: hidden;
 }
 
 /** adicionar ou remover item **/
@@ -1753,21 +1766,37 @@ p.valor-produto {
 }
 
 /** calcular frente **/
-section.calc-frete {
-    grid-area: calc-frete;
-}
-
-section.calc-frete .frete {
+section.endereco-padrao {
+    grid-area: endereco-padrao;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     padding: 1.5rem;
 }
 
-section.calc-frete .icone-svg {
-    width: 24px;
+section.endereco-padrao .titulo {
+    display: flex;
+    gap: 10px;
+    align-content: center;
+    margin-bottom: 1rem;
 }
 
-section.calc-frete .titulo h5 {
+section.endereco-padrao .titulo h5 {
     font-size: 18px;
+    text-transform: uppercase;
+}
+
+section.endereco-padrao a {
+    width: fit-content;
+    color: dimgray;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+section.endereco-padrao a:hover {
+    text-decoration: underline;
 }
 
 section.calc-frete .frete .contain-frete {
@@ -1777,6 +1806,16 @@ section.calc-frete .frete .contain-frete {
 
 section.calc-frete .frete .calcular-frete {
     margin-bottom: 0;
+}
+
+/* ajusta o tamanho para a div padrao no carrinho */
+.calcular-frete div.enderecoPadrao {
+    max-width: 100% !important;
+}
+
+select#opcaoEntrega {
+    border-radius: 5px;
+    margin-left: 5px;
 }
 
 section.cupom {
@@ -1806,6 +1845,8 @@ section.cupom form {
 
 section.cupom input {
     height: 50px;
+    width: 100%;
+    max-width: 350px;
 }
 
 section.cupom button {
@@ -2614,9 +2655,8 @@ div.produtos section{
 /* Meus Pedidos */
 
 .container-meus-pedidos{
-    width: 100%;
-    height: auto;
-    margin: 2.5rem auto;
+    max-width: 1500px;
+    margin: 2.5rem 1.5rem;
 }
 
 .container-meus-pedidos .button-a a{

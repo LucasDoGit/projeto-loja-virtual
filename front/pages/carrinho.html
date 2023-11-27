@@ -16,7 +16,7 @@
     <header id="header">
         <div class="header-inner-content">
             <div class="first-content">
-                <a href="../index.html"><img id='header-logo' src="../img/logo/Logo-mondie-200.png" alt="Logo Mondie"></a>
+                <a href="/front/index.html"><img id='header-logo' src="/img/logo/Logo-mondie-200.png" alt="Logo Mondie"></a>
             </div>
             <div class="second-content">
                 <div class="header-search-box">
@@ -68,104 +68,43 @@
                 <!-- aqui as categorias sao geradas automaticamente -->
             </div>
         </nav>
-      </header> 
+      </header>
     <main>
         <div id="carrinho" class="contain">
-            <button class="btn-primario" id="btn-voltar">Voltar</button>
             <div class="contain-grid layout-carrinho">
                 <section class="prod-carrinho">
                     <div class="cabecalho">
                         <h5>Seus produtos</h5>
                         <div class="remover-prod">
-                            <button class="btn-secundario">Remover todos os produtos</button>
+                            <button class="btn-secundario" id="apagarCarrinho">Remover todos os produtos</button>
                         </div>
                     </div>
                     <div class="bf-separator"></div>
-                    <div class="produtos">
-                        <div class="item">
-                            <div class="imagem"><a href="produto.html"><div class="produto-imagem"><img src="../img/produtos/produto-teste3-full.jpeg" alt="imagem produto no carrinho"></div></a></div>
-                            <div class="nome-produto">
-                                <span>Fabricante</span>
-                                <a href="produto.html">Nome do Produto, Tamanho 35px, Cor Preto, Com Pilhas, Não tem vibro</a>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda minima quam odit alias rerum error quos repellendus, harum laboriosam distinctio?</p>
-                            </div>
-                            <div class="opcoes-compra">
-                                <div class="quantidade">
-                                    <button class="btn-produto-qtd"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
-                                        <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
-                                        </svg>
-                                    </button>
-                                    <div class="valor">
-                                        <label for="idproduto-qtd">QTD</label>
-                                        <input id="idproduto-qtd" value="1">
-                                    </div>
-                                    <button class="btn-produto-qtd"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                                <button class="remover-carrinho">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-                                        </svg>
-                                        <span>Remover</span>
-                                </button>
-                            </div>
-                            <div class="valor">
-                                <p>Valor do(s) produto(s)</p>
-                                <p class="valor-produto" id="idvalor-produto">R$149,90</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="imagem"><a href="produto.html"><div class="produto-imagem"><img src="../img/produtos/produto-teste5-full.jpeg" alt="imagem produto no carrinho"></div></a></div>
-                            <div class="nome-produto">
-                                <span>Fabricante</span>
-                                <a href="produto.html">Nome do Produto, Tamanho 35px, Cor Preto, Com Pilhas, Não tem vibro</a>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda minima quam odit alias rerum error quos repellendus, harum laboriosam distinctio?</p>
-                            </div>
-                            <div class="opcoes-compra">
-                                <div class="quantidade">
-                                    <button class="btn-produto-qtd"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
-                                        <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
-                                        </svg>
-                                    </button>
-                                    <div class="valor">
-                                        <label for="idproduto-qtd">QTD</label>
-                                        <input id="idproduto-qtd" value="1">
-                                    </div>
-                                    <button class="btn-produto-qtd"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                                <button class="remover-carrinho">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-                                        </svg>
-                                        <span>Remover</span>
-                                </button>
-                            </div>
-                            <div class="valor">
-                                <p>Valor do(s) produto(s)</p>
-                                <p class="valor-produto" id="idvalor-produto">R$149,90</p>
-                            </div>
-                        </div>
+                    <div class="produtos" id="produtosCarrinho">
+                        <!-- os produtos do carrinho são gerados automaticamente -->
                     </div>
                 </section>
-                <section class="calc-frete">
-                    <div class="frete">
-                        <div class="titulo">
-                            <div class="icone-svg"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-                              </svg></div>
-                            <h5>Cacular frete</h5>
-                        </div>
-                        <div class="calcular-frete">
-                            <div class="contain-frete">
-                                <input type="text" placeholder="insira seu CEP">
-                                <button>OK</button>
+                <section class="endereco-padrao">
+                    <div class="titulo">
+                        <div class="icone-svg"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                          </svg></div>
+                        <h5>ENDERECO DE ENTREGA</h5>
+                    </div>
+                    <div class="calcular-frete">
+                        <div class="d-flex gap-2 justify-content-between">
+                            <div class="contain-colum" id="enderecoPadrao">
+                                <a href="/front/pages/meu-perfil.html">MEUS ENDERECOS</a>
+                                <!-- o endereco padrao é exibido nesta div -->
                             </div>
-                            <a href="https://buscacepinter.correios.com.br/app/endereco/index.php" target="_black">Não lembro meu CEP</a>
+                            <form name="metodo-entrega">
+                                <label for="opcaoEntrega">Selecione a Opção de Entrega:</label>
+                                <select id="opcaoEntrega" name="opcaoEntrega">
+                                    <option value="">Selecione</option>
+                                    <option value="retirarLoja">Retirar na Loja</option>
+                                    <!-- opção de entrega no endereço é exibido, quando cadastrado -->
+                                </select>
+                            </form>
                         </div>
                     </div>
                 </section>
@@ -192,25 +131,25 @@
                     <div class="inf-pagamento">
                         <div class="valor-produto">
                             <p>Valor dos produtos:</p>
-                            <span>R$ 299,80</span>
+                            <span id="valorTotalProdutos"></span>
                         </div>
                         <div class="bf-separator"></div>
                         <div class="valor-frete">
                             <p>Frete:</p>
-                            <span>R$ 30,20</span>
+                            <span id="valorFrete"></span>
                         </div>
                         <div class="valor-total">
                             <p>Valor total:</p>
-                            <span>R$ 330,00</span>
+                            <span id="valorTotal"></span>
                         </div>
                         <div class="valor-desconto">
-                            <p>valor a vista no PIX:</p>
-                            <span>R$ 313,50</span>
+                            <p>Desconto a vista no PIX:</p>
+                            <span id="valorTotalDesconto"></span>
                         </div>
                     </div>
                     <div class="botoes">
-                        <button class="btn-primario">ir para o pagamento</button>
-                        <button class="btn-secundario">continuar comprando</button>
+                        <button class="btn-primario" id="fazerPagamento">ir para o pagamento</button>
+                        <button class="btn-secundario" id="continuarComprando">continuar comprando</button>
                     </div>
                 </section>
             </div>
@@ -333,9 +272,10 @@
         <div class="footer-dev">
             <p>Site desenvolvido por @Mondie</p>
         </div>
-    </footer>   
+    </footer>
     <script type="module" src="/js/main.js"></script>
-    
+    <script type="module" src="/js/carrinho.js"></script>
+    <script type="module" src="/js/user/userLogout.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>

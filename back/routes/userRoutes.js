@@ -13,5 +13,8 @@ router.get('/me/addresses', addressController.findAddressess); // lista todos os
 router.get('/me/addresses/:addressId', addressController.findAddress); // lista somente um endereco
 router.put('/me/addresses/:addressId', addressController.updateAddress); // atualizar um endereco especifico
 router.delete('/me/addresses/:addressId', addressController.deleteAddress); // deleta um endereco especifico
+router.get('/me/defaultAddresses', addressController.getDefaultAddress); // deleta um endereco especifico
+router.post('/me/defaultAddresses/:addressId', addressController.setDefaultAddress); // deleta um endereco especifico
+
 
 export default router;

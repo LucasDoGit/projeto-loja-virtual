@@ -1,11 +1,11 @@
 import { validateFormUpdate, validateFormPwd } from "./userRegex.js";
 import { validateFormEndereco } from "./userAdress.js";
+import { mensagemAviso } from "../admin/globalFunctions.js";
 const formUpdateUser = document.getElementById('form-update-user');
 const formUpdatePwd = document.getElementById('form-update-pwd');
 let formEndereco = document.forms.enderecos;
 const errorElement = document.getElementById('data-message');
 let token = localStorage.getItem('token'); // token
-
 
 // ao carregar a pagina exibe as informacoes do usuario
 document.addEventListener("DOMContentLoaded", function() { //ao carregar a pagina este codigo e executado
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() { //ao carregar a pagin
     const pwdInput          = document.getElementById('idpwd');
     const pwd2Input         = document.getElementById('idpwd2');
 
-    formEndereco.style.display = 'none'; // carrega a pagina com o formulario escondido
+    formEndereco.style.display = 'none'; // carrega a pagina com o formulario escondido com a funcao que altera o diplay do form
     carregaUsuario(nameInput, cpfInput, telInput, birthdateInput, emailInput) // carrega as informacoes do usuarios nos campos do formulario
     desabilitarCampos(nameInput, cpfInput, telInput, birthdateInput, emailInput, pwdInput, pwd2Input) //desabilita a edicao de todos os camposUser
     desabilitarSenha(pwdInput, pwd2Input) // desabilita a edicao das senhas
@@ -36,8 +36,7 @@ formUpdateUser.addEventListener('submit', function(event) {
     
     // Executa a validação e envio se tudo for válido
     if(!validateFormUpdate(nameInput, telInput, birthdateInput)) {
-        errorElement.classList.add('msgAlert');
-        errorElement.textContent = 'Verfique os campos digitados';
+        mensagemAviso(errorElement, 'Verifique os campos digitados')
     } else {
         atualizarUsuario(nameInput, cpfInput, birthdateInput, telInput, emailInput, pwdInput)
     }
@@ -49,8 +48,7 @@ formUpdatePwd.addEventListener('submit', function(event) {
     const pwd2Input         = document.getElementById('idpwd2');
 
     if (!validateFormPwd(pwdInput, pwd2Input)) {
-        errorElement.classList.add('msgAlert');
-        errorElement.textContent = 'Verfique os campos digitados';
+        mensagemAviso(errorElement, 'Verifique os campos digitados')
     } else {
         atualizarSenha(pwdInput, pwd2Input);
     }
@@ -71,27 +69,13 @@ formEndereco.addEventListener('submit', async function(event) {
 
     // Executa a validação e envio se tudo for válido
     if(validateFormEndereco(nomeRefInput, cepInput, ruaInput, numeroInput, bairroInput, cidadeInput, estadoInput) && await validarCEP(cepInput, 'Preencha este campo')) {
-        errorElement.classList.remove('msgAlert');
-        errorElement.classList.add('msgSucess');
         if(!idInput.value){ // verifica foi digitado algum ID para cadastrado ou atualização de endereço
             cadastrarEndereco(nomeRefInput, cepInput, ruaInput, numeroInput, complementoInput, referenciaInput, bairroInput, cidadeInput, estadoInput);
-            // limpa os campos do formulario
-            nomeRefInput.value = '';    
-            cepInput.value = '';        
-            ruaInput.value = '';        
-            numeroInput.value = '';     
-            complementoInput.value = '';
-            referenciaInput.value = ''; 
-            bairroInput.value = '';     
-            cidadeInput.value = '';     
-            estadoInput.value = '';
         } else {
             atualizarEndereco(idInput, nomeRefInput, cepInput, ruaInput, numeroInput, complementoInput, referenciaInput, bairroInput, cidadeInput, estadoInput)
         }
     } else {
-        errorElement.classList.remove('msgSucess');
-        errorElement.classList.add('msgAlert');
-        errorElement.textContent = 'Preencha todos os campos';
+        mensagemAviso(errorElement, 'Preencha todo os campos')
     }
 });
 
@@ -147,13 +131,13 @@ function alterarDisplay(element){
 }
 
 function mostraFormEndereco() {
-    alterarDisplay(formEndereco);
+    formEndereco.style.display = 'block'
     document.getElementById('listagemEnderecos').classList.add('display-none');
     document.getElementById('btnCadastrarEndereco').classList.add('display-none');
 }
 
 function mostrarListaEnderecos(){
-    alterarDisplay(formEndereco);
+    formEndereco.style.display = 'none'
     formEndereco.elements.idEndereco.value = '';
     document.getElementById('listagemEnderecos').classList.remove('display-none');
     document.getElementById('btnCadastrarEndereco').classList.remove('display-none');
@@ -175,21 +159,21 @@ function dateFormatter(date){
     return dateFormated; //retorna o valor em formato YYYY-MM-DD
 }
 
-function mostrarEnderecos(data, container) {
-    //onclick="apagarEndereco(${element._id})"
-    data.addressess.forEach((element)=>{
+function mostrarEnderecos(enderecos, container) {
+    // cria o card de todos os enderecos do usuario
+    for (const endereco of enderecos) {
         let divEnderecos = document.createElement("div"); // <div class="enderecos"></div>
         divEnderecos.classList.add('endereco');
     
         // div titulo
         let divTitulo = document.createElement('div'); // <div class="titulo"></div>
         divTitulo.classList.add('titulo');
-        let btnApagar = document.createElement('button'); // <button id="btnApagarEndereco${element._id}">Deletar</button>
-        btnApagar.id = `btnApagarEndereco${element._id}`;
+        let btnApagar = document.createElement('button'); // <button id="btnApagarEndereco${endereco._id}">Deletar</button>
+        btnApagar.id = `btnApagarEndereco${endereco._id}`;
         btnApagar.innerText = "Apagar";
         divTitulo.appendChild(btnApagar); 
-        let h4Titulo = document.createElement('h4'); // <h4><strong>identificação: </strong>${element.nome}</h4>
-        h4Titulo.innerHTML = (`<strong>Identificação: </strong> ${element.nome_ref}`);
+        let h4Titulo = document.createElement('h4'); // <h4><strong>identificação: </strong>${endereco.nome}</h4>
+        h4Titulo.innerHTML = (`<strong>Identificação: </strong> ${endereco.nome_ref}`);
         divTitulo.appendChild(h4Titulo);
         divEnderecos.appendChild(divTitulo); // inclui a div titulo no card de endereco
     
@@ -200,37 +184,58 @@ function mostrarEnderecos(data, container) {
         let spanRow2 = document.createElement('span');
         let spanRow3 = document.createElement('span');
         let spanRow4 = document.createElement('span');
-        spanRow1.innerHTML = `<strong>Rua: </strong>${element.logradouro}`; // <span><strong>Rua: </strong>${element.logradouro}</span>
-        spanRow2.innerHTML = `<strong>Numero: </strong>${element.numero}`; // <span><strong>Numero: </strong>${element.numero}</span>
-        spanRow3.innerHTML = `<strong>Complemento: </strong>${element.complemento} | <strong>Referência: </strong>${element.referencia}`; // </strong>${element.complemento} , <strong>Referência: </strong>${element.referencia}</span>
-        spanRow4.innerHTML = `<strong>CEP: </strong>${element.cep} | <strong>Localidade: </strong> ${element.localidade} | <strong>UF:</strong> ${element.uf}`; // <span><strong>CEP: </strong>${element.cep}, <strong>Localidade: </strong> ${element.localidade} e <strong>UF:</strong> ${element.uf}</span>
+        spanRow1.innerHTML = `<strong>Rua: </strong>${endereco.logradouro}`; // <span><strong>Rua: </strong>${endereco.logradouro}</span>
+        spanRow2.innerHTML = `<strong>Numero: </strong>${endereco.numero}`; // <span><strong>Numero: </strong>${endereco.numero}</span>
+        spanRow3.innerHTML = `<strong>Complemento: </strong>${endereco.complemento} | <strong>Referência: </strong>${endereco.referencia}`; // </strong>${endereco.complemento} , <strong>Referência: </strong>${endereco.referencia}</span>
+        spanRow4.innerHTML = `<strong>CEP: </strong>${endereco.cep} | <strong>Localidade: </strong> ${endereco.localidade} | <strong>UF:</strong> ${endereco.uf}`; // <span><strong>CEP: </strong>${endereco.cep}, <strong>Localidade: </strong> ${endereco.localidade} e <strong>UF:</strong> ${endereco.uf}</span>
         divInf.appendChild(spanRow1);
         divInf.appendChild(spanRow2);
         divInf.appendChild(spanRow3);
         divInf.appendChild(spanRow4);
+        
         divEnderecos.appendChild(divInf); // inclui a div informacoes no card de endereco
     
         // div editar
         let divEdit = document.createElement('div'); // <div class="editar">
-        divEdit.classList.add('editar')
-        let btnEdit = document.createElement('button'); // <button id="btnEditarEndereco${element._id}">Editar</button>
-        btnEdit.id = `btnEditarEndereco${element._id}`;
+        divEdit.classList.add('editar', 'gap-2')
+
+        let btnEdit = document.createElement('button'); // <button id="btnEditarEndereco${endereco._id}">Editar</button>
+        btnEdit.id = `btnEditarEndereco${endereco._id}`;
         btnEdit.innerText = "Editar";
         divEdit.appendChild(btnEdit);
+
+        if(endereco.padrao === true){
+            let spanRow5 = document.createElement('span');
+            spanRow5.innerHTML = "<strong>(ENDEREÇO PADRÃO)</strong>"
+            divInf.appendChild(spanRow5);
+        } else {
+            let btnEnderecoPadrao = document.createElement('button'); // <button id="btnEditarEndereco${endereco._id}">Editar</button>
+            btnEnderecoPadrao.id = `tornarEnderecoPadrao${endereco._id}`;
+            btnEnderecoPadrao.textContent = "Tornar padrão";
+            divEdit.appendChild(btnEnderecoPadrao);
+        }
+
         divEnderecos.appendChild(divEdit); // inclui a div edit no card endereco
-    
         container.appendChild(divEnderecos);
 
-        document.getElementById(`btnApagarEndereco${element._id}`).addEventListener('click', function(){
-            apagarEndereco(element._id)
+        document.getElementById(`btnApagarEndereco${endereco._id}`).addEventListener('click', function(){
+            apagarEndereco(endereco._id)
         })
-        document.getElementById(`btnEditarEndereco${element._id}`).addEventListener('click', function(){
-            document.getElementById('listagemEnderecos').classList.add('display-none');
-            document.getElementById('btnCadastrarEndereco').classList.add('display-none');
-            carregarDadosEndereco(element._id)
-            formEndereco.style.display = 'block';
+
+        document.getElementById(`btnEditarEndereco${endereco._id}`).addEventListener('click', function(){
+            carregarDadosEndereco(endereco._id)
+            mostraFormEndereco()
         })
-    })
+
+        // verifica se existe o botao existe e então cria um Event Listner para tornar padrão
+        const btnEnderecoPadrao = document.getElementById(`tornarEnderecoPadrao${endereco._id}`)
+
+        if(btnEnderecoPadrao) {
+            btnEnderecoPadrao.addEventListener('click', async function() {
+            await tornarEnderecoPadrao(endereco._id)
+            })
+        }
+    }
 }
 
 // Event listeners para habilitar seus devidos campos ao clicar nos botoes
@@ -323,6 +328,8 @@ function carregaUsuario(nameInput, cpfInput, telInput, birthdateInput, emailInpu
 
 // Funcao fetch para enviar dados atualzados do usuario
 function atualizarUsuario(nameInput, cpfInput, birthdateInput, telInput, emailInput) {
+    var url = `/api/users/me`; //requisicao do usuario pelo id
+    let responseStatus = null;
 
     var formData = new URLSearchParams(); //var recebe os parametros da URL
     formData.append("name", nameInput.value); //associa as varieis com mesmo nome da API
@@ -331,8 +338,6 @@ function atualizarUsuario(nameInput, cpfInput, birthdateInput, telInput, emailIn
     formData.append("tel", telInput.value);
     formData.append("email", emailInput.value);
 
-    var url = `/api/users/me`; //requisicao do usuario pelo id
-
     fetch(url, {
       method: "PUT",
       headers: {"Content-Type": "application/x-www-form-urlencoded",
@@ -340,32 +345,30 @@ function atualizarUsuario(nameInput, cpfInput, birthdateInput, telInput, emailIn
       body: formData.toString()
     })
     .then((res) =>{
-        if(!res.ok) { //erro ao acessar a rota privada
-            throw new Error('Erro ao atualizar dados do usuario');
-        } 
-        return res.json();
+        responseStatus = res.status;
+        if(res.ok) {
+            return res.json();
+        } else if (res.status === 401 || res.status === 400) {
+            return res.json();
+        } else {
+            throw new Error('Erro ao atualizar endereco padrão:');
+        }
     })
     .then((data) => {
-        if (data && data.error) {
-            errorElement.classList.add('msgError');
-            errorElement.textContent = data.message;
-        } else {
-            errorElement.classList.add('msgSucess');
-            errorElement.textContent = data.message;
-            carregaUsuario(nameInput, cpfInput, telInput, birthdateInput, emailInput)
-            desabilitarCampos(nameInput, cpfInput, birthdateInput, telInput, emailInput);
-        }
+        mensagemAviso(errorElement, data, responseStatus)
+        carregaUsuario(nameInput, cpfInput, telInput, birthdateInput, emailInput)
+        desabilitarCampos(nameInput, cpfInput, birthdateInput, telInput, emailInput);
     })
     .catch((err) => console.log('Erro ao atualizar usuario: ', err))
 }
 
 // Funcao fetch para atualizar a senha do usuarios
 function atualizarSenha(pwdInput, pwd2Input) {
+    var url = `/api/users/me/password`; //requisicao do usuario pelo id
+    let responseStatus = null;
 
     var formData = new URLSearchParams(); //var recebe os parametros da URL
     formData.append("password", pwdInput.value);
-
-    var url = `/api/users/me/password`; //requisicao do usuario pelo id
 
     fetch(url, {
       method: "PUT",
@@ -374,20 +377,18 @@ function atualizarSenha(pwdInput, pwd2Input) {
       body: formData.toString()
     })
     .then((res) =>{
-        if(!res.ok) { //erro ao acessar a rota privada
-            throw new Error('Verifique a senha digitada');
-        } 
-        return res.json();
+        responseStatus = res.status;
+        if(res.ok) {
+            return res.json();
+        } else if (res.status === 401 || res.status === 400) {
+            return res.json();
+        } else {
+            throw new Error('Erro ao atualizar endereco padrão:');
+        }
     })
     .then((data) => {
-        if (data && data.error) { // O usuário já está registrado
-            errorElement.classList.add('msgError');
-            errorElement.textContent = data.message;
-        } else {
-            errorElement.classList.add('msgSucess');
-            errorElement.textContent = data.message;
-            desabilitarSenha(pwdInput, pwd2Input);
-        }
+        mensagemAviso(errorElement, data, responseStatus)
+        desabilitarSenha(pwdInput, pwd2Input)
     })
     .catch((err) => console.log('Erro ao atualizar senha: ', err))
 }
@@ -425,6 +426,8 @@ async function consultarCEP(cepInput) {
 
 // Funcao fetch para enviar dados de endereco do usuario
 function cadastrarEndereco(nomeRefInput, cepInput, ruaInput, numeroInput, complementoInput, referenciaInput, bairroInput, cidadeInput, estadoInput) {
+    var url = "/api/users/me/addresses";
+    let responseStatus = null;
 
     var formData = new URLSearchParams(); //var recebe os parametros da URL
     formData.append("cep", cepInput.value);
@@ -437,15 +440,14 @@ function cadastrarEndereco(nomeRefInput, cepInput, ruaInput, numeroInput, comple
     formData.append("uf", estadoInput.value);
     formData.append("nome_ref", nomeRefInput.value);
 
-    var url = "/api/users/me/addresses";
-
     fetch(url, {
       method: "POST",
       headers: {"Content-Type": "application/x-www-form-urlencoded",
                 'Authorization': `Bearer ${token}`}, //faz acesso da rota privada
       body: formData.toString()
     })
-    .then((res) =>{
+    .then((res) => {
+        responseStatus = res.status;
         if(res.ok) { //erro ao acessar a rota privada
             return res.json();
         } else if (res.status === 400) {
@@ -454,32 +456,24 @@ function cadastrarEndereco(nomeRefInput, cepInput, ruaInput, numeroInput, comple
             throw new Error('Erro ao requisitar dados para o servidor');
         }
     })
-    .then((data) => {
-        if (data && data.error) {
-            errorElement.classList.remove('msgSucess');
-            errorElement.classList.add('msgAlert');
-            errorElement.textContent = data.message;
-            
-        } else {
-            errorElement.classList.remove('msgAlert');
-            errorElement.classList.add('msgSucess');
-            errorElement.textContent = data.message;
-            listagemEnderecos.innerHTML = ''; // limpa a lista com dados desatualizados
-            carregarEnderecos()
-            mostrarListaEnderecos()
+    .then(async (data) => {
+        data.error ? mensagemAviso(errorElement, data, responseStatus) : await carregarEnderecos()
+        const campos = formEndereco.elements;
+
+        for (let i = 0; i < campos.length; i++) {
+            campos[i].value = '';
         }
     })
     .catch((err) => console.log('Erro no cadastro de endereço: ', err))
 }
 
 // Funcao fetch que carrega todos os enderecos do usuario
-function carregarEnderecos() {
-
-    let listagemEnderecos = document.getElementById('listagemEnderecos');
+async function carregarEnderecos() {
+    const listagemEnderecos = document.getElementById('listagemEnderecos');
 
     var url = "/api/users/me/addresses"; //requisicao do usuario pelo token
 
-    fetch(url, {
+    await fetch(url, {
       method: "GET",
       headers: {"Content-Type": "application/x-www-form-urlencoded",
                 'Authorization': `Bearer ${token}`} //faz acesso da rota privada 
@@ -495,19 +489,22 @@ function carregarEnderecos() {
     })
     .then((data) => {
         if (data && data.error){
+            // limpa o html e retorna mensagem de erro
+            listagemEnderecos.innerHTML = '';
             return listagemEnderecos.innerHTML += `<span class="error-message">${data.message}</span>`
         }
         // chama funcao para listar os enderecos do usuario
-        mostrarEnderecos(data, listagemEnderecos)
+        listagemEnderecos.innerHTML = '';
+        mostrarEnderecos(data.addressess, listagemEnderecos)
+        mostrarListaEnderecos() // esconde o formulario de cadastro do endereco
     })
     .catch((err) => console.log("Erro ao carregar enderecos", err))
 }
 
 // Funcao fetch que carrega todos os enderecos do usuario
 function carregarDadosEndereco(idEndereco) {
-    let listagemEnderecos = document.getElementById('listagemEnderecos');
-
     var url = `/api/users/me/addresses/${idEndereco}`; //requisicao do usuario pelo token
+    let responseStatus = null;
 
     fetch(url, {
       method: "GET",
@@ -515,6 +512,7 @@ function carregarDadosEndereco(idEndereco) {
                 'Authorization': `Bearer ${token}`} //faz acesso da rota privada 
     })
     .then((res) =>{
+        responseStatus = res.status;
         if(res.ok) { //erro ao acessar a rota privada
             return res.json();
         } else if (res.status === 404) {
@@ -523,11 +521,9 @@ function carregarDadosEndereco(idEndereco) {
             throw new Error('Erro ao requisitar dados para o servidor');
         }
     })
-    .then((data) => {
-        if (data && data.error){
-            return listagemEnderecos.innerHTML += `<span class="error-message">${data.message}</span>`
-        }
-        //camposUser recebem os valores do usuario requisitado da API
+    .then(async (data) => {
+        data.error ? mensagemAviso(errorElement, data, responseStatus) : 
+        
         formEndereco.elements.idEndereco.value       = data.address._id;
         formEndereco.elements.nomeRef.value          = data.address.nome_ref;
         formEndereco.elements.cep.value              = data.address.cep;
@@ -543,9 +539,8 @@ function carregarDadosEndereco(idEndereco) {
 }
 
 function atualizarEndereco(idInput, nomeRefInput, cepInput, ruaInput, numeroInput, complementoInput, referenciaInput, bairroInput, cidadeInput, estadoInput) {
-    
-    let listagemEnderecos = document.getElementById('listagemEnderecos')
-    const addressId = idInput.value;
+    var url = `/api/users/me/addresses/${idInput.value}`;
+    let responseStatus = null;
 
     var formData = new URLSearchParams(); //var recebe os parametros da URL
     formData.append("cep", cepInput.value);
@@ -558,8 +553,6 @@ function atualizarEndereco(idInput, nomeRefInput, cepInput, ruaInput, numeroInpu
     formData.append("uf", estadoInput.value);
     formData.append("nome_ref", nomeRefInput.value);
 
-    var url = `/api/users/me/addresses/${addressId}`;
-
     fetch(url, {
       method: "PUT",
       headers: {"Content-Type": "application/x-www-form-urlencoded",
@@ -567,56 +560,79 @@ function atualizarEndereco(idInput, nomeRefInput, cepInput, ruaInput, numeroInpu
       body: formData.toString()
     })
     .then((res) =>{
+        responseStatus = res.status;
         if(res.ok) { //erro ao acessar a rota privada
             return res.json();
-        } else if (res.status === 405) {
+        } else if (res.status === 405 || res.status === 400 || res.status === 404) {
             return res.json();
         } else { 
             throw new Error('Erro ao requisitar dados para o servidor');
         }
     })
-    .then((data) => {
-        if (data && data.error) {
-            errorElement.classList.remove('msgSucess');
-            errorElement.classList.add('msgAlert');
-            errorElement.textContent = data.message;
-        } else {
-            errorElement.classList.add('msgSucess');
-            errorElement.textContent = data.message;
-            listagemEnderecos.innerHTML = ''; // limpa a lista com dados desatualizados
-            carregarEnderecos()
+    .then(async (data) => {
+        data.error ? mensagemAviso(errorElement, data, responseStatus) : await carregarEnderecos();
+
+        // limpa os campos do formulario
+        const campos = formEndereco.elements;
+
+        for (let i = 0; i < campos.length; i++) {
+            campos[i].value = '';
         }
     })
     .catch((err) => console.log('Erro no cadastro de endereço: ', err))
 }
-// funcao que apaga o endereco do usuario pelo token e ID do endereco
-function apagarEndereco(idEndereco) {
 
-    const addressId = idEndereco;
-    var url = `/api/users/me/addresses/${addressId}`;
+async function tornarEnderecoPadrao(enderecoId){
+    var url = `/api/users/me/defaultAddresses/${enderecoId}`
+    let responseStatus = null;
+
+    fetch(url, {
+        method: "POST",
+        headers: {"Content-Type": "application/x-www-form-urlencoded",
+                'Authorization': `Bearer ${token}`}, //faz acesso da rota privada
+    })
+    .then((res) => {
+        responseStatus = res.status;
+        if(res.ok) {
+            return res.json();
+        } else if (res.status === 401 || res.status === 400) {
+            return res.json();
+        } else {
+            throw new Error('Erro ao atualizar endereco padrão:');
+        }
+    })
+    .then(async (data) => {
+        data.error ? mensagemAviso(errorElement, data, responseStatus) : await carregarEnderecos()
+    })
+    .catch((err) => {
+        console.log("Erro ao atualizar endereco padrão: ", err);
+    });
+}
+
+
+// funcao que apaga o endereco do usuario pelo token e ID do endereco
+async function apagarEndereco(idEndereco) {
+    var url = `/api/users/me/addresses/${idEndereco}`;
+    let responseStatus = null;
 
     fetch(url, {
       method: "DELETE",
       headers: {"Content-Type": "application/x-www-form-urlencoded",
                 'Authorization': `Bearer ${token}`}, //faz acesso da rota privada
     })
-    .then((res) =>{
-        if(!res.ok) { //erro ao acessar a rota privada
-            throw new Error('Erro ao deletar endereco');
-        } 
-        return res.json();
-    })
-    .then((data) => {
-        if (data && data.error) {
-            errorElement.classList.add('msgError');
-            errorElement.textContent = data.message;
-            
+    .then((res) => {
+        responseStatus = res.status;
+        if(res.ok) {
+            return res.json();
+        } else if (res.status === 401 || res.status === 400) {
+            return res.json();
         } else {
-            errorElement.classList.add('msgSucess');
-            errorElement.textContent = data.message;
-            listagemEnderecos.innerHTML = ''; // limpa a lista com dados desatualizados
-            carregarEnderecos()
+            throw new Error('Erro ao atualizar endereco padrão:');
         }
+    })
+    .then(async (data) => {
+        data.error ? mensagemAviso(errorElement, data, responseStatus) : null;
+        await carregarEnderecos()
     })
     .catch((err) => console.log('Erro ao editar endereços: ', err))
 }

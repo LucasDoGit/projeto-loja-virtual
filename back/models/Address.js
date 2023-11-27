@@ -29,6 +29,10 @@ const addressSchema = new Schema({
     type: String,
     required: true,
   },
+  padrao: { // Indica se é o endereço padrão
+    type: Boolean, 
+    default: false 
+  },
   nome_ref: String,
   user_id: {
     type: Schema.Types.ObjectId,

@@ -131,7 +131,7 @@ const updateAddress = async (req, res) => {
                     return res.status(404).json({ message: 'Endereço não encontrado.', erro: true })
                 } else {
                     // atualizacao do endereco foi bem sucessida
-                    res.status(200).send({ message: 'Dados do endereço alterado', address })
+                    return res.status(200).json({ message: 'Dados do endereço alterado', address })
                     }
             }) .catch((error) => {
                 // erro durante a atualizacao do endereco
@@ -156,7 +156,58 @@ const deleteAddress = async(req, res) => {
 
         return res.status(200).json({message: 'Endereco excluído com sucesso', deleteAddress})
     } catch (error) {
-        res.status(500).json({ message: 'Erro ao excluir endereco.', error: error.message })
+        return res.status(500).json({ message: 'Erro ao excluir endereco.', error: error.message })
+    }
+}
+
+// busca o endereco padrao do usuario
+const getDefaultAddress = async(req, res) => {
+    const usertoken = req.headers.authorization;
+    let token = decoder(usertoken)    
+    
+    // verifica se foi recebido o token do usuario
+    if (!token) {
+        return res.status(401).json({ message: 'Usuário não encontrado', error: true });
+    }
+    try {
+        const defaultAddress = await Address.findOne({ user_id: token.id, padrao: true })
+        
+        if(!defaultAddress){
+            return res.status(404).json({ message: 'Nenhum endereço padrão cadastrado', error: true })  
+        } 
+
+        return res.status(200).json({ endereco: defaultAddress });
+    } catch (error) {
+        return res.status(500).json({ message: 'Erro ao atualizar endereco padrão.', error: error.message })
+    }
+}
+
+// torna endereco padrao pelo id
+const setDefaultAddress = async(req, res) => {
+    const usertoken = req.headers.authorization;
+    let token = decoder(usertoken)    
+    let addressId = req.params.addressId;
+    
+    try {
+        // verifica se foi recebido um ID válido
+        if (!mongoose.Types.ObjectId.isValid(addressId) || !await Address.findById(addressId)) {
+            return res.status(401).json({ message: 'Endereço não encontrado', error: true });
+        }
+         // Define o endereço como padrão
+        const address = await Address.findOneAndUpdate(
+            { _id: addressId, user_id: token.id, },
+            { $set: { padrao: true } }
+        );
+
+        // Remove a marcação de padrão dos outros endereços
+        await Address.updateMany(
+            { _id: { $ne: addressId }, user_id: token.id },
+            { $set: { padrao: false } }
+        );
+
+        return res.status(200).json({ message: 'Endereço padrão selecionado com sucesso!' });
+    } catch (error) {
+        return res.status(500).json({ message: 'Erro ao atualizar endereco padrão.', error: error.message })
     }
 }
 
@@ -165,5 +216,7 @@ export default {
     findAddress,
     findAddressess,
     updateAddress,
-    deleteAddress
+    deleteAddress,
+    getDefaultAddress,
+    setDefaultAddress
 };
