@@ -108,7 +108,7 @@
                     </a>
                 </div>
             </div>
-            <div class="d-flex ms-auto me-auto">
+            <div class="container-pedidos">
                 <div class="container-meus-pedidos">
                     <div class="titulo">
                         <div class="icone-svg">
@@ -118,7 +118,6 @@
                         </div>
                         <h3>MEUS PEDIDOS</h3>
                     </div> 
-                    
                     <div class="grade-conteudo-pedidos">
                         <div class="titulo">
                             <div class="d-flex">
@@ -136,31 +135,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="listagem-pedidos">
-                        <div class="pedidos-feitos">
-                            <div cklass="numero-pedido">
-                                <h1>Número do Pedido</h1>
-                            <p>#123456789</p>
-                            </div>
-                            <div class="status-pedido">
-                                <h1>Status</h1>
-                                <p>Cancelado</p>
-                            </div>
-                            <div class="data-pedido">
-                                <h1>Data</h1>
-                                <p>29/11/2023</p>
-                            </div>
-                            <div class="pagamento-pedido">
-                                <h1>Pagamento</h1>
-                                <p>Pix</p>
-                            </div>
-                            <div class="detalhes-pedido">                            
-                                <a href="../pages/detalhes-pedido.html">Detalhes do Pedido</a>
-                                <div class="icone-svg">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect width="24" height="24" fill="white"></rect> <path d="M9.5 7L14.5 12L9.5 17" stroke="#590222" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-                                </div>
-                            </div>
-                        </div>  
+                    <div class="listagem-pedidos" id="listagemPedidos">
+                        <!-- aqui os pedidos sao carregados automaticamente   -->
                     </div>
                 </div>
             </div>  
@@ -286,6 +262,7 @@
             </div>
     </footer>
     <script type="module" src="/js/main.js"></script>
+    <script type="module" src="/js/user/meusPedidos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>

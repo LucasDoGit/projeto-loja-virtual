@@ -1,26 +1,11 @@
-import { carregarUmProduto } from "./admin/globalFunctions.js";
+import { carregarUmProduto, descodeURLParameter } from "./admin/globalFunctions.js";
 let produtoId = undefined;
 
 // ao carregar a pagina, executa as funcoes.
 document.addEventListener("DOMContentLoaded", async function() {
-    decodeProdutoParameter(); 
+    produtoId = descodeURLParameter('produto'); 
+    exibirProduto(produtoId)
 });
-
-// Função para decodificar o parâmetro 'produto' da URL
-function decodeProdutoParameter() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const produtoParam = urlParams.get('produto');
-
-    if (produtoParam) {
-        try {
-            produtoId = JSON.parse(decodeURIComponent(produtoParam));
-            // carrega os dados do usuario no formulario
-            exibirProduto(produtoId)
-        } catch (error) {
-            console.error('Erro ao decodificar o parâmetro "produto":', error);
-        }
-    }
-}
 
 async function exibirProduto(produtoId) {
     const produto = await carregarUmProduto(produtoId);

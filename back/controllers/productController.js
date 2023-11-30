@@ -476,6 +476,7 @@ const getValueOfProducts = async (req, res) => {
     for(const product of products) {
       // Busca o produto no banco de dados com base no ID fornecido
       const productExisting = await Product.findById(product.id);
+      let valueDiscount = 0;
 
       // Verifique se o produto foi encontrado
       if (!productExisting) {
@@ -487,6 +488,7 @@ const getValueOfProducts = async (req, res) => {
       if(productExisting.precoPromocional){
         const payProductDiscount = (productExisting.precoPromocional * product.quantidade);
         totalAmountPayableDiscount += payProductDiscount
+        valueDiscount = payProductDiscount
       } else {
         totalAmountPayableDiscount += payProduct
       }
@@ -495,6 +497,8 @@ const getValueOfProducts = async (req, res) => {
 
       let produto = {
         produto: productExisting.id,
+        valor: payProduct,
+        valorDesconto: valueDiscount,
         quantidade: product.quantidade
       }
       produtos.push(produto)

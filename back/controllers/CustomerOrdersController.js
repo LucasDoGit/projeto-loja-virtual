@@ -94,6 +94,9 @@ const getOrder = async (req, res) => {
     }
     try {
         const order = await CustomerOrder.findById(orderId)
+        .populate('cliente', 'name cpf email tel') // Popula o cliente e seleciona os campos a serem incluídos
+        .populate('endereco', 'cep logradouro numero complemento bairro referencia localidade uf') // Popula o endereço do usuário
+        .populate('itens.produto', 'sku nome fotos preco precoPromocional fabricante'); // Popula os produtos do pedido
 
         if(!order){
             return res.status(404).json({ message: 'Pedido não encontrado', error: true })
@@ -160,10 +163,30 @@ const deleteOrder = async (req, res) => {
     }
 }
 
+const getOrderUser = async (req, res) => {
+    const usertoken = req.headers.authorization; // recebe o token da sessao
+    const token = decoder(usertoken) // decodifica o token
+
+    if(!token){
+        return res.status(400).json({ message: 'Usuário não encontrado', error: true })
+    }
+    try {
+        const odersExisting = await CustomerOrder.find({ cliente: token.id })
+
+        if(!odersExisting.length < 0) {
+            return res.status(400).json({ message: 'Nenhum pedido encontrado', error: true })
+        }
+        return res.status(200).json({ message: 'Pedidos do usuario', pedidos: odersExisting })
+    } catch (error) {
+        return res.status(500).json({ message: 'Erro ao buscar pedidos do usuario', error: error })
+    }
+}
+
 export default { 
     createOrder, 
     getAllOrder, 
     getOrder, 
     updateOrder,
-    deleteOrder
+    deleteOrder,
+    getOrderUser,
 }

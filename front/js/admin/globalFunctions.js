@@ -176,6 +176,22 @@ export function alternarEdicaoFormulario(formulario, edicao) {
     }
 }
 
+// funcao que busca um item na url e retorna as informacoes do mesmo
+export function descodeURLParameter(Param){
+    const urlParams = new URLSearchParams(window.location.search);
+    const produtoParam = urlParams.get(`${Param}`);
+
+    if (produtoParam) {
+        try {
+            const result = JSON.parse(decodeURIComponent(produtoParam));
+            // carrega os dados do usuario no formulario
+            return result
+        } catch (error) {
+            console.error(`Erro ao decodificar o parâmetro ${Param}:`, error);
+        }
+    }
+}
+
 // funcao que cria o card de produtos
 export function criarCardProdutos(produtosArray, HTMLelement){
     for(const produto of produtosArray){
@@ -252,4 +268,27 @@ export function criarCardProdutos(produtosArray, HTMLelement){
         }
         HTMLelement.appendChild(cardContainer)
     };
+}
+
+// Função para adicionar um zero à esquerda para números menores que 10
+export function adicionarZero(numero) {
+    return numero < 10 ? `0${numero}` : numero;
+}
+  
+// Função para formatar a data no formato 'DD/MM/YYYY HH:mm:ss'
+export function formatarData(data) {
+    const tipoData = new Date(data)
+
+    const dia = adicionarZero(tipoData.getDate());
+    const mes = adicionarZero(tipoData.getMonth() + 1);
+    const ano = tipoData.getFullYear();
+    const horas = adicionarZero(tipoData.getHours());
+    const minutos = adicionarZero(tipoData.getMinutes());
+    const segundos = adicionarZero(tipoData.getSeconds());
+
+    const dataCompleta = {
+        dia: `${dia}/${mes}/${ano}`,
+        horas: `${horas}:${minutos}:${segundos}`
+    }
+    return dataCompleta;
 }

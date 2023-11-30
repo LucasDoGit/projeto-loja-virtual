@@ -544,6 +544,12 @@ footer{
     border-radius: 5px;
 }
 
+span#mensagemAviso {
+    display: block;
+    margin: auto;
+    width: fit-content;
+}
+
 .msgAlert {
     color: orangered;
     background-color: #ffd48a;
@@ -2764,6 +2770,13 @@ div.produtos section{
 
 /* Meus Pedidos */
 
+div.container-pedidos {
+    display: flex;
+    margin: 1rem auto;
+    width: 100%;
+    max-width: 1500px;
+}
+
 .container-meus-pedidos{
     max-width: 1500px;
     margin: 2.5rem 1.5rem;
@@ -2814,6 +2827,7 @@ div.listagem-pedidos {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    gap: 10px;
     border-radius: 5px;  
     height: auto;
 }
@@ -2821,7 +2835,7 @@ div.listagem-pedidos {
 .pedidos-feitos{
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; quebra o tamanho dos cards */
     background-color: white;
     padding: 32px;
     border-radius: 5px;
@@ -2840,6 +2854,10 @@ div.listagem-pedidos {
     display: flex;
 }
 
+div.pedidos-feitos p {
+    text-transform: uppercase;
+}
+
 .status-pedido{
     display: flex;
     flex-direction: column;
@@ -2847,7 +2865,7 @@ div.listagem-pedidos {
 }
 
 .status-pedido p{
-    color: red;
+    color: var(--cor4);
     font-weight: bold;
 }
 
@@ -3019,6 +3037,12 @@ div.andamento{
     border-radius: 5px;
 }
 
+div.container-produtos-comprados {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .titulo-informacoes-produto{
     display: flex;
     justify-content: space-between;
@@ -3061,7 +3085,7 @@ div.andamento{
     justify-content: center;
 }
 
-.produtos-adquiridos preco-final{
+.produtos-adquiridos .preco-final{
     display: flex;
     width: 100%;
     justify-content: flex-end;

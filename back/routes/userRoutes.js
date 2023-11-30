@@ -20,9 +20,8 @@ router.post('/me/defaultAddresses/:addressId', addressController.setDefaultAddre
 // PRODUTOS - CALCULAR PRODUTOS
 router.post('/valueproducts', productController.getValueOfProducts); // deleta um endereco especifico
 // PRODUTOS - PEDIDOS
-router.post('/customerorder', customerOrders.createOrder); // deleta um endereco especifico
-
-
-
+router.post('/customerorder', customerOrders.createOrder); // cria um novo pedido de produtos
+router.get('/customerorder', customerOrders.getOrderUser); // cria um novo pedido de produtos
+router.get('/customerorder/:orderId', customerOrders.getOrder); // cria um novo pedido de produtos
 
 export default router;

@@ -80,37 +80,40 @@
                     </div>
                     <h3>Detalhes do Pedido</h3>
                 </div> 
-                <button class="btn-primario button-a" id="btn-voltar"><a href="../pages/meus-pedidos.html">Voltar</a></button>
+                <span id="mensagemAviso"></span>
+                <button class="btn-primario button-a" id="btn-voltar"><a href="/front/pages/meus-pedidos.html">Voltar</a></button>
                 <div class="listagem-pedidos">
                     <div class="pedidos-feitos">
                         <div class="numero-pedido">
                             <h1>Número do Pedido</h1>
-                        <p>#123456789</p>
+                            <p id="codigoPedido"></p>
                         </div>
                         <div class="status-pedido">
                             <h1>Status</h1>
-                            <p>Cancelado</p>
+                            <p id="statusPedido"></p>
                         </div>
                         <div class="data-pedido">
                             <h1>Data</h1>
-                            <p>29/11/2023</p>
+                            <p id="dataPedido"></p>
                         </div>
                         <div class="pagamento-pedido">
                             <h1>Pagamento</h1>
-                            <p>Pix</p>
+                            <p id="pagamentoPedido"></p>
+                        </div>
+                        <div class="pagamento-pedido">
+                            <h1>status pagamento</h1>
+                            <p id="statusPagamentoPedido"></p>
                         </div>
                     </div> 
-                    
                     <div class="area-detalhes">
                         <span class="linha-horizontal"></span>
                         <div class="detalhes-endereços">
                             <h1>Endereço</h1>
                             <p class="texto-detalhes"></p>
-                                <b>Rua Professora Valdomira Zortea</b>
-                                <p>Número 161, Umbará - Sobrado Branco</p>
-                                <p>CEP 81930606 - CURITIBA, PR</p>
+                                <b id="enderecoLogradouro"></b>
+                                <p id="enderecoComplementos"></p>
+                                <p id="enderecoLocalidade"></p>
                         </div>
-                       
                         <div class="processos-produtos">
                             <div class="botoes">
                                 <button class="btn-secundario">
@@ -138,11 +141,9 @@
                                 </button>
                             </div>
                         </div>
-
                         <div class="detalhes-endereços">
                             <h1>ANDAMENTO DO PEDIDO</h1>
                         </div>
-
                         <div class="area-andamento">
                             <div class="andamento">
                                 <div class="pedido-main">
@@ -185,7 +186,6 @@
                                         <span>Produto expedido</span>
                                     </div>
                                 </div>
-                              
                                 <div class="envio-main">
                                     <div class="envio">
                                         <div class="icone-svg">
@@ -200,7 +200,6 @@
                                         <span>Enviado para a <br>transportadora</span>
                                     </div>
                                 </div>
-
                                 <div class="transportadora-main">
                                     <div class="transportadora">
                                         <div class="icone-svg">
@@ -215,7 +214,6 @@
                                         <span>Recebido pela <br>transportadora</span>
                                     </div>
                                 </div>
-                            
                                 <div class="transito-main">
                                     <div class="transito">
                                         <div class="icone-svg">
@@ -230,7 +228,6 @@
                                         <span>Mercadoria em trânsito</span>
                                     </div>
                                 </div>
-
                                 <div class="rota-entrega-main">
                                     <div class="rota-entrega">
                                         <div class="icone-svg">
@@ -245,7 +242,6 @@
                                         <span>Mercadoria em rota <br>de entrega</span>
                                     </div>
                                 </div>
-
                                 <div class="entregado-main">
                                     <div class="entregado">
                                         <div class="icone-svg">
@@ -260,78 +256,52 @@
                                     </div>
                                 </div>                                                       
                             </div>
-                           
                             </div>
-                                <div class="aviso-importante">
-                                    <div class="titulo-aviso">
-                                        <div class="icone-svg">
-                                            <svg width="24" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg" class="IconAlert"><path fill-rule="evenodd" clip-rule="evenodd" d="M24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12ZM11.9183 19.3859C10.8643 19.3859 10.0283 18.5943 10.0283 17.6134C10.0283 16.6326 10.8643 15.841 11.9183 15.841C12.9722 15.841 13.8082 16.6326 13.8082 17.6134C13.8082 18.5943 12.9722 19.3859 11.9183 19.3859ZM10.5464 12.7859C10.6133 13.4935 11.2074 14.0342 11.9183 14.0342C12.6291 14.0342 13.2233 13.4935 13.2902 12.7859L13.8278 7.09862C13.9342 5.97299 13.0489 5 11.9183 5C10.7876 5 9.90227 5.97299 10.0087 7.09862L10.5464 12.7859Z" fill="#590222"></path></svg>
-                                        </div>
-                                        <h1>AVISOS IMPORTANTE</h1>
+                            <div class="aviso-importante">
+                                <div class="titulo-aviso">
+                                    <div class="icone-svg">
+                                        <svg width="24" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg" class="IconAlert"><path fill-rule="evenodd" clip-rule="evenodd" d="M24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12ZM11.9183 19.3859C10.8643 19.3859 10.0283 18.5943 10.0283 17.6134C10.0283 16.6326 10.8643 15.841 11.9183 15.841C12.9722 15.841 13.8082 16.6326 13.8082 17.6134C13.8082 18.5943 12.9722 19.3859 11.9183 19.3859ZM10.5464 12.7859C10.6133 13.4935 11.2074 14.0342 11.9183 14.0342C12.6291 14.0342 13.2233 13.4935 13.2902 12.7859L13.8278 7.09862C13.9342 5.97299 13.0489 5 11.9183 5C10.7876 5 9.90227 5.97299 10.0087 7.09862L10.5464 12.7859Z" fill="#590222"></path></svg>
                                     </div>
-                                    <div class="texto-aviso">
-                                        <p>Garantias e arrependimentos só podem ser solicitadas após o recebimento do produto. Caso haja desistência da compra, pedimos que recuse o produto no ato da entrega.</p>
-                                    </div>
-                                </div> 
+                                    <h1>AVISOS IMPORTANTE</h1>
+                                </div>
+                                <div class="texto-aviso">
+                                    <p>Garantias e arrependimentos só podem ser solicitadas após o recebimento do produto. Caso haja desistência da compra, pedimos que recuse o produto no ato da entrega.</p>
+                                </div>
+                            </div> 
+                            <span class="linha-horizontal"></span>
+                            <div class="titulo-informacoes-produto">
+                                <h1>Produto(s)</h1>
+                                <h1>Preço</h1>
+                            </div>
+                            <div class="container-produtos-comprados" id="produtosComprados">
 
+                            </div>
+                            <span class="linha-horizontal"></span>    
+                            <div class="dados-finais">
+                                <div class="total-produtos">
+                                    <p>TOTAL PRODUTOS(S)</p>
+                                    <p>R$ 99,99</p>
+                                </div>
+                                <div class="total-frete">
+                                    <p>FRETE</p>
+                                    <p>GRÁTIS</p>
+                                </div>
+                                <div class="total-desconto">
+                                    <p>DESCONTO</p>
+                                    <b>-R$ 20,00</b>
+                                </div>
                                 <span class="linha-horizontal"></span>
-                                <div class="titulo-informacoes-produto">
-                                    <h1>Produto(s)</h1>
-                                    <h1>Preço</h1>
+                                <div class="total-final">
+                                    <p>DESCONTO</p>
+                                    <b>R$ 79,99</b>
                                 </div>
-                                <div class="produtos-adquiridos">
-                                    
-                                    <div class="produto-selecionado">
-                                        <img src="../img/produtos/produto-teste4-full.jpeg" alt="foto do produto">
-                                    </div>
-
-                                    <div class="informacoes-produto">
-                                        <h1>Vendido e entregue por: Mondie</h1>
-                                        <a>Nome do Produto, Tamanho 35px, Cor Preto, Com Pilhas, Não tem vibro</a>
-                                        <p>Quantidade: 1</p>
-                                        <div class="botoes">
-                                            <button class="btn-secundario">
-                                                <div class="icone-svg">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg" class="IconWarranty"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 13.2516H1.5V9.50156C1.5 7.88906 3.075 6.87656 4.5 6.87656H21.075L18.975 8.97656L20.025 10.0266L23.925 6.12656L20.025 2.22656L18.975 3.27656L21.075 5.37656H4.5C2.025 5.37656 0 7.21406 0 9.50156V13.2516ZM0.0749878 18.8766L3.97499 22.7766L5.02499 21.7266L2.92499 19.6266H19.5C21.975 19.6266 24 17.7891 24 15.5016V11.7516H22.5V15.5016C22.5 17.1141 20.925 18.1266 19.5 18.1266H2.92499L5.02499 16.0266L3.97499 14.9766L0.0749878 18.8766Z" fill="#590222"></path></svg>
-                                                </div>
-                                                Garantia</button>
-                                        </div>
-                                    </div>
-                                    <div class="preco-final">
-                                        <b>R$ 99,99</b>
-                                    </div>
-                                </div>
-
-                                <span class="linha-horizontal"></span>
-                                
-                                <div class="dados-finais">
-                                    <div class="total-produtos">
-                                        <p>TOTAL PRODUTOS(S)</p>
-                                        <p>R$ 99,99</p>
-                                    </div>
-                                    <div class="total-frete">
-                                        <p>FRETE</p>
-                                        <p>GRÁTIS</p>
-                                    </div>
-                                    <div class="total-desconto">
-                                        <p>DESCONTO</p>
-                                        <b>-R$ 20,00</b>
-                                    </div>
-                                    <span class="linha-horizontal"></span>
-                                    <div class="total-final">
-                                        <p>DESCONTO</p>
-                                        <b>R$ 79,99</b>
-                                    </div>
-
-                                </div>
-
+                            </div>
                         </div> 
                     </div>
                 </div>
             </div>                
         </div>     
     </main>
-
     <footer>
             <div class="contain">
                 <div class="footer-inf">
@@ -451,6 +421,7 @@
             </div>
     </footer>
     <script type="module" src="/js/main.js"></script>
+    <script type="module" src="/js/user/detalhesPedido.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
