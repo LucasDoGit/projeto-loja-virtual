@@ -2,6 +2,8 @@ import express from "express";
 const router = express.Router();
 import userController from "../controllers/userController.js";
 import addressController from "../controllers/addressController.js";
+import productController from "../controllers/productController.js"
+import customerOrders from "../controllers/CustomerOrdersController.js";
 
 // ROTAS - USUARIO
 router.get('/me', userController.findUser); // carrega as proprias informações pelo token
@@ -15,6 +17,12 @@ router.put('/me/addresses/:addressId', addressController.updateAddress); // atua
 router.delete('/me/addresses/:addressId', addressController.deleteAddress); // deleta um endereco especifico
 router.get('/me/defaultAddresses', addressController.getDefaultAddress); // deleta um endereco especifico
 router.post('/me/defaultAddresses/:addressId', addressController.setDefaultAddress); // deleta um endereco especifico
+// PRODUTOS - CALCULAR PRODUTOS
+router.post('/valueproducts', productController.getValueOfProducts); // deleta um endereco especifico
+// PRODUTOS - PEDIDOS
+router.post('/customerorder', customerOrders.createOrder); // deleta um endereco especifico
+
+
 
 
 export default router;

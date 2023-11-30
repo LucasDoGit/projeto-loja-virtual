@@ -5,7 +5,6 @@ export function mensagemAviso(messageElement, mensagem, status) {
     messageElement.classList.remove('msgSucess');
     messageElement.classList.remove('msgError');
     messageElement.textContent = '';
-    console.log(status)
   
     // valida se recebeus os paramestros mensagem e status
     if(mensagem && status){
@@ -109,6 +108,38 @@ export async function carregarUmProduto(produtoId) {
       .catch((err) => console.log("Ocorreu um erro ao enviar dados: ", err))
 }
 
+// funcao fetch que retorna o valor de um array de produtos
+export async function calcularValorProdutos(produtos, entrega, token) {
+    
+    const produtosData = {
+        products: produtos,
+        delivery: entrega
+    }
+
+    return await fetch(`/api/users/valueproducts`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`},
+        body: JSON.stringify(produtosData),
+    })
+      .then((res) => {
+        if (res.ok) {
+            return res.json();
+          } else if (res.status === 400 || res.status === 401) {
+            return res.json();
+          } else {
+            throw new Error("Erro ao autenticar usuário.");
+          }
+      })
+      .then((data) => {
+          if(data.error){
+              throw new Error('Erro ao requisitar produtos para o servidor');
+          }
+          return data
+      })
+      .catch((err) => console.log("Ocorreu um erro ao enviar dados: ", err))
+}
+
 // funcao fetch que retorna um array com todos os produtos cadastrados
 export async function carregarProdutosEmOferta(oferta) {
     return await fetch(`/api/global/offers/${oferta}`, { method: "GET", })
@@ -141,13 +172,17 @@ export function alternarEdicaoFormulario(formulario, edicao) {
             elements[i].disabled = true;
         } else {
             elements[i].disabled = edicao;
-        }
+    }
     }
 }
 
 // funcao que cria o card de produtos
 export function criarCardProdutos(produtosArray, HTMLelement){
-    produtosArray.forEach(produto => {
+    for(const produto of produtosArray){
+        // controla o loop para nao criar muitos produtos na tela do usuario
+        if(produtosArray.indexOf(produto) >= 15) {
+            break;
+        }
         // <div class="card-produto">
         const cardContainer = document.createElement('div');
         cardContainer.classList.add('card-produto');
@@ -201,19 +236,20 @@ export function criarCardProdutos(produtosArray, HTMLelement){
         precosContainer.appendChild(paragrafoAviso)
            
         cardContainer.appendChild(precosContainer);
-
+        
         // <a href="pages/produto.html">Comprar</a>
         const linkProduto = document.createElement('a');
-        linkProduto.textContent = 'COMPRAR';
-        cardContainer.appendChild(linkProduto);
 
-        HTMLelement.appendChild(cardContainer)
-
-        linkProduto.addEventListener('click', () => {
+        if(produto.quantidade >= 1) {
+            linkProduto.textContent = 'COMPRAR';
             const produtoParam = encodeURIComponent(JSON.stringify(produto._id));
-            window.location.href = `/front/pages/produto.html?produto=${produtoParam}`;
-        });
-    });
+            linkProduto.href = `/front/pages/produto.html?produto=${produtoParam}`;
+            cardContainer.appendChild(linkProduto)
+        } else {
+            linkProduto.textContent = 'PRODUTO INDISPONÍVEL';
+            linkProduto.disabled = true;
+            cardContainer.appendChild(linkProduto)
+        }
+        HTMLelement.appendChild(cardContainer)
+    };
 }
-
-

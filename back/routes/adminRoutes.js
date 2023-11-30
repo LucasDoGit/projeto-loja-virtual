@@ -6,6 +6,7 @@ import userRolesController from "../controllers/AdminRoleController.js";
 import authController from "../controllers/authController.js";
 import categoriesController from "../controllers/categoryController.js"
 import productController from "../controllers/productController.js";
+import customerOrdersController from "../controllers/CustomerOrdersController.js";
 
 // middlewares
 import checkAccess from '../middlewares/acessControl.js'; // define os cargos que podem acessar as rotas
@@ -46,6 +47,11 @@ router.post('/products', productController.createProduct);
 router.put('/products/:productId', productController.updateProduct);
 router.delete('/products/:productId', productController.deleteProduct);
 router.delete('/products/:productId/fotos', productController.deleteImages);
-
+// ROTAS - PEDIDOS
+router.use('/customerorder', checkAccess('Master', 'Coodenador'));
+router.get('/customerorder', customerOrdersController.getAllOrder);
+router.get('/customerorder/:orderId', customerOrdersController.getOrder);
+router.put('/customerorder/:orderId', customerOrdersController.updateOrder);
+router.delete('/customerorder/:orderId', customerOrdersController.deleteOrder);
  
 export default router;

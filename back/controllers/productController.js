@@ -150,7 +150,7 @@ const getProducts = async (req, res) => {
           precoPromocional: produto.precoPromocional ? produto.precoPromocional.toString() : '',
           categoria: produto.categoria, 
           disponivel: produto.disponivel,
-          // quantidade: produto.quantidade,
+          quantidade: produto.quantidade,
           fabricante: produto.fabricante,
           oferta: isInOffer ? isInOffer.offer : 'Sem oferta',
         });
@@ -184,6 +184,7 @@ const getOneProduct = async (req, res) => {
     const produtoJSON = produto.toObject();
     produtoJSON.preco = produto.preco.toString();
     produtoJSON.precoPromocional = produto.precoPromocional ? produto.precoPromocional.toString() : '';
+    produtoJSON.descricao = produto.descricao ? produto.descricao : ''; 
     isInOffer ? produtoJSON.oferta = isInOffer.offer : ''; // retorna vaziu se nao encontrar oferta ativa
 
     // converte os atributos Map para um objeto JavaScript
@@ -461,6 +462,75 @@ const findAllProductsInOffer = async (req, res) => {
   }
 };
 
+const getValueOfProducts = async (req, res) => {
+  const { products, delivery } = req.body
+  let totalAmountPayable = 0;
+  let totalAmountPayableDiscount = 0;
+  let produtos = [];
+
+  if(!products || !delivery){
+    return res.status(400).json({ message: 'Produtos ou valor de entrega não recebidos', error: true })
+  }
+  try {
+    // intera sobre o array de produtos recebido
+    for(const product of products) {
+      // Busca o produto no banco de dados com base no ID fornecido
+      const productExisting = await Product.findById(product.id);
+
+      // Verifique se o produto foi encontrado
+      if (!productExisting) {
+        return res.status(404).json({ message: 'Produto do carrinho não encontrado!', error: true })
+      }
+      // Calcula o valor total para este produto com base na quantidade solicitada
+      const payProduct = (productExisting.preco * product.quantidade);
+      
+      if(productExisting.precoPromocional){
+        const payProductDiscount = (productExisting.precoPromocional * product.quantidade);
+        totalAmountPayableDiscount += payProductDiscount
+      } else {
+        totalAmountPayableDiscount += payProduct
+      }
+      // Adiciona o resultado final ao array com o valor total dos produtos
+      totalAmountPayable += payProduct;
+
+      let produto = {
+        produto: productExisting.id,
+        quantidade: product.quantidade
+      }
+      produtos.push(produto)
+    }
+
+    if(delivery.entrega === false && delivery.valor === 0) {
+      const totalAmountPayableFormatted = parseFloat(totalAmountPayable);
+      const totalAmountPayableDiscountFormatted = parseFloat(totalAmountPayableDiscount);
+
+      return res.status(200).json({ 
+        valor: totalAmountPayableFormatted.toFixed(2),
+        valorDesconto: totalAmountPayableDiscountFormatted.toFixed(2),
+        entrega: delivery.entrega,
+        produtos: produtos
+      })
+    } else if (delivery.entrega === true && delivery.valor > 0){
+      totalAmountPayable += delivery.valor;
+      totalAmountPayableDiscount += delivery.valor
+    } else {
+      return res.status(400).json({ message: 'Valor de frete incorreto!', error: true })
+    }
+    
+    const totalAmountPayableFormatted = parseFloat(totalAmountPayable);
+    const totalAmountPayableDiscountFormatted = parseFloat(totalAmountPayableDiscount);
+
+    return res.status(200).json({ 
+      valor: totalAmountPayableFormatted.toFixed(2),
+      valorDesconto: totalAmountPayableDiscountFormatted.toFixed(2),
+      entrega: delivery.entrega,
+      produtos: produtos
+    })
+  } catch (error) {
+    return res.status(500).json({ message: "Erro interno do servidor.", error: true });
+  }
+}
+
 export default {
   createProduct,
   getProducts,
@@ -468,5 +538,6 @@ export default {
   updateProduct,
   deleteProduct,
   deleteImages,
-  findAllProductsInOffer
+  findAllProductsInOffer,
+  getValueOfProducts
 };

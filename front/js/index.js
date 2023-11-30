@@ -1,6 +1,6 @@
 import { carregarProdutosEmOferta, carregarProdutos, criarCardProdutos } from '/js/admin/globalFunctions.js';
 
-document.addEventListener("DOMContentLoaded", async function() {
+document.addEventListener("DOMContentLoaded", function() {
     listarProdutosPromocao()
     listarProdutosRecomendados()
     listarProdutosNovos()

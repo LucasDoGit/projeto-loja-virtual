@@ -1,5 +1,6 @@
 import { carregarUmProduto, mensagemAviso } from "./admin/globalFunctions.js";
 const token = localStorage.getItem('token'); // token
+const avisoCarrinho = document.getElementById('avisoCarrinho');
 let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 
 
@@ -149,7 +150,7 @@ function atualizarCarrinho(produtos) {
             listaCarrinho.appendChild(produtoContainer);
 
             // Funcoes que escutem os botoes para aumentar/diminuir/remover produtos
-            document.getElementById(`aumentaQtdProduto${produto._id}`).addEventListener('click', () => aumentaQtdProduto(produto._id));
+            document.getElementById(`aumentaQtdProduto${produto._id}`).addEventListener('click', () => aumentaQtdProduto(produto._id, produto.quantidade));
             document.getElementById(`diminuiQtdProduto${produto._id}`).addEventListener('click', () => diminuiQtdProduto(produto._id));
             document.getElementById(`removerProduto${produto._id}`).addEventListener('click', () => removeProdutoCarrinho(produto._id));
 
@@ -170,25 +171,37 @@ function atualizarCarrinho(produtos) {
 }
 
 // funcao que aumenta a quantidade de um produto no carrinho e visualização
-function aumentaQtdProduto(produtoId){
-    const produtoExistente = carrinho.find(item => item.id === produtoId);
-    produtoExistente.quantidade += 1;
-    document.getElementById(`produtoQtd${produtoId}`).value = produtoExistente.quantidade
-    localStorage.setItem('carrinho', JSON.stringify(carrinho));
-    valorProdutos = 0;
-    valorProdutosDesconto = 0;
-    buscarProdutos()
+function aumentaQtdProduto(produtoId, quantidadeDisponivel){
+    mensagemAviso(avisoCarrinho, '')
+    const produtoCarrinho = carrinho.find(item => item.id === produtoId);
+
+    if(quantidadeDisponivel < produtoCarrinho.quantidade){
+        mensagemAviso(avisoCarrinho, 'Quantidade não disponível')
+    } else {
+        produtoCarrinho.quantidade += 1;
+        document.getElementById(`produtoQtd${produtoId}`).value = produtoCarrinho.quantidade
+        localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        valorProdutos = 0;
+        valorProdutosDesconto = 0;
+        buscarProdutos()
+    }
 }
 
 // funcao que diminui a quantidade de um produto no carrinho e visualização
 function diminuiQtdProduto(produtoId){
-    const produtoExistente = carrinho.find(item => item.id === produtoId);
-    produtoExistente.quantidade -= 1;
-    document.getElementById(`produtoQtd${produtoId}`).value = produtoExistente.quantidade
-    localStorage.setItem('carrinho', JSON.stringify(carrinho));
-    valorProdutos = 0;
-    valorProdutosDesconto = 0;
-    buscarProdutos()
+    mensagemAviso(avisoCarrinho, '')
+    const produtoCarrinho = carrinho.find(item => item.id === produtoId);
+
+    if(produtoCarrinho.quantidade <= 1){
+        mensagemAviso(avisoCarrinho, 'Quantidade não pode ser menos que 1')
+    } else {
+        produtoCarrinho.quantidade -= 1;
+        document.getElementById(`produtoQtd${produtoId}`).value = produtoCarrinho.quantidade
+        localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        valorProdutos = 0;
+        valorProdutosDesconto = 0;
+        buscarProdutos()
+    }
 }
 
 // funcao que remove o produto do carrinho e atualiza a visualização
@@ -251,6 +264,33 @@ function criarCardEndereco(endereco) {
     opcaoEntrega.appendChild(option);
 }
 
+function validarCarrinho() {
+    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    const opcaoEntrega = document.getElementById('opcaoEntrega').value;
+    avisoCarrinho.classList.remove('msgAlert');
+
+    // verifica se o carrinho possui itens para comprar
+    if(carrinho.length > 0){
+        // se a opcao de entrega for retirada na loja cria um item com retiradaLoja: true
+        if(opcaoEntrega === 'retirarLoja' || retirarNaLoja === true) {
+            const entrega = {'entrega': false, 'valor': 0}
+            localStorage.setItem('entrega', JSON.stringify(entrega)); //armazena o token no localStorage
+            window.location = '/front/pages/finalizacao.html'
+        // se a opcao de entrega for entrega no endereco, cria um item com retiradaLoja: false
+        } else if (opcaoEntrega === 'endereco' || valorFrete > 0) {
+            const entrega = {'entrega': true, 'valor': valorFrete}
+            localStorage.setItem('entrega', JSON.stringify(entrega)); //armazena o token no localStorage
+            window.location = '/front/pages/finalizacao.html'
+        } else {
+            avisoCarrinho.classList.add('msgAlert')
+            avisoCarrinho.textContent = 'Selecione uma forma de entrega';
+        }
+    } else {
+        avisoCarrinho.classList.add('msgAlert')
+        avisoCarrinho.textContent = 'nenhum produto adicionado no carrinho';
+    }
+}
+
 // Funcao que escuta o botao para apagar os todos os produtos do carrinho
 document.getElementById('apagarCarrinho').addEventListener('click', () => {
     localStorage.removeItem('carrinho')
@@ -277,11 +317,7 @@ document.getElementById('opcaoEntrega').addEventListener('change', function() {
 })
 
 document.getElementById('fazerPagamento').addEventListener('click', () => {
-    window.location = "/front/pages/finalizacao.html"
-})
-
-document.getElementById('continuarComprando').addEventListener('click', () => {
-    window.location = "/front/index.html"
+    validarCarrinho()
 })
 
 document.getElementById('continuarComprando').addEventListener('click', () => {
