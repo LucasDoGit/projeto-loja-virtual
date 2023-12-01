@@ -5,14 +5,13 @@ import { decoder } from "../controllers/globalController.js";
 import mongoose from "mongoose";
 
 const createOrder = async (req, res) => {
-    const { itens, total, entrega, pagamento, statusPagamento } = req.body
+    const { itens, total, entrega, pagamento, statusPagamento, frete } = req.body
     const usertoken = req.headers.authorization; // recebe o token da sessao
     const token = decoder(usertoken) // decodifica o token
 
-    if(!token || !itens || !total || !pagamento || !statusPagamento) {
+    if(!token || !itens || !total || !pagamento || !statusPagamento || !frete) {
         return res.status(400).json({ message: 'Verifique os dados do pedido', error: true }); 
     }
-
     try {
         // cria o código do pedido, a partir do ultimo pedido
         const ultimoPedido = await CustomerOrder.findOne({}, {}, { sort: { 'codigo': -1 } });
@@ -26,14 +25,37 @@ const createOrder = async (req, res) => {
         codigo = 'PD' + ('000' + (ultimoCodigo + 1)).slice(-4);
         }
 
+        // array para salvar os produtos com o valor que foi pago
+        let itensPedido = []
+
+        itens.forEach(pedido => {
+            let valorPagoProduto = 0;
+            // verifica qual o valor que foi pago
+            if(pagamento === 'cartao') {
+                const valorFormatado = pedido.valor;
+                valorPagoProduto = parseFloat(valorFormatado).toFixed(2)
+            } else {
+                const valorFormatado = pedido.valorDesconto;
+                valorPagoProduto = parseFloat(valorFormatado).toFixed(2)
+            }
+
+            const produto = {
+                produto: pedido.produto,
+                quantidade: pedido.quantidade,
+                valorPago: valorPagoProduto
+            }
+            itensPedido.push(produto)
+        });
+
+        // cria um pedido seguindo o schema de pedidos
         const newOrder = new CustomerOrder ({
             codigo: codigo,
             cliente: token.id,
-            itens: itens,
+            itens: itensPedido,
             total: total,
+            frete: frete,
             pagamento: pagamento.toLowerCase(),
             statusPagamento: statusPagamento.toLowerCase(),
-            // status: status,
             entrega: entrega === true ? 'endereco' : 'retirar'
         })
 
@@ -46,6 +68,11 @@ const createOrder = async (req, res) => {
             }
             // Diminuir a quantidade disponível do produto
             produto.quantidade -= produtoPedido.quantidade
+
+            // atualiza o estados do produto se a quantidade for menor de 0
+            if(produto.quantidade <= 0){
+                produto.disponivel = false;
+            }
             
             await produto.save()
             .then((produtoAtualizado) => {

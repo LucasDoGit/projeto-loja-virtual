@@ -512,6 +512,7 @@ const getValueOfProducts = async (req, res) => {
         valor: totalAmountPayableFormatted.toFixed(2),
         valorDesconto: totalAmountPayableDiscountFormatted.toFixed(2),
         entrega: delivery.entrega,
+        frete : parseFloat(delivery.valor).toFixed(2),
         produtos: produtos
       })
     } else if (delivery.entrega === true && delivery.valor > 0){
@@ -528,6 +529,7 @@ const getValueOfProducts = async (req, res) => {
       valor: totalAmountPayableFormatted.toFixed(2),
       valorDesconto: totalAmountPayableDiscountFormatted.toFixed(2),
       entrega: delivery.entrega,
+      frete : parseFloat(delivery.valor).toFixed(2),
       produtos: produtos
     })
   } catch (error) {

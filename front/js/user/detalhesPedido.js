@@ -9,53 +9,44 @@ document.addEventListener("DOMContentLoaded", function() { //ao carregar a pagin
 });
 
 function mostrarPedido(pedido){
-    console.log(pedido)
     // data formatada do produto
     const dataPedidoFromatada = formatarData(pedido.dataPedido)
 
     // mostrar as principais informacoes do produto no card
-    const codigoPedido = document.getElementById('codigoPedido')
-    codigoPedido.textContent = `#${pedido.codigo}`
-
-    const statusPedido = document.getElementById('statusPedido')
-    statusPedido.textContent = `${pedido.status}`
-
-    const dataPedido = document.getElementById('dataPedido')
-    dataPedido.textContent = `${dataPedidoFromatada.dia}`
-
-    const pagamentoPedido = document.getElementById('pagamentoPedido')
-    pagamentoPedido.textContent = `${pedido.pagamento}`
-
-    const statusPagamentoPedido = document.getElementById('statusPagamentoPedido')
-    statusPagamentoPedido.textContent = `${pedido.statusPagamento}`
+    document.getElementById('codigoPedido').textContent = `#${pedido.codigo}`
+    document.getElementById('statusPedido').textContent = `${pedido.status}`
+    document.getElementById('dataPedido').textContent = `${dataPedidoFromatada.dia}`
+    document.getElementById('pagamentoPedido').textContent = `${pedido.pagamento}`
+    document.getElementById('statusPagamentoPedido').textContent = `${pedido.statusPagamento}`
 
     // mostra as informacoes do endereco feito no pedido
+    const enderecoLogradouro = document.getElementById('enderecoLogradouro')
+    const enderecoComplementos = document.getElementById('enderecoComplementos')
+    const enderecoLocalidade = document.getElementById('enderecoLocalidade')
+
+    // verifica se o pedido foi entrege no endereco
     if(pedido.endereco){
-        const enderecoLogradouro = document.getElementById('enderecoLogradouro')
         enderecoLogradouro.textContent = `${pedido.endereco.logradouro}`
-
-        const enderecoComplementos = document.getElementById('enderecoComplementos')
         enderecoComplementos.textContent = `Numero: ${pedido.endereco.numero}, ${pedido.endereco.bairro} - ${pedido.endereco.complemento}`
-
-        const enderecoLocalidade = document.getElementById('enderecoLocalidade')
         enderecoLocalidade.textContent = `CEP ${pedido.endereco.cep} - ${pedido.endereco.localidade}, ${pedido.endereco.uf}`
     } else {
-        const enderecoLogradouro = document.getElementById('enderecoLogradouro')
         enderecoLogradouro.textContent = `RETIRAR NA LOJA`
         enderecoLogradouro.style.fontWeight = 'bold'
-
-        const enderecoComplementos = document.getElementById('enderecoComplementos')
         enderecoComplementos.textContent = `Rua Paraíso do Norte, 17, Boqueirão`
-
-        const enderecoLocalidade = document.getElementById('enderecoLocalidade')
         enderecoLocalidade.textContent = `CURITIBA, PR`
     }
 
     // mostra os produtos adquiridos pelo usuario
     const containerProdutos = document.getElementById('produtosComprados')
     const itens = pedido.itens
-    
-    itens.forEach((item) =>{
+
+    let valorTotalProdutos = 0;
+    itens.forEach((item) => {
+        //formata o valor do produto
+        const valorPagoFormatado = parseFloat(item.valorPago).toFixed(2)
+        valorTotalProdutos += item.valorPago
+
+        // cria o card do produto
         const cardProduto = document.createElement('div')
         cardProduto.classList.add('produtos-adquiridos');
         cardProduto.innerHTML = `
@@ -76,10 +67,19 @@ function mostrarPedido(pedido){
             </div>
         </div>
         <div class="preco-final">
-            <b>R$ 20,00</b>
+            <b>R$ ${valorPagoFormatado}</b>
         </div>`
         containerProdutos.appendChild(cardProduto)
     })
+
+    const valorTotalPagoProdutosFormatado = parseFloat(valorTotalProdutos).toFixed(2)
+    document.getElementById('totalProdutos').textContent = `R$ ${valorTotalPagoProdutosFormatado}`
+
+    const valorFreteFormatado = parseFloat(pedido.frete).toFixed(2)
+    document.getElementById('valorFrete').textContent = `R$ ${valorFreteFormatado}`
+
+    const valorTotalFormatado = parseFloat(pedido.total).toFixed(2)
+    document.getElementById('valorTotal').textContent = `R$ ${valorTotalFormatado}`
 }
 
 async function carregarUmPedidos(pedido) {

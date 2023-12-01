@@ -12,7 +12,6 @@ let pagamentoAprovado = false;
 document.addEventListener("DOMContentLoaded", async function() {
     // calcula o valor dos produtos e mostra para o usuario
     produtosPedido = await calcularValorProdutos(carrinho, entrega, token)
-    // console.log(produtosPedido)
     await mostrarValores()
 });
 
@@ -270,13 +269,12 @@ async function criarNovoPedido(tipoDePagamento, produtosPedido) {
 
     const novoPedido = {
         itens: produtosPedido.produtos,
+        frete: produtosPedido.frete,
         total: produtosPedido.desconto === true ? produtosPedido.valorDesconto : produtosPedido.valor,
         pagamento: tipoDePagamento,
         statusPagamento: tipoDePagamento === 'BOLETO' ? 'pendente' : 'pago',
         entrega: produtosPedido.entrega
     }
-
-    console.log(novoPedido)
 
     await fetch(`/api/users/customerorder`, {
         method: "POST",

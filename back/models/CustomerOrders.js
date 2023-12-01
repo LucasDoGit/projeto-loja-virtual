@@ -23,9 +23,17 @@ const CustomerOrdersSchema = new mongoose.Schema({
         type: Number,
         required: true,
       },
+      valorPago: {
+        type: Number,
+        required: true,
+      },
     },
   ],
   total: {
+    type: Number,
+    required: true,
+  },
+  frete: {
     type: Number,
     required: true,
   },

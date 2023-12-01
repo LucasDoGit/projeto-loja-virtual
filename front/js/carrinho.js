@@ -3,7 +3,6 @@ const token = localStorage.getItem('token'); // token
 const avisoCarrinho = document.getElementById('avisoCarrinho');
 let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 
-
 // valores 
 let valorProdutos = 0;
 let valorProdutosDesconto = 0;
@@ -175,7 +174,7 @@ function aumentaQtdProduto(produtoId, quantidadeDisponivel){
     mensagemAviso(avisoCarrinho, '')
     const produtoCarrinho = carrinho.find(item => item.id === produtoId);
 
-    if(quantidadeDisponivel < produtoCarrinho.quantidade){
+    if(quantidadeDisponivel <= produtoCarrinho.quantidade){
         mensagemAviso(avisoCarrinho, 'Quantidade não disponível')
     } else {
         produtoCarrinho.quantidade += 1;

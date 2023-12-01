@@ -61,12 +61,23 @@ async function exibirProduto(produtoId) {
             fotoPreview.src = `${foto.api}`
         })
     });
-}
 
-document.getElementById('comprarAgora').addEventListener('click', () => {
-    adicionarAoCarrinho(produtoId)
-    window.location = '/front/pages/carrinho.html';
-})
+    const statusProduto = document.getElementById('disponivel')
+    
+    if(produto.disponivel === true) {
+        statusProduto.textContent = "em estoque"
+    } else {
+        statusProduto.textContent = "produto indisponível"
+        statusProduto.style.color = "red"
+        document.getElementById('comprarAgora').disabled = true;
+        document.getElementById('adicionarCarrinho').disabled = true;
+    }
+
+    document.getElementById('comprarAgora').addEventListener('click', () => {
+        adicionarAoCarrinho(produto._id, produto.quantidadeDisponivel)
+        window.location = '/front/pages/carrinho.html';
+    })
+}
 
 document.getElementById('adicionarCarrinho').addEventListener('click', () => {
     adicionarAoCarrinho(produtoId)
@@ -74,7 +85,7 @@ document.getElementById('adicionarCarrinho').addEventListener('click', () => {
 })
 
 // Função para adicionar um produto ao carrinho
-function adicionarAoCarrinho(produtoId) {
+function adicionarAoCarrinho(produtoId, quantidadeDisponivel) {
     const id = produtoId;
     // Recupera o carrinho do localStorage
     let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
@@ -85,8 +96,10 @@ function adicionarAoCarrinho(produtoId) {
     const produtoExistente = carrinho.find(item => item.id === id);
 
     if (produtoExistente) {
-        // Se o produto já estiver no carrinho, incrementa a quantidade
-        produtoExistente.quantidade += 1;
+        // incrementa a quantidade do produto se estiver disponível
+        if(quantidadeDisponivel <= produtoExistente.quantidade){
+            produtoExistente.quantidade += 1;
+        }
     } else {
         // Caso contrário, adiciona o produto ao carrinho
         carrinho.push({ id, quantidade: 1 });
