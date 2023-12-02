@@ -1,6 +1,4 @@
 import { carregarCategorias, carregarProdutos } from "./globalFunctions.js";
-let messageElement = document.getElementById('data-message');
-let token = localStorage.getItem('token'); // token do usuario
 let formBusca = document.forms.formBuscaProduto;
 
 // funcao que escuta o evento de carregar a pagina e executa funcoes

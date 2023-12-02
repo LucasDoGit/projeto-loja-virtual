@@ -8,11 +8,10 @@ node_modules
 #*.txt
 
 # Ignore arquivos relacionados às chaves de API
-.env
+
 
 # Ignore arquivos de configuração de SASS
 #.sass-cache
 
 # ignorar as fotos salvar no servidor
 # back/uploads
-

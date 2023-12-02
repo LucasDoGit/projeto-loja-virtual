@@ -44,7 +44,7 @@ const CustomerOrdersSchema = new mongoose.Schema({
   },
   statusPagamento: {
     type: String,
-    enum: ['pendente', 'pago', 'cancelado', 'recebi'],
+    enum: ['pendente', 'pago', 'cancelado'],
     default: 'pendente'
   },
   dataPedido: {

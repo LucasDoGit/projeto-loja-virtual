@@ -35,7 +35,9 @@ const createOrder = async (req, res) => {
                 const valorFormatado = pedido.valor;
                 valorPagoProduto = parseFloat(valorFormatado).toFixed(2)
             } else {
-                const valorFormatado = pedido.valorDesconto;
+                // verfica se o produto possui valor de desconto, se nao o valor é mantido
+                let valorFormatado = 0;
+                pedido.valorDesconto <= 0 ? valorFormatado = pedido.valor : valorFormatado = pedido.valorDesconto;
                 valorPagoProduto = parseFloat(valorFormatado).toFixed(2)
             }
 
@@ -102,7 +104,7 @@ const createOrder = async (req, res) => {
 
 const getAllOrder = async (req, res) => {
     try {
-        const customerOrders = await CustomerOrder.find()
+        const customerOrders = await CustomerOrder.find().populate('cliente', 'name cpf email tel') // Popula o cliente e seleciona os campos a serem incluídos
 
         if(customerOrders.length < 0){
             return res.status(404).json({ message: 'Nenhuma pedido de cliente encontrado', error: true })

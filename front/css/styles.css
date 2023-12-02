@@ -2769,6 +2769,61 @@ div.produtos section{
     margin: 2rem 1.5rem;
 }
 
+/* pedido cliente */
+
+div.listagem-pedidos div.botoes {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+button.btn-salvarpedido {
+    padding: 10px;
+    border: none;
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+    transition: .3s;
+}
+
+button.btn-salvarpedido:hover {
+    background-color: #00b800;
+}
+
+div.listagem-pedidos div.botoes button {
+    width: fit-content;
+    height: fit-content;
+    padding: 8px 16px;
+    margin: 1rem 0;
+}
+
+select#statusPedido {
+    border-radius: 5px;
+    text-transform: uppercase;
+    color: var(--cor4);
+    font-weight: bold;
+    padding: 0px 5px;
+}
+
+.informacoes-cliente {
+    display: flex;
+    justify-content: space-between;
+}
+
+.informacoes-cliente p {
+    color: rgb(127, 133, 141);
+    font-size: 0.875rem;
+    gap: 0.5rem;
+}
+
+.informacoes-cliente b {
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    font-weight: 400;
+}
+
 /* Meus Pedidos */
 
 div.container-pedidos {
@@ -2892,6 +2947,10 @@ div.detalhes-pedido a{
     
 }
 
+div.detalhes-cliente {
+    text-align: end;
+}
+
 .area-detalhes{
     display: flex;
     flex-direction: column;
@@ -2906,23 +2965,21 @@ div.detalhes-pedido a{
     
 }
 
-.detalhes-endereços h1{
+.detalhes-endereços h1, .informacoes-cliente h1{
     color: rgb(66, 70, 77);
     font-size: 16px;
 }
 
-.detalhes-endereços  p{
+.detalhes-endereços p{
     color: rgb(127, 133, 141);
     font-size: 0.875rem;
     gap: 0.5rem;
-    font-family: Poppins, sans-serif !important;
 }
 
 .detalhes-endereços  b{
     font-size: 0.875rem;
     line-height: 1.125rem;
     font-weight: 400;
-    font-family: Poppins, sans-serif !important;
 }
 
 .processos-produtos{
