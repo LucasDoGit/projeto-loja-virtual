@@ -537,6 +537,51 @@ const getValueOfProducts = async (req, res) => {
   }
 }
 
+const findProducts = async (req, res) => {
+  try {
+    const { nome, categoria, precominimo, precomaximo } = req.query;
+    let produtos = [];
+
+    // Construir a consulta ao MongoDB com base nos parâmetros de consulta
+    const filtro = {};
+    if (nome) filtro.nome = { $regex: nome.toLowerCase(), $options: 'i' }; // busca o nome com padrão insensível a maiúsculas e minúsculas
+    if (categoria) filtro.categoria = { $regex: categoria.toLowerCase(), $options: 'i' }; // busca o nome com padrão insensível a maiúsculas e minúsculas
+    if (precominimo) filtro.preco = { $gte: parseFloat(precominimo) }; // preco minimo ou igual (pode ser ajustado conforme necessário)
+    if (precomaximo)
+      filtro.preco = {
+      ...filtro.preco, $lte: parseFloat(precomaximo) // maximo ou igual (pode ser ajustado conforme necessário)
+    }
+
+    const produtosEncontrados = await Product.find(filtro);
+
+    if(produtosEncontrados.length > 0){
+      
+      // funcao for que percorre todos os produtos e mostra o seu tipo de oferta
+      for (const produto of produtosEncontrados) {
+        const precoString = produto.preco.toString();
+        const precoPromocionalString = produto.precoPromocional ? produto.precoPromocional.toString() : '';
+
+        // Adiciona informações do produto ao array
+        produtos.push({
+          _id: produto._id,
+          sku: produto.sku,
+          nome: produto.nome,
+          preco: precoString,
+          fotos: produto.fotos,
+          precoPromocional: precoPromocionalString,
+          categoria: produto.categoria, 
+          disponivel: produto.disponivel,
+          quantidade: produto.quantidade,
+          fabricante: produto.fabricante,
+        });
+      }
+    }
+    return res.status(200).json({ produtos: produtos }); // lista de produtos
+  } catch (error) {
+    return res.status(500).json({ message: 'Erro ao tentar buscar produtos', error: error });
+  }
+}
+
 export default {
   createProduct,
   getProducts,
@@ -545,5 +590,6 @@ export default {
   deleteProduct,
   deleteImages,
   findAllProductsInOffer,
-  getValueOfProducts
+  getValueOfProducts,
+  findProducts,
 };

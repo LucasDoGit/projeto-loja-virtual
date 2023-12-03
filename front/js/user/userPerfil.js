@@ -145,18 +145,28 @@ function mostrarListaEnderecos(){
 
 // Funcao para retornar datas em formato YYYY-MM-DD
 function dateFormatter(date){
-    let newDate = new Date(date); //converte string para tipo date
-    let day = newDate.getDate(); //recebe o dia da data
-    let month = newDate.getMonth()+1; //recebe o mes da data
-    if (month.toString().length == 1) { //caso o mes seja tenha tamanho igual a 1 digito, adiciona 0
-        month = "0" + month
+    // Criar um objeto Date a partir da string
+    const dataDoMongoose = new Date(date);
+
+    // Verificar se é uma instância válida de Date
+    if (isNaN(dataDoMongoose.getTime())) {
+        console.error("A string não representa uma data válida.");
+    } else {
+        // Convertendo para UTC
+        const dataEmUTC = new Date(dataDoMongoose.getUTCFullYear(), dataDoMongoose.getUTCMonth(), dataDoMongoose.getUTCDate(), 0, 0, 0);
+
+        let day = dataEmUTC.getDate(); // recebe o dia da data
+        let month = dataEmUTC.getMonth()+1; // recebe o mes da data
+        if (month.toString().length == 1) { // caso o mes seja tenha tamanho igual a 1 digito, adiciona 0
+            month = "0" + month
+        }
+        if (day.toString().length == 1) { // caso o dia seja tenha tamanho igual a 1 digito, adiciona 0
+            day = "0" + day
+        }
+        let dateFormated =  dataEmUTC.getFullYear()+"-"+(month)+"-"+(day);
+       
+        return dateFormated; // retorna o valor em formato YYYY-MM-DD
     }
-    if (day.toString().length == 1) { //caso o dia seja tenha tamanho igual a 1 digito, adiciona 0
-        day = "0" + day
-    }
-    let dateFormated =  newDate.getFullYear()+"-"+(month)+"-"+(day);
-   
-    return dateFormated; //retorna o valor em formato YYYY-MM-DD
 }
 
 function mostrarEnderecos(enderecos, container) {

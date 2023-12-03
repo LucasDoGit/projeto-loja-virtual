@@ -176,6 +176,15 @@ export function alternarEdicaoFormulario(formulario, edicao) {
     }
 }
 
+// Função para obter os parâmetros da URL
+export function obterParametrosURL(url) {
+    const parametros = {};
+    const partes = url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, chave, valor) {
+      parametros[chave] = decodeURIComponent(valor);
+    });
+    return parametros;
+}
+
 // funcao que busca um item na url e retorna as informacoes do mesmo
 export function descodeURLParameter(Param){
     const urlParams = new URLSearchParams(window.location.search);
@@ -291,4 +300,30 @@ export function formatarData(data) {
         horas: `${horas}:${minutos}:${segundos}`
     }
     return dataCompleta;
+}
+
+// Funcao fetch que faz a busca de produtos e retorna o json dos produtos
+export async function buscarProdutos(nome, categoria, precoMinimo, precoMaximo) {
+    let url = '/api/global/findproducts?';
+
+    if (nome) url += `nome=${nome}&`;
+    if (categoria) url += `categoria=${categoria}&`;
+    if (precoMinimo) url += `precominimo=${precoMinimo}&`;
+    if (precoMaximo) url += `precomaximo=${precoMaximo}`;
+
+    try {
+    return await fetch(url, { method: "GET" })
+      .then((res) =>{
+        if(!res.ok){
+            throw new Error('Erro na busca dos produto')
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if(data.error) return console.log(data);
+        return data.produtos
+      })
+      .catch(err => console.log('Erro ao tentar buscar os produtos no servidor', err))
+      
+    } catch(erro) { console.error('Erro ao buscar produtos:', erro) }
 }

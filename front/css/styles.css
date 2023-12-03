@@ -89,7 +89,7 @@ header {
     align-items: center;
 }
 
-#header-logo{
+#header-logo {
     width: 150px;
 }
 
@@ -115,12 +115,17 @@ header {
     padding-left: 8px;
 }
 
-.header-search-box svg {
+.header-search-box button {
+    background-color: transparent;
+    border: none;
+}
+
+.header-search-box button svg {
     color: var(--cor4);
     cursor: pointer;
 }
 
-.header-search-box svg:hover {
+.header-search-box button svg:hover {
     color: var(--cor2);
     width: 28px;
     height: 28px;
@@ -275,6 +280,8 @@ div#gif { /* banner gif */
 .card-produto .foto {
     max-width: 228px;
     max-height: 228px;
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
     border: 1px solid var(--cor2);
     border-radius: 5px;
@@ -283,6 +290,8 @@ div#gif { /* banner gif */
 .card-produto .foto img {
     max-width: 226px;
     max-height: 226px;
+    width: 100%;
+    height: 100%;
     border-radius: 5px;
 }
 
@@ -2686,71 +2695,146 @@ div.alterarDados div.botoes button {
 
 /* Tela buscar Produtos */
 
-.container-conteudo-pesquisa{
+div.container-pesquisa-filtro {
+    display: flex;
     width: 100%;
+    max-width: 1700px;
+    margin: 0px auto;
+}
+
+.container-conteudo-pesquisa{
+    display: flex;
     margin: 2.5rem auto;
 }
 
-.item-pesquisado{
-    font-size: 10px;
-}
-
-.filtro{
+form.filtro{
     display: flex;
     flex-direction: column;
     background-color: white;
-    border-radius: 5px;
-    padding: 5px;
-    width: 200px;
-    height: 250px;
+    border-radius: 3px;
+    padding: 10px;
+    max-width: 250px;
+    max-height: 450px;
+    box-shadow: -3px 4px 5px #00000034;
 }
 
-.filtro p{
-    font-size: 14px;
+form.filtro input.nome {
+    border: none;
+    border-radius: 3px;
+    text-indent: 5px;
+    font-size: 15px;
+}
+
+form.filtro > div {
+    margin-top: 1rem;
+}
+
+form.filtro > div:last-child {
+    margin-bottom: 1.2rem;
+}
+
+form.filtro h6 {
+    font-size: 16px;
     font-weight: bold;
+    color: var(--cor4);
+    text-transform: uppercase;
 }
 
-div.listagem-categoria{
-        display: flex;
-        flex-direction: column;
-        font-size: 12px;
-        margin-bottom: 1.5rem;
+form.filtro div.listagem-categoria{
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    margin-bottom: 1.5rem;
 }
 
-div.listagem-categoria a{
-    text-decoration: none;
-    color: black;
-    margin-left: 10px;
+form.filtro div#categoriasFiltro {
+    border: 1px solid var(--cor4);
+    border-radius: 2px;
+    padding: 10px 5px;
+    overflow-y: auto; 
+    max-height: 120px;
 }
 
-div.listagem-categoria button{
-    width: 30%;
-    color: #823860;
+form.filtro div#categoriasFiltro p {
+    text-transform: uppercase;
+    color: var(--cor5);
     border: none;
     background: none;
+    transition: ease-in;
 }
 
-div.filtro div.preco{
+form.filtro div#categoriasFiltro p:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: var(--cor4);
+}
+
+.elemento-clicavel {
+    cursor: pointer;
+}
+
+.elemento-clicavel.selecionado {
+    padding: 3px;
+    color: var(--cor1) !important;
+    background-color: var(--cor4) !important; /* Cor de fundo para o elemento selecionado */
+  }
+
+form.filtro form.filtro div.preco{
     display: flex;
     flex-direction: column;
 }
 
-div.filtro div.filtro-preco{
+form.filtro div.filtro-preco{
     display: flex;
     width: 100%;
 }
 
-div.filtro div.filtro-preco div input{
+form.filtro div.filtro-preco div span {
+    text-transform: uppercase;
+}
+
+form.filtro div.filtro-preco div input{
     width: 90%;
+    border: 1px solid var(--cor5);
+    border-radius: 3px;
+    text-indent: 5px;
+}
+
+form.filtro div.botaoPesquisa {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+form.filtro div.botaoPesquisa button {
+    width: 190px;
+    padding: 5px;
 }
 
 div.grade-produtos {
-    width: 1200px;
+    max-width: 1450px;
+    min-width: 1200px;
+    width: 100%;
     background-color: white;
     border-radius: 5px;
-    height: auto;
+    min-height: 500px;
     margin-left: 1.5rem;
     margin-bottom: 10px;
+    box-shadow: -3px 4px 5px #00000034;
+}
+
+div#produtosResultado {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 3 colunas de largura igual */
+    justify-content: start; /* Alinhamento à esquerda */
+    margin: 1rem 1rem; /* margem antes e depois das grids */
+    justify-items: center; /* alinhas os produtos ao centro */
+}
+
+/* diminui o tamanho do card dos produtos */
+div#produtosResultado .card-produto {
+    max-width: 235px;
+    height: 445px;
 }
 
 div.grade-produtos div.titulo{
@@ -2760,9 +2844,16 @@ div.grade-produtos div.titulo{
     border-bottom: 1px solid var(--cor2);
 }
 
-div.grade-produtos select{
+div.grade-produtos div.titulo h2 {
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+div.grade-produtos select {
+    text-align: center;
     width: 180px;
     margin-left: 5px;
+    border-radius: 3px;
 }
 
 div.produtos section{
