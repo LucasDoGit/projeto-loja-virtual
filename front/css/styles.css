@@ -3353,7 +3353,43 @@ section.resumo-compra-adm div.botoes button{
     font-weight: 600;
 }
 
+#carousel-container {
+    width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
 
+#carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.product-carousel {
+    flex: 0 0 300px; /* Defina a largura desejada para os itens do carrossel */
+    margin: 0 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.nav-button-carousel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 24px;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+
+#prev-button {
+    left: 10px;
+}
+
+#next-button {
+    right: 10px;
+}
 
 /* MEDIA QUERY */
 @media screen and (max-width: 1440px){

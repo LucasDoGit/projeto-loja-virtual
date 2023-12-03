@@ -76,13 +76,15 @@
             <img src="./img/banner/banner-principal-full.jpeg" alt="banner principal">
         </div>
         <section>
-            <div class="slider-produtos-oferta">
-                <div>
-                    <h2 class="produtos-oferta-titulo">PRODUTOS EM OFERTA</h2>
-                </div>
-                <div class="box-cards-produtos" id="produtosPromocao">
-                    <!-- aqui os produto em promocao sao gerados automaticamente -->
-                    <!-- SLIDER FICARÁ AQUI -->
+            <div id="carousel-container">
+                <div id="carousel">
+                    <div class="slider-produtos-oferta">
+                        <div>
+                            <h2 class="produtos-oferta-titulo">PRODUTOS EM OFERTA</h2>
+                        </div>
+                        <div class="box-cards-produtos" id="produtosPromocao">
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -213,9 +215,6 @@
                                 <li><a href="pages/trocas-e-devolucoes.html">Troca e Devoluções</a></li>
                                 <li><a href="pages/metodo-entrega.html">Entregas</a></li>
                                 <li><a href="pages/login.html">Minha Conta</a></li>
-                                <li>Pagamentos</a></li>
-                                <li>Cancelamentos</li>
-                                <li>Acessibilidade</li>
                             </ul>
                         </section>
                         <section>
@@ -259,6 +258,8 @@
             </div>
     </footer>
     <script type="module" src="/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script type="module" src="/js/slider.js"></script>
     <script type="module" src="/js/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
