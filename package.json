@@ -4,10 +4,6 @@
   "description": "Loja virtual desenvolvida em HTML, CSS, JS e Bootstrap como projeto final de bacharel em sistemas de informações.",
   "main": "server.js",
   "type": "module",
-  "engines": {
-    "node": "18",
-    "npm": "10"
-  },
   "scripts": {
     "startl": "node back/server.js",
     "dev": "nodemon back/server.js",
