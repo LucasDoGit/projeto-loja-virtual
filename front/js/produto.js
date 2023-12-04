@@ -10,8 +10,10 @@ document.addEventListener("DOMContentLoaded", async function() {
 async function exibirProduto(produtoId) {
     const produto = await carregarUmProduto(produtoId);
     
-    const nomeProduto = document.getElementById('nomeProduto');
+    const nomeProduto = document.getElementById('produtoNome');
+
     nomeProduto.textContent = `${produto.nome}`
+    console.log(produto.nome)
 
     const skuProduto = document.getElementById('skuProduto');
     skuProduto.innerHTML = `REFERÊNCIA: <strong>${produto.sku}</strong>`

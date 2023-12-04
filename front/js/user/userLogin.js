@@ -81,13 +81,12 @@ function entrar(user, pwd) {
     let urlDestino;
     let loginAPI;
     
-    // verifica se a URL atual é para login de adm ou cliente
-    if(urlAtual === "http://localhost:3000/front/pages/admin/login-adm.html"){
+    if(urlAtual.includes("/front/pages/admin/login-adm.html")){
       loginAPI = "/api/auth/authenticate/admin";
       urlDestino = "/front/pages/admin/painel-administrador.html"
     } else {
       loginAPI = "/api/auth/authenticate";
-      urlDestino = "http://localhost:3000/front/pages/meu-perfil.html"
+      urlDestino = "/front/pages/meu-perfil.html"
     }
     
     var loginData = new URLSearchParams();

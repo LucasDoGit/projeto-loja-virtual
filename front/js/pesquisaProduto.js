@@ -58,42 +58,45 @@ async function filtrarBusca() {
     const categoria   = filtroBusca.elements.categoria.value;
     const precoMinimo = filtroBusca.elements.precoMinimo.value;
     const precoMaximo = filtroBusca.elements.precoMaximo.value;
+    const avisoSpan = document.getElementById('messageElement')
+    const HTMLelement = document.getElementById('produtosResultado')
 
     const produtos = await buscarProdutos(nome, categoria, precoMinimo, precoMaximo)
 
-    const HTMLelement = document.getElementById('produtosResultado')
+    // limpa a exibicao na grade de produtos
+    mensagemAviso(avisoSpan, '')
     HTMLelement.innerHTML = ''
 
     if(produtos.length < 1) {
-      const avisoSpan = document.getElementById('messageElement')
       avisoSpan.style.display = 'flex'
       avisoSpan.style.justifyContent = 'center'
       mensagemAviso(avisoSpan, 'Nenhum produto encontrado')
     }
 
+    // recebe o valor da ordenacao
     const ordenacaoSelecionada = document.getElementById('ordenacao').value;
 
+    // se receber um valor na ordenacao, executa funcao para ordenar os produtos
     if(ordenacaoSelecionada){
-      switch (ordenacaoSelecionada) {
-        case 'precoAscendente':
-          produtos.sort((a, b) => a.preco - b.preco);
-          break;
-        case 'precoDescendente':
-          produtos.sort((a, b) => b.preco - a.preco);
-          break;
-        default:
-          break;
-      }
+      ordenarProdutos(produtos, ordenacaoSelecionada)
     }
+    // cria o card dos produtos 
     criarCardProdutos(produtos, HTMLelement)
 }
 
 // Função para ordenar os produtos com base na opção selecionada
-function ordenarProdutos() {
-  
-
-  // Atualizar a exibição dos produtos após a ordenação
-  exibirProdutos();
+function ordenarProdutos(produtos, ordenacao) {
+    console.log('entrou na ordenacao')
+    switch (ordenacao) {
+      case 'precoAscendente':
+        produtos.sort((a, b) => a.preco - b.preco);
+        break;
+      case 'precoDescendente':
+        produtos.sort((a, b) => b.preco - a.preco);
+        break;
+      default:
+        break;
+    }
 }
 
 // escuta o botao submit do formulario e busca o produto pesquisado
