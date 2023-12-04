@@ -4,9 +4,15 @@
   "description": "Loja virtual desenvolvida em HTML, CSS, JS e Bootstrap como projeto final de bacharel em sistemas de informações.",
   "main": "server.js",
   "type": "module",
+  "engines": {
+    "node": "18",
+    "npm": "10"
+  },
   "scripts": {
-    "start": "nodemon ./back/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "startl": "node back/server.js",
+    "dev": "nodemon back/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "PORT=$PORT node back/server.js"
   },
   "keywords": [],
   "author": "",
