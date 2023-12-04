@@ -212,6 +212,10 @@ export function criarCardProdutos(produtosArray, HTMLelement){
         const cardContainer = document.createElement('div');
         cardContainer.classList.add('card-produto');
 
+        if(HTMLelement.id === 'produtosPromocao'){
+            cardContainer.classList.add('card-promocao');
+        }
+
         // <div class="foto">
         const fotoContainer = document.createElement('div');
         fotoContainer.classList.add('foto');

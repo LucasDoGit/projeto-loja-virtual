@@ -246,28 +246,62 @@ div#gif { /* banner gif */
 
 /* section 1 */
 
-.slider-produtos-oferta {
+section.produtos-promocao {
+    background-color: white;
+}
+
+section.produtos-promocao .titulo {
     background-color: var(--cor3);
 }
 
-.produtos-oferta-titulo {
+section.produtos-promocao .titulo h2 {
     font-size: 22px;
     color: white;
     margin-left: 2rem;
     padding: 1rem 1rem;
-    display: grid;
+}
+
+.galeria-produtos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.galeria-produtos button {
+    text-align: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    margin: 0px 10px;
+    width: 30px;
+    height: 30px;
+}
+
+.galeria-produtos button svg {
+    border-radius: 100%;
+    color: var(--cor4);
+    width: 100%;
+    height: 100%;
+    box-shadow: rgba(40, 41, 61, 0.04) 0px 2px 4px, rgba(96, 97, 112, 0.16) 0px 8px 16px;
+}
+
+/* esconde os produtos fora do carrossel */
+.carossel-produtos {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.box-cards-produtos {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    max-width: 1370px;
 }
 
 /* card produtos */
-.box-cards-produtos {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 3 colunas de largura igual */
-    grid-gap: 20px; /* Espaço entre as colunas */
-    justify-content: start; /* Alinhamento à esquerda */
-    justify-items: center; /* alinhas os produtos ao centro */
-    background-color: white;
-}
-
 .card-produto {
     background-color: white;
     border-radius: 5px;
@@ -275,6 +309,13 @@ div#gif { /* banner gif */
     border: 1px solid var(--cor2);
     padding: 10px;
     margin: 12px;
+}
+
+/* card produtos em promocao*/
+.card-produto.card-promocao {
+    flex: 0 0 250px;
+    margin: 0px 30px 0px 0px;
+    box-sizing: border-box;
 }
 
 .card-produto .foto {
@@ -3601,6 +3642,11 @@ section.resumo-compra-adm div.botoes button{
 
     .fita-informacoes a {
         font-size: 16px;
+    }
+
+    /* grade de produtos */
+    .container-produtos {
+        grid-template-columns: repeat(1, 1fr); /* 3 colunas de largura igual */
     }
 }
 
