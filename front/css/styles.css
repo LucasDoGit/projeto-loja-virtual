@@ -5,14 +5,16 @@
 
 /* variaveis globais */
 :root{
+
     --cor1: #F2F2F2;
     --cor2: #F2A0CD;
     --cor3: #D94E9A;
-    --cor4: #590222; /* Pode ser usado como Titulo */
+    --cor4: #590222; 
     --cor5: #0D0D0D;
 
     --fonte-padrao: Arial, Verdana, Helvetica, sans-serif;
     --fonte-poppins: 'Poppins', 'Segoe UI', sans-serif;
+    /* Pode ser usado como Titulo */
 }
 /* remocao das bordas e margens */
 * {
@@ -305,7 +307,8 @@ section.produtos-promocao .titulo h2 {
 .card-produto {
     background-color: white;
     border-radius: 5px;
-    max-width: 250px;
+    width: 250px;
+    height: 450px;
     border: 1px solid var(--cor2);
     padding: 10px;
     margin: 12px;
