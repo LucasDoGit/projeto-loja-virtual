@@ -3224,10 +3224,17 @@ div.andamento{
     gap: 0.75rem;
 }
 
-.produto-selecionado{
-    max-width: 150px;
-    max-height: 197px;
+.produto-selecionado {
+    padding: 5px;
+    width: 220px;
+    height: 170px;
     border: 1px solid var(--cor2);
+    border-radius: 5px;
+}
+
+.produto-selecionado img{
+    width: 100%;
+    height: 100%;
     border-radius: 5px;
 }
 
@@ -3247,14 +3254,8 @@ div.container-produtos-comprados {
     font-size: 30px;
 }
 
-.produto-selecionado img{
-    display: flex;
-    width: 100%;
-    margin-top: 15px;
-    border-radius: 5px;
-}
-
 .informacoes-produto{
+    width: 344px;
     display: flex;
     flex-direction: column;
     margin-top: 20px;

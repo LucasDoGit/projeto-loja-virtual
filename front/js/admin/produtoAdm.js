@@ -354,7 +354,6 @@ async function atualizarProduto(nomeInput, fabricanteInput, quantidadeInput, cat
     formData.append("precoPromocional", precoPromocionalInput.value);
     
     // adiciona o campo de arquivo a partir do FileList Fotos
-    console.log(fotosInput.files)
     for (let i = 0; i < fotosInput.files.length; i++) {
       formData.append("fotos", fotosInput.files[i]);
     }

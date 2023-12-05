@@ -49,7 +49,6 @@ function mostrarPedido(pedido){
     let valorTotalProdutos = 0;
     itens.forEach((item) => {
         //formata o valor do produto
-        console.log(item)
         const valorPagoFormatado = parseFloat(item.valorPago).toFixed(2)
         valorTotalProdutos += item.valorPago
 
