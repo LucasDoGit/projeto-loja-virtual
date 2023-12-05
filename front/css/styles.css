@@ -758,8 +758,8 @@ button#btn-voltar a {
 }
 
 .produto-exibicao .foto-principal {
-    width: 500px;
-    height: 500px;
+    max-width: 500px;
+    max-height: 500px;
     padding: 1px;
     border-radius: 5px;
 }
@@ -2346,6 +2346,10 @@ section.content-privacy{
     margin: 1rem auto;
 }
 
+section.content-privacy div.container-politicas {
+    margin: 0px 1rem;
+}
+
 section.content-privacy div.container-politicas p {
     display: block;
     margin-block-start: 1em;
@@ -3613,6 +3617,42 @@ section.resumo-compra-adm div.botoes button{
         margin-top: 1rem;
         margin-left: auto;
         margin-right: auto;
+    }
+
+    div#carrinho {
+        margin: auto !important;
+    }
+
+    /** carrinho **/
+    div.layout-carrinho {
+        gap: 10px;
+        grid-template-areas: 
+        "prod-carrinho prod-carrinho"
+        "prod-carrinho prod-carrinho"
+        "endereco-padrao endereco-padrao" 
+        "resumo-compra resumo-compra"
+        "cupom cupom";
+    }
+
+    div.item {
+        display: flex;
+        flex-direction: column;
+        max-width: 380px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px;
+        margin: 10px auto;
+        gap: 5px;
+    }
+
+    div.item .valor {
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    div.endereco-entregaUsuario{
+        display: flex;
+        flex-direction: column;
     }
 
     /* pagina meu perfil */
