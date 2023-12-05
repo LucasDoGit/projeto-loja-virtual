@@ -140,7 +140,8 @@ function atualizarCarrinho(produtos) {
                 valorTotalProduto = valorProdutoSemDesconto
                 valorProdutosDesconto += valorTotalProduto;
             }
-            valorProduto.textContent = `R$ ${valorTotalProduto}`
+            const valorTotalFormatado = parseFloat(valorTotalProduto).toFixed(2)
+            valorProduto.textContent = `R$ ${valorTotalFormatado}`
 
             containerValorProduto.appendChild(valorProduto)
 
